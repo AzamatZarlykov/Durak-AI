@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Durak_AI
+namespace View
 {
     class Program
     {
