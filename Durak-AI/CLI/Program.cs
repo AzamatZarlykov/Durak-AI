@@ -6,7 +6,7 @@ namespace CLI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello cli!");
+            
         }
     }
 }

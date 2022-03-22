@@ -39,6 +39,8 @@ namespace Durak_AI.Model.DurakWrapper
     /// </summary>
     public class Durak
     {
+        public GameStatus gameStatus;
+
         private Bout bout;
         private Deck deck;
         private Card trumpCard;
@@ -204,8 +206,6 @@ namespace Durak_AI.Model.DurakWrapper
             bout.AddAttackingCard(attackingCard);
             player.RemoveCardFromHand(attackingCard);
 
-            bout.SetBoutChanged(true);
-
             if (!GetPlayer(defendingPlayer).IsTaking())
             {
                 player.SetIsAttackersTurn(false);
@@ -262,6 +262,166 @@ namespace Durak_AI.Model.DurakWrapper
             GetPlayer(attackingPlayer).SetIsAttackersTurn(true);
 
             return MoveResult.OK;
+        }
+
+        // returns true if given player is a winner
+        private bool IsPlayerWinner(Player player)
+        {
+            return !IsGameOver() && player.GetNumberOfCards() == 0;
+        }
+
+
+        private void CheckEndGame()
+        {
+            if (IsGameOver())
+            {
+                Player lastPlayer = GetPlayer(defendingPlayer);
+
+                lastPlayer.state = PlayerState.Durak;
+
+                gameStatus = GameStatus.GameOver;
+            }
+        }
+
+        // Function reassigns the roles of attacking and defending players
+        // to players. The role changes when the defender defends successfully
+        private void ResetRoles(bool took)
+        {
+            if (!took)
+            {
+                attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
+                defendingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
+            }
+        }
+
+        // Function updates the discarded pile by summing 
+        // attacking and defending cards 
+        private void UpdateDiscardedPile()
+        {
+            int attCards = bout.GetAttackingCardsSize();
+            int defCards = bout.GetDefendingCardsSize();
+
+            discardedHeapSize = discardedHeapSize + attCards + defCards;
+        }
+
+        // Resets the round 
+        private void ResetRound(Player attacking, Player defending, bool took)
+        {
+            // update the attacking player's hand
+            deck.UpdatePlayersHand(attacking);
+
+            if (took)
+            {
+                // add all the cards from the bout to the defending player
+                defending.AddCardsToHand(bout.GetEverything());
+                defending.SetIsTaking(false);
+                ResetRoles(took);
+            }
+            else
+            {
+                // refill the cards for defending player 
+                deck.UpdatePlayersHand(defending);
+
+                ResetRoles(took);
+
+                UpdateDiscardedPile();
+
+            }
+            bout.RemoveCardsFromBout();
+        }
+
+        // function that controls the flow of the game: assigns new attacking/defending players
+        // based on the outcome of the bout. 
+        private void ChangeBattle(bool took)
+        {
+            Player attacking = GetPlayer(attackingPlayer);
+            Player defending = GetPlayer(defendingPlayer);
+
+            if (took)
+            {
+                defending.SetIsTaking(true);
+            }
+
+            ResetRound(attacking, defending, took);
+
+            attacking = GetPlayer(attackingPlayer);
+            // Get new list of attacking player as the round of attack finished
+            attacking.SetIsAttackersTurn(true);
+        }
+
+        // Function that removes the cards from the last player (defending)
+        private void RemovePlayersCards(Player defending)
+        {
+            if (defending.GetNumberOfCards() > 0)
+            {
+                discardedHeapSize += defending.GetNumberOfCards();
+                defending.RemoveAllCardsFromHand();
+            }
+        }
+
+        // controls flow of the game when the attacking player presses DONE. 
+        public void AttackerDone()
+        {
+            Player attacking = GetPlayer(attackingPlayer);
+            Player defending = GetPlayer(attackingPlayer);
+
+            if (IsPlayerWinner(attacking))
+            {
+                attacking.state = PlayerState.Winner;
+            }
+
+            if (IsPlayerWinner(defending))
+            {
+                defending.state = PlayerState.Winner;
+            }
+
+            CheckEndGame();
+
+            if (gameStatus == GameStatus.GameInProcess)
+            {
+                ChangeBattle(false);
+            }
+            else if (gameStatus == GameStatus.GameOver)
+            {
+                // the game is over, durak is found and cards in the middle move to the
+                // discarded pile 
+                UpdateDiscardedPile();
+                bout.RemoveCardsFromBout();
+
+                // at the end remove the losers cards to discarded heap
+                RemovePlayersCards(defending);
+            }
+        }
+
+        // controls the flow of the game when the defending player takes the cards
+        public void DefenderTake()
+        {
+            Player attacking = GetPlayer(attackingPlayer);
+            Player defending = GetPlayer(attackingPlayer);
+
+            if (IsPlayerWinner(attacking))
+            {
+                attacking.state = PlayerState.Winner;
+            }
+
+            CheckEndGame();
+
+            if (gameStatus == GameStatus.GameInProcess)
+            {
+                ChangeBattle(true);
+            }
+            else if (gameStatus == GameStatus.GameOver)
+            {
+                // the game is over, durak is found and the cards in the middle move the defender
+                // because he/she took them
+
+                // add all the cards from the bout to the defending player
+                defending.AddCardsToHand(bout.GetEverything());
+                bout.RemoveCardsFromBout();
+
+                // at the end remove the losers cards to discarded heap
+                RemovePlayersCards(defending);
+            }
         }
     }
 }

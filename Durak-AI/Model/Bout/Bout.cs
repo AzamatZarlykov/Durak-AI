@@ -11,7 +11,6 @@ namespace Durak_AI.Model.MiddleBout
     /// </summary>
     class Bout
     {
-        private bool isBoutChanged;
         private List<Card> attackingCards = new List<Card>();
         private List<Card> defendingCards = new List<Card>();
         public Bout() { }
@@ -20,11 +19,10 @@ namespace Durak_AI.Model.MiddleBout
         public List<Card> GetAttackingCards() => attackingCards;
         public List<Card> GetDefendingCards() => defendingCards;
         public Card GetAttackingCard(int index) => attackingCards[index];
-        public bool IsBoutChanged() => isBoutChanged;
-
-        public void SetBoutChanged(bool value)
+        
+        public List<Card> GetEverything()
         {
-            isBoutChanged = value;
+            return new List<Card>(attackingCards.Concat(defendingCards));
         }
 
         public bool ContainsRank(Rank rank) =>
