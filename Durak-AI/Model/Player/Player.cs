@@ -9,7 +9,8 @@ namespace Model.GamePlayer
     /// Enum class represents the states the player
     /// in during the standard variation Durak game
     /// </summary>
-    public enum PlayerState { 
+    public enum PlayerState 
+    { 
         Playing, 
         Winner, 
         Durak 
@@ -28,7 +29,7 @@ namespace Model.GamePlayer
         private bool isTaking;
         private bool isAttackersTurn;
 
-        public PlayerState state;
+        private PlayerState state;
 
         private List<Card> playersHand = new List<Card>();
         public List<Card> GetHand() => playersHand;
@@ -38,6 +39,8 @@ namespace Model.GamePlayer
         public Card GetCard(int index) => playersHand[index];
         public string GetName() => name;
         public int GetIcon() => icon;
+        public PlayerState GetState() => state;
+        public void SetState(PlayerState state) => this.state = state;
 
         public void SetName(string n)
         {

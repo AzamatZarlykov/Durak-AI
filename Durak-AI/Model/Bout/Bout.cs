@@ -9,7 +9,7 @@ namespace Model.MiddleBout
     /// Bout class is the gameplay at the center of the board
     /// This Class represents the cards being currently played
     /// </summary>
-    class Bout
+    public class Bout
     {
         private List<Card> attackingCards = new List<Card>();
         private List<Card> defendingCards = new List<Card>();

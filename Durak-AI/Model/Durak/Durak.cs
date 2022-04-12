@@ -60,6 +60,7 @@ namespace Model.DurakWrapper
         public int GetDefendingPlayer() => defendingPlayer;
         public int GetAttackingPlayer() => attackingPlayer;
         public Player GetPlayer(int index) => players[index];
+        public Bout GetBout() => bout;
 
         // Distributes, at the start of the game, the cards to players
         public void DistributeCardsToPlayers()
@@ -142,7 +143,7 @@ namespace Model.DurakWrapper
             int total = 0;
             foreach (Player player in players)
             {
-                if (player.state == PlayerState.Playing)
+                if (player.GetState() == PlayerState.Playing)
                 {
                     total += 1;
                 }
@@ -277,7 +278,7 @@ namespace Model.DurakWrapper
             {
                 Player lastPlayer = GetPlayer(defendingPlayer);
 
-                lastPlayer.state = PlayerState.Durak;
+                lastPlayer.SetState(PlayerState.Durak);
 
                 gameStatus = GameStatus.GameOver;
             }
@@ -367,12 +368,12 @@ namespace Model.DurakWrapper
 
             if (IsPlayerWinner(attacking))
             {
-                attacking.state = PlayerState.Winner;
+                attacking.SetState(PlayerState.Winner);
             }
 
             if (IsPlayerWinner(defending))
             {
-                defending.state = PlayerState.Winner;
+                defending.SetState(PlayerState.Winner);
             }
 
             CheckEndGame();
@@ -401,7 +402,7 @@ namespace Model.DurakWrapper
 
             if (IsPlayerWinner(attacking))
             {
-                attacking.state = PlayerState.Winner;
+                attacking.SetState(PlayerState.Winner);
             }
 
             CheckEndGame();
