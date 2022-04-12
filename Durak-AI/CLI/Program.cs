@@ -1,18 +1,25 @@
 ﻿using System;
 
+using CLI.Parser;
+
 namespace CLI
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int argsSize = args.Length;
+            ArgumentParser parser = new ArgumentParser(args);
 
-            Console.WriteLine(argsSize);
-            if (argsSize == 0)
+            try
             {
-                // Task 1: Make a simple GUI for 2 player game
+                parser.Parse();
 
+                Console.WriteLine(parser.getSimulationType());
+                Console.WriteLine(parser.getAIType());
+
+            } catch (ArgumentException e)
+            {
+                Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);
             }
 
 
@@ -20,4 +27,5 @@ namespace CLI
     }
 }
 
-// dotnet run "ai_1_name" [options for ai_1_name] "ai_2_name" [options for ai_2_name] [number of games] [logger]
+// dotnet run "ai_1_name" [options for ai_1_name] "ai_2_name" [options for ai_2_name] [number of games] 
+// dotnet run "ai_name" [options for ai_1_name] 
