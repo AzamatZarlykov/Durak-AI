@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Durak_AI.Model.PlayingCards;
+using Model.PlayingCards;
 
-namespace Durak_AI.Model.GamePlayer
+namespace Model.GamePlayer
 {
     /// <summary>
     /// Enum class represents the states the player

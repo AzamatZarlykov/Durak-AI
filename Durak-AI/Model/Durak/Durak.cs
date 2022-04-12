@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Durak_AI.Model.MiddleBout;
-using Durak_AI.Model.PlayingCards;
-using Durak_AI.Model.TableDeck;
-using Durak_AI.Model.GamePlayer;
+using Model.MiddleBout;
+using Model.PlayingCards;
+using Model.TableDeck;
+using Model.GamePlayer;
 
-namespace Durak_AI.Model.DurakWrapper
+namespace Model.DurakWrapper
 {
     /// <summary>
     /// This enum represents the outcome of the action of the player

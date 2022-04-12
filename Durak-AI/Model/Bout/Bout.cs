@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Durak_AI.Model.PlayingCards;
+using Model.PlayingCards;
 
-namespace Durak_AI.Model.MiddleBout
+namespace Model.MiddleBout
 {
     /// <summary>
     /// Bout class is the gameplay at the center of the board

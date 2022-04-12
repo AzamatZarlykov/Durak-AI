@@ -1,4 +1,4 @@
-﻿namespace Durak_AI.Model.PlayingCards
+﻿namespace Model.PlayingCards
 {
     public class Card
     {

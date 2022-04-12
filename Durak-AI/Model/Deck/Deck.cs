@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Durak_AI.Model.PlayingCards;
-using Durak_AI.Model.GamePlayer;
+using Model.PlayingCards;
+using Model.GamePlayer;
 
-namespace Durak_AI.Model.TableDeck
+namespace Model.TableDeck
 {
     /// <summary>
     /// Deck class serves the purpose to represent the deck
