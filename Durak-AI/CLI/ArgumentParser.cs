@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using CLI.exceptions;
+
 
 namespace CLI.Parser
 {
-    public class ArgumentParser
+/*    public class ArgumentParser
     {
-        
+
         private int argumentSize;
         private string[] command;
 
@@ -22,10 +22,18 @@ namespace CLI.Parser
 
         private AIType secondAI;
         private string parameter2;
+
+        private int numberOfGames;
+
         public ArgumentParser(string[] args)
         {
             this.argumentSize = args.Length;
             this.command = args;
+        }
+
+        public int getNumberofGames()
+        {
+            return numberOfGames;
         }
 
         public SimulationType getSimulationType()
@@ -56,7 +64,7 @@ namespace CLI.Parser
         private AIType ExtractAIName(int order)
         {
             string ai = command[order];
-            
+
             if (Array.IndexOf(aiNames, ai) < 0)
             {
                 throw new UnknownAIException(
@@ -70,37 +78,42 @@ namespace CLI.Parser
 
         public void Parse()
         {
-            // ai vs ai or ai vs human
-            if (argumentSize != 5 && argumentSize != 2)
-            {
-                throw new ArgumentException("Command is unknown");
-            }
-
             try
             {
+                // ai vs ai or ai vs human
+                if (argumentSize != 5 && argumentSize != 2)
+                {
+                    throw new ArgumentException("Command is unknown");
+                }
                 // ai vs human
                 if (argumentSize == 2)
                 {
                     simulationType = SimulationType.AiVSHuman;
                     firstAI = ExtractAIName(0);
                     parameter1 = command[1];
-                } else
+                }
+                else
                 {
                     simulationType = SimulationType.AiVSAi;
                     firstAI = ExtractAIName(0);
                     parameter1 = command[1];
                     secondAI = ExtractAIName(2);
-                    parameter2 = command[2];
+                    parameter2 = command[3];
+
                 }
-            } catch (UnknownAIException e)
+            }
+            catch (Exception e) when (
+                e is ArgumentException ||
+                e is UnknownAIException)
             {
                 Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);
             }
 
         }
-
-    }
+    }*/
 }
+
 
 // dotnet run "ai_1_name" [options for ai_1_name] "ai_2_name" [options for ai_2_name] [number of games] 
 // dotnet run "ai_name" [options for ai_1_name] 
+// if "ai_name" == "randomAI" or "greedyAI" it wont have parameters. "minimax" and"montecarloAI" will have param

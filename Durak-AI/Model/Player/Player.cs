@@ -21,10 +21,9 @@ namespace Model.GamePlayer
     /// This class contains the functions and properties that 
     /// the player would have in Durak game
     /// </summary>
-    public class Player
+    public abstract class Player
     {
         private string name;
-        private int icon;
 
         private bool isTaking;
         private bool isAttackersTurn;
@@ -38,18 +37,20 @@ namespace Model.GamePlayer
         public int GetNumberOfCards() => playersHand.Count;
         public Card GetCard(int index) => playersHand[index];
         public string GetName() => name;
-        public int GetIcon() => icon;
         public PlayerState GetState() => state;
         public void SetState(PlayerState state) => this.state = state;
+
+
+
+
+        // abstract List<Card> attack(List<Card> bout, )
+
+
+
 
         public void SetName(string n)
         {
             name = n;
-        }
-
-        public void SetIcon(int i)
-        {
-            icon = i;
         }
 
         public void SetIsTaking(bool value)

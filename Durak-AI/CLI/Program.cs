@@ -1,6 +1,7 @@
 ﻿using System;
 
 using CLI.Parser;
+using Model.DurakWrapper;
 
 namespace CLI
 {
@@ -8,24 +9,22 @@ namespace CLI
     {
         static void Main(string[] args)
         {
-            ArgumentParser parser = new ArgumentParser(args);
-
-            try
-            {
-                parser.Parse();
-
-                Console.WriteLine(parser.getSimulationType());
-                Console.WriteLine(parser.getAIType());
-
-            } catch (ArgumentException e)
-            {
-                Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);
-            }
-
+            int numberOfGames = 10;
+            Durak game = new Durak();
 
         }
     }
 }
 
-// dotnet run "ai_1_name" [options for ai_1_name] "ai_2_name" [options for ai_2_name] [number of games] 
-// dotnet run "ai_name" [options for ai_1_name] 
+
+/*            Durak game = new Durak();
+            ArgumentParser parser = new ArgumentParser(args);
+            parser.Parse();
+
+            if (parser.getSimulationType() == SimulationType.AiVSHuman)
+            {
+                if (parser.getFirstAIType() == AIType.Random)
+                {
+
+                }
+            }*/

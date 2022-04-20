@@ -110,12 +110,14 @@ namespace Model.DurakWrapper
         // Further Changes: It should take the parameter that
         // will assign the particular AI (RandomAI, MCTS AI, RL AI,
         // RuleBased AI, even a person)
-        private void AddPlayers()
+/*        private void AddPlayers(AIType a, AIType b)
         {
+            Player one, two;
+
             players.Add(new Player());
             players.Add(new Player());
         }
-
+*/
         public Durak()
         {
             // instantiate the deck 
@@ -125,16 +127,19 @@ namespace Model.DurakWrapper
             // the last card is the trump card(the one at the bottom face up)
             trumpCard = deck.GetCard(0);
 
+            // instantiate the bout of the game
+            bout = new Bout();
+
             // add players 
-            AddPlayers();
+            // AddPlayers();
             // Each player draws 6 cards
             DistributeCardsToPlayers();
 
             // Set the attacking player
             SetAttacker();
-            
-            // instantiate the bout of the game
-            bout = new Bout();
+
+            // run the game
+            Run();
         }
 
         // returns how many players are still playing (have cards in the game)
@@ -422,6 +427,25 @@ namespace Model.DurakWrapper
 
                 // at the end remove the losers cards to discarded heap
                 RemovePlayersCards(defending);
+            }
+        }
+
+        // main game logic method
+        public void Run()
+        {
+            while (gameStatus != GameStatus.GameOver)
+            {
+                // while attacker can attack
+                //    attack with a card
+                //    if defender can defend 
+                //      defend with a card
+                //      if attacker cannot add
+                //          switch attacking roles and break the cycle
+                //    else defender cannot defend
+                //      take all the cards on the table and break the cycle
+                //
+                // when cycle broken clear card on the bout, distribute cards to attack and defend
+                // round increment
             }
         }
     }
