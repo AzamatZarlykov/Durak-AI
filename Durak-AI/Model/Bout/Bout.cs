@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Model.PlayingCards;
+using Model.DiscardedHeap;
 
 namespace Model.MiddleBout
 {
@@ -42,8 +43,8 @@ namespace Model.MiddleBout
         {
             defendingCards.Add(card);
         }
-
-        public void RemoveCardsFromBout()
+        
+        public void RemoveCards()
         {
             attackingCards.Clear();
             defendingCards.Clear();

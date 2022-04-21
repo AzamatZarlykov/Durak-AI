@@ -26,58 +26,19 @@ namespace Model.GameState
     /// </summary>
     public class GameView
     {
-        private Durak game;
-        public GameStatus gameStatus;
         public Card trumpCard;
 
-        public int currentPlayerID;
-        public int opponentID;
-
-        PlayerView current = new PlayerView();
-        PlayerView opponent = new PlayerView();
-        
         public List<Card> hand = new List<Card>();
         public List<Card> attackingCards;
         public List<Card> defendingCards;
 
-        private int prevDiscardedHeapValue;
-        public bool discardHeapChanged;
-
-        public int discardHeapSize => game.GetDiscardedHeapSize();
-        public int deckSize => game.GetDeck().cardsLeft;
-
-        public GameView (Durak game, int id)
+        public GameView (Durak game)
         {
-            this.game = game;
-            this.currentPlayerID = id;
-            this.opponentID = (id + 1) % 2;
-
-            if (prevDiscardedHeapValue != discardHeapSize)
-            {
-                discardHeapChanged = true;
-            }
-            prevDiscardedHeapValue = discardHeapSize;
-
-            AssignPlayersView();
-
-            trumpCard = deckSize == 0 ? new Card(game.GetTrumpCard().suit, (Rank)5)
-                                       : game.GetTrumpCard();
+            trumpCard = game.GetDeck().cardsLeft != 0 ? game.GetTrumpCard() :
+                                new Card(game.GetTrumpCard().suit, (Rank)5);
 
             attackingCards = game.GetBout().GetAttackingCards();
             defendingCards = game.GetBout().GetDefendingCards();
-
-        }
-
-        private void AssignPlayersView()
-        {
-            Player a = game.GetPlayer(currentPlayerID);
-            Player b = game.GetPlayer(opponentID);
-
-            current.numebrOfCards = a.GetNumberOfCards();
-            current.state = a.GetState();
-            
-            opponent.numebrOfCards = b.GetNumberOfCards();
-            opponent.state = b.GetState();
         }
     }
 }

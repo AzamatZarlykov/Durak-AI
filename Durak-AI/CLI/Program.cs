@@ -10,8 +10,11 @@ namespace CLI
         static void Main(string[] args)
         {
             int numberOfGames = 10;
-            Durak game = new Durak();
 
+            for (int i = 1; i <= numberOfGames; i++)
+            {
+                Durak game = new Durak("randomAI", "randomAI");
+            }
         }
     }
 }

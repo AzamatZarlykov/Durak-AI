@@ -5,29 +5,17 @@ using Model.MiddleBout;
 using Model.PlayingCards;
 using Model.TableDeck;
 using Model.GamePlayer;
+using Model.GameState;
+using Model.DiscardedHeap;
+using System;
 
 namespace Model.DurakWrapper
 {
-    /// <summary>
-    /// This enum represents the outcome of the action of the player
-    /// </summary>
-    public enum MoveResult
-    {
-        OK,
-        OutOfTurn,
-        IllegalMove,
-        TookCards,
-        ExtraCard,
-        GameIsOver,
-        UseDisplayButton
-    }
-    
     /// <summary>
     /// This enum represents the status of the game
     /// </summary>
     public enum GameStatus 
     { 
-        NotCreated, 
         GameInProcess, 
         GameOver 
     }
@@ -48,15 +36,19 @@ namespace Model.DurakWrapper
         private int defendingPlayer;
         private int attackingPlayer;
 
-        private int discardedHeapSize;
+        private DiscardedPile discardedPile;
 
+        private GameView gameView;
+
+        private int numberOfTurns;
+
+        private const int UPPER_BOUND = 1000;
         private const int NUMBEROFPLAYERS = 2;
 
         private List<Player> players = new List<Player>();
         
         public Card GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
-        public int GetDiscardedHeapSize() => discardedHeapSize;
         public int GetDefendingPlayer() => defendingPlayer;
         public int GetAttackingPlayer() => attackingPlayer;
         public Player GetPlayer(int index) => players[index];
@@ -71,6 +63,12 @@ namespace Model.DurakWrapper
             }
         }
 
+        private int GetRandomPlayerIndex()
+        {
+            Random rnd = new Random();
+            return rnd.Next(0, NUMBEROFPLAYERS);
+        }
+
         // Function will find the player who has the card with
         // lowest rank of the trump card's suit.
         public void SetAttacker()
@@ -82,8 +80,7 @@ namespace Model.DurakWrapper
             {
                 foreach (Card c in player.GetHand())
                 {
-                    if (c.suit == trumpCard.suit && (pl == null ||
-                        c.rank < lowTrump))
+                    if (c.suit == trumpCard.suit && (pl == null || c.rank < lowTrump))
                     {
                         pl = player;
                         lowTrump = c.rank;
@@ -91,35 +88,29 @@ namespace Model.DurakWrapper
                 }
             }
 
-            // If no player has a trump card then the first player
-            // connected to the game will be the attacking player
+            // If no player has a trump card then random player be attacking
             if (pl == null)
             {
-                pl = players.First();
+                pl = players[GetRandomPlayerIndex()];
             }
 
-            // e.g in the game of 3 players, if attacking player is 3
-            // then defending is 1
+            // assigning players' indices
             attackingPlayer = players.IndexOf(pl);
             defendingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
-
-            GetPlayer(attackingPlayer).SetIsAttackersTurn(true);
         }
 
-        // Method that adds the players to the game
-        // Further Changes: It should take the parameter that
-        // will assign the particular AI (RandomAI, MCTS AI, RL AI,
-        // RuleBased AI, even a person)
-/*        private void AddPlayers(AIType a, AIType b)
+        private Player GetPlayerType(string type)
         {
-            Player one, two;
-
-            players.Add(new Player());
-            players.Add(new Player());
+            if (type == "randomAI")
+            {
+                return new RandomAI();
+            }
+            return null;
         }
-*/
-        public Durak()
+
+        public Durak(string typeA, string typeB)
         {
+            gameStatus = GameStatus.GameInProcess;
             // instantiate the deck 
             deck = new Deck();
             deck.Shuffle();
@@ -131,7 +122,9 @@ namespace Model.DurakWrapper
             bout = new Bout();
 
             // add players 
-            // AddPlayers();
+            players.Add(GetPlayerType(typeA));
+            players.Add(GetPlayerType(typeB));
+
             // Each player draws 6 cards
             DistributeCardsToPlayers();
 
@@ -140,6 +133,16 @@ namespace Model.DurakWrapper
 
             // run the game
             Run();
+        }
+
+        // Function that removes the cards from the last player (defending)
+        private void RemovePlayersCards(Player player)
+        {
+            if (player.GetNumberOfCards() > 0)
+            {
+                discardedPile.AddCards(player.GetHand());
+                player.RemoveAllCardsFromHand();
+            }
         }
 
         // returns how many players are still playing (have cards in the game)
@@ -162,291 +165,87 @@ namespace Model.DurakWrapper
             return GetSizeOfPlayingPlayers() == 1;
         }
 
-        // checks if the attacking card is extra
-        private bool CheckIfAttackingCardIsExtra()
-        {
-            Player defender = GetPlayer(defendingPlayer);
-            int leftOver = bout.GetAttackingCardsSize() + 1 - bout.GetDefendingCardsSize();
 
-            // Case1: defender takes the cards. If the # of attacking cards (including the last one)
-            // is greater than defender's hand then it is an extra card
-            // Case2: defender defends all the attacking cards and attacker attacks do a simple 
-            // check : if the defender still has cards left to defend last one.
-            if (defender.IsTaking())
+        private void EndBoutProcess(Player attacker, Player defender)
+        {
+            // update attacking and defending players hand
+            deck.UpdatePlayersHand(attacker);
+            deck.UpdatePlayersHand(defender);
+
+            discardedPile.AddCards(bout.GetEverything());
+            bout.RemoveCards();
+        }
+
+        private void CheckIfPlayerIsWinner(Player player)
+        {
+            if (!IsGameOver() && player.GetNumberOfCards() == 0)
             {
-                return leftOver > defender.GetNumberOfCards();
-            } 
-            else
-            {
-                return defender.GetNumberOfCards() == 0;
+                player.SetState(PlayerState.Winner);
             }
         }
 
-        // Called when the attacker selects the attacking card
-        public MoveResult AttackerMove(int cardIndex)
+        private bool IsEndGame(Player attacker, Player defender, bool fromAttacker=true)
         {
-            Player player = GetPlayer(attackingPlayer);
+            if (fromAttacker)
+            {
+                CheckIfPlayerIsWinner(attacker);
+                CheckIfPlayerIsWinner(defender);
+            } else
+            {
+                CheckIfPlayerIsWinner(attacker);
+            }
+
             if (IsGameOver())
             {
-                return MoveResult.GameIsOver;
-            }
-
-            // if the attack started wait for the defense
-            if (!player.IsAttackersTurn())
-            {
-                return MoveResult.OutOfTurn;
-            }
-
-            Card attackingCard = player.GetCard(cardIndex);
-
-            if (bout.GetAttackingCardsSize() != 0 && !bout.ContainsRank(attackingCard.rank))
-            {
-                return MoveResult.IllegalMove;
-            }
-
-            if (CheckIfAttackingCardIsExtra())
-            {
-                return MoveResult.ExtraCard;
-            }
-
-            bout.AddAttackingCard(attackingCard);
-            player.RemoveCardFromHand(attackingCard);
-
-            if (!GetPlayer(defendingPlayer).IsTaking())
-            {
-                player.SetIsAttackersTurn(false);
-            }
-
-            return MoveResult.OK;
-        }
-
-        // returns true if card's suit match the trump's
-        public bool IsTrumpSuit(Card card)
-        {
-            return card.suit == trumpCard.suit;
-        }
-
-        // returns true if the defending card legally defends the attacking
-        public bool IsLegalDefense(Card attackingCard, Card defendingCard)
-        {
-            return (defendingCard.suit == attackingCard.suit &&
-                    defendingCard.rank > attackingCard.rank) ||
-                    (IsTrumpSuit(defendingCard) && (!IsTrumpSuit(attackingCard) ||
-                    (IsTrumpSuit(attackingCard) && defendingCard.rank >
-                    attackingCard.rank)));
-        }
-
-        // Called when the defender selects the defending card
-        public MoveResult DefenderMove(int cardIndex)
-        {
-            Player defPlayer = GetPlayer(defendingPlayer);
-            if (defPlayer.IsTaking())
-            {
-                return MoveResult.TookCards;
-            }
-            
-            // wait for the attack
-            if (GetPlayer(attackingPlayer).IsAttackersTurn())
-            {
-                return MoveResult.OutOfTurn;
-            }
-
-            int attackCardIndex = bout.GetAttackingCardsSize() - 1;
-
-            Card attackingCard = bout.GetAttackingCard(attackCardIndex);
-            Card defendingCard = defPlayer.GetCard(cardIndex);
-
-            if (!IsLegalDefense(attackingCard, defendingCard))
-            {
-                return MoveResult.IllegalMove;
-            }
-
-            bout.AddDefendingCard(defendingCard);
-            defPlayer.RemoveCardFromHand(defendingCard);
-
-            // say defense finished to true by letting attacker to attack again
-            GetPlayer(attackingPlayer).SetIsAttackersTurn(true);
-
-            return MoveResult.OK;
-        }
-
-        // returns true if given player is a winner
-        private bool IsPlayerWinner(Player player)
-        {
-            return !IsGameOver() && player.GetNumberOfCards() == 0;
-        }
-
-
-        private void CheckEndGame()
-        {
-            if (IsGameOver())
-            {
-                Player lastPlayer = GetPlayer(defendingPlayer);
-
-                lastPlayer.SetState(PlayerState.Durak);
-
+                defender.SetState(PlayerState.Durak);
                 gameStatus = GameStatus.GameOver;
+                RemovePlayersCards(defender);
+                return true;
             }
+            return false;
         }
 
-        // Function reassigns the roles of attacking and defending players
-        // to players. The role changes when the defender defends successfully
-        private void ResetRoles(bool took)
-        {
-            if (!took)
-            {
-                attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
-                defendingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
-            }
-        }
-
-        // Function updates the discarded pile by summing 
-        // attacking and defending cards 
-        private void UpdateDiscardedPile()
-        {
-            int attCards = bout.GetAttackingCardsSize();
-            int defCards = bout.GetDefendingCardsSize();
-
-            discardedHeapSize = discardedHeapSize + attCards + defCards;
-        }
-
-        // Resets the round 
-        private void ResetRound(Player attacking, Player defending, bool took)
-        {
-            // update the attacking player's hand
-            deck.UpdatePlayersHand(attacking);
-
-            if (took)
-            {
-                // add all the cards from the bout to the defending player
-                defending.AddCardsToHand(bout.GetEverything());
-                defending.SetIsTaking(false);
-                ResetRoles(took);
-            }
-            else
-            {
-                // refill the cards for defending player 
-                deck.UpdatePlayersHand(defending);
-
-                ResetRoles(took);
-
-                UpdateDiscardedPile();
-
-            }
-            bout.RemoveCardsFromBout();
-        }
-
-        // function that controls the flow of the game: assigns new attacking/defending players
-        // based on the outcome of the bout. 
-        private void ChangeBattle(bool took)
-        {
-            Player attacking = GetPlayer(attackingPlayer);
-            Player defending = GetPlayer(defendingPlayer);
-
-            if (took)
-            {
-                defending.SetIsTaking(true);
-            }
-
-            ResetRound(attacking, defending, took);
-
-            attacking = GetPlayer(attackingPlayer);
-            // Get new list of attacking player as the round of attack finished
-            attacking.SetIsAttackersTurn(true);
-        }
-
-        // Function that removes the cards from the last player (defending)
-        private void RemovePlayersCards(Player defending)
-        {
-            if (defending.GetNumberOfCards() > 0)
-            {
-                discardedHeapSize += defending.GetNumberOfCards();
-                defending.RemoveAllCardsFromHand();
-            }
-        }
-
-        // controls flow of the game when the attacking player presses DONE. 
-        public void AttackerDone()
-        {
-            Player attacking = GetPlayer(attackingPlayer);
-            Player defending = GetPlayer(attackingPlayer);
-
-            if (IsPlayerWinner(attacking))
-            {
-                attacking.SetState(PlayerState.Winner);
-            }
-
-            if (IsPlayerWinner(defending))
-            {
-                defending.SetState(PlayerState.Winner);
-            }
-
-            CheckEndGame();
-
-            if (gameStatus == GameStatus.GameInProcess)
-            {
-                ChangeBattle(false);
-            }
-            else if (gameStatus == GameStatus.GameOver)
-            {
-                // the game is over, durak is found and cards in the middle move to the
-                // discarded pile 
-                UpdateDiscardedPile();
-                bout.RemoveCardsFromBout();
-
-                // at the end remove the losers cards to discarded heap
-                RemovePlayersCards(defending);
-            }
-        }
-
-        // controls the flow of the game when the defending player takes the cards
-        public void DefenderTake()
-        {
-            Player attacking = GetPlayer(attackingPlayer);
-            Player defending = GetPlayer(attackingPlayer);
-
-            if (IsPlayerWinner(attacking))
-            {
-                attacking.SetState(PlayerState.Winner);
-            }
-
-            CheckEndGame();
-
-            if (gameStatus == GameStatus.GameInProcess)
-            {
-                ChangeBattle(true);
-            }
-            else if (gameStatus == GameStatus.GameOver)
-            {
-                // the game is over, durak is found and the cards in the middle move the defender
-                // because he/she took them
-
-                // add all the cards from the bout to the defending player
-                defending.AddCardsToHand(bout.GetEverything());
-                bout.RemoveCardsFromBout();
-
-                // at the end remove the losers cards to discarded heap
-                RemovePlayersCards(defending);
-            }
-        }
 
         // main game logic method
         public void Run()
         {
-            while (gameStatus != GameStatus.GameOver)
+            Player attacker, defender;
+            numberOfTurns = 1;
+            while (gameStatus != GameStatus.GameOver && numberOfTurns < UPPER_BOUND)
             {
-                // while attacker can attack
-                //    attack with a card
-                //    if defender can defend 
-                //      defend with a card
-                //      if attacker cannot add
-                //          switch attacking roles and break the cycle
-                //    else defender cannot defend
-                //      take all the cards on the table and break the cycle
-                //
-                // when cycle broken clear card on the bout, distribute cards to attack and defend
-                // round increment
+                attacker = GetPlayer(attackingPlayer);
+                defender = GetPlayer(defendingPlayer);
+                while (attacker.CanAttack(new GameView(this)))
+                {
+                    Card attackingCard = attacker.Attack(new GameView(this));
+                    bout.AddAttackingCard(attackingCard);
+                    if (defender.CanDefend(new GameView(this)))
+                    {
+                        Card defendingCard = defender.Defend(new GameView(this));
+                        bout.AddDefendingCard(defendingCard);
+                        if (!attacker.CanAttack(new GameView(this)))
+                        {
+                            if (!IsEndGame(attacker, defender))
+                            {
+                                attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
+                                defendingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
+                            }
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (!IsEndGame(attacker, defender, false))
+                        {
+                            defender.AddCardsToHand(bout.GetEverything());
+                        }
+                    }
+                }
+                EndBoutProcess(attacker, defender);
+                numberOfTurns++;
             }
+
+
         }
     }
 }

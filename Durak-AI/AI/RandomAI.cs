@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Model.GamePlayer;
+
 namespace AI
 {
-    public class RandomAI : Player
+    class RandomAI : Player
     {
         public RandomAI()
         {

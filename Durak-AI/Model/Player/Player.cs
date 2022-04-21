@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Model.MiddleBout;
 using Model.PlayingCards;
+using Model.GameState;
 
 namespace Model.GamePlayer
 {
+    public enum PlayerType
+    {
+        RandomAI, GreedyAI, MonteCarloAI
+    }
+    
     /// <summary>
     /// Enum class represents the states the player
     /// in during the standard variation Durak game
@@ -23,78 +30,64 @@ namespace Model.GamePlayer
     /// </summary>
     public abstract class Player
     {
-        private string name;
+        protected string name;
+        protected PlayerState state;
+        protected List<Card> hand = new List<Card>();
 
-        private bool isTaking;
-        private bool isAttackersTurn;
+        public abstract Card Attack(GameView gameView);
+        public abstract Card Defend(GameView gameView);
+        public abstract bool CanDefend(GameView gameView);
+        public abstract bool CanAttack(GameView gameView);
 
-        private PlayerState state;
-
-        private List<Card> playersHand = new List<Card>();
-        public List<Card> GetHand() => playersHand;
-        public bool IsTaking() => isTaking;
-        public bool IsAttackersTurn() => isAttackersTurn;
-        public int GetNumberOfCards() => playersHand.Count;
-        public Card GetCard(int index) => playersHand[index];
-        public string GetName() => name;
+        public List<Card> GetHand() => hand;
         public PlayerState GetState() => state;
-        public void SetState(PlayerState state) => this.state = state;
 
+        public int GetNumberOfCards() => hand.Count;
 
-
-
-        // abstract List<Card> attack(List<Card> bout, )
-
-
-
-
-        public void SetName(string n)
+        public void SetState(PlayerState s)
         {
-            name = n;
+            state = s;
         }
 
-        public void SetIsTaking(bool value)
+
+        public bool IsTrumpSuit(Card card, Card trump)
         {
-            isTaking = value;
+            return card.suit == trump.suit;
         }
 
-        public void SetIsAttackersTurn(bool value)
+        public bool IsLegalDefense(Card attackingCard, Card defendingCard, Card trump)
         {
-            isAttackersTurn = value;
+            return (defendingCard.suit == attackingCard.suit &&
+                    defendingCard.rank > attackingCard.rank) ||
+                    (IsTrumpSuit(defendingCard, trump) && (!IsTrumpSuit(attackingCard, trump) ||
+                    (IsTrumpSuit(attackingCard, trump) && defendingCard.rank >
+                    attackingCard.rank)));
         }
-        // adds multiple cards to the players hand
+
         public void AddCardsToHand(List<Card> cards)
         {
             for (int i = 0; i < cards.Count; i++)
             {
-                playersHand.Add(cards[i]);
+                hand.Add(cards[i]);
             }
         }
         
         // Remove the certain card from the player's hand
         public void RemoveCardFromHand(Card card)
         {
-            playersHand.Remove(card);
+            hand.Remove(card);
         }
 
         // Removes all cards from the player's hand
         public void RemoveAllCardsFromHand()
         {
-            playersHand.Clear();
-        }
-
-        // resets the properties and states of the player
-        public void Reset()
-        {
-            isTaking = false;
-            isAttackersTurn = false;
-            state = PlayerState.Playing;
+            hand.Clear();
         }
 
         // prints the cards of the player
         public void PrintCards()
         {
-            foreach (Card c in playersHand)
+            foreach (Card c in hand)
             {
                 Console.WriteLine("The rank : " + c.rank + ". The suit : " + c.suit);
             }
@@ -105,9 +98,6 @@ namespace Model.GamePlayer
         {
             Console.WriteLine("PRINTING PLAYER INFORMATION:");
             Console.WriteLine("NAME: " + name);
-            Console.WriteLine("IS " + (isAttacker ? "ATTACKING: " : "TAKING: ") +
-                (isAttacker ? isAttackersTurn : isTaking));
-            Console.WriteLine("PLAYER STATE: " + state);
             Console.WriteLine("CARDS: ");
             PrintCards();
             Console.WriteLine();
