@@ -1,33 +1,21 @@
 ﻿using System;
 
-using CLI.Parser;
-using Model.DurakWrapper;
-
 namespace CLI
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int numberOfGames = 10;
+            int n = 1000;
+            int rankStartingPoint = 6;
+            string player1 = "randomAI";
+            string player2 = "randomAI";
 
-            for (int i = 1; i <= numberOfGames; i++)
-            {
-                Durak game = new Durak("randomAI", "randomAI");
-            }
+            Controller controller = new Controller(n, player1, player2, rankStartingPoint);
+            controller.Run();
+
+
+
         }
     }
 }
-
-
-/*            Durak game = new Durak();
-            ArgumentParser parser = new ArgumentParser(args);
-            parser.Parse();
-
-            if (parser.getSimulationType() == SimulationType.AiVSHuman)
-            {
-                if (parser.getFirstAIType() == AIType.Random)
-                {
-
-                }
-            }*/

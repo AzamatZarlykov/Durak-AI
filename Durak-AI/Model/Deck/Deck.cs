@@ -18,11 +18,11 @@ namespace Model.TableDeck
 
         // initializes the deck by creating all the ranks
         // with the corresponding suits and store in the cards list
-        public Deck()
+        public Deck(int rankStartingPoint)
         {
             for (int suit = 0; suit < 4; suit++)
             {
-                for (int rank = 6; rank < 15; rank++)
+                for (int rank = rankStartingPoint; rank < 15; rank++)
                 {
                     cards.Add(new Card((Suit)suit, (Rank)rank));
                 }
@@ -74,11 +74,11 @@ namespace Model.TableDeck
         }
 
         // Returns the list of cards to draw to 6 cards
-        public List<Card> DrawUntilSix(int numberOfCards)
+        public List<Card> DrawCards(int numberOfCards)
         {
             List<Card> cardsToDraw = new List<Card>();
 
-            for (int i = 0; i < 6 - numberOfCards && cardsLeft > 0; i++)
+            for (int i = 0; i < numberOfCards && cardsLeft > 0; i++)
             {
                 cardsToDraw.Add(DrawCard());
             }
