@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Agent\Agent.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 
