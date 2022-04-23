@@ -43,6 +43,7 @@ namespace CLI
         {
             for (int i = 1; i <= numberOfGames; i++)
             {
+                Console.WriteLine("Game: " + i);
                 while (game.gameStatus == GameStatus.GameInProcess && numberOfTurns < UPPER_BOUND)
                 {
                     int turn = game.GetTurn();

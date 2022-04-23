@@ -40,13 +40,10 @@ namespace Model.DurakWrapper
         private int attackingPlayer;
         private Turn turn;
 
-        private GameView? gameView;
         private DiscardedPile discardedPile = new DiscardedPile();
-
         private List<Player> players = new List<Player>();
 
         private const int NUMBEROFPLAYERS = 2;
-        private const int PLAYER_HAND_SIZE = 6;
 
         public Card GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
@@ -113,6 +110,15 @@ namespace Model.DurakWrapper
             turn = Turn.Attacking;
         }
 
+        private void Info()
+        {
+            Console.WriteLine("Game status: " +
+                (gameStatus == GameStatus.GameInProcess ? "In Progress" : "Game Over"));
+
+            Console.WriteLine("Deck's size: " + deck.cardsLeft);
+            Console.WriteLine("Trump card: ");
+        }
+
         public Durak(int rankStartingPoint)
         {
             gameStatus = GameStatus.GameInProcess;
@@ -134,6 +140,7 @@ namespace Model.DurakWrapper
 
             // Set the attacking player
             SetAttacker();
+            Info();
         }
 
         private bool CanAttack()
