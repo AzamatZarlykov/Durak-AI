@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AIAgent;
 using Model.DurakWrapper;
 using Model.PlayingCards;
+using Model.GameState;
 
 namespace CLI
 {
@@ -14,15 +15,18 @@ namespace CLI
     {
         private int numberOfGames;
 
-        private Agent playerA;
-        private Agent playerB;
-
         private Durak game;
+        
+        private List<Agent> agents = new List<Agent>();
+
+        private int numberOfTurns;
+        private const int UPPER_BOUND = 1000;
+
         public Controller(int n, string a, string b, int rankStartingPoint) 
         {
             numberOfGames = n;
-            playerA = GetAgentType(a);
-            playerB = GetAgentType(b);
+            agents.Add(GetAgentType(a));
+            agents.Add(GetAgentType(b));
             game = new Durak(rankStartingPoint);
         }
 
@@ -39,7 +43,14 @@ namespace CLI
         {
             for (int i = 1; i <= numberOfGames; i++)
             {
-                List<Card>? cards = game.PossibleCards();
+                while (game.gameStatus == GameStatus.GameInProcess && numberOfTurns < UPPER_BOUND)
+                {
+                    int turn = game.GetTurn();
+
+                    Card? card = agents[turn].Move(new GameView(game));
+                    game.Move(card);
+                    numberOfTurns++;
+                }
 
             }
         }

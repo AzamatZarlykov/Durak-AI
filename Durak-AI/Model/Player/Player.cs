@@ -8,11 +8,33 @@ using Model.PlayingCards;
 
 namespace Model.GamePlayer
 {
-    class Player
+    /// <summary>
+    /// Enum class represents the states the player
+    /// in during the standard variation Durak game
+    /// </summary>
+    public enum PlayerState
     {
+        Playing,
+        Winner,
+        Durak
+    }
+
+    public class Player
+    {
+        private PlayerState state;
+
         private List<Card> hand = new List<Card>();
 
+        public PlayerState GetState() => state;
+
         public List<Card> GetHand() => hand;
+
+        public int GetNumberOfCards() => hand.Count;
+
+        public void SetState(PlayerState s)
+        {
+            state = s; 
+        }
 
         public void AddCardsToHand(List<Card> cards)
         {
@@ -22,5 +44,10 @@ namespace Model.GamePlayer
             }
         }
 
+        // Removes all cards from the player's hand
+        public void RemoveAllCardsFromHand()
+        {
+            hand.Clear();
+        }
     }
 }
