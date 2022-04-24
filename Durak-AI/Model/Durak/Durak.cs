@@ -110,13 +110,22 @@ namespace Model.DurakWrapper
             turn = Turn.Attacking;
         }
 
-        private void Info()
+        public void Info()
         {
-            Console.WriteLine("Game status: " +
+            Console.WriteLine("Status: " +
                 (gameStatus == GameStatus.GameInProcess ? "In Progress" : "Game Over"));
 
             Console.WriteLine("Deck's size: " + deck.cardsLeft);
-            Console.WriteLine("Trump card: ");
+            Console.Write("Trump card: " + trumpCard);
+            Console.WriteLine();
+
+            Console.Write("Player0 cards: " + players[0]);
+            Console.WriteLine();
+            Console.Write("Player1 cards: " + players[1]);
+            Console.WriteLine();
+
+            Console.WriteLine("Attacking player: " + attackingPlayer);
+            Console.WriteLine();
         }
 
         public Durak(int rankStartingPoint)
@@ -133,14 +142,13 @@ namespace Model.DurakWrapper
             // instantiate the bout of the game
             bout = new Bout();
 
-            players.Add(new Player());
-            players.Add(new Player());
+            players.Add(new Player("Player0"));
+            players.Add(new Player("Player1"));
             // Each player draws 6 cards
             DistributeCardsToPlayers();
 
             // Set the attacking player
             SetAttacker();
-            Info();
         }
 
         private bool CanAttack()
@@ -162,6 +170,11 @@ namespace Model.DurakWrapper
         // Checks if the passed card can be used to attack in the current bout
         private bool IsAttackPossible(Card card)
         {
+            if (bout.GetAttackingCardsSize() == 0)
+            {
+                return true;
+            }
+
             foreach (Card c in bout.GetEverything())
             {
                 if (card.rank == c.rank)
@@ -254,14 +267,23 @@ namespace Model.DurakWrapper
             {
                 if (CanAttack())
                 {
+                    Console.WriteLine("Can attack");
                     result = GenerateListOfAttackingCards();
+                }
+                else
+                {
+                    Console.WriteLine("cannot attack");
                 }
             } else
             {
-                Card attackingCard = players[GetDefendingPlayer()].GetHand()[^1];
+                Card attackingCard = bout.GetAttackingCards()[^1];
+                Console.WriteLine("attacking card: " + attackingCard);
                 if (CanDefend(attackingCard))
                 {
                     result = GenerateListofDefendingCards(attackingCard);
+                }else
+                {
+                    Console.WriteLine("cannot defend");
                 }
             }
                 
@@ -328,13 +350,21 @@ namespace Model.DurakWrapper
             return false;
         }
 
-        private void EndBoutProcess(Player attacker, Player defender)
+        private void EndBoutProcess(Player attacker, Player defender, bool takes = false)
         {
             // update attacking and defending players hand
             deck.UpdatePlayersHand(attacker);
             deck.UpdatePlayersHand(defender);
 
-            discardedPile.AddCards(bout.GetEverything());
+            if (!takes)
+            {
+                discardedPile.AddCards(bout.GetEverything());
+            }
+
+            if (discardedPile.GetSize() > 0)
+            {
+                Console.WriteLine("Discarded Pile size: " + discardedPile.GetSize());
+            }
             bout.RemoveCards();
         }
 
@@ -346,17 +376,23 @@ namespace Model.DurakWrapper
 
             if (turn == Turn.Attacking)
             {
+                Console.WriteLine("Attacker's cards before: " + attacker);
                 if (card is not null)
                 {
+                    Console.WriteLine("Attacks: " + card);
                     attacker.GetHand().Remove(card);
+                    Console.WriteLine("Attacker's cards after: " + attacker);
+
                     bout.AddAttackingCard(card);
                 }
                 else
                 {
                     // means PASS - cannot attack
+                    Console.WriteLine("PASSES");
                     if (!IsEndGame(attacker, defender))
                     {
                         attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
+                        Console.WriteLine("changed roles");
                         EndBoutProcess(attacker, defender);
                         return;
                     }
@@ -364,24 +400,34 @@ namespace Model.DurakWrapper
             }
             else
             {
+                Console.WriteLine("Defender's cards before: " + defender);
+
                 if (card is not null)
                 {
+                    Console.WriteLine("Defends: " + card);
                     defender.GetHand().Remove(card);
+                    Console.WriteLine("Defender's cards after: " + defender);
+
                     bout.AddDefendingCard(card);
                 } 
                 else
                 {
+                    Console.WriteLine("TAKES");
                     if (!IsEndGame(attacker, defender, false))
                     {
                         defender.AddCardsToHand(bout.GetEverything());
-                        EndBoutProcess(attacker, defender);
+                        EndBoutProcess(attacker, defender, true);
                     }
                 }
             }
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
+            Console.WriteLine(turn + " turn");
+        }
+
+        public string GetWinner()
+        {
+            return players[0].GetState() == PlayerState.Winner ? players[0].GetName() : players[1].GetName();
         }
     }
-
-
 }

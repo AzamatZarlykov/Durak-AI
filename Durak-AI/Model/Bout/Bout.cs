@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Model.PlayingCards;
@@ -37,17 +38,37 @@ namespace Model.MiddleBout
         public void AddAttackingCard(Card card)
         {
             attackingCards.Add(card);
+            Info();
         }
 
         public void AddDefendingCard(Card card)
         {
             defendingCards.Add(card);
+            Info();
         }
         
         public void RemoveCards()
         {
             attackingCards.Clear();
             defendingCards.Clear();
+        }
+
+        private void Info()
+        {
+            Console.WriteLine("Bout");
+            Console.Write("Attacking cards: ");
+            foreach(Card card in attackingCards)
+            {
+                Console.Write(card);
+            }
+            Console.WriteLine();
+
+            Console.Write("Defending cards: ");
+            foreach (Card card in defendingCards)
+            {
+                Console.Write(card);
+            }
+            Console.WriteLine();
         }
     }
 }

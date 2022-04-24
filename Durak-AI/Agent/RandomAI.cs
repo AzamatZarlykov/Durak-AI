@@ -18,6 +18,18 @@ namespace AIAgent
         {
             List<Card>? cards = gameView.PossibleCards();
 
+            if (cards is null)
+            {
+                return null;
+            }
+
+            Console.WriteLine("Possible cards: ");
+            foreach(Card card in cards)
+            {
+                Console.Write(card);
+            }
+            Console.WriteLine();
+
             return cards[random.Next(cards.Count)];
         }
     }

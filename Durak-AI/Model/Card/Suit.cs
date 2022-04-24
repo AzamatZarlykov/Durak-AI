@@ -5,6 +5,6 @@
     /// </summary>
     public enum Suit
     {
-        Club, Diamonds, Heart, Spade
+        Spade, Heart, Diamonds, Club
     }
 }

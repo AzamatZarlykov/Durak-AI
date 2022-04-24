@@ -19,7 +19,7 @@ namespace CLI
         
         private List<Agent> agents = new List<Agent>();
 
-        private int numberOfTurns;
+        private int roundNumber;
         private const int UPPER_BOUND = 1000;
 
         public Controller(int n, string a, string b, int rankStartingPoint) 
@@ -41,18 +41,27 @@ namespace CLI
 
         public void Run()
         {
-            for (int i = 1; i <= numberOfGames; i++)
+            for (int i = 1; i <= 1; i++)
             {
                 Console.WriteLine("Game: " + i);
-                while (game.gameStatus == GameStatus.GameInProcess && numberOfTurns < UPPER_BOUND)
+                game.Info();
+                while (game.gameStatus == GameStatus.GameInProcess && roundNumber < UPPER_BOUND)
                 {
+                    Console.WriteLine("Round: " + roundNumber);
                     int turn = game.GetTurn();
 
                     Card? card = agents[turn].Move(new GameView(game));
                     game.Move(card);
-                    numberOfTurns++;
+                    roundNumber++;
                 }
-
+                if (roundNumber == UPPER_BOUND)
+                {
+                    Console.WriteLine("TIMEOUT");
+                } else if (game.gameStatus == GameStatus.GameOver)
+                {
+                    Console.WriteLine("GAME OVER!!!");
+                    Console.WriteLine("Winner: " + game.GetWinner());
+                }
             }
         }
     }

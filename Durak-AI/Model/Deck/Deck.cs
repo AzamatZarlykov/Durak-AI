@@ -70,6 +70,7 @@ namespace Model.TableDeck
         {
             Card card = cards.Last();
             cards.RemoveAt(cardsLeft - 1);
+            Console.WriteLine("adding card: " + card);
             return card;
         }
 
