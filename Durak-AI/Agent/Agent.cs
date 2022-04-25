@@ -7,11 +7,11 @@ namespace AIAgent
 {
     public abstract class Agent
     {
-        protected string name;
+        protected string? name;
 
         public abstract Card? Move(GameView gameView);
 
-        public string GetName()
+        public string? GetName()
         {
             return name;
         }

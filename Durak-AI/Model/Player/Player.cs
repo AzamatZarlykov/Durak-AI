@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Model.PlayingCards;
+using Helpers.Writer;
 
 namespace Model.GamePlayer
 {
@@ -22,8 +23,9 @@ namespace Model.GamePlayer
     public class Player
     {
         private PlayerState state;
-
         private List<Card> hand = new List<Card>();
+
+        public Player(){ }
 
         public PlayerState GetState() => state;
 
@@ -34,14 +36,6 @@ namespace Model.GamePlayer
         public void SetState(PlayerState s)
         {
             state = s; 
-        }
-
-        public void AddCardsToHand(List<Card> cards)
-        {
-            foreach (Card card in cards)
-            {
-                hand.Add(card);
-            }
         }
 
         // Removes all cards from the player's hand

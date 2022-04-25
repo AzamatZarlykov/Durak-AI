@@ -66,14 +66,14 @@ namespace Model.DurakWrapper
                 int a = deck.cardsLeft % 2 == 0 ? deck.cardsLeft / 2 : deck.cardsLeft / 2 + 1;
                 int b = deck.cardsLeft - a;
 
-                players[0].AddCardsToHand(deck.DrawCards(a));
-                players[1].AddCardsToHand(deck.DrawCards(b));
+                FillPlayerHand(deck.DrawCards(a), players[0]);
+                FillPlayerHand(deck.DrawCards(b), players[1]);
                 return;
             } 
 
             foreach (Player p in players)
             {
-                p.AddCardsToHand(deck.DrawCards(6));
+                FillPlayerHand(deck.DrawCards(6), p);
             }
         }
 
@@ -268,14 +268,14 @@ namespace Model.DurakWrapper
 
         public List<Card>? PossibleCards()
         {
-            List<Card>? result = null;
+            List<Card>? cards = null;
 
             if (turn == Turn.Attacking)
             {
                 if (CanAttack())
                 {
                     writer.WriteLineVerbose("Can attack");
-                    result = GenerateListOfAttackingCards();
+                    cards = GenerateListOfAttackingCards();
                 }
                 else
                 {
@@ -287,14 +287,26 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose("attacking card: " + attackingCard);
                 if (CanDefend(attackingCard))
                 {
-                    result = GenerateListofDefendingCards(attackingCard);
+                    cards = GenerateListofDefendingCards(attackingCard);
                 }else
                 {
                     writer.WriteLineVerbose("cannot defend");
                 }
             }
-                
-            return result;
+            
+            if (cards is null)
+            {
+                return null;
+            }
+
+            writer.WriteLineVerbose("Possible cards: ");
+            foreach (Card card in cards)
+            {
+                writer.WriteVerbose(card + " ");
+            }
+            writer.WriteLineVerbose();
+
+            return cards;
         }
 
         // returns how many players are still playing (have cards in the game)
@@ -357,11 +369,23 @@ namespace Model.DurakWrapper
             return false;
         }
 
+        private void FillPlayerHand(List<Card> cards, Player player)
+        {
+            foreach(Card card in cards)
+            {
+                writer.WriteVerbose(card + " ");
+                player.GetHand().Add(card);
+            }
+            writer.WriteLineVerbose();
+        }
+
         private void EndBoutProcess(Player attacker, Player defender, bool takes = false)
         {
-            // update attacking and defending players hand
-            deck.UpdatePlayersHand(attacker);
-            deck.UpdatePlayersHand(defender);
+            writer.WriteVerbose("Attacker Drew: ");
+            FillPlayerHand(deck.DrawCards(attacker.GetHand().Count), attacker);
+            writer.WriteVerbose("Defender Drew: ");
+            FillPlayerHand(deck.DrawCards(defender.GetHand().Count), defender);
+
 
             if (!takes)
             {
@@ -390,7 +414,7 @@ namespace Model.DurakWrapper
                     attacker.GetHand().Remove(card);
                     writer.WriteLineVerbose("Attacker's cards after: " + attacker);
 
-                    bout.AddAttackingCard(card);
+                    bout.AddAttackingCard(card, writer);
                 }
                 else
                 {
@@ -415,14 +439,14 @@ namespace Model.DurakWrapper
                     defender.GetHand().Remove(card);
                     writer.WriteLineVerbose("Defender's cards after: " + defender);
 
-                    bout.AddDefendingCard(card);
+                    bout.AddDefendingCard(card, writer);
                 } 
                 else
                 {
                     writer.WriteLineVerbose("TAKES");
                     if (!IsEndGame(attacker, defender, false))
                     {
-                        defender.AddCardsToHand(bout.GetEverything());
+                        FillPlayerHand(bout.GetEverything(), defender);
                         EndBoutProcess(attacker, defender, true);
                     }
                 }

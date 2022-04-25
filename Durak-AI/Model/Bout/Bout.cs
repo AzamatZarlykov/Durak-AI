@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Model.PlayingCards;
-using Model.DiscardedHeap;
+using Helpers.Writer;
 
 namespace Model.MiddleBout
 {
@@ -35,16 +35,16 @@ namespace Model.MiddleBout
         public bool CheckExistingSuits(Suit suit) =>
             attackingCards.Exists(card => card.suit == suit);
 
-        public void AddAttackingCard(Card card)
+        public void AddAttackingCard(Card card, IWriter writer)
         {
             attackingCards.Add(card);
-            Info();
+            Info(writer);
         }
 
-        public void AddDefendingCard(Card card)
+        public void AddDefendingCard(Card card, IWriter writer)
         {
             defendingCards.Add(card);
-            Info();
+            Info(writer);
         }
         
         public void RemoveCards()
@@ -53,22 +53,22 @@ namespace Model.MiddleBout
             defendingCards.Clear();
         }
 
-        private void Info()
+        private void Info(IWriter writer)
         {
-            Console.WriteLine("Bout");
-            Console.Write("Attacking cards: ");
+            writer.WriteLineVerbose("Bout");
+            writer.WriteVerbose("Attacking cards: ");
             foreach(Card card in attackingCards)
             {
-                Console.Write(card);
+                writer.WriteVerbose(card + " ");
             }
-            Console.WriteLine();
+            writer.WriteLineVerbose();
 
-            Console.Write("Defending cards: ");
+            writer.WriteVerbose("Defending cards: ");
             foreach (Card card in defendingCards)
             {
-                Console.Write(card);
+                writer.WriteVerbose(card + " ");
             }
-            Console.WriteLine();
+            writer.WriteLineVerbose();
         }
     }
 }

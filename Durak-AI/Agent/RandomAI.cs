@@ -26,13 +26,6 @@ namespace AIAgent
                 return null;
             }
 
-            Console.WriteLine("Possible cards: ");
-            foreach(Card card in cards)
-            {
-                Console.Write(card);
-            }
-            Console.WriteLine();
-
             return cards[random.Next(cards.Count)];
         }
     }

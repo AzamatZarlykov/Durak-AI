@@ -29,7 +29,7 @@ namespace CLI
 
             for (int i = 1; i <= gameParameters.NumberOfGames; i++)
             {
-                writer.WriteVerbose("Game: " + i);
+                writer.Write("Game " + i + ": ");
                 game.Initialize();
                 while (game.gameStatus == GameStatus.GameInProcess)
                 {
@@ -42,16 +42,15 @@ namespace CLI
                 writer.WriteVerbose("GAME OVER!!!");
 
                 int winner = game.GetWinner();
-                writer.WriteVerbose(winner + " won");
+                writer.WriteLine("Player " + winner + " won");
                 if (winner == 0)
                 {
                     numberOfGamesWon++;
                 }
-                writer.WriteLine();
             }
 
             writer.WriteLine("Total games played: " + gameParameters.NumberOfGames);
-            writer.WriteLine("RandomAI win rate: " + 100 * (double)numberOfGamesWon/(double)gameParameters.NumberOfGames);
+            writer.WriteLine("RandomAI win rate: " + 100 * (double)numberOfGamesWon/(double)gameParameters.NumberOfGames + "%");
         }
     }
 }

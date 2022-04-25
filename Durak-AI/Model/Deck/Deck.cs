@@ -63,21 +63,11 @@ namespace Model.TableDeck
             }
         }
 
-        // Draws the cards from the deck and adds to players hand
-        public void UpdatePlayersHand(Player player)
-        {
-            while (player.GetNumberOfCards() < 6 && cards.Count != 0)
-            {
-                player.GetHand().Add(DrawCard());
-            }
-        }
-
         // Returns the drawn card from the deck if there is any left
         public Card DrawCard()
         {
             Card card = cards.Last();
             cards.RemoveAt(cardsLeft - 1);
-            Console.WriteLine("adding card: " + card);
             return card;
         }
 
