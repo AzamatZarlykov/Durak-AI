@@ -128,9 +128,9 @@ namespace Model.DurakWrapper
             writer.WriteLineVerbose();
         }
 
-        public Durak(int rankStartingPoint, IWriter w)
+        public Durak(int rankStartingPoint, int seed, IWriter w)
         {
-            deck = new Deck(rankStartingPoint);
+            deck = new Deck(rankStartingPoint, seed);
             writer = w;
         }
 

@@ -10,13 +10,13 @@ namespace CLI
 {
     public class Parser
     {
-        private static Agent GetAgentType(string type)
+        private static Agent GetAgentType(string type, int param)
         {
             if (type == "random")
             {
-                return new RandomAI();
+                return new RandomAI(param);
             }
-            return new RandomAI();
+            return new RandomAI(param);
         }
 
         [Verb(IsDefault = true)]
@@ -24,13 +24,13 @@ namespace CLI
             [DefaultValue("random"), Aliases("ai1")]
             string ai_name_one,
 
-            [DefaultValue(4), LessOrEqualTo(5)]
+            [DefaultValue(4), LessOrEqualTo(5), Aliases("seed_one")]
             int depth_one,
 
             [DefaultValue("random"), Aliases("ai2")]
             string ai_name_two,
 
-            [DefaultValue(4), LessOrEqualTo(5)]
+            [DefaultValue(4), LessOrEqualTo(5), Aliases("seed_two")]
             int depth_two,
 
             [Required, DefaultValue(1000)]
@@ -45,8 +45,8 @@ namespace CLI
         {
             var agents = new List<Agent>
             {
-                GetAgentType(ai_name_one),
-                GetAgentType(ai_name_two)
+                GetAgentType(ai_name_one, depth_one),
+                GetAgentType(ai_name_two, depth_two)
             };
 
             var gameParam = new GameParameters
@@ -54,6 +54,7 @@ namespace CLI
                 NumberOfGames = total_games,
                 StartingRank = start_rank,
                 Agents = agents,
+                Seed = depth_one
             };
 
             var writer = new Writer(Console.Out, verbose);

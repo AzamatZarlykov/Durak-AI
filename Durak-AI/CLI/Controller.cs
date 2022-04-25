@@ -25,11 +25,11 @@ namespace CLI
 
         public void Run()
         {
-            Durak game = new Durak(gameParameters.StartingRank, writer);
+            Durak game = new Durak(gameParameters.StartingRank, gameParameters.Seed, writer);
 
             for (int i = 1; i <= gameParameters.NumberOfGames; i++)
             {
-                writer.Write("Game " + i + ": ");
+                writer.WriteLine("Game " + i + ": ");
                 game.Initialize();
                 while (game.gameStatus == GameStatus.GameInProcess)
                 {

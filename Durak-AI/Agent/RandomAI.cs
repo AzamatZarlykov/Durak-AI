@@ -11,9 +11,10 @@ namespace AIAgent
 {
     public class RandomAI : Agent
     {
-        private Random random = new Random();
-        public RandomAI() 
+        private Random random;
+        public RandomAI(int seed) 
         {
+            this.random = new Random(seed);
             this.name = "RandomAI";
         }
 
