@@ -13,6 +13,7 @@ namespace Model.TableDeck
     /// </summary>
     public class Deck
     {
+        private readonly int rankStart;
         public int cardsLeft => cards.Count;
         private List<Card> cards = new List<Card>();
 
@@ -20,13 +21,19 @@ namespace Model.TableDeck
         // with the corresponding suits and store in the cards list
         public Deck(int rankStartingPoint)
         {
+            this.rankStart = rankStartingPoint;
+        }
+
+        public void Init()
+        {
             for (int suit = 0; suit < 4; suit++)
             {
-                for (int rank = rankStartingPoint; rank < 15; rank++)
+                for (int rank = rankStart; rank < 15; rank++)
                 {
                     cards.Add(new Card((Suit)suit, (Rank)rank));
                 }
             }
+            Shuffle();
         }
 
 

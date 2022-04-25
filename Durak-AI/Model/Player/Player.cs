@@ -21,16 +21,9 @@ namespace Model.GamePlayer
 
     public class Player
     {
-        private string name;
         private PlayerState state;
 
         private List<Card> hand = new List<Card>();
-        public Player(string n)
-        {
-            name = n;
-        }
-
-        public string GetName() => name;
 
         public PlayerState GetState() => state;
 

@@ -8,61 +8,50 @@ using AIAgent;
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
+using Helpers.Writer;
 
 namespace CLI
 {
     class Controller
     {
-        private int numberOfGames;
-
-        private Durak game;
-        
-        private List<Agent> agents = new List<Agent>();
-
-        private int roundNumber;
-        private const int UPPER_BOUND = 1000;
-
-        public Controller(int n, string a, string b, int rankStartingPoint) 
+        private int numberOfGamesWon;
+        private readonly GameParameters gameParameters;
+        private readonly IWriter writer;
+        public Controller(GameParameters gameParam, IWriter writer) 
         {
-            numberOfGames = n;
-            agents.Add(GetAgentType(a));
-            agents.Add(GetAgentType(b));
-            game = new Durak(rankStartingPoint);
-        }
-
-        private Agent GetAgentType(string type)
-        {
-            if (type == "randomAI")
-            {
-                return new RandomAI();
-            }
-            return new RandomAI();
+            this.gameParameters = gameParam;
+            this.writer = writer;
         }
 
         public void Run()
         {
-            for (int i = 1; i <= 1; i++)
+            Durak game = new Durak(gameParameters.StartingRank, writer);
+
+            for (int i = 1; i <= gameParameters.NumberOfGames; i++)
             {
-                Console.WriteLine("Game: " + i);
-                game.Info();
-                while (game.gameStatus == GameStatus.GameInProcess && roundNumber < UPPER_BOUND)
+                writer.WriteVerbose("Game: " + i);
+                game.Initialize();
+                while (game.gameStatus == GameStatus.GameInProcess)
                 {
-                    Console.WriteLine("Round: " + roundNumber);
                     int turn = game.GetTurn();
 
-                    Card? card = agents[turn].Move(new GameView(game));
+                    Card? card = gameParameters.Agents[turn].Move(new GameView(game));
                     game.Move(card);
-                    roundNumber++;
                 }
-                if (roundNumber == UPPER_BOUND)
+
+                writer.WriteVerbose("GAME OVER!!!");
+
+                int winner = game.GetWinner();
+                writer.WriteVerbose(winner + " won");
+                if (winner == 0)
                 {
-                    Console.WriteLine("TIMEOUT");
-                } else if (game.gameStatus == GameStatus.GameOver)
-                {
-                    Console.WriteLine("GAME OVER!!!");
-                    Console.WriteLine("Winner: " + game.GetWinner());
+                    numberOfGamesWon++;
                 }
+                writer.WriteLine();
             }
+
+            writer.WriteLine("Total games played: " + gameParameters.NumberOfGames);
+            writer.WriteLine("RandomAI win rate: " + 100 * (double)numberOfGamesWon/(double)gameParameters.NumberOfGames);
         }
     }
 }

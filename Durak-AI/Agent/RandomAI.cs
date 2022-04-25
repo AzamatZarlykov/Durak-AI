@@ -12,7 +12,10 @@ namespace AIAgent
     public class RandomAI : Agent
     {
         private Random random = new Random();
-        public RandomAI() { }
+        public RandomAI() 
+        {
+            this.name = "RandomAI";
+        }
 
         public override Card? Move(GameView gameView)
         {

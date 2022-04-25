@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
+using Helpers.Writer;
 using Model.MiddleBout;
 using Model.PlayingCards;
 using Model.TableDeck;
 using Model.GameState;
 using Model.DiscardedHeap;
 using Model.GamePlayer;
-using System;
 
 namespace Model.DurakWrapper
 {
@@ -31,6 +32,8 @@ namespace Model.DurakWrapper
     /// </summary>
     public class Durak
     {
+        private readonly IWriter writer;
+
         public GameStatus gameStatus;
 
         private Bout bout;
@@ -112,29 +115,31 @@ namespace Model.DurakWrapper
 
         public void Info()
         {
-            Console.WriteLine("Status: " +
-                (gameStatus == GameStatus.GameInProcess ? "In Progress" : "Game Over"));
+            writer.WriteLineVerbose("Deck's size: " + deck.cardsLeft);
+            writer.WriteVerbose("Trump card: " + trumpCard);
+            writer.WriteLineVerbose();
 
-            Console.WriteLine("Deck's size: " + deck.cardsLeft);
-            Console.Write("Trump card: " + trumpCard);
-            Console.WriteLine();
+            writer.WriteVerbose("Player0 cards: " + players[0]);
+            writer.WriteLineVerbose();
+            writer.WriteVerbose("Player1 cards: " + players[1]);
+            writer.WriteLineVerbose();
 
-            Console.Write("Player0 cards: " + players[0]);
-            Console.WriteLine();
-            Console.Write("Player1 cards: " + players[1]);
-            Console.WriteLine();
-
-            Console.WriteLine("Attacking player: " + attackingPlayer);
-            Console.WriteLine();
+            writer.WriteLineVerbose("Attacking player: " + attackingPlayer);
+            writer.WriteLineVerbose();
         }
 
-        public Durak(int rankStartingPoint)
+        public Durak(int rankStartingPoint, IWriter w)
+        {
+            deck = new Deck(rankStartingPoint);
+            writer = w;
+        }
+
+        public void Initialize()
         {
             gameStatus = GameStatus.GameInProcess;
 
             // instantiate the deck 
-            deck = new Deck(rankStartingPoint);
-            deck.Shuffle();
+            deck.Init();
 
             // the last card is the trump card(the one at the bottom face up)
             trumpCard = deck.GetCard(0);
@@ -142,13 +147,15 @@ namespace Model.DurakWrapper
             // instantiate the bout of the game
             bout = new Bout();
 
-            players.Add(new Player("Player0"));
-            players.Add(new Player("Player1"));
+            players.Clear();
+            players.Add(new Player());
+            players.Add(new Player());
             // Each player draws 6 cards
             DistributeCardsToPlayers();
 
             // Set the attacking player
             SetAttacker();
+            Info();
         }
 
         private bool CanAttack()
@@ -267,23 +274,23 @@ namespace Model.DurakWrapper
             {
                 if (CanAttack())
                 {
-                    Console.WriteLine("Can attack");
+                    writer.WriteLineVerbose("Can attack");
                     result = GenerateListOfAttackingCards();
                 }
                 else
                 {
-                    Console.WriteLine("cannot attack");
+                    writer.WriteLineVerbose("cannot attack");
                 }
             } else
             {
                 Card attackingCard = bout.GetAttackingCards()[^1];
-                Console.WriteLine("attacking card: " + attackingCard);
+                writer.WriteLineVerbose("attacking card: " + attackingCard);
                 if (CanDefend(attackingCard))
                 {
                     result = GenerateListofDefendingCards(attackingCard);
                 }else
                 {
-                    Console.WriteLine("cannot defend");
+                    writer.WriteLineVerbose("cannot defend");
                 }
             }
                 
@@ -363,7 +370,7 @@ namespace Model.DurakWrapper
 
             if (discardedPile.GetSize() > 0)
             {
-                Console.WriteLine("Discarded Pile size: " + discardedPile.GetSize());
+                writer.WriteLineVerbose("Discarded Pile size: " + discardedPile.GetSize());
             }
             bout.RemoveCards();
         }
@@ -376,23 +383,23 @@ namespace Model.DurakWrapper
 
             if (turn == Turn.Attacking)
             {
-                Console.WriteLine("Attacker's cards before: " + attacker);
+                writer.WriteLineVerbose("Attacker's cards before: " + attacker);
                 if (card is not null)
                 {
-                    Console.WriteLine("Attacks: " + card);
+                    writer.WriteLineVerbose("Attacks: " + card);
                     attacker.GetHand().Remove(card);
-                    Console.WriteLine("Attacker's cards after: " + attacker);
+                    writer.WriteLineVerbose("Attacker's cards after: " + attacker);
 
                     bout.AddAttackingCard(card);
                 }
                 else
                 {
                     // means PASS - cannot attack
-                    Console.WriteLine("PASSES");
+                    writer.WriteLineVerbose("PASSES");
                     if (!IsEndGame(attacker, defender))
                     {
                         attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
-                        Console.WriteLine("changed roles");
+                        writer.WriteLineVerbose("changed roles");
                         EndBoutProcess(attacker, defender);
                         return;
                     }
@@ -400,19 +407,19 @@ namespace Model.DurakWrapper
             }
             else
             {
-                Console.WriteLine("Defender's cards before: " + defender);
+                writer.WriteLineVerbose("Defender's cards before: " + defender);
 
                 if (card is not null)
                 {
-                    Console.WriteLine("Defends: " + card);
+                    writer.WriteLineVerbose("Defends: " + card);
                     defender.GetHand().Remove(card);
-                    Console.WriteLine("Defender's cards after: " + defender);
+                    writer.WriteLineVerbose("Defender's cards after: " + defender);
 
                     bout.AddDefendingCard(card);
                 } 
                 else
                 {
-                    Console.WriteLine("TAKES");
+                    writer.WriteLineVerbose("TAKES");
                     if (!IsEndGame(attacker, defender, false))
                     {
                         defender.AddCardsToHand(bout.GetEverything());
@@ -422,12 +429,12 @@ namespace Model.DurakWrapper
             }
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
-            Console.WriteLine(turn + " turn");
+            writer.WriteLineVerbose(turn + " turn");
         }
 
-        public string GetWinner()
+        public int GetWinner()
         {
-            return players[0].GetState() == PlayerState.Winner ? players[0].GetName() : players[1].GetName();
+            return players[0].GetState() == PlayerState.Winner ? 0 : 1;
         }
     }
 }

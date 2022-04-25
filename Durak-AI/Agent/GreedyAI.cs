@@ -10,7 +10,10 @@ namespace AIAgent
 {
     class GreedyAI : Agent
     {
-        public GreedyAI() { }
+        public GreedyAI() 
+        {
+            this.name = "GreedyAI";
+        }
 
         public override Card? Move(GameView gameView)
         {
