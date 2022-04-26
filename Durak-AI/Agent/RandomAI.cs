@@ -27,6 +27,15 @@ namespace AIAgent
                 return null;
             }
 
+            // include the case when the ai can decide to pass/take
+            // even if it can defend/attack (20% chance)
+            // allow only when the first attack was given
+            int rn = random.Next(0, 100);
+            if (rn <= 20 && gameView.attackingCards.Count > 0)
+            {
+                return null;
+            }
+
             return cards[random.Next(cards.Count)];
         }
     }

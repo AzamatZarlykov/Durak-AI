@@ -29,11 +29,12 @@ namespace CLI
 
             for (int i = 1; i <= gameParameters.NumberOfGames; i++)
             {
-                writer.WriteLine("Game " + i + ": ");
+                writer.Write("Game " + i + ": ");
                 game.Initialize();
                 while (game.gameStatus == GameStatus.GameInProcess)
                 {
                     int turn = game.GetTurn();
+                    writer.WriteLineVerbose("TURN: " + turn);
 
                     Card? card = gameParameters.Agents[turn].Move(new GameView(game));
                     game.Move(card);

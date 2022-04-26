@@ -47,16 +47,13 @@ namespace Model.DurakWrapper
         private List<Player> players = new List<Player>();
 
         private const int NUMBEROFPLAYERS = 2;
+        private const int TOTALCARDS = 6;
 
         public Card GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
         public int GetDefendingPlayer() => (attackingPlayer + 1) % NUMBEROFPLAYERS;
         public int GetAttackingPlayer() => attackingPlayer;
         public Bout GetBout() => bout;
-        public int GetTurn()
-        {
-            return turn == Turn.Attacking ? 0 : 1;
-        }
 
         // Distributes, at the start of the game, the cards to players
         public void DistributeCardsToPlayers()
@@ -67,14 +64,15 @@ namespace Model.DurakWrapper
                 int b = deck.cardsLeft - a;
 
                 FillPlayerHand(deck.DrawCards(a), players[0]);
+                writer.WriteVerbose("Player1 cards: ");
                 FillPlayerHand(deck.DrawCards(b), players[1]);
                 return;
             } 
 
-            foreach (Player p in players)
-            {
-                FillPlayerHand(deck.DrawCards(6), p);
-            }
+            writer.WriteVerbose("Player0 cards: ");
+            FillPlayerHand(deck.DrawCards(6), players[0]);
+            writer.WriteVerbose("Player1 cards: ");
+            FillPlayerHand(deck.DrawCards(6), players[1]);
         }
 
         private int GetRandomPlayerIndex()
@@ -117,11 +115,6 @@ namespace Model.DurakWrapper
         {
             writer.WriteLineVerbose("Deck's size: " + deck.cardsLeft);
             writer.WriteVerbose("Trump card: " + trumpCard);
-            writer.WriteLineVerbose();
-
-            writer.WriteVerbose("Player0 cards: " + players[0]);
-            writer.WriteLineVerbose();
-            writer.WriteVerbose("Player1 cards: " + players[1]);
             writer.WriteLineVerbose();
 
             writer.WriteLineVerbose("Attacking player: " + attackingPlayer);
@@ -167,8 +160,12 @@ namespace Model.DurakWrapper
 
             foreach (Card card in players[attackingPlayer].GetHand())
             {
-                return bout.GetAttackingCards().Exists(c => c.rank == card.rank) ||
-                       bout.GetDefendingCards().Exists(c => c.rank == card.rank);
+                if (bout.GetAttackingCards().Exists(c => c.rank == card.rank) || 
+                    bout.GetDefendingCards().Exists(c => c.rank == card.rank))
+                {
+                    return true;
+                }
+
             }
 
             return false;
@@ -382,9 +379,9 @@ namespace Model.DurakWrapper
         private void EndBoutProcess(Player attacker, Player defender, bool takes = false)
         {
             writer.WriteVerbose("Attacker Drew: ");
-            FillPlayerHand(deck.DrawCards(attacker.GetHand().Count), attacker);
+            FillPlayerHand(deck.DrawCards(TOTALCARDS - attacker.GetHand().Count), attacker);
             writer.WriteVerbose("Defender Drew: ");
-            FillPlayerHand(deck.DrawCards(defender.GetHand().Count), defender);
+            FillPlayerHand(deck.DrawCards(TOTALCARDS - defender.GetHand().Count), defender);
 
 
             if (!takes)
@@ -454,6 +451,11 @@ namespace Model.DurakWrapper
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
             writer.WriteLineVerbose(turn + " turn");
+        }
+
+        public int GetTurn()
+        {
+            return turn == Turn.Attacking ? 0 + attackingPlayer : (1 + attackingPlayer) % NUMBEROFPLAYERS;
         }
 
         public int GetWinner()
