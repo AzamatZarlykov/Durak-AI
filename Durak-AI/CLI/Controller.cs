@@ -14,7 +14,9 @@ namespace CLI
 {
     class Controller
     {
-        private int numberOfGamesWon;
+        private int numberOfGamesWonForPlayer0;
+        private int numberOfGamesWonForPlayer1;
+
         private readonly GameParameters gameParameters;
         private readonly IWriter writer;
         public Controller(GameParameters gameParam, IWriter writer) 
@@ -40,18 +42,23 @@ namespace CLI
                     game.Move(card);
                 }
 
-                writer.WriteVerbose("GAME OVER!!!");
-
+                writer.WriteLineVerbose("GAME OVER!!!");
+                writer.WriteLineVerbose("Trump: " + game.GetTrumpCard());
                 int winner = game.GetWinner();
                 writer.WriteLine("Player " + winner + " won");
                 if (winner == 0)
                 {
-                    numberOfGamesWon++;
+                    numberOfGamesWonForPlayer0++;
+                } else
+                {
+                    numberOfGamesWonForPlayer1++;
                 }
             }
 
             writer.WriteLine("Total games played: " + gameParameters.NumberOfGames);
-            writer.WriteLine("RandomAI win rate: " + 100 * (double)numberOfGamesWon/(double)gameParameters.NumberOfGames + "%");
+            writer.WriteLine(gameParameters.Agents[0].GetName() + " win rate: " + 100 * (double)numberOfGamesWonForPlayer0 / (double)gameParameters.NumberOfGames + "%");
+            writer.WriteLine(gameParameters.Agents[1].GetName() + " win rate: " + 100 * (double)numberOfGamesWonForPlayer1 / (double)gameParameters.NumberOfGames + "%");
+
         }
     }
 }

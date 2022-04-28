@@ -54,6 +54,7 @@ namespace Model.DurakWrapper
         public int GetDefendingPlayer() => (attackingPlayer + 1) % NUMBEROFPLAYERS;
         public int GetAttackingPlayer() => attackingPlayer;
         public Bout GetBout() => bout;
+        public Turn GetTurnEnum() => turn;
 
         // Distributes, at the start of the game, the cards to players
         public void DistributeCardsToPlayers()

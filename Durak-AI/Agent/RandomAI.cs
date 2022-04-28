@@ -22,6 +22,7 @@ namespace AIAgent
         {
             List<Card>? cards = gameView.PossibleCards();
 
+            // cannot attack/defend
             if (cards is null)
             {
                 return null;

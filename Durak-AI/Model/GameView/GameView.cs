@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Model.DurakWrapper;
 using Model.PlayingCards;
-using Model.GamePlayer;
+using Model.TableDeck;
 
 namespace Model.GameState
 {
@@ -18,7 +18,10 @@ namespace Model.GameState
     public class GameView
     {
         private Durak game;
+        public Deck deck;
         public Card trumpCard;
+
+        public Turn turn;
 
         public List<Card> hand = new List<Card>();
         public List<Card> attackingCards;
@@ -28,8 +31,11 @@ namespace Model.GameState
         {
             this.game = game;
 
+            deck = game.GetDeck();
             trumpCard = game.GetDeck().cardsLeft != 0 ? game.GetTrumpCard() :
                                 new Card(game.GetTrumpCard().suit, (Rank)5);
+
+            turn = game.GetTurnEnum();
 
             attackingCards = game.GetBout().GetAttackingCards();
             defendingCards = game.GetBout().GetDefendingCards();

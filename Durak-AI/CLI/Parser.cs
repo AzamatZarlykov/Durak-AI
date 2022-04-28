@@ -16,6 +16,10 @@ namespace CLI
             {
                 return new RandomAI(param);
             }
+            else if (type == "greedy")
+            {
+                return new GreedyAI();
+            }
             return new RandomAI(param);
         }
 
