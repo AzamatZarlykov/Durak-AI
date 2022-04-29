@@ -8,11 +8,17 @@ namespace Helpers.Writer
 {
     public interface IWriter
     {
+        void SetColor(int id);
+
         void Write(string s);
         void WriteVerbose(string s);
+        void WriteVerbose(string s, int id);
+
         void WriteLine();
         void WriteLine(string text);
         void WriteLineVerbose();
         void WriteLineVerbose(string text);
+        void WriteLineVerbose(string text, int id);
+        void SetDefaultColor();
     }
 }

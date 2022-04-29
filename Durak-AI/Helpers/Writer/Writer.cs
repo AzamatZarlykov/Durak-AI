@@ -16,6 +16,7 @@ namespace Helpers.Writer
 
         public void Write(string s)
         {
+            SetDefaultColor();
             writer.Write(s);
         }
 
@@ -26,6 +27,7 @@ namespace Helpers.Writer
 
         public void WriteLine(string s)
         {
+            SetDefaultColor();
             writer.WriteLine(s);
         }
 
@@ -33,6 +35,7 @@ namespace Helpers.Writer
         {
             if (verbose)
             {
+                SetDefaultColor();
                 writer.Write(s);
             }
         }
@@ -49,8 +52,50 @@ namespace Helpers.Writer
         {
             if (verbose)
             {
+                SetDefaultColor();
                 writer.WriteLine(s);
             }
+        }
+
+        /*
+            These methods will display the output with different colors based on
+            id param. Color.Green is assigned to 0. Color.Red to 1. 
+         */
+        public void SetColor(int id)
+        {
+            if (id == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                return;
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+        }
+
+
+        public void WriteVerbose(string text, int id)
+        {
+            if (verbose)
+            {
+                SetColor(id);
+                writer.Write(text);
+            }
+        }
+
+        public void WriteLineVerbose(string text, int id)
+        {
+            if (verbose)
+            {
+                SetColor(id);
+                writer.WriteLine(text);
+            }
+        }
+
+        /*
+         This method sets the color to default
+         */
+        public void SetDefaultColor()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

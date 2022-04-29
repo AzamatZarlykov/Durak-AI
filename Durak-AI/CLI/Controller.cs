@@ -43,7 +43,6 @@ namespace CLI
                 }
 
                 writer.WriteLineVerbose("GAME OVER!!!");
-                writer.WriteLineVerbose("Trump: " + game.GetTrumpCard());
                 int winner = game.GetWinner();
                 writer.WriteLine("Player " + winner + " won");
                 if (winner == 0)

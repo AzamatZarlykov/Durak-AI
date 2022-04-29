@@ -55,6 +55,7 @@ namespace Model.MiddleBout
 
         private void Info(IWriter writer)
         {
+            writer.WriteLineVerbose();
             writer.WriteLineVerbose("Bout");
             writer.WriteVerbose("Attacking cards: ");
             foreach(Card card in attackingCards)
@@ -68,6 +69,7 @@ namespace Model.MiddleBout
             {
                 writer.WriteVerbose(card + " ");
             }
+            writer.WriteLineVerbose();
             writer.WriteLineVerbose();
         }
     }

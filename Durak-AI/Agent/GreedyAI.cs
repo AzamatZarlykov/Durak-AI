@@ -76,9 +76,6 @@ namespace AIAgent
             return GetLowestRank(noTrumpCards);
         }
 
-        /*
-         1st Attack/Defend with smallest card if possible. No randomness
-         */
         public override Card? Move(GameView gameView)
         {
 

@@ -56,6 +56,17 @@ namespace Model.DurakWrapper
         public Bout GetBout() => bout;
         public Turn GetTurnEnum() => turn;
 
+
+        private void FillPlayerHand(List<Card> cards, Player player)
+        {
+            foreach (Card card in cards)
+            {
+                writer.WriteVerbose(card + " ");
+                player.GetHand().Add(card);
+            }
+            writer.WriteLineVerbose();
+        }
+
         // Distributes, at the start of the game, the cards to players
         public void DistributeCardsToPlayers()
         {
@@ -64,12 +75,13 @@ namespace Model.DurakWrapper
                 int a = deck.cardsLeft % 2 == 0 ? deck.cardsLeft / 2 : deck.cardsLeft / 2 + 1;
                 int b = deck.cardsLeft - a;
 
+                writer.WriteVerbose("Player0 cards: ");
                 FillPlayerHand(deck.DrawCards(a), players[0]);
                 writer.WriteVerbose("Player1 cards: ");
                 FillPlayerHand(deck.DrawCards(b), players[1]);
                 return;
-            } 
-
+            }
+            writer.WriteLineVerbose();
             writer.WriteVerbose("Player0 cards: ");
             FillPlayerHand(deck.DrawCards(6), players[0]);
             writer.WriteVerbose("Player1 cards: ");
@@ -272,12 +284,12 @@ namespace Model.DurakWrapper
             {
                 if (CanAttack())
                 {
-                    writer.WriteLineVerbose("Can attack");
+                    writer.WriteLineVerbose("Can attack", GetTurn());
                     cards = GenerateListOfAttackingCards();
                 }
                 else
                 {
-                    writer.WriteLineVerbose("cannot attack");
+                    writer.WriteLineVerbose("cannot attack", GetTurn());
                 }
             } else
             {
@@ -285,10 +297,11 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose("attacking card: " + attackingCard);
                 if (CanDefend(attackingCard))
                 {
+                    writer.WriteLineVerbose("Can defend", GetTurn());
                     cards = GenerateListofDefendingCards(attackingCard);
                 }else
                 {
-                    writer.WriteLineVerbose("cannot defend");
+                    writer.WriteLineVerbose("cannot defend", GetTurn());
                 }
             }
             
@@ -297,10 +310,10 @@ namespace Model.DurakWrapper
                 return null;
             }
 
-            writer.WriteLineVerbose("Possible cards: ");
+            writer.WriteVerbose("Possible cards: ", GetTurn());
             foreach (Card card in cards)
             {
-                writer.WriteVerbose(card + " ");
+                writer.WriteVerbose(card + " ", GetTurn());
             }
             writer.WriteLineVerbose();
 
@@ -367,23 +380,13 @@ namespace Model.DurakWrapper
             return false;
         }
 
-        private void FillPlayerHand(List<Card> cards, Player player)
-        {
-            foreach(Card card in cards)
-            {
-                writer.WriteVerbose(card + " ");
-                player.GetHand().Add(card);
-            }
-            writer.WriteLineVerbose();
-        }
-
         private void EndBoutProcess(Player attacker, Player defender, bool takes = false)
         {
+            writer.WriteLineVerbose();
             writer.WriteVerbose("Attacker Drew: ");
             FillPlayerHand(deck.DrawCards(TOTALCARDS - attacker.GetHand().Count), attacker);
             writer.WriteVerbose("Defender Drew: ");
             FillPlayerHand(deck.DrawCards(TOTALCARDS - defender.GetHand().Count), defender);
-
 
             if (!takes)
             {
@@ -408,7 +411,7 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose("Attacker's cards before: " + attacker);
                 if (card is not null)
                 {
-                    writer.WriteLineVerbose("Attacks: " + card);
+                    writer.WriteLineVerbose("Attacks: " + card, GetTurn());
                     attacker.GetHand().Remove(card);
                     writer.WriteLineVerbose("Attacker's cards after: " + attacker);
 
@@ -417,12 +420,13 @@ namespace Model.DurakWrapper
                 else
                 {
                     // means PASS - cannot attack
-                    writer.WriteLineVerbose("PASSES");
+                    writer.WriteLineVerbose("PASSES", GetTurn());
                     if (!IsEndGame(attacker, defender))
                     {
+                        EndBoutProcess(attacker, defender);
                         attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
                         writer.WriteLineVerbose("changed roles");
-                        EndBoutProcess(attacker, defender);
+                        writer.WriteLineVerbose();
                         return;
                     }
                 }
@@ -433,7 +437,7 @@ namespace Model.DurakWrapper
 
                 if (card is not null)
                 {
-                    writer.WriteLineVerbose("Defends: " + card);
+                    writer.WriteLineVerbose("Defends: " + card, GetTurn());
                     defender.GetHand().Remove(card);
                     writer.WriteLineVerbose("Defender's cards after: " + defender);
 
