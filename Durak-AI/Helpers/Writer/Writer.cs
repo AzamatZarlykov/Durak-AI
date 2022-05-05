@@ -66,9 +66,15 @@ namespace Helpers.Writer
             if (id == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                return;
             }
-            Console.ForegroundColor = ConsoleColor.Red;
+            else if (id == 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+            }
         }
 
 

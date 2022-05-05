@@ -56,7 +56,6 @@ namespace Model.DurakWrapper
         public Bout GetBout() => bout;
         public Turn GetTurnEnum() => turn;
 
-
         private void FillPlayerHand(List<Card> cards, Player player)
         {
             foreach (Card card in cards)
@@ -134,8 +133,25 @@ namespace Model.DurakWrapper
             writer.WriteLineVerbose();
         }
 
+        // Clone of the game. VERIFY!!!
+        public Durak Clone()
+        {
+            Durak game = new Durak(deck.GetRankStart(), deck.GetSeed(), writer);
+
+            game.deck = deck;
+            game.bout = bout;
+            game.trumpCard = trumpCard;
+            game.discardedPile = discardedPile;
+            game.players = players;
+
+            return game;
+        }
+
         public Durak(int rankStartingPoint, int seed, IWriter w)
         {
+            bout = new Bout();
+            trumpCard = new Card();
+
             deck = new Deck(rankStartingPoint, seed);
             writer = w;
         }
@@ -152,6 +168,9 @@ namespace Model.DurakWrapper
 
             // instantiate the bout of the game
             bout = new Bout();
+
+            // instantiate the pile
+            discardedPile = new DiscardedPile();
 
             players.Clear();
             players.Add(new Player());
@@ -185,22 +204,10 @@ namespace Model.DurakWrapper
         }
 
         // Checks if the passed card can be used to attack in the current bout
-        private bool IsAttackPossible(Card card)
-        {
-            if (bout.GetAttackingCardsSize() == 0)
-            {
-                return true;
-            }
+        private bool IsAttackPossible(Card card) =>
+            bout.GetAttackingCardsSize() == 0 ||
+            bout.GetEverything().Exists(c => card.rank == c.rank);
 
-            foreach (Card c in bout.GetEverything())
-            {
-                if (card.rank == c.rank)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
 
         /// <summary>
         /// This method generates the list of possible attacking cards from current hand
@@ -211,20 +218,8 @@ namespace Model.DurakWrapper
         /// <param name="attCards"></param>
         /// <param name="defCards"></param>
         /// <returns></returns>
-        private List<Card> GenerateListOfAttackingCards()
-        {
-            List<Card> result = new List<Card>();
-
-            foreach (Card card in players[attackingPlayer].GetHand())
-            {
-                if (IsAttackPossible(card))
-                {
-                    result.Add(card);
-                }
-            }
-
-            return result;
-        }
+        private List<Card> GenerateListOfAttackingCards() =>
+            players[attackingPlayer].GetHand().Where(IsAttackPossible).ToList();
 
         public bool IsTrumpSuit(Card card)
         {
@@ -249,36 +244,18 @@ namespace Model.DurakWrapper
         /// <param name="attackingCard"></param>
         /// <param name="trump"></param>
         /// <returns></returns>
-        private List<Card> GenerateListofDefendingCards(Card attackingCard)
+        private List<Card> GenerateListofDefendingCards(Card attackingCard) =>
+            players[GetDefendingPlayer()].GetHand()
+                                         .Where(c => IsLegalDefense(attackingCard, c))
+                                         .ToList();
+
+        private bool CanDefend(Card attackingCard) =>
+            players[GetDefendingPlayer()].GetHand()
+                                         .Exists(c => IsLegalDefense(attackingCard, c));
+
+        public List<Card> PossibleCards()
         {
-            List<Card> result = new List<Card>();
-
-            foreach (Card card in players[GetDefendingPlayer()].GetHand())
-            {
-                if (IsLegalDefense(attackingCard, card))
-                {
-                    result.Add(card);
-                }
-            }
-
-            return result;
-        }
-
-        private bool CanDefend(Card attackingCard)
-        {
-            foreach (Card defendingCard in players[GetDefendingPlayer()].GetHand())
-            {
-                if (IsLegalDefense(attackingCard, defendingCard))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public List<Card>? PossibleCards()
-        {
-            List<Card>? cards = null;
+            List<Card> cards = new List<Card>();
 
             if (turn == Turn.Attacking)
             {
@@ -290,6 +267,7 @@ namespace Model.DurakWrapper
                 else
                 {
                     writer.WriteLineVerbose("cannot attack", GetTurn());
+                    return cards;
                 }
             } else
             {
@@ -302,18 +280,14 @@ namespace Model.DurakWrapper
                 }else
                 {
                     writer.WriteLineVerbose("cannot defend", GetTurn());
+                    return cards;
                 }
             }
             
-            if (cards is null)
-            {
-                return null;
-            }
-
             writer.WriteVerbose("Possible cards: ", GetTurn());
             foreach (Card card in cards)
             {
-                writer.WriteVerbose(card + " ", GetTurn());
+                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 3 : GetTurn());
             }
             writer.WriteLineVerbose();
 
@@ -321,18 +295,8 @@ namespace Model.DurakWrapper
         }
 
         // returns how many players are still playing (have cards in the game)
-        private int GetSizeOfPlayingPlayers()
-        {
-            int total = 0;
-            foreach (Player player in players)
-            {
-                if (player.GetState() == PlayerState.Playing)
-                {
-                    total += 1;
-                }
-            }
-            return total;
-        }
+        private int GetSizeOfPlayingPlayers() =>
+            players.Count(p => p.GetState() == PlayerState.Playing);
 
         // The game is over when there is only one playing player left
         private bool IsGameOver()
@@ -398,6 +362,7 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose("Discarded Pile size: " + discardedPile.GetSize());
             }
             bout.RemoveCards();
+            writer.WriteLineVerbose();
         }
 
 
@@ -411,7 +376,8 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose("Attacker's cards before: " + attacker);
                 if (card is not null)
                 {
-                    writer.WriteLineVerbose("Attacks: " + card, GetTurn());
+                    writer.WriteVerbose("Attacks: ");
+                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 3 : GetTurn());
                     attacker.GetHand().Remove(card);
                     writer.WriteLineVerbose("Attacker's cards after: " + attacker);
 
@@ -437,7 +403,8 @@ namespace Model.DurakWrapper
 
                 if (card is not null)
                 {
-                    writer.WriteLineVerbose("Defends: " + card, GetTurn());
+                    writer.WriteVerbose("Defends: ");
+                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 3 : GetTurn());
                     defender.GetHand().Remove(card);
                     writer.WriteLineVerbose("Defender's cards after: " + defender);
 

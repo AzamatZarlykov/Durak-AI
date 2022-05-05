@@ -1,10 +1,4 @@
 ﻿using Model.PlayingCards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Model.GameState;
 
 namespace AIAgent
@@ -20,10 +14,10 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
-            List<Card>? cards = gameView.PossibleCards();
+            List<Card> cards = gameView.PossibleCards();
 
             // cannot attack/defend
-            if (cards is null)
+            if (cards.Count == 0)
             {
                 return null;
             }

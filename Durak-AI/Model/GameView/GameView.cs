@@ -23,7 +23,6 @@ namespace Model.GameState
 
         public Turn turn;
 
-        public List<Card> hand = new List<Card>();
         public List<Card> attackingCards;
         public List<Card> defendingCards;
 
@@ -41,7 +40,7 @@ namespace Model.GameState
             defendingCards = game.GetBout().GetDefendingCards();
         }
 
-        public List<Card>? PossibleCards()
+        public List<Card> PossibleCards()
         {
             return game.PossibleCards();
         }

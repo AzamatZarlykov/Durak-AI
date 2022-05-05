@@ -1,11 +1,5 @@
 ﻿using Model.GameState;
 using Model.PlayingCards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Model.DurakWrapper;
 
 namespace AIAgent
@@ -17,33 +11,11 @@ namespace AIAgent
             this.name = "GreedyAI";
         }
 
-        private List<Card> GetCardsWithoutTrump(List<Card> cards, Card trump)
-        {
-            List<Card> res = new List<Card>();
+        private List<Card> GetCardsWithoutTrump(List<Card> cards, Card trump) =>
+            cards.Where(c => c.suit != trump.suit).ToList();
 
-            foreach (Card card in cards)
-            {
-                if (card.suit != trump.suit) 
-                {
-                    res.Add(card);
-                }
-            }
-            return res;
-        }
-        
-        private Card GetLowestRank(List<Card> cards)
-        {
-            Card lowest = cards[0];
-            for (int i = 1; i < cards.Count; i++)
-            {
-                Card card = cards[i];
-                if (lowest.rank > card.rank)
-                {
-                    lowest = cards[i];
-                }
-            }
-            return lowest;
-        }
+        private Card GetLowestRank(List<Card> cards) =>
+            cards.MinBy(c => c.rank)!;
 
         // return true if deck is not empty, o/w false
         private bool EarlyGame(GameView gw)
@@ -79,10 +51,10 @@ namespace AIAgent
         public override Card? Move(GameView gameView)
         {
 
-            List<Card>? cards = gameView.PossibleCards();
+            List<Card> cards = gameView.PossibleCards();
 
             // cannot attack/defend
-            if (cards is null)
+            if (cards.Count == 0)
             {
                 return null;
             }

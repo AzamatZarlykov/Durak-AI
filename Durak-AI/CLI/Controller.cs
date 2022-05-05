@@ -44,7 +44,9 @@ namespace CLI
 
                 writer.WriteLineVerbose("GAME OVER!!!");
                 int winner = game.GetWinner();
-                writer.WriteLine("Player " + winner + " won");
+                writer.WriteLine(
+                    "Player " + winner + " (" + gameParameters.Agents[winner].GetName() + ") won"
+                );
                 if (winner == 0)
                 {
                     numberOfGamesWonForPlayer0++;
@@ -55,8 +57,8 @@ namespace CLI
             }
 
             writer.WriteLine("Total games played: " + gameParameters.NumberOfGames);
-            writer.WriteLine(gameParameters.Agents[0].GetName() + " win rate: " + 100 * (double)numberOfGamesWonForPlayer0 / (double)gameParameters.NumberOfGames + "%");
-            writer.WriteLine(gameParameters.Agents[1].GetName() + " win rate: " + 100 * (double)numberOfGamesWonForPlayer1 / (double)gameParameters.NumberOfGames + "%");
+            writer.WriteLine(gameParameters.Agents[0].GetName() + " win rate: " + (100 * (double)numberOfGamesWonForPlayer0 / gameParameters.NumberOfGames).ToString("0.#") + "%");
+            writer.WriteLine(gameParameters.Agents[1].GetName() + " win rate: " + (100 * (double)numberOfGamesWonForPlayer1 / gameParameters.NumberOfGames).ToString("0.#") + "%");
 
         }
     }

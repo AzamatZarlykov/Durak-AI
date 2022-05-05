@@ -16,13 +16,20 @@ namespace Model.TableDeck
         private readonly Random rGen;
 
         private readonly int rankStart;
-        public int cardsLeft => cards.Count;
+        private readonly int seed;
+
         private List<Card> cards = new List<Card>();
+
+        public int cardsLeft => cards.Count;
+        public int GetRankStart() => rankStart;    
+        public int GetSeed() => seed;
+        
 
         // initializes the deck by creating all the ranks
         // with the corresponding suits and store in the cards list
         public Deck(int rankStartingPoint, int seed)
         {
+            this.seed = seed;
             this.rGen = new Random(seed);
             this.rankStart = rankStartingPoint;
         }

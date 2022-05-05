@@ -24,8 +24,9 @@ namespace Model.GamePlayer
     {
         private PlayerState state;
         private List<Card> hand = new List<Card>();
-
-        public Player(){ }
+        public Player()
+        {
+        }
 
         public PlayerState GetState() => state;
 
@@ -44,14 +45,7 @@ namespace Model.GamePlayer
             hand.Clear();
         }
 
-        public override string ToString()
-        {
-            StringBuilder res = new StringBuilder();
-            foreach(Card card in hand)
-            {
-                res.Append(card);
-            }
-            return res.ToString();
-        }
+        public override string ToString() =>
+           string.Join("", hand);
     }
 }
