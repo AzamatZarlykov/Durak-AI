@@ -90,5 +90,8 @@ namespace Model.TableDeck
             }
             return cardsToDraw;
         }
+
+        public override string ToString() =>
+            string.Join("", cards);
     }
 }

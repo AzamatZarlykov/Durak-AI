@@ -23,6 +23,8 @@ namespace Model.GameState
 
         public Turn turn;
 
+        public bool takes;
+
         public List<Card> attackingCards;
         public List<Card> defendingCards;
 
@@ -35,6 +37,8 @@ namespace Model.GameState
                                 new Card(game.GetTrumpCard().suit, (Rank)5);
 
             turn = game.GetTurnEnum();
+
+            takes = game.GetTake();
 
             attackingCards = game.GetBout().GetAttackingCards();
             defendingCards = game.GetBout().GetDefendingCards();

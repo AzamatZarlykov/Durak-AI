@@ -43,6 +43,8 @@ namespace Model.DurakWrapper
         private int attackingPlayer;
         private Turn turn;
 
+        private bool defenderTakes;
+
         private DiscardedPile discardedPile = new DiscardedPile();
         private List<Player> players = new List<Player>();
 
@@ -55,6 +57,7 @@ namespace Model.DurakWrapper
         public int GetAttackingPlayer() => attackingPlayer;
         public Bout GetBout() => bout;
         public Turn GetTurnEnum() => turn;
+        public bool GetTake() => defenderTakes;
 
         private void FillPlayerHand(List<Card> cards, Player player)
         {
@@ -344,7 +347,7 @@ namespace Model.DurakWrapper
             return false;
         }
 
-        private void EndBoutProcess(Player attacker, Player defender, bool takes = false)
+        private void EndBoutProcess(Player attacker, Player defender)
         {
             writer.WriteLineVerbose();
             writer.WriteVerbose("Attacker Drew: ");
@@ -352,9 +355,12 @@ namespace Model.DurakWrapper
             writer.WriteVerbose("Defender Drew: ");
             FillPlayerHand(deck.DrawCards(TOTALCARDS - defender.GetHand().Count), defender);
 
-            if (!takes)
+            if (!defenderTakes)
             {
                 discardedPile.AddCards(bout.GetEverything());
+            } else
+            {
+                defenderTakes = false;
             }
 
             if (discardedPile.GetSize() > 0)
@@ -409,14 +415,21 @@ namespace Model.DurakWrapper
                     writer.WriteLineVerbose("Defender's cards after: " + defender);
 
                     bout.AddDefendingCard(card, writer);
-                } 
+                }
                 else
                 {
                     writer.WriteLineVerbose("TAKES");
+                    defenderTakes = true;
+                    if (CanAttack())
+                    {
+                        turn = Turn.Attacking;
+                        writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn());
+                        return;
+                    }
                     if (!IsEndGame(attacker, defender, false))
                     {
                         FillPlayerHand(bout.GetEverything(), defender);
-                        EndBoutProcess(attacker, defender, true);
+                        EndBoutProcess(attacker, defender);
                     }
                 }
             }

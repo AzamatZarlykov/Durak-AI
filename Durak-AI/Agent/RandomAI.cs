@@ -1,5 +1,6 @@
 ﻿using Model.PlayingCards;
 using Model.GameState;
+using Model.DurakWrapper;
 
 namespace AIAgent
 {
@@ -14,6 +15,11 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
+            if (gameView.turn == Turn.Defending && gameView.takes)
+            {
+                return null;
+            }
+
             List<Card> cards = gameView.PossibleCards();
 
             // cannot attack/defend

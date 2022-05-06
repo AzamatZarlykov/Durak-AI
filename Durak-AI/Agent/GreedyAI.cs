@@ -50,6 +50,10 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
+            if (gameView.turn == Turn.Defending && gameView.takes)
+            {
+                return null;
+            }
 
             List<Card> cards = gameView.PossibleCards();
 
@@ -63,3 +67,6 @@ namespace AIAgent
         }
     }
 }
+
+
+// moves per bout 
