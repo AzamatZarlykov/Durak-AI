@@ -14,8 +14,11 @@ namespace CLI
 {
     class Controller
     {
-        private int numberOfGamesWonForPlayer0;
-        private int numberOfGamesWonForPlayer1;
+        private int gamesWonForPlayer0;
+        private int gamesWonForPlayer1;
+        private int draws;
+        private int bouts;
+        private int movesPerBout;
 
         private readonly GameParameters gameParameters;
         private readonly IWriter writer;
@@ -23,6 +26,51 @@ namespace CLI
         {
             this.gameParameters = gameParam;
             this.writer = writer;
+        }
+
+        private void PrintStatistics()
+        {
+            writer.WriteLine("\nTotal games played: " + gameParameters.NumberOfGames);
+            writer.WriteLine("Average bouts played over the game: " + bouts / gameParameters.NumberOfGames);
+            writer.WriteLine("Average moves per bout over the game: " + movesPerBout / gameParameters.NumberOfGames);
+            writer.WriteLine("Draw rate: " + (100 * (double)draws / gameParameters.NumberOfGames).ToString("0.#") + "%");
+            writer.WriteLine(gameParameters.Agents[0].GetName() + " win rate: " + (100 * (double)gamesWonForPlayer0 / gameParameters.NumberOfGames).ToString("0.#") + "%");
+            writer.WriteLine(gameParameters.Agents[1].GetName() + " win rate: " + (100 * (double)gamesWonForPlayer1 / gameParameters.NumberOfGames).ToString("0.#") + "%");
+            
+        }
+
+        private void HandleEndGameResult(Durak game)
+        {
+            writer.WriteLineVerbose("GAME OVER!!!");
+
+            int bout = game.GetBoutsCount();
+            int mpb = game.GetMovesPerBout();
+            int result = game.GetGameResult();
+            
+            if (result == 2)
+            {
+                writer.Write("Draw.");
+                writer.WriteLine(" Bouts: " + bout + ", Moves per bout: " + mpb);
+                draws++;
+                return;
+            }
+
+            writer.Write(
+                "Player " + result + " (" + gameParameters.Agents[result].GetName() + ") won."
+            );
+
+            writer.WriteLine(" Bouts: " + bout + ", Moves per bout: " + mpb);
+
+            if (result == 0)
+            {
+                gamesWonForPlayer0++;
+            }
+            else
+            {
+                gamesWonForPlayer1++;
+            }
+            bouts += bout;
+            movesPerBout += mpb;
         }
 
         public void Run()
@@ -41,25 +89,9 @@ namespace CLI
                     Card? card = gameParameters.Agents[turn].Move(new GameView(game));
                     game.Move(card);
                 }
-
-                writer.WriteLineVerbose("GAME OVER!!!");
-                int winner = game.GetWinner();
-                writer.WriteLine(
-                    "Player " + winner + " (" + gameParameters.Agents[winner].GetName() + ") won"
-                );
-                if (winner == 0)
-                {
-                    numberOfGamesWonForPlayer0++;
-                } else
-                {
-                    numberOfGamesWonForPlayer1++;
-                }
+                HandleEndGameResult(game);
             }
-
-            writer.WriteLine("Total games played: " + gameParameters.NumberOfGames);
-            writer.WriteLine(gameParameters.Agents[0].GetName() + " win rate: " + (100 * (double)numberOfGamesWonForPlayer0 / gameParameters.NumberOfGames).ToString("0.#") + "%");
-            writer.WriteLine(gameParameters.Agents[1].GetName() + " win rate: " + (100 * (double)numberOfGamesWonForPlayer1 / gameParameters.NumberOfGames).ToString("0.#") + "%");
-
+            PrintStatistics();
         }
     }
 }

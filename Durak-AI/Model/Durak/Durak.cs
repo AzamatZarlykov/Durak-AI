@@ -33,7 +33,7 @@ namespace Model.DurakWrapper
     public class Durak
     {
         private readonly IWriter writer;
-
+        
         public GameStatus gameStatus;
 
         private Bout bout;
@@ -44,6 +44,10 @@ namespace Model.DurakWrapper
         private Turn turn;
 
         private bool defenderTakes;
+        private bool isDraw;
+
+        private int bouts;
+        private int moves;
 
         private DiscardedPile discardedPile = new DiscardedPile();
         private List<Player> players = new List<Player>();
@@ -58,6 +62,7 @@ namespace Model.DurakWrapper
         public Bout GetBout() => bout;
         public Turn GetTurnEnum() => turn;
         public bool GetTake() => defenderTakes;
+        public bool GetIsDraw() => isDraw;
 
         private void FillPlayerHand(List<Card> cards, Player player)
         {
@@ -86,8 +91,11 @@ namespace Model.DurakWrapper
             writer.WriteLineVerbose();
             writer.WriteVerbose("Player0 cards: ");
             FillPlayerHand(deck.DrawCards(6), players[0]);
+
             writer.WriteVerbose("Player1 cards: ");
             FillPlayerHand(deck.DrawCards(6), players[1]);
+
+
         }
 
         private int GetRandomPlayerIndex()
@@ -162,6 +170,9 @@ namespace Model.DurakWrapper
         public void Initialize()
         {
             gameStatus = GameStatus.GameInProcess;
+            isDraw = false;
+            bouts = 0;
+            moves = 0;
 
             // instantiate the deck 
             deck.Init();
@@ -298,21 +309,13 @@ namespace Model.DurakWrapper
         }
 
         // returns how many players are still playing (have cards in the game)
-        private int GetSizeOfPlayingPlayers() =>
-            players.Count(p => p.GetState() == PlayerState.Playing);
+        private bool IsDurakAssigned() =>
+            players.Exists(p => p.GetState() == PlayerState.Durak);
 
-        // The game is over when there is only one playing player left
+        // return true if game is draw or durak is assigned
         private bool IsGameOver()
         {
-            return GetSizeOfPlayingPlayers() == 1;
-        }
-
-        private void CheckIfPlayerIsWinner(Player player)
-        {
-            if (!IsGameOver() && player.GetNumberOfCards() == 0)
-            {
-                player.SetState(PlayerState.Winner);
-            }
+            return IsDurakAssigned() || isDraw;
         }
 
         // Function that removes the cards from the last player (defending)
@@ -325,23 +328,42 @@ namespace Model.DurakWrapper
             }
         }
 
-        private bool IsEndGame(Player attacker, Player defender, bool fromAttacker = true)
+        private void EndGameRoleAssignment(Player first, Player second)
         {
-            if (fromAttacker)
+            first.SetState(PlayerState.Winner);
+            second.SetState(PlayerState.Durak);
+            RemovePlayersCards(second);
+        }
+
+
+        private void UpdateGameStatus(Player attacker, Player defender)
+        {
+            if (attacker.GetNumberOfCards() == 0 && defender.GetNumberOfCards() == 0)
             {
-                CheckIfPlayerIsWinner(attacker);
-                CheckIfPlayerIsWinner(defender);
+                isDraw = true;
             }
-            else
+            else if (attacker.GetNumberOfCards() == 0 && defender.GetNumberOfCards() > 0)
             {
-                CheckIfPlayerIsWinner(players[attackingPlayer]);
+                EndGameRoleAssignment(attacker, defender);
             }
+            else if (defender.GetNumberOfCards() == 0 && attacker.GetNumberOfCards() > 0) 
+            {
+                EndGameRoleAssignment(defender, attacker);
+            }
+        }
+
+        private bool IsEndGame(Player attacker, Player defender)
+        {
+            if (deck.cardsLeft != 0 && deck.GetRankStart() < 12)
+            {
+                return false;
+            }
+
+            UpdateGameStatus(attacker, defender);
 
             if (IsGameOver())
             {
-                defender.SetState(PlayerState.Durak);
                 gameStatus = GameStatus.GameOver;
-                RemovePlayersCards(defender);
                 return true;
             }
             return false;
@@ -369,6 +391,8 @@ namespace Model.DurakWrapper
             }
             bout.RemoveCards();
             writer.WriteLineVerbose();
+
+            bouts++;
         }
 
 
@@ -379,6 +403,7 @@ namespace Model.DurakWrapper
 
             if (turn == Turn.Attacking)
             {
+                moves++;
                 writer.WriteLineVerbose("Attacker's cards before: " + attacker);
                 if (card is not null)
                 {
@@ -405,8 +430,8 @@ namespace Model.DurakWrapper
             }
             else
             {
+                moves++;
                 writer.WriteLineVerbose("Defender's cards before: " + defender);
-
                 if (card is not null)
                 {
                     writer.WriteVerbose("Defends: ");
@@ -426,7 +451,7 @@ namespace Model.DurakWrapper
                         writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn());
                         return;
                     }
-                    if (!IsEndGame(attacker, defender, false))
+                    if (!IsEndGame(attacker, defender))
                     {
                         FillPlayerHand(bout.GetEverything(), defender);
                         EndBoutProcess(attacker, defender);
@@ -443,9 +468,17 @@ namespace Model.DurakWrapper
             return turn == Turn.Attacking ? 0 + attackingPlayer : (1 + attackingPlayer) % NUMBEROFPLAYERS;
         }
 
-        public int GetWinner()
+        public int GetGameResult()
         {
+            if (isDraw)
+            {
+                return 2;
+            }
             return players[0].GetState() == PlayerState.Winner ? 0 : 1;
         }
+
+        public int GetBoutsCount() => bouts;
+
+        public int GetMovesPerBout() => moves / bouts;
     }
 }

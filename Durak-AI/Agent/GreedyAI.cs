@@ -24,9 +24,9 @@ namespace AIAgent
         }
 
         // select lowest card that is not a trump. O/W pass/take
-        private Card? GetCard(List<Card> cards, Card trump, GameView gw)
+        private Card? GetCard(List<Card> cards, GameView gw)
         {
-            List<Card> noTrumpCards = GetCardsWithoutTrump(cards, trump);
+            List<Card> noTrumpCards = GetCardsWithoutTrump(cards, gw.trumpCard);
 
             if (noTrumpCards.Count == 0)
             {
@@ -63,7 +63,7 @@ namespace AIAgent
                 return null;
             }
 
-            return GetCard(cards, gameView.trumpCard, gameView);
+            return GetCard(cards, gameView);
         }
     }
 }
