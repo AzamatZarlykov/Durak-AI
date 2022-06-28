@@ -9,6 +9,7 @@ using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
 using Helpers.Writer;
+using Helpers.Wilson_Score;
 
 namespace CLI
 {
@@ -21,22 +22,50 @@ namespace CLI
         private int movesPerBout;
 
         private readonly GameParameters gameParameters;
+
         private readonly IWriter writer;
+        private readonly IWilson wilson_score;
+
         public Controller(GameParameters gameParam, IWriter writer) 
         {
             this.gameParameters = gameParam;
             this.writer = writer;
+            this.wilson_score = new Wilson();
         }
 
         private void PrintStatistics()
         {
             writer.WriteLine("\nTotal games played: " + gameParameters.NumberOfGames);
+            writer.WriteLine();
             writer.WriteLine("Average bouts played over the game: " + bouts / gameParameters.NumberOfGames);
             writer.WriteLine("Average moves per bout over the game: " + movesPerBout / gameParameters.NumberOfGames);
+            writer.WriteLine();
+
             writer.WriteLine("Draw rate: " + (100 * (double)draws / gameParameters.NumberOfGames).ToString("0.#") + "%");
-            writer.WriteLine(gameParameters.Agents[0].GetName() + " win rate: " + (100 * (double)gamesWonForPlayer0 / gameParameters.NumberOfGames).ToString("0.#") + "%");
-            writer.WriteLine(gameParameters.Agents[1].GetName() + " win rate: " + (100 * (double)gamesWonForPlayer1 / gameParameters.NumberOfGames).ToString("0.#") + "%");
-            
+            writer.WriteLine();
+            writer.WriteLine("Agent 0 (" + gameParameters.Agents[0].GetName() + ") win rate: " + (100 * (double)gamesWonForPlayer0 / gameParameters.NumberOfGames).ToString("0.#") + "%");
+            writer.WriteLine("Agent 1 (" + gameParameters.Agents[1].GetName() + ") win rate: " + (100 * (double)gamesWonForPlayer1 / gameParameters.NumberOfGames).ToString("0.#") + "%");
+            writer.WriteLine();
+
+            double win_proportion0 = (double)gamesWonForPlayer0 / gameParameters.NumberOfGames;
+            (double, double) score_0 = wilson_score.WilsonScore(win_proportion0, gameParameters.NumberOfGames);
+
+            double win_proportion1 = (double)gamesWonForPlayer1 / gameParameters.NumberOfGames;
+            (double, double) score_1 = wilson_score.WilsonScore(win_proportion1, gameParameters.NumberOfGames);
+
+            Console.WriteLine("With 98% Confidence Interval, Agent 0 ({0}) wins between {1}% and {2}%",
+                gameParameters.Agents[0].GetName(),
+                (100 * score_0.Item1).ToString("0.#"),
+                (100 * score_0.Item2).ToString("0.#")
+                );
+
+            Console.WriteLine("With 98% Confidence Interval, Agent 1 ({0}) wins between {1}% and {2}%",
+                gameParameters.Agents[0].GetName(),
+                (100 * score_1.Item1).ToString("0.#"),
+                (100 * score_1.Item2).ToString("0.#")
+                );
+            writer.WriteLine();
+
         }
 
         private void HandleEndGameResult(Durak game)
@@ -56,7 +85,7 @@ namespace CLI
             }
 
             writer.Write(
-                "Player " + result + " (" + gameParameters.Agents[result].GetName() + ") won."
+                "Agent " + result + " (" + gameParameters.Agents[result].GetName() + ") won."
             );
 
             writer.WriteLine(" Bouts: " + bout + ", Moves per bout: " + mpb);
@@ -95,4 +124,3 @@ namespace CLI
         }
     }
 }
-// Hello world - change in the wilson score
