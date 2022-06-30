@@ -8,6 +8,10 @@ namespace Helpers.Writer
         private readonly bool verbose;
         private readonly TextWriter writer;
 
+        private ConsoleColor[] colors = { 
+            ConsoleColor.Green, ConsoleColor.Red, ConsoleColor.Blue, ConsoleColor.White
+        };
+
         public Writer(TextWriter writer, bool verbose)
         {
             this.writer = writer;
@@ -16,7 +20,7 @@ namespace Helpers.Writer
 
         public void Write(string s)
         {
-            SetDefaultColor();
+            Console.ForegroundColor = colors[3];
             writer.Write(s);
         }
 
@@ -27,7 +31,7 @@ namespace Helpers.Writer
 
         public void WriteLine(string s)
         {
-            SetDefaultColor();
+            Console.ForegroundColor = colors[3];
             writer.WriteLine(s);
         }
 
@@ -35,7 +39,7 @@ namespace Helpers.Writer
         {
             if (verbose)
             {
-                SetDefaultColor();
+                Console.ForegroundColor = colors[3];
                 writer.Write(s);
             }
         }
@@ -52,28 +56,8 @@ namespace Helpers.Writer
         {
             if (verbose)
             {
-                SetDefaultColor();
+                Console.ForegroundColor = colors[3];
                 writer.WriteLine(s);
-            }
-        }
-
-        /*
-            These methods will display the output with different colors based on
-            id param. Color.Green is assigned to 0. Color.Red to 1. 
-         */
-        public void SetColor(int id)
-        {
-            if (id == 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
-            else if (id == 1)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
             }
         }
 
@@ -82,7 +66,7 @@ namespace Helpers.Writer
         {
             if (verbose)
             {
-                SetColor(id);
+                Console.ForegroundColor = colors[id];
                 writer.Write(text);
             }
         }
@@ -91,17 +75,9 @@ namespace Helpers.Writer
         {
             if (verbose)
             {
-                SetColor(id);
+                Console.ForegroundColor = colors[id];
                 writer.WriteLine(text);
             }
-        }
-
-        /*
-         This method sets the color to default
-         */
-        public void SetDefaultColor()
-        {
-            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

@@ -18,30 +18,19 @@ namespace Model.GameState
     public class GameView
     {
         private Durak game;
-        public Deck deck;
-        public Card trumpCard;
 
-        public Turn turn;
+        public Deck deck => game.GetDeck();
+        public Suit trumpSuit => game.GetTrumpCard().suit;
+        public Turn turn => game.GetTurnEnum();
 
-        public bool takes;
+        public bool takes => game.GetTake();
 
-        public List<Card> attackingCards;
-        public List<Card> defendingCards;
+        public List<Card> attackingCards => game.GetBout().GetAttackingCards();
+        public List<Card> defendingCards => game.GetBout().GetDefendingCards();
 
         public GameView (Durak game)
         {
             this.game = game;
-
-            deck = game.GetDeck();
-            trumpCard = game.GetDeck().cardsLeft != 0 ? game.GetTrumpCard() :
-                                new Card(game.GetTrumpCard().suit, (Rank)5);
-
-            turn = game.GetTurnEnum();
-
-            takes = game.GetTake();
-
-            attackingCards = game.GetBout().GetAttackingCards();
-            defendingCards = game.GetBout().GetDefendingCards();
         }
 
         public List<Card> PossibleCards()

@@ -10,22 +10,9 @@ namespace CLI
 {
     public class Parser
     {
-        private static Agent GetAgentType(string type, int param)
-        {
-            if (type == "random")
-            {
-                return new RandomAI(param);
-            }
-            else if (type == "greedy")
-            {
-                return new GreedyAI();
-            }
-            return new RandomAI(param);
-        }
-
         private static void ExpectedOutput()
         {
-            Console.WriteLine("    expected output(result is random): ");
+            Console.WriteLine("    expected output for multiple games (result is random): ");
             Console.WriteLine("\tGame 1: Player 1 (GreedyAI) won");
             Console.WriteLine("\tGame 2: Player 1 (GreedyAI) won");
             Console.WriteLine("\t...");
@@ -38,8 +25,12 @@ namespace CLI
 
         private static void ExampleUsage()
         {
-            Console.WriteLine("    usage example: ");
-            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -seed_one=2 -ai2=greedy -total_games=1000 -verbose=false");
+            Console.WriteLine("    usage example for multiple games: ");
+            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -total_games=1000 -verbose=false");
+            Console.WriteLine();
+
+            Console.WriteLine("    usage example for a specific game: ");
+            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -seed=29 -verbose=false");
             Console.WriteLine();
         }
 
@@ -61,18 +52,13 @@ namespace CLI
             "Possible AIs: random, greedy, minimax, montecarlo")]
             string ai_name_one,
 
-            [DefaultValue(4), LessOrEqualTo(5), Aliases("seed_one")]
-            [Description("An int parameter for a depth and an additional alias for seed parameter for first AI")]
-            int depth_one,
-
             [DefaultValue("random"), Aliases("ai2")]
             [Description("A string parameter for a second AI name with an additional alias. " +
             "Possible AIs: random, greedy, minimax, montecarlo")]
             string ai_name_two,
 
-            [DefaultValue(4), LessOrEqualTo(5), Aliases("seed_two")]
-            [Description("An int parameter for a depth and an additional alias for seed parameter for second AI")]
-            int depth_two,
+            [Description("An int parameter that runs the specific game given indicated seed")]
+            int seed,
 
             [DefaultValue(1000)]
             [Description("An int parameter to indicate total games to play")]
@@ -87,18 +73,19 @@ namespace CLI
             bool verbose
         )
         {
-            var agents = new List<Agent>
+            if (seed > 0)
             {
-                GetAgentType(ai_name_one, depth_one),
-                GetAgentType(ai_name_two, depth_two)
-            };
+                total_games = 1;
+            }
+
+            string[] agents = { ai_name_one, ai_name_two };
 
             var gameParam = new GameParameters
             {
                 NumberOfGames = total_games,
                 StartingRank = start_rank,
                 Agents = agents,
-                Seed = depth_one
+                Seed = seed
             };
 
             var writer = new Writer(Console.Out, verbose);

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 using Model.PlayingCards;
 
-namespace Model.DiscardedHeap
+namespace Model.DiscardHeap
 {
-    public class DiscardedPile
+    public class DiscardPile
     {
         private List<Card> discardedPile = new List<Card>();
 
-        public DiscardedPile()
+        public DiscardPile()
         {
 
         }

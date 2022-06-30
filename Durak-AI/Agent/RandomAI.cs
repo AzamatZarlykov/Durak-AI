@@ -10,16 +10,10 @@ namespace AIAgent
         public RandomAI(int seed) 
         {
             this.random = new Random(seed);
-            this.name = "RandomAI";
         }
 
         public override Card? Move(GameView gameView)
         {
-            if (gameView.turn == Turn.Defending && gameView.takes)
-            {
-                return null;
-            }
-
             List<Card> cards = gameView.PossibleCards();
 
             // cannot attack/defend

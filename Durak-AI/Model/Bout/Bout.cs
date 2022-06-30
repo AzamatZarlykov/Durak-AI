@@ -35,39 +35,39 @@ namespace Model.MiddleBout
         public bool CheckExistingSuits(Suit suit) =>
             attackingCards.Exists(card => card.suit == suit);
 
-        public void AddAttackingCard(Card card, IWriter writer)
+        public void AddCard(Card card, Card trump, IWriter writer, bool attacking)
         {
-            attackingCards.Add(card);
-            Info(writer);
+            if (attacking)
+            {
+                attackingCards.Add(card);
+            } else
+            {
+                defendingCards.Add(card);
+            }
+            Info(trump, writer);
         }
 
-        public void AddDefendingCard(Card card, IWriter writer)
-        {
-            defendingCards.Add(card);
-            Info(writer);
-        }
-        
         public void RemoveCards()
         {
             attackingCards.Clear();
             defendingCards.Clear();
         }
 
-        private void Info(IWriter writer)
+        private void Info(Card trump, IWriter writer)
         {
             writer.WriteLineVerbose();
-            writer.WriteLineVerbose("Bout");
+            writer.WriteLineVerbose("Bout:");
             writer.WriteVerbose("Attacking cards: ");
             foreach(Card card in attackingCards)
             {
-                writer.WriteVerbose(card + " ");
+                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3);
             }
             writer.WriteLineVerbose();
 
             writer.WriteVerbose("Defending cards: ");
             foreach (Card card in defendingCards)
             {
-                writer.WriteVerbose(card + " ");
+                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3);
             }
             writer.WriteLineVerbose();
             writer.WriteLineVerbose();

@@ -13,28 +13,19 @@ namespace Model.TableDeck
     /// </summary>
     public class Deck
     {
-        private readonly Random rGen;
-
         private readonly int rankStart;
-        private readonly int seed;
 
         private List<Card> cards = new List<Card>();
 
         public int cardsLeft => cards.Count;
         public int GetRankStart() => rankStart;    
-        public int GetSeed() => seed;
-        
 
-        // initializes the deck by creating all the ranks
-        // with the corresponding suits and store in the cards list
-        public Deck(int rankStartingPoint, int seed)
+        public Deck(int rankStartingPoint)
         {
-            this.seed = seed;
-            this.rGen = new Random(seed);
             this.rankStart = rankStartingPoint;
         }
 
-        public void Init()
+        public void Init(Random random)
         {
             for (int suit = 0; suit < 4; suit++)
             {
@@ -43,17 +34,17 @@ namespace Model.TableDeck
                     cards.Add(new Card((Suit)suit, (Rank)rank));
                 }
             }
-            Shuffle();
+            Shuffle(random);
         }
 
 
         // Shuffles the deck of cards using Fisher-Yates shuffle
         // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-        public void Shuffle()
+        public void Shuffle(Random random)
         {
             for (int i = cards.Count() - 1; i > 0; i--)
             {
-                int indexGen = rGen.Next(i + 1);
+                int indexGen = random.Next(i + 1);
                 (cards[i], cards[indexGen]) = (cards[indexGen], cards[i]);
             }
         }

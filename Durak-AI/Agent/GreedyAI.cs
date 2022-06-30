@@ -8,11 +8,10 @@ namespace AIAgent
     {
         public GreedyAI() 
         {
-            this.name = "GreedyAI";
         }
 
-        private List<Card> GetCardsWithoutTrump(List<Card> cards, Card trump) =>
-            cards.Where(c => c.suit != trump.suit).ToList();
+        private List<Card> GetCardsWithoutTrump(List<Card> cards, Suit trump) =>
+            cards.Where(c => c.suit != trump).ToList();
 
         private Card GetLowestRank(List<Card> cards) =>
             cards.MinBy(c => c.rank)!;
@@ -26,7 +25,7 @@ namespace AIAgent
         // select lowest card that is not a trump. O/W pass/take
         private Card? GetCard(List<Card> cards, GameView gw)
         {
-            List<Card> noTrumpCards = GetCardsWithoutTrump(cards, gw.trumpCard);
+            List<Card> noTrumpCards = GetCardsWithoutTrump(cards, gw.trumpSuit);
 
             if (noTrumpCards.Count == 0)
             {
@@ -50,11 +49,6 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
-            if (gameView.turn == Turn.Defending && gameView.takes)
-            {
-                return null;
-            }
-
             List<Card> cards = gameView.PossibleCards();
 
             // cannot attack/defend
