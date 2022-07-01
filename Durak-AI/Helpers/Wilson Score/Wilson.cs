@@ -9,7 +9,7 @@ namespace Helpers.Wilson_Score
     /// <summary>
     /// This class calculates the Wilson score interval with 98% confidence interval
     /// </summary>
-    public class Wilson : IWilson
+    public class Wilson
     {
         private double z;
         public Wilson()

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Helpers.Writer
 {
-    public class Writer : IWriter
+    public class Writer
     {
         private readonly bool verbose;
         private readonly TextWriter writer;

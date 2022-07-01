@@ -10,19 +10,6 @@ namespace CLI
 {
     public class Parser
     {
-        private static void ExpectedOutput()
-        {
-            Console.WriteLine("    expected output for multiple games (result is random): ");
-            Console.WriteLine("\tGame 1: Player 1 (GreedyAI) won");
-            Console.WriteLine("\tGame 2: Player 1 (GreedyAI) won");
-            Console.WriteLine("\t...");
-            Console.WriteLine("\tGame 1000: Player 1 (GreedyAI) won");
-            Console.WriteLine("\tTotal games played: 1000");
-            Console.WriteLine("\tRandomAI win rate: 6.9%");
-            Console.WriteLine("\tGreedyAI win rate: 93.1%");
-            Console.WriteLine();
-        }
-
         private static void ExampleUsage()
         {
             Console.WriteLine("    usage example for multiple games: ");
@@ -42,7 +29,6 @@ namespace CLI
 
             Console.WriteLine(help);
             ExampleUsage();
-            ExpectedOutput();
         }
 
         [Verb(IsDefault = true)]

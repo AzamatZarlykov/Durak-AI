@@ -32,7 +32,7 @@ namespace Model.DurakWrapper
     /// </summary>
     public class Durak
     {
-        private readonly IWriter writer;
+        private readonly Writer writer;
         
         public GameStatus gameStatus;
 
@@ -64,7 +64,7 @@ namespace Model.DurakWrapper
         public bool GetTake() => defenderTakes;
         public bool GetIsDraw() => isDraw;
 
-        public Durak(int rankStartingPoint, IWriter w)
+        public Durak(int rankStartingPoint, Writer w)
         {
             trumpCard = new Card();
             bout = new Bout();
@@ -139,7 +139,7 @@ namespace Model.DurakWrapper
         public void Info()
         {
             writer.WriteLineVerbose();
-            writer.WriteLineVerbose("==== START ====");
+            writer.WriteLineVerbose("\n==== START ====");
             writer.WriteLineVerbose();
 
             writer.WriteLineVerbose("Trump card: " + trumpCard);

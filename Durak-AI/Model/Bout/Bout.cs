@@ -35,7 +35,7 @@ namespace Model.MiddleBout
         public bool CheckExistingSuits(Suit suit) =>
             attackingCards.Exists(card => card.suit == suit);
 
-        public void AddCard(Card card, Card trump, IWriter writer, bool attacking)
+        public void AddCard(Card card, Card trump, Writer writer, bool attacking)
         {
             if (attacking)
             {
@@ -53,7 +53,7 @@ namespace Model.MiddleBout
             defendingCards.Clear();
         }
 
-        private void Info(Card trump, IWriter writer)
+        private void Info(Card trump, Writer writer)
         {
             writer.WriteLineVerbose();
             writer.WriteLineVerbose("Bout:");

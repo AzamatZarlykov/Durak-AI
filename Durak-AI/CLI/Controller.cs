@@ -25,10 +25,10 @@ namespace CLI
 
         private readonly GameParameters gameParameters;
 
-        private readonly IWriter writer;
-        private readonly IWilson wilson_score;
+        private readonly Writer writer;
+        private readonly Wilson wilson_score;
 
-        public Controller(GameParameters gameParam, IWriter writer) 
+        public Controller(GameParameters gameParam, Writer writer) 
         {
             this.gameParameters = gameParam;
             this.writer = writer;
@@ -38,58 +38,50 @@ namespace CLI
             this.wilson_score = new Wilson();
         }
 
+        private void DisplayWilsonScore(int total_games)
+        {
+            for (int i = 0; i < 2; ++i)
+            {
+                double win_proportion = (double)gamesWon[i] / gameParameters.NumberOfGames;
+                (double, double) score = wilson_score.WilsonScore(win_proportion, gameParameters.NumberOfGames);
+
+                Console.WriteLine($"With 98% confidence, Agent 1 ({gameParameters.Agents[0]}AI) " +
+                    $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% " +
+                    $"(~ {(int)(score.Item1 * total_games)}-{(int)(score.Item2 * total_games)} " +
+                    $"games)");
+            }
+            Console.WriteLine();
+        }
+
+        private void DisplayWinRate(int total_games)
+        {
+            Console.WriteLine($"Draw rate: {(100 * (double)draws / total_games):f1}%");
+            for (int i = 0; i < 2; ++i)
+                Console.WriteLine($"Agent {i + 1} ({gameParameters.Agents[i]}AI) win rate: " +
+                    $"{(100 * (double)gamesWon[i] / total_games)}%");
+
+            Console.WriteLine();
+        }
+
         private void PrintStatistics()
         {
             int total_games = gameParameters.NumberOfGames;
 
-            Console.WriteLine();
-            Console.WriteLine("==== Statistics ====");
-            Console.WriteLine("Total games played: {0}", total_games);
-            Console.WriteLine();
-            Console.WriteLine("Average bouts played over the game: {0}", 
-                ((double)bouts / total_games).ToString("0.#"));
+            Console.WriteLine("\n==== STATISTICS ====");
+            Console.WriteLine("Total games played: {0}\n", total_games);
+            Console.WriteLine($"Average bouts played over the game: " +
+                $"{((double)bouts / total_games):f1}");
 
-            Console.WriteLine("Average moves per bout over the game: {0}", 
-                (movesPerBout / total_games).ToString("0.#"));
-            Console.WriteLine();
+            Console.WriteLine($"Average moves per bout over the game: " +
+                $"{(movesPerBout / total_games):f1}\n");
 
-            Console.WriteLine("Draw rate: {0}%",
-                (100 * (double)draws / total_games).ToString("0.#"));
-            Console.WriteLine();
 
-            for (int i = 0; i < 2; ++i)
-                Console.WriteLine("Agent {0} ({1}AI) win rate: {2}%", 
-                    i + 1,
-                    gameParameters.Agents[i], 
-                    (100 * (double)gamesWon[i] / total_games).ToString("0.#")
-                );
-            
-            Console.WriteLine();
+            DisplayWinRate(total_games);
 
-            double win_proportion0 = (double)gamesWon[0] / total_games;
-            (double, double) score_0 = wilson_score.WilsonScore(win_proportion0, total_games);
-
-            double win_proportion1 = (double)gamesWon[1] / gameParameters.NumberOfGames;
-            (double, double) score_1 = wilson_score.WilsonScore(win_proportion1, total_games);
-
-            Console.WriteLine(
-                "With 98% confidence, Agent 1 ({0}AI) wins between {1}% and {2}% (~ {3}-{4} games)",
-                gameParameters.Agents[0],
-                (100 * score_0.Item1).ToString("0.#"),
-                (100 * score_0.Item2).ToString("0.#"),
-                (int)(score_0.Item1 * total_games),
-                (int)(score_0.Item2 * total_games)
-                );
-
-            Console.WriteLine(
-                "With 98% confidence, Agent 2 ({0}AI) wins between {1}% and {2}% (~ {3}-{4} games)",
-                gameParameters.Agents[1],
-                (100 * score_1.Item1).ToString("0.#"),
-                (100 * score_1.Item2).ToString("0.#"),
-                (int)(score_1.Item1 * total_games),
-                (int)(score_1.Item2 * total_games)
-                );
-            Console.WriteLine();
+            if (total_games > 1)
+            {
+                DisplayWilsonScore(total_games);
+            }
         }
                                                                                                    
         private void HandleEndGameResult(Durak game)
@@ -101,17 +93,13 @@ namespace CLI
 
             if (result == 2)
             {
-                writer.Write("Draw.");
-                writer.WriteLine(" Bouts: " + bout + ", Moves per bout: " + mpb.ToString("0.#"));
+                Console.Write("Draw.");
+                Console.WriteLine($" Bouts: {bout}, Moves per bout: {mpb:f1}");
                 draws++;
                 return;
             }
-
-            writer.Write(
-                "Agent " + (result + 1) + " (" + gameParameters.Agents[result] + ") won."
-            );
-
-            writer.WriteLine(" Bouts: " + bout + ", Moves per bout: " + mpb.ToString("0.#"));
+            Console.Write($"Agent {result + 1} ({gameParameters.Agents[result]}) won");
+            Console.WriteLine($" Bouts: {bout}, Moves per bout: {mpb:f1}");
 
             if (result == 0)
             {
@@ -157,6 +145,7 @@ namespace CLI
             int i = gameParameters.Seed == 0 ? 1 : gameParameters.Seed;
             int end = gameParameters.NumberOfGames == 1 ? i : gameParameters.NumberOfGames;
 
+            Console.WriteLine("==== RUNNING ====\n");
             for (; i <= end; i++)
             {
                 writer.Write("Game " + i + ": ");
