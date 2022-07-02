@@ -64,13 +64,13 @@ namespace Model.DurakWrapper
         public bool GetTake() => defenderTakes;
         public bool GetIsDraw() => isDraw;
 
-        public Durak(int rankStartingPoint, Writer w)
+        public Durak(int rankStartingPoint, bool verbose)
         {
             trumpCard = new Card();
             bout = new Bout();
             discardPile = new DiscardPile();
             deck = new Deck(rankStartingPoint);
-            writer = w;
+            writer = new Writer(Console.Out, verbose);
         }
 
         public Durak Copy()

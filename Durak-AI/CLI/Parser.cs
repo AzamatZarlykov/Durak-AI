@@ -78,9 +78,7 @@ namespace CLI
                 Seed = seed
             };
 
-            var writer = new Writer(Console.Out, verbose);
-
-            Controller controller = new Controller(gameParam, writer);
+            Controller controller = new Controller(gameParam);
             controller.Run();
         }
     }

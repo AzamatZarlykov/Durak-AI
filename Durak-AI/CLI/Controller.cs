@@ -25,13 +25,11 @@ namespace CLI
 
         private readonly GameParameters gameParameters;
 
-        private readonly Writer writer;
         private readonly Wilson wilson_score;
 
-        public Controller(GameParameters gameParam, Writer writer) 
+        public Controller(GameParameters gameParam) 
         {
             this.gameParameters = gameParam;
-            this.writer = writer;
 
             this.gamesWon = new int[2];
             this.agents = new List<Agent>();
@@ -43,7 +41,8 @@ namespace CLI
             for (int i = 0; i < 2; ++i)
             {
                 double win_proportion = (double)gamesWon[i] / gameParameters.NumberOfGames;
-                (double, double) score = wilson_score.WilsonScore(win_proportion, gameParameters.NumberOfGames);
+                (double, double) score = wilson_score.WilsonScore(
+                    win_proportion, gameParameters.NumberOfGames);
 
                 Console.WriteLine($"With 98% confidence, Agent 1 ({gameParameters.Agents[0]}AI) " +
                     $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% " +
@@ -140,7 +139,7 @@ namespace CLI
 
         public void Run()
         {
-            Durak game = new Durak(gameParameters.StartingRank, writer);
+            Durak game = new Durak(gameParameters.StartingRank, gameParameters.Verbose);
 
             int i = gameParameters.Seed == 0 ? 1 : gameParameters.Seed;
             int end = gameParameters.NumberOfGames == 1 ? i : gameParameters.NumberOfGames;
@@ -148,7 +147,7 @@ namespace CLI
             Console.WriteLine("==== RUNNING ====\n");
             for (; i <= end; i++)
             {
-                writer.Write("Game " + i + ": ");
+                Console.Write("Game " + i + ": ");
                 game.Initialize(i);
                 InitializeAgents(i);
 
