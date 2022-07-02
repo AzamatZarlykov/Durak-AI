@@ -55,6 +55,10 @@ namespace CLI
             int start_rank,
 
             [DefaultValue(false)]
+            [Description("A bool parameter that allows to have all cards to be open or closed")]
+            bool open_world,
+
+            [DefaultValue(false)]
             [Description("A boolean parameter to indicate verbouse output")]
             bool verbose
         )

@@ -21,7 +21,18 @@ namespace Model.MiddleBout
         public List<Card> GetAttackingCards() => attackingCards;
         public List<Card> GetDefendingCards() => defendingCards;
         public Card GetAttackingCard(int index) => attackingCards[index];
-        
+        public Bout Copy()
+        {
+            Bout copy = (Bout)this.MemberwiseClone();
+            // copy attacking cards from the original bout
+            copy.attackingCards = attackingCards.ConvertAll(x => x.Copy());
+
+            // copy defending cards from the original bout
+            copy.defendingCards = defendingCards.ConvertAll(x => x.Copy());
+         
+            return copy;
+        }
+
         public List<Card> GetEverything()
         {
             return new List<Card>(attackingCards.Concat(defendingCards));

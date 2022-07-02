@@ -28,6 +28,14 @@ namespace Model.GamePlayer
         {
         }
 
+        public Player Copy()
+        {
+            Player copy = (Player)this.MemberwiseClone();
+
+            copy.hand = hand.ConvertAll(x => x.Copy());
+
+            return copy;
+        }
         public PlayerState GetState() => state;
 
         public List<Card> GetHand() => hand;

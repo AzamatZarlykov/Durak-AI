@@ -8,10 +8,16 @@
         private string[] suitUnicode = { "♠", "♥", "♦", "♣" };
 
         public Card() { }
+
         public Card(Suit _suit, Rank _rank)
         {
             suit = _suit;
             rank = _rank;
+        }
+
+        public Card Copy()
+        {
+            return (Card)this.MemberwiseClone();
         }
 
         public string GetSuit(int index)

@@ -25,6 +25,14 @@ namespace Model.TableDeck
             this.rankStart = rankStartingPoint;
         }
 
+        public Deck Copy()
+        {
+            Deck copy = (Deck)this.MemberwiseClone();
+            // copy cards from the original deck to the copy
+            copy.cards = cards.ConvertAll(card => card.Copy());
+            return copy;
+        }
+
         public void Init(Random random)
         {
             for (int suit = 0; suit < 4; suit++)

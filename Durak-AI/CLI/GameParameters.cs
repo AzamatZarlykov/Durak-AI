@@ -12,9 +12,11 @@ namespace CLI
     {
         public int NumberOfGames { get; set; }
         public int StartingRank { get; set; }
-        public string[] Agents { get; set; } = new string[2];
         public int Seed { get; set; }
         public bool Verbose { get; set; }
+        public bool OpenWorld { get; set; }
+        public string[] Agents { get; set; } = new string[2];
+
 
     }
 }

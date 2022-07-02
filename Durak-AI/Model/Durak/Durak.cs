@@ -39,6 +39,7 @@ namespace Model.DurakWrapper
         private Bout bout;
         private Deck deck;
         private Card trumpCard;
+        private DiscardPile discardPile;
 
         private int attackingPlayer;
         private Turn turn;
@@ -49,7 +50,6 @@ namespace Model.DurakWrapper
         private int bouts;
         private int moves;
 
-        private DiscardPile discardPile = new DiscardPile();
         private List<Player> players = new List<Player>();
 
         private const int NUMBEROFPLAYERS = 2;
@@ -68,9 +68,23 @@ namespace Model.DurakWrapper
         {
             trumpCard = new Card();
             bout = new Bout();
-
+            discardPile = new DiscardPile();
             deck = new Deck(rankStartingPoint);
             writer = w;
+        }
+
+        public Durak Copy()
+        {
+            Durak copy = (Durak)this.MemberwiseClone();
+
+            copy.bout = this.bout.Copy();
+            copy.deck = this.deck.Copy();
+            copy.trumpCard = this.trumpCard.Copy();
+            copy.discardPile = this.discardPile.Copy();
+
+            copy.players = players.ConvertAll(p => p.Copy());
+
+            return copy;
         }
 
         private void FillPlayerHand(List<Card> cards, Player player)
