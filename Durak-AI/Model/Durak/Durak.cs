@@ -152,8 +152,7 @@ namespace Model.DurakWrapper
 
         public void Info()
         {
-            writer.WriteLineVerbose();
-            writer.WriteLineVerbose("\n==== START ====");
+            writer.WriteLineVerbose("==== START ====");
             writer.WriteLineVerbose();
 
             writer.WriteLineVerbose("Trump card: " + trumpCard);

@@ -8,7 +8,6 @@ using AIAgent;
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
-using Helpers.Writer;
 using Helpers.Wilson_Score;
 
 namespace CLI
@@ -44,10 +43,8 @@ namespace CLI
                 (double, double) score = wilson_score.WilsonScore(
                     win_proportion, gameParameters.NumberOfGames);
 
-                Console.WriteLine($"With 98% confidence, Agent 1 ({gameParameters.Agents[0]}AI) " +
-                    $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% " +
-                    $"(~ {(int)(score.Item1 * total_games)}-{(int)(score.Item2 * total_games)} " +
-                    $"games)");
+                Console.WriteLine($"With 98% confidence, Agent {i + 1} ({gameParameters.Agents[i]}AI) " +
+                    $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% ");
             }
             Console.WriteLine();
         }
@@ -56,8 +53,9 @@ namespace CLI
         {
             Console.WriteLine($"Draw rate: {(100 * (double)draws / total_games):f1}%");
             for (int i = 0; i < 2; ++i)
-                Console.WriteLine($"Agent {i + 1} ({gameParameters.Agents[i]}AI) win rate: " +
-                    $"{(100 * (double)gamesWon[i] / total_games)}%");
+                Console.WriteLine($"Agent {i + 1} ({gameParameters.Agents[i]}AI) won " +
+                    $"{gamesWon[i]} / {total_games} games " +
+                    $"({(100 * (double)gamesWon[i] / total_games)}%)");
 
             Console.WriteLine();
         }
@@ -147,7 +145,6 @@ namespace CLI
             Console.WriteLine("==== RUNNING ====\n");
             for (; i <= end; i++)
             {
-                Console.Write("Game " + i + ": ");
                 game.Initialize(i);
                 InitializeAgents(i);
 
@@ -158,6 +155,7 @@ namespace CLI
                     Card? card = agents[turn].Move(new GameView(game));
                     game.Move(card);
                 }
+                Console.Write("Game " + i + ": ");
                 HandleEndGameResult(game);
             }
             PrintStatistics();

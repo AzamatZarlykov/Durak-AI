@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Agent\Agent.csproj" />
-    <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 

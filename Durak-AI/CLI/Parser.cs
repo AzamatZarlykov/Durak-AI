@@ -75,7 +75,9 @@ namespace CLI
                 NumberOfGames = total_games,
                 StartingRank = start_rank,
                 Agents = agents,
-                Seed = seed
+                Seed = seed,
+                Verbose = verbose,
+                OpenWorld = open_world
             };
 
             Controller controller = new Controller(gameParam);
