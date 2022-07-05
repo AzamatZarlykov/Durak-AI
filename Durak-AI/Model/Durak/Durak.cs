@@ -63,6 +63,8 @@ namespace Model.DurakWrapper
         public Turn GetTurnEnum() => turn;
         public bool GetTake() => defenderTakes;
         public bool GetIsDraw() => isDraw;
+        public int GetBoutsCount() => bouts;
+        public double GetMovesPerBout() => (double)moves / bouts;
 
         public Durak(int rankStartingPoint, bool verbose)
         {
@@ -510,9 +512,5 @@ namespace Model.DurakWrapper
             }
             return players[0].GetState() == PlayerState.Winner ? 0 : 1;
         }
-
-        public int GetBoutsCount() => bouts;
-
-        public double GetMovesPerBout() => (double) moves / bouts;
     }
 }
