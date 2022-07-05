@@ -118,6 +118,8 @@ namespace CLI
                     return new RandomAI(param);
                 case "greedy":
                     return new GreedyAI();
+                case "minimax":
+                    return new MinimaxAI(gameParameters.Depth);
                 default:
                     throw new Exception("unknown agent");
             }

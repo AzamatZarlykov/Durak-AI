@@ -60,7 +60,11 @@ namespace CLI
 
             [DefaultValue(false)]
             [Description("A boolean parameter to indicate verbouse output")]
-            bool verbose
+            bool verbose,
+
+            [DefaultValue(4)]
+            [Description("An int parameter that indicated the depth of the algorithm search")]
+            int depth
         )
         {
             if (seed > 0)
@@ -77,7 +81,8 @@ namespace CLI
                 Agents = agents,
                 Seed = seed,
                 Verbose = verbose,
-                OpenWorld = open_world
+                OpenWorld = open_world,
+                Depth = depth
             };
 
             Controller controller = new Controller(gameParam);
