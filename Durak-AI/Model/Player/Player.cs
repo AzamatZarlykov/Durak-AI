@@ -32,7 +32,7 @@ namespace Model.GamePlayer
         {
             Player copy = (Player)this.MemberwiseClone();
 
-            copy.hand = hand.ConvertAll(x => x.Copy());
+            copy.hand = new List<Card>(hand);
 
             return copy;
         }

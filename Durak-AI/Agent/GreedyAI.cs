@@ -16,32 +16,69 @@ namespace AIAgent
         private Card GetLowestRank(List<Card> cards) =>
             cards.MinBy(c => c.rank)!;
 
-        // return true if deck is not empty, o/w false
-        private bool EarlyGame(GameView gw)
+        private List<Card> GetOpponentCards(GameView gw)
         {
-            return gw.deck.cardsLeft != 0;
+            List<Card> cardsInBout = gw.bout.GetEverything();
+            List<Card> discardPile = gw.discardPile.GetCards();
+            List<Card> agentHand = gw.playerHand;
+
+            List<Card> cards = new List<Card>();
+
+            for (int suit = 0; suit < 4; suit++)
+            {
+                for(int rank = gw.deck.GetRankStart(); rank < 15; rank++)
+                {
+                    Card c = new Card((Suit)suit, (Rank)rank);
+                    if (!cardsInBout.Contains(c) && !agentHand.Contains(c) && 
+                        !discardPile.Contains(c))
+                    {
+                        cards.Add(c);
+                    }
+                }
+            }
+            return cards;
         }
 
         // select lowest card that is not a trump. O/W pass/take
         private Card? GetCard(List<Card> cards, GameView gw)
         {
             List<Card> noTrumpCards = GetCardsWithoutTrump(cards, gw.trumpSuit);
-
-            if (noTrumpCards.Count == 0)
+            
+            if (gw.isEarlyGame)
             {
-                if (EarlyGame(gw))
+                // there are only trump cards
+                if (noTrumpCards.Count == 0)
                 {
-                    // do not attack with trump card if there is no need
-                    if (gw.turn == Turn.Attacking && gw.attackingCards.Count > 0)
+                    if (gw.turn == Turn.Attacking && gw.bout.GetAttackingCards().Count() > 0)
                     {
+                        // do not add a trump card if adding extra card
                         return null;
                     }
-                    // attack/defend o/w
                     return GetLowestRank(cards);
                 }
-                else
+            }
+            else
+            {
+                if (noTrumpCards.Count() == 0)
                 {
                     return GetLowestRank(cards);
+                }
+
+                List<Card> opponentCards = GetOpponentCards(gw);
+                // stategy works if P attacking and O does not have any trump cards
+                if (gw.turn == Turn.Attacking && !opponentCards.Exists(c => c.suit == gw.trumpSuit))
+                {
+                    List<Card> weaknesses = gw.GetWeaknesses(cards, opponentCards);
+                    // if P has only one weakness there is a winning strategy
+                    if (weaknesses.Count() == 1)
+                    {
+                        if (cards.Count() == 1)
+                        {
+                            return cards[0];
+                        }
+                        Card weakCard = weaknesses[0];
+                        return GetLowestRank(noTrumpCards.Where(c => c != weakCard).ToList());
+                    }
                 }
             }
             return GetLowestRank(noTrumpCards);
@@ -61,6 +98,3 @@ namespace AIAgent
         }
     }
 }
-
-
-// moves per bout 

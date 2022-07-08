@@ -25,11 +25,11 @@ namespace Model.MiddleBout
         {
             Bout copy = (Bout)this.MemberwiseClone();
             // copy attacking cards from the original bout
-            copy.attackingCards = attackingCards.ConvertAll(x => x.Copy());
+            copy.attackingCards = new List<Card>(attackingCards);
 
             // copy defending cards from the original bout
-            copy.defendingCards = defendingCards.ConvertAll(x => x.Copy());
-         
+            copy.defendingCards = new List<Card>(defendingCards);
+
             return copy;
         }
 

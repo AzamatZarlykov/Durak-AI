@@ -26,7 +26,7 @@ namespace AIAgent
             // even if it can defend/attack (20% chance)
             // allow only when the first attack was given
             int rn = random.Next(0, 100);
-            if (rn <= 20 && gameView.attackingCards.Count > 0)
+            if (rn <= 20 && gameView.bout.GetAttackingCards().Count > 0)
             {
                 return null;
             }

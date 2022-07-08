@@ -12,6 +12,7 @@ namespace Model.DiscardHeap
     {
         private List<Card> discardPile = new List<Card>();
         public int GetSize() => discardPile.Count;
+        public List<Card> GetCards() => discardPile;
 
         public DiscardPile()
         {
@@ -21,7 +22,7 @@ namespace Model.DiscardHeap
         {
             DiscardPile copy = (DiscardPile)this.MemberwiseClone();
             // copy the discard pile to the copy object
-            copy.discardPile = discardPile.ConvertAll(card => card.Copy()).ToList();
+            copy.discardPile = new List<Card>(discardPile);
             return copy;
         }
 

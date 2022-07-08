@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.TableDeck;
+using Model.DiscardHeap;
+using Model.MiddleBout;
 
 namespace Model.GameState
 {
@@ -18,24 +20,43 @@ namespace Model.GameState
     public class GameView
     {
         private Durak game;
+        private int agentIndex;
+
+
+        public GameView Copy() => new GameView(game.Copy(), agentIndex);
 
         public Deck deck => game.GetDeck();
+        public DiscardPile discardPile => game.GetDiscardPile();
+        public Bout bout => game.GetBout();
         public Suit trumpSuit => game.GetTrumpCard().suit;
         public Turn turn => game.GetTurnEnum();
-
+        public List<Card> playerHand => game.GetPlayersHand(agentIndex);
         public bool takes => game.GetTake();
-
-        public List<Card> attackingCards => game.GetBout().GetAttackingCards();
-        public List<Card> defendingCards => game.GetBout().GetDefendingCards();
-
-        public GameView (Durak game)
+        public List<Card> PossibleCards() => game.PossibleCards();
+        public bool isEarlyGame => deck.cardsLeft != 0;
+        public GameView (Durak game, int agent)
         {
             this.game = game;
+            this.agentIndex = agent;
         }
 
-        public List<Card> PossibleCards()
+        private bool IsWeakness(Card card, List<Card> opponentHand) =>
+            opponentHand.Any(c => c.suit == card.suit && c.rank > card.rank);
+
+        public List<Card> GetWeaknesses(List<Card> hand, List<Card> opponentHand)
         {
-            return game.PossibleCards();
+            List<Card> cards = new List<Card>();
+                
+            foreach (Card card in hand)
+            {
+                if (IsWeakness(card, opponentHand))
+                {
+                    cards.Add(card);
+                }
+            }
+
+            return cards;
         }
+
     }
 }

@@ -33,38 +33,32 @@ namespace CLI
 
         [Verb(IsDefault = true)]
         static void Parse(
-            [DefaultValue("random"), Aliases("ai1")]
-            [Description("A string parameter for a first AI name with an additional alias. " +
-            "Possible AIs: random, greedy, minimax, montecarlo")]
-            string ai_name_one,
+            [DefaultValue("random")]
+            [Description("The agent for player 1. Possible AIs: random, greedy, minimax, montecarlo")]
+            string ai1,
 
-            [DefaultValue("random"), Aliases("ai2")]
-            [Description("A string parameter for a second AI name with an additional alias. " +
-            "Possible AIs: random, greedy, minimax, montecarlo")]
-            string ai_name_two,
+            [DefaultValue("random")]
+            [Description("The agent for player 2. Possible AIs: random, greedy, minimax, montecarlo")]
+            string ai2,
 
-            [Description("An int parameter that runs the specific game given indicated seed")]
+            [Description("A seed for random number generation")]
             int seed,
 
             [DefaultValue(1000)]
-            [Description("An int parameter to indicate total games to play")]
+            [Description("The number of games to play")]
             int total_games,
 
             [DefaultValue(6)]
-            [Description("An int parameter to indicate starting rank of the card")]
+            [Description("The starting rank of cards in the deck")]
             int start_rank,
 
             [DefaultValue(false)]
-            [Description("A bool parameter that allows to have all cards to be open or closed")]
+            [Description("Make all cards visible to both players")]
             bool open_world,
 
             [DefaultValue(false)]
-            [Description("A boolean parameter to indicate verbouse output")]
-            bool verbose,
-
-            [DefaultValue(4)]
-            [Description("An int parameter that indicated the depth of the algorithm search")]
-            int depth
+            [Description("Enable verbose output")]
+            bool verbose
         )
         {
             if (seed > 0)
@@ -72,7 +66,7 @@ namespace CLI
                 total_games = 1;
             }
 
-            string[] agents = { ai_name_one, ai_name_two };
+            string[] agents = { ai1, ai2 };
 
             var gameParam = new GameParameters
             {
@@ -82,7 +76,6 @@ namespace CLI
                 Seed = seed,
                 Verbose = verbose,
                 OpenWorld = open_world,
-                Depth = depth
             };
 
             Controller controller = new Controller(gameParam);

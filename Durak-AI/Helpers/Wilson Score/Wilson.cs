@@ -17,19 +17,19 @@ namespace Helpers.Wilson_Score
             z = 2.326; // 98% confidence interval
         }
 
-        public double CalcDenominator(int total_n)
+        private double CalcDenominator(int total_n)
         {
             // 1 + z**2/n
             return 1 + z * z / total_n;
         }
 
-        public double CalcCenterProbability(double p, int total_n)
+        private double CalcCenterProbability(double p, int total_n)
         {
             // p + z*z / (2*n)
             return p + z * z / (2 * total_n);
         }
 
-        public double CalcStandardDeviation(double p, int total_n)
+        private double CalcStandardDeviation(double p, int total_n)
         {
             // sqrt(( p*(1 - p) + z*z / 4*n ) / n)
             return Math.Sqrt( (p * (1 - p) + z * z / (4 * total_n)) / total_n );

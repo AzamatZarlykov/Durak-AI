@@ -29,7 +29,7 @@ namespace Model.TableDeck
         {
             Deck copy = (Deck)this.MemberwiseClone();
             // copy cards from the original deck to the copy
-            copy.cards = cards.ConvertAll(card => card.Copy());
+            copy.cards = new List<Card>(cards);
             return copy;
         }
 

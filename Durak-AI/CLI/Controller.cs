@@ -109,17 +109,27 @@ namespace CLI
             bouts += bout;
             movesPerBout += mpb; 
         }
+        
+        private int GetParameterValue(string param)
+        {
+            int.TryParse(param.Split('=')[1], out int value);
+
+            return value;
+        }
 
         private Agent GetAgentType(string type, int param)
         {
-            switch(type)
+            // for minimax:depth=3 OR montecarlo:depth=5
+            string[] type_param = type.Split(':');
+
+            switch(type_param[0])
             {
                 case "random":
                     return new RandomAI(param);
                 case "greedy":
                     return new GreedyAI();
                 case "minimax":
-                    return new MinimaxAI(gameParameters.Depth);
+                    return new MinimaxAI(GetParameterValue(type_param[1]));
                 default:
                     throw new Exception("unknown agent");
             }
@@ -154,7 +164,7 @@ namespace CLI
                 {
                     int turn = game.GetTurn();
 
-                    Card? card = agents[turn].Move(new GameView(game));
+                    Card? card = agents[turn].Move(new GameView(game, turn));
                     game.Move(card);
                 }
                 Console.Write("Game " + i + ": ");
