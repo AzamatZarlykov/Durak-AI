@@ -77,13 +77,16 @@ namespace Model.GameState
             return result;
         }
 
-        public Card? GetBadlyCoveredWeakness(List<Card> pHand, List<Card> oHand, List<Card> ws)
+        // This method takes P and O players hand and attacking P players weakness cards
+        // It finds the weakness card when attacking with it the opponent defends with
+        // the card whose rank is within non weakness cards in attackers hand
+        public Card? GetBadlyCoveredWeakness(List<Card> oHand, List<Card> nws, List<Card> ws)
         {
             Card? weakCard = null;
-            List<Card> nonweakness = pHand.Where(card => !ws.Contains(card)).ToList();
+            
 
-/*            Console.Write("Nonweakness Cards: ");
-            foreach (Card qw in nonweakness)
+            /*Console.Write("Nonweakness Cards: ");
+            foreach (Card qw in nws)
             {
                 Console.Write(qw + " ");
             }
@@ -94,22 +97,22 @@ namespace Model.GameState
                 // Console.WriteLine("Weakness Card: " + card);
 
                 List<Card> defensiveCards = oHand.Where(c => IsLegalDefense(card, c)).ToList();
-/*
-                Console.Write("Defensive Cards: ");
+
+                /*Console.Write("Defensive Cards: ");
                 foreach (Card qw in defensiveCards)
                 {
                     Console.Write(qw + " ");
                 }
                 Console.WriteLine();*/
 
-                if (CardsInNonweakness(defensiveCards, nonweakness))
+                if (CardsInNonweakness(defensiveCards, nws))
                 {
-                    //Console.WriteLine("Found: " + card);
+                    // Console.WriteLine("Found: " + card);
                     return card;
                     
                 }
             }
-            //Console.WriteLine("Didnot Find");
+            // Console.WriteLine("Didnot Find");
             return weakCard;
         }
     }

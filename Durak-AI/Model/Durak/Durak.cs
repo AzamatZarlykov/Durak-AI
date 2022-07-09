@@ -292,6 +292,11 @@ namespace Model.DurakWrapper
 
             if (turn == Turn.Attacking)
             {
+                if (players[GetDefendingPlayer()].GetNumberOfCards() == 0)
+                {
+                    return cards;
+                }
+
                 if (defenderTakes || CanAttack())
                 {
                     writer.WriteLineVerbose("Can attack", GetTurn());

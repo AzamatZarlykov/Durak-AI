@@ -81,7 +81,7 @@ namespace CLI
             }
         }
                                                                                                    
-        private void HandleEndGameResult(Durak game)
+        private void HandleEndGameResult(Durak game, int gameIndex)
         {
             int bout = game.GetBoutsCount();
             int result = game.GetGameResult();
@@ -95,8 +95,11 @@ namespace CLI
                 draws++;
                 return;
             }
+
+            Console.Write("Game " + gameIndex + ": ");
             Console.Write($"Agent {result + 1} ({gameParameters.Agents[result]}) won");
             Console.WriteLine($" Bouts: {bout}, Moves per bout: {mpb:f1}");
+
 
             if (result == 0)
             {
@@ -167,8 +170,7 @@ namespace CLI
                     Card? card = agents[turn].Move(new GameView(game, turn));
                     game.Move(card);
                 }
-                Console.Write("Game " + i + ": ");
-                HandleEndGameResult(game);
+                HandleEndGameResult(game, i);
             }
             PrintStatistics();
         }
