@@ -83,36 +83,17 @@ namespace Model.GameState
         public Card? GetBadlyCoveredWeakness(List<Card> oHand, List<Card> nws, List<Card> ws)
         {
             Card? weakCard = null;
-            
-
-            /*Console.Write("Nonweakness Cards: ");
-            foreach (Card qw in nws)
-            {
-                Console.Write(qw + " ");
-            }
-            Console.WriteLine();*/
 
             foreach (Card card in ws)
             {
-                // Console.WriteLine("Weakness Card: " + card);
-
                 List<Card> defensiveCards = oHand.Where(c => IsLegalDefense(card, c)).ToList();
-
-                /*Console.Write("Defensive Cards: ");
-                foreach (Card qw in defensiveCards)
-                {
-                    Console.Write(qw + " ");
-                }
-                Console.WriteLine();*/
 
                 if (CardsInNonweakness(defensiveCards, nws))
                 {
-                    // Console.WriteLine("Found: " + card);
                     return card;
                     
                 }
             }
-            // Console.WriteLine("Didnot Find");
             return weakCard;
         }
     }

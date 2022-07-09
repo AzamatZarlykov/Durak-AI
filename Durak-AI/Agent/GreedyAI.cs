@@ -44,13 +44,6 @@ namespace AIAgent
         {
             List<Card> weaknesses = gw.GetWeaknesses(possibleCards, oHand);
 
-/*            Console.Write("Weakness Cards: ");
-            foreach (Card card in weaknesses)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();*/
-
             // if P has only one weakness there is a winning strategy
             if (weaknesses.Count() == 1)
             {
@@ -96,7 +89,6 @@ namespace AIAgent
             {
                 if (!oHand.Any(c => c.rank == card.rank))
                 {
-                    // Console.WriteLine("NO POSESSION: ");
                     return card;
                 }
             }
