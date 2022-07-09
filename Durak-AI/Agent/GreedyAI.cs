@@ -40,10 +40,10 @@ namespace AIAgent
         }
 
         // select lowest card that is not a trump. O/W pass/take
-        private Card? GetCard(List<Card> cards, GameView gw)
+        private Card? GetCard(List<Card> possibleCards, GameView gw)
         {
-            List<Card> noTrumpCards = GetCardsWithoutTrump(cards, gw.trumpSuit);
-            
+            List<Card> noTrumpCards = GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+
             if (gw.isEarlyGame)
             {
                 // there are only trump cards
@@ -54,35 +54,69 @@ namespace AIAgent
                         // do not add a trump card if adding extra card
                         return null;
                     }
-                    return GetLowestRank(cards);
+                    return GetLowestRank(possibleCards);
                 }
             }
             else
             {
                 if (noTrumpCards.Count() == 0)
                 {
-                    return GetLowestRank(cards);
+                    if (gw.takes)
+                    {
+                        return null;
+                    }
+                    return GetLowestRank(possibleCards);
                 }
 
                 List<Card> opponentCards = GetOpponentCards(gw);
+                List<Card> playerCards = gw.playerHand;
+
                 // stategy works if P attacking and O does not have any trump cards
                 if (gw.turn == Turn.Attacking && !opponentCards.Exists(c => c.suit == gw.trumpSuit))
                 {
-                    List<Card> weaknesses = gw.GetWeaknesses(cards, opponentCards);
+                    List<Card> weaknesses = gw.GetWeaknesses(possibleCards, opponentCards);
+
+/*                    Console.Write("Weakness Cards: ");
+                    foreach(Card card in weaknesses)
+                    {
+                        Console.Write(card + " ");
+                    }
+                    Console.WriteLine();*/
+
                     // if P has only one weakness there is a winning strategy
                     if (weaknesses.Count() == 1)
                     {
-                        if (cards.Count() == 1)
+                        if (playerCards.Count() == 1)
                         {
-                            return cards[0];
+                            return playerCards[0];
                         }
                         Card weakCard = weaknesses[0];
+
+                        if (noTrumpCards.Count == 1 && noTrumpCards.Contains(weakCard))
+                        {
+                            return GetLowestRank(possibleCards.Where(c => c != weakCard).ToList());
+                        }
                         return GetLowestRank(noTrumpCards.Where(c => c != weakCard).ToList());
+                    }
+                    // if by attacking a weakness card a defensive card will be in a 
+                    // non-weakness card of an attacker
+                    else if (weaknesses.Count() > 1)
+                    {
+                        Card? weakCard = gw.GetBadlyCoveredWeakness(possibleCards,
+                                                opponentCards, weaknesses);
+
+                        if (weakCard != null)
+                        {
+                            return GetLowestRank(noTrumpCards);
+                        }
+                        return weakCard;
                     }
                 }
             }
             return GetLowestRank(noTrumpCards);
         }
+
+
 
         public override Card? Move(GameView gameView)
         {

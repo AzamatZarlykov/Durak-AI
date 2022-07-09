@@ -58,5 +58,59 @@ namespace Model.GameState
             return cards;
         }
 
+        public bool IsLegalDefense(Card attackingCard, Card defensiveCard) =>
+            game.IsLegalDefense(attackingCard, defensiveCard);
+        
+        private bool CardsInNonweakness(List<Card> defense, List<Card> nonweakness)
+        {
+            bool result = true;
+
+
+            foreach (Card card in defense)
+            {
+                if (!nonweakness.Any(c => c.rank == card.rank))
+                {
+                    return false;
+                }
+            }
+
+            return result;
+        }
+
+        public Card? GetBadlyCoveredWeakness(List<Card> pHand, List<Card> oHand, List<Card> ws)
+        {
+            Card? weakCard = null;
+            List<Card> nonweakness = pHand.Where(card => !ws.Contains(card)).ToList();
+
+/*            Console.Write("Nonweakness Cards: ");
+            foreach (Card qw in nonweakness)
+            {
+                Console.Write(qw + " ");
+            }
+            Console.WriteLine();*/
+
+            foreach (Card card in ws)
+            {
+                // Console.WriteLine("Weakness Card: " + card);
+
+                List<Card> defensiveCards = oHand.Where(c => IsLegalDefense(card, c)).ToList();
+/*
+                Console.Write("Defensive Cards: ");
+                foreach (Card qw in defensiveCards)
+                {
+                    Console.Write(qw + " ");
+                }
+                Console.WriteLine();*/
+
+                if (CardsInNonweakness(defensiveCards, nonweakness))
+                {
+                    //Console.WriteLine("Found: " + card);
+                    return card;
+                    
+                }
+            }
+            //Console.WriteLine("Didnot Find");
+            return weakCard;
+        }
     }
 }
