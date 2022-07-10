@@ -57,16 +57,31 @@ namespace Model.DurakWrapper
 
         public Card GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
+        public Bout GetBout() => bout;
         public DiscardPile GetDiscardPile() => discardPile;
         public int GetDefendingPlayer() => (attackingPlayer + 1) % NUMBEROFPLAYERS;
         public int GetAttackingPlayer() => attackingPlayer;
-        public Bout GetBout() => bout;
         public Turn GetTurnEnum() => turn;
+        public GameStatus GetGameStatus() => gameStatus;
         public bool GetTake() => defenderTakes;
         public bool GetIsDraw() => isDraw;
         public int GetBoutsCount() => bouts;
         public double GetMovesPerBout() => (double)moves / bouts;
         public List<Card> GetPlayersHand(int playerIndex) => players[playerIndex].GetHand();
+
+        public int GetTurn()
+        {
+            return turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
+        }
+
+        public int GetGameResult()
+        {
+            if (isDraw)
+            {
+                return 2;
+            }
+            return players[0].GetState() == PlayerState.Winner ? 0 : 1;
+        }
 
         public Durak(int rankStartingPoint, bool verbose)
         {
@@ -389,6 +404,7 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose();
                 writer.WriteLineVerbose("==== GAME OVER ====");
                 writer.WriteLineVerbose();
+                bouts++;
                 return true;
             }
             return false;
@@ -484,20 +500,6 @@ namespace Model.DurakWrapper
             }
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
-        }
-
-        public int GetTurn()
-        {
-            return turn == Turn.Attacking ? 0 + attackingPlayer : (1 + attackingPlayer) % NUMBEROFPLAYERS;
-        }
-
-        public int GetGameResult()
-        {
-            if (isDraw)
-            {
-                return 2;
-            }
-            return players[0].GetState() == PlayerState.Winner ? 0 : 1;
         }
 
         private void DisplayCardsInOrder(List<Card> cards, string text, int turn)

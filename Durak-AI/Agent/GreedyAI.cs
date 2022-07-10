@@ -96,7 +96,7 @@ namespace AIAgent
             return GetLowestRank(noTrumpCards);
         }
 
-        // select lowest card that is not a trump. O/W pass/take
+
         private Card? GetCard(List<Card> possibleCards, GameView gw)
         {
             List<Card> noTrumpCards = GetCardsWithoutTrump(possibleCards, gw.trumpSuit);

@@ -132,6 +132,10 @@ namespace CLI
                 case "greedy":
                     return new GreedyAI();
                 case "minimax":
+                    if (type_param.Count() == 1)
+                    {
+                        throw new Exception("Depth parameter is missing");
+                    }
                     return new MinimaxAI(GetParameterValue(type_param[1]));
                 default:
                     throw new Exception("unknown agent");

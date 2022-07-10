@@ -24,7 +24,7 @@ namespace Model.GameState
 
 
         public GameView Copy() => new GameView(game.Copy(), agentIndex);
-
+        public GameStatus status => game.GetGameStatus();
         public Deck deck => game.GetDeck();
         public DiscardPile discardPile => game.GetDiscardPile();
         public Bout bout => game.GetBout();
@@ -34,11 +34,15 @@ namespace Model.GameState
         public bool takes => game.GetTake();
         public List<Card> PossibleCards() => game.PossibleCards();
         public bool isEarlyGame => deck.cardsLeft != 0;
+        public int outcome => game.GetGameResult();
+        public int plTurn => game.GetTurn();
         public GameView (Durak game, int agent)
         {
             this.game = game;
             this.agentIndex = agent;
         }
+
+        public void Move(Card? card) => game.Move(card);
 
         private bool IsWeakness(Card card, List<Card> opponentHand) =>
             opponentHand.Any(c => c.suit == card.suit && c.rank > card.rank);
