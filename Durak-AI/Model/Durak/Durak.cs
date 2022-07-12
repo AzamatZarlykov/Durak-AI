@@ -90,8 +90,12 @@ namespace Model.DurakWrapper
             writer = new Writer(Console.Out, verbose);
         }
 
-        public Durak Copy()
+        public Durak Copy(bool open)
         {
+            if (!open)
+            {
+                throw new Exception("The state of game is hidden");
+            }
             Durak copy = (Durak)this.MemberwiseClone();
 
             copy.bout = this.bout.Copy();

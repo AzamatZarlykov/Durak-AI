@@ -14,8 +14,9 @@ namespace AIAgent
     public class MinimaxAI : Agent
     {
         private int maxDepth;
-        public MinimaxAI(int depth)
+        public MinimaxAI(string name, int depth)
         {
+            this.name = name;
             this.maxDepth = depth;
         }
 

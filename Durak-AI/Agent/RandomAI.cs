@@ -7,8 +7,9 @@ namespace AIAgent
     public class RandomAI : Agent
     {
         private Random random;
-        public RandomAI(int seed) 
+        public RandomAI(string name, int seed) 
         {
+            this.name = name;
             this.random = new Random(seed);
         }
 

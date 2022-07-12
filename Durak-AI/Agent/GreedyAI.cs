@@ -7,15 +7,15 @@ namespace AIAgent
     public class GreedyAI : Agent
     {
         private readonly bool simple;
-        private readonly bool open;
-        public GreedyAI() 
+        public GreedyAI(string name) 
         {
+            this.name = name;
         }
         
-        public GreedyAI(bool type, bool openWorld)
+        public GreedyAI(string name, bool type)
         {
+            this.name = name;
             this.simple = type;
-            this.open = openWorld;
         }
 
         private List<Card> GetCardsWithoutTrump(List<Card> cards, Suit trump) =>
@@ -23,29 +23,6 @@ namespace AIAgent
 
         private Card GetLowestRank(List<Card> cards) =>
             cards.MinBy(c => c.rank)!;
-
-        private List<Card> GetOpponentCards(GameView gw)
-        {
-            List<Card> cardsInBout = gw.bout.GetEverything();
-            List<Card> discardPile = gw.discardPile;
-            List<Card> agentHand = gw.playerHand;
-
-            List<Card> cards = new List<Card>();
-
-            for (int suit = 0; suit < 4; suit++)
-            {
-                for(int rank = gw.deck.GetRankStart(); rank < 15; rank++)
-                {
-                    Card c = new Card((Suit)suit, (Rank)rank);
-                    if (!cardsInBout.Contains(c) && !agentHand.Contains(c) && 
-                        !discardPile.Contains(c))
-                    {
-                        cards.Add(c);
-                    }
-                }
-            }
-            return cards;
-        }
 
         private bool IsWeakness(List<Card> sameRankCards, List<Card> oHand)
         {
@@ -249,7 +226,7 @@ namespace AIAgent
                     return GetLowestRank(possibleCards);
                 }
 
-                List<Card> opponentCards = open ? gw.opponentHand : GetOpponentCards(gw);
+                List<Card> opponentCards = gw.GetOpponentCards();
                 List<Card> playerCards = gw.playerHand;
 
                 // stategy works if P attacking and O does not have any trump cards

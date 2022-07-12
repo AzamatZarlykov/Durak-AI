@@ -20,9 +20,9 @@ namespace Model.GameState
     {
         private Durak game;
         private int agentIndex;
+        private bool openWorld;
 
-
-        public GameView Copy() => new GameView(game.Copy(), agentIndex);
+        public GameView Copy() => new GameView(game.Copy(openWorld), agentIndex, openWorld);
         public GameStatus status => game.GetGameStatus();
         public Deck deck => game.GetDeck();
         public List<Card> discardPile => game.GetDiscardPile();
@@ -36,15 +36,42 @@ namespace Model.GameState
         public bool isEarlyGame => deck.cardsLeft != 0;
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
-        public GameView (Durak game, int agent)
+        public GameView (Durak game, int agent, bool open)
         {
             this.game = game;
             this.agentIndex = agent;
+            this.openWorld = open;
         }
 
         public void Move(Card? card) => game.Move(card);
 
         public bool IsLegalDefense(Card attackingCard, Card defensiveCard) =>
             game.IsLegalDefense(attackingCard, defensiveCard);
+
+        public List<Card> GetOpponentCards()
+        {
+            // when open just return the opponents hand from the Durak class
+            if (openWorld)
+            {
+                return opponentHand;
+            }
+            // o/w infer opponents hand from P hand, bout and discard pile 
+            List<Card> cards = new List<Card>();
+            List<Card> cardsInBout = bout.GetEverything();
+
+            for (int suit = 0; suit < 4; suit++)
+            {
+                for (int rank = deck.GetRankStart(); rank < 15; rank++)
+                {
+                    Card c = new Card((Suit)suit, (Rank)rank);
+                    if (!cardsInBout.Contains(c) && !playerHand.Contains(c) &&
+                        !discardPile.Contains(c))
+                    {
+                        cards.Add(c);
+                    }
+                }
+            }
+            return cards;
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace CLI
                 (double, double) score = wilson_score.WilsonScore(
                     win_proportion, gParam.NumberOfGames);
 
-                Console.WriteLine($"With 98% confidence, Agent {i + 1} ({gParam.Agents[i]}AI) " +
+                Console.WriteLine($"With 98% confidence, Agent {i + 1} ({agents[i].GetName()}) " +
                     $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% ");
             }
             Console.WriteLine();
@@ -53,7 +53,7 @@ namespace CLI
         {
             Console.WriteLine($"Draw rate: {(100 * (double)draws / total_games):f1}%");
             for (int i = 0; i < 2; ++i)
-                Console.WriteLine($"Agent {i + 1} ({gParam.Agents[i]}AI) won " +
+                Console.WriteLine($"Agent {i + 1} ({agents[i].GetName()}) won " +
                     $"{gamesWon[i]} / {total_games} games " +
                     $"({(100 * (double)gamesWon[i] / total_games)}%)");
 
@@ -97,7 +97,7 @@ namespace CLI
                 return;
             }
 
-            Console.Write($"Agent {result + 1} ({gParam.Agents[result]}) won");
+            Console.Write($"Agent {result + 1} ({agents[result].GetName()}) won");
             Console.WriteLine($". Total bouts: {bout}");
 
 
@@ -110,15 +110,16 @@ namespace CLI
         {
             // for minimax:depth=3 OR montecarlo:depth=5
             string[] type_param = type.Split(':');
+            string name = type_param[0];
 
-            switch(type_param[0])
+            switch(name)
             {
                 case "random":
-                    return new RandomAI(param);
+                    return new RandomAI(name, param);
                 case "greedy":
                     if (type_param.Length == 1)
                     {
-                        return new GreedyAI();
+                        return new GreedyAI(name);
                     }
                     
                     if (type_param[1] != "simple")
@@ -126,7 +127,7 @@ namespace CLI
                         throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
                             $"{type_param[1]}");
                     }
-                    return new GreedyAI(true, gParam.OpenWorld);
+                    return new GreedyAI($"simple-{name}", true);
                 case "minimax":
                     if (type_param.Count() == 1)
                     {
@@ -136,13 +137,13 @@ namespace CLI
 
                     if (res[0] != "depth")
                     {
-                        throw new Exception($"Incorrect parameter name: in {type_param[0]} AI: " +
+                        throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
                             $"{res[0]}");
                     }
 
                     int.TryParse(res[1], out int value);
 
-                    return new MinimaxAI(value);
+                    return new MinimaxAI($"{name} (depth={value})", value);
                 default:
                     throw new Exception("unknown agent");
             }
@@ -177,7 +178,7 @@ namespace CLI
                 {
                     int turn = game.GetTurn();
 
-                    Card? card = agents[turn].Move(new GameView(game, turn));
+                    Card? card = agents[turn].Move(new GameView(game, turn, gParam.OpenWorld));
                     game.Move(card);
                 }
                 HandleEndGameResult(game, i);
