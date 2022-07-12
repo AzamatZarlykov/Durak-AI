@@ -6,8 +6,6 @@ using Helpers.Writer;
 using Model.MiddleBout;
 using Model.PlayingCards;
 using Model.TableDeck;
-using Model.GameState;
-using Model.DiscardHeap;
 using Model.GamePlayer;
 
 namespace Model.DurakWrapper
@@ -39,7 +37,7 @@ namespace Model.DurakWrapper
         private Bout bout;
         private Deck deck;
         private Card trumpCard;
-        private DiscardPile discardPile;
+        // private DiscardPile discardPile;
 
         private int attackingPlayer;
         private Turn turn;
@@ -50,6 +48,7 @@ namespace Model.DurakWrapper
         private int bouts;
         private int moves;
 
+        private List<Card> discardPile = new List<Card>();
         private List<Player> players = new List<Player>();
 
         private const int NUMBEROFPLAYERS = 2;
@@ -58,7 +57,7 @@ namespace Model.DurakWrapper
         public Card GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
         public Bout GetBout() => bout;
-        public DiscardPile GetDiscardPile() => discardPile;
+        public List<Card> GetDiscardPile() => discardPile;
         public int GetDefendingPlayer() => (attackingPlayer + 1) % NUMBEROFPLAYERS;
         public int GetAttackingPlayer() => attackingPlayer;
         public Turn GetTurnEnum() => turn;
@@ -87,7 +86,6 @@ namespace Model.DurakWrapper
         {
             trumpCard = new Card();
             bout = new Bout();
-            discardPile = new DiscardPile();
             deck = new Deck(rankStartingPoint);
             writer = new Writer(Console.Out, verbose);
         }
@@ -98,9 +96,9 @@ namespace Model.DurakWrapper
 
             copy.bout = this.bout.Copy();
             copy.deck = this.deck.Copy();
-            copy.discardPile = this.discardPile.Copy();
-
             copy.players = players.ConvertAll(p => p.Copy());
+
+            copy.discardPile = new List<Card>(discardPile);
 
             return copy;
         }
@@ -207,7 +205,7 @@ namespace Model.DurakWrapper
             bout = new Bout();
 
             // instantiate the pile
-            discardPile = new DiscardPile();
+            discardPile = new List<Card>();
 
             players.Clear();
             players.Add(new Player());
@@ -360,7 +358,7 @@ namespace Model.DurakWrapper
         {
             if (player.GetNumberOfCards() > 0)
             {
-                discardPile.AddCards(player.GetHand());
+                discardPile.AddRange(player.GetHand());
                 player.RemoveAllCardsFromHand();
             }
         }
@@ -415,7 +413,7 @@ namespace Model.DurakWrapper
             if (!defenderTakes)
             {
                 attackingPlayer = (attackingPlayer + 1) % NUMBEROFPLAYERS;
-                discardPile.AddCards(bout.GetEverything());
+                discardPile.AddRange(bout.GetEverything());
             }
             else
             {
@@ -432,9 +430,9 @@ namespace Model.DurakWrapper
             DisplayCardsInOrder(players[0].GetHand(), "Player 1 Cards: ", 0);
             DisplayCardsInOrder(players[1].GetHand(), "Player 2 Cards: ", 1);
 
-            if (discardPile.GetSize() > 0)
+            if (discardPile.Count > 0)
             {
-                writer.WriteLineVerbose("Discard pile size: " + discardPile.GetSize());
+                writer.WriteLineVerbose("Discard pile size: " + discardPile.Count);
             }
             bout.RemoveCards();
 

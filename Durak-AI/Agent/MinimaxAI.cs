@@ -13,18 +13,18 @@ namespace AIAgent
 {
     public class MinimaxAI : Agent
     {
-        private int depth;
+        private int maxDepth;
         public MinimaxAI(int depth)
         {
-            this.depth = depth;
+            this.maxDepth = depth;
         }
 
         // current minimax does always gives the card
-        private int Minimax(GameView gw, int alpha, int beta, out Card? bestMove)
+        private int Minimax(GameView gw, int alpha, int beta, int depth, out Card? bestMove)
         {
             bestMove = null;
 
-            if (gw.status == GameStatus.GameOver)
+            if (gw.status == GameStatus.GameOver || depth == maxDepth)
             {
                 return gw.outcome;
             }
@@ -35,7 +35,7 @@ namespace AIAgent
             {
                 GameView gwCopy = gw.Copy();
                 gwCopy.Move(card);
-                int v = Minimax(gwCopy, alpha, beta, out Card? _);
+                int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
 
                 if (gw.plTurn == 0 ? v > bestVal : v < bestVal)
                 {
@@ -63,10 +63,10 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
-            int alpha = int.MaxValue;
-            int beta = int.MinValue;
+            int alpha = int.MinValue;
+            int beta = int.MaxValue;
 
-            Minimax(gameView, alpha, beta, out Card? bestMove);
+            Minimax(gameView, alpha, beta, 0, out Card? bestMove);
 
             return bestMove;
         }

@@ -35,18 +35,7 @@ namespace Model.PlayingCards
             return GetRank((int)rank) + "" + GetSuit((int)suit) + " ";
         }
 
-        public bool Equals(Card ?other)
-        {
-            //Check for null and compare run-time types.
-            if ((other == null) || !this.GetType().Equals(other.GetType()))
-            {
-                return false;
-            }
-            else
-            {
-                Card c = (Card)other;
-                return (suit == (Suit)c.suit) && (rank == (Rank)c.rank);
-            }
-        }
+        public bool Equals(Card ?other) => 
+            other is Card c && suit == c.suit && rank == c.rank;
     }
 }

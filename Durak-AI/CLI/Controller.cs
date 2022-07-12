@@ -22,13 +22,13 @@ namespace CLI
 
         public List<Agent> agents;
 
-        private readonly GameParameters gameParameters;
+        private readonly GameParameters gParam;
 
         private readonly Wilson wilson_score;
 
         public Controller(GameParameters gameParam) 
         {
-            this.gameParameters = gameParam;
+            this.gParam = gameParam;
 
             this.gamesWon = new int[2];
             this.agents = new List<Agent>();
@@ -39,11 +39,11 @@ namespace CLI
         {
             for (int i = 0; i < 2; ++i)
             {
-                double win_proportion = (double)gamesWon[i] / gameParameters.NumberOfGames;
+                double win_proportion = (double)gamesWon[i] / gParam.NumberOfGames;
                 (double, double) score = wilson_score.WilsonScore(
-                    win_proportion, gameParameters.NumberOfGames);
+                    win_proportion, gParam.NumberOfGames);
 
-                Console.WriteLine($"With 98% confidence, Agent {i + 1} ({gameParameters.Agents[i]}AI) " +
+                Console.WriteLine($"With 98% confidence, Agent {i + 1} ({gParam.Agents[i]}AI) " +
                     $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% ");
             }
             Console.WriteLine();
@@ -53,7 +53,7 @@ namespace CLI
         {
             Console.WriteLine($"Draw rate: {(100 * (double)draws / total_games):f1}%");
             for (int i = 0; i < 2; ++i)
-                Console.WriteLine($"Agent {i + 1} ({gameParameters.Agents[i]}AI) won " +
+                Console.WriteLine($"Agent {i + 1} ({gParam.Agents[i]}AI) won " +
                     $"{gamesWon[i]} / {total_games} games " +
                     $"({(100 * (double)gamesWon[i] / total_games)}%)");
 
@@ -62,7 +62,7 @@ namespace CLI
 
         private void PrintStatistics()
         {
-            int total_games = gameParameters.NumberOfGames;
+            int total_games = gParam.NumberOfGames;
 
             Console.WriteLine("\n==== STATISTICS ====");
             Console.WriteLine("Total games played: {0}\n", total_games);
@@ -87,39 +87,25 @@ namespace CLI
             int result = game.GetGameResult();
             double mpb = game.GetMovesPerBout();
 
+            Console.Write("Game " + gameIndex + ": ");
 
             if (result == 2)
             {
-                Console.Write("Draw.");
-                Console.WriteLine($" Bouts: {bout}, Moves per bout: {mpb:f1}");
+                Console.Write("Draw");
+                Console.WriteLine($" Total bouts: {bout}");
                 draws++;
                 return;
             }
 
-            Console.Write("Game " + gameIndex + ": ");
-            Console.Write($"Agent {result + 1} ({gameParameters.Agents[result]}) won");
-            Console.WriteLine($" Bouts: {bout}, Moves per bout: {mpb:f1}");
+            Console.Write($"Agent {result + 1} ({gParam.Agents[result]}) won");
+            Console.WriteLine($". Total bouts: {bout}");
 
 
-            if (result == 0)
-            {
-                gamesWon[0]++;
-            }
-            else
-            {
-                gamesWon[1]++;
-            }
+            gamesWon[result]++;
             bouts += bout;
             movesPerBout += mpb; 
         }
         
-        private int GetParameterValue(string param)
-        {
-            int.TryParse(param.Split('=')[1], out int value);
-
-            return value;
-        }
-
         private Agent GetAgentType(string type, int param)
         {
             // for minimax:depth=3 OR montecarlo:depth=5
@@ -130,13 +116,33 @@ namespace CLI
                 case "random":
                     return new RandomAI(param);
                 case "greedy":
-                    return new GreedyAI();
+                    if (type_param.Length == 1)
+                    {
+                        return new GreedyAI();
+                    }
+                    
+                    if (type_param[1] != "simple")
+                    {
+                        throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
+                            $"{type_param[1]}");
+                    }
+                    return new GreedyAI(true, gParam.OpenWorld);
                 case "minimax":
                     if (type_param.Count() == 1)
                     {
                         throw new Exception("Depth parameter is missing");
                     }
-                    return new MinimaxAI(GetParameterValue(type_param[1]));
+                    string[] res = type_param[1].Split('=');
+
+                    if (res[0] != "depth")
+                    {
+                        throw new Exception($"Incorrect parameter name: in {type_param[0]} AI: " +
+                            $"{res[0]}");
+                    }
+
+                    int.TryParse(res[1], out int value);
+
+                    return new MinimaxAI(value);
                 default:
                     throw new Exception("unknown agent");
             }
@@ -146,7 +152,7 @@ namespace CLI
         {
             agents.Clear();
 
-            string[] agentType = gameParameters.Agents;
+            string[] agentType = gParam.Agents;
 
             for (int i = 0; i < agentType.Length; i++)
             {
@@ -156,10 +162,10 @@ namespace CLI
 
         public void Run()
         {
-            Durak game = new Durak(gameParameters.StartingRank, gameParameters.Verbose);
+            Durak game = new Durak(gParam.StartingRank, gParam.Verbose);
 
-            int i = gameParameters.Seed == 0 ? 1 : gameParameters.Seed;
-            int end = gameParameters.NumberOfGames == 1 ? i : gameParameters.NumberOfGames;
+            int i = gParam.Seed == 0 ? 1 : gParam.Seed;
+            int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;
 
             Console.WriteLine("==== RUNNING ====\n");
             for (; i <= end; i++)
