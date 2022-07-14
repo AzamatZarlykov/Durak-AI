@@ -36,6 +36,7 @@ namespace Model.GameState
         public bool isEarlyGame => deck.cardsLeft != 0;
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
+        public bool open => openWorld;
         public GameView (Durak game, int agent, bool open)
         {
             this.game = game;

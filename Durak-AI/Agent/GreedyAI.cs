@@ -183,10 +183,9 @@ namespace AIAgent
             return GetLowestRank(noTrumpCards);
         }
 
-        private Card? DefendingStrategy(GameView gw, List<Card> oHand, List<Card> pHand,
-            List<Card> noTrumpCards, List<Card> possibleCards)
+        private Card? DefendingStrategy(List<Card> oHand, List<Card> noTrumpCards)
         {
-            foreach (Card card in possibleCards)
+            foreach (Card card in noTrumpCards)
             {
                 if (!oHand.Any(c => c.rank == card.rank))
                 {
@@ -197,6 +196,23 @@ namespace AIAgent
             return GetLowestRank(noTrumpCards);
         }
 
+        private Card? CallStrategy(GameView gw, List<Card> possibleCards, List<Card> noTrumpCards)
+        {
+            List<Card> opponentCards = gw.GetOpponentCards();
+            List<Card> playerCards = gw.playerHand;
+
+            // stategy works if P attacking and O does not have any trump cards
+            if (gw.turn == Turn.Attacking && !opponentCards.Exists(c => c.suit == gw.trumpSuit))
+            {
+                return AttackingStrategy(gw, opponentCards, playerCards, noTrumpCards,
+                    possibleCards);
+            }
+            else if (gw.turn == Turn.Defending)
+            {
+                return DefendingStrategy(opponentCards,noTrumpCards);
+            }
+            return GetLowestRank(noTrumpCards);
+        }
 
         private Card? GetCard(List<Card> possibleCards, GameView gw)
         {
@@ -204,6 +220,8 @@ namespace AIAgent
 
             if (gw.isEarlyGame)
             {
+                // closed world in early game just selects the lowest value card
+
                 // there are only trump cards
                 if (noTrumpCards.Count == 0)
                 {
@@ -214,8 +232,13 @@ namespace AIAgent
                     }
                     return GetLowestRank(possibleCards);
                 }
+                if (gw.open)    // if open world use strategies
+                {
+                    return CallStrategy(gw, possibleCards, noTrumpCards);
+                }
+                return GetLowestRank(noTrumpCards);
             }
-            else
+            else    // late game - all cards are visible
             {
                 if (noTrumpCards.Count() == 0)
                 {
@@ -225,23 +248,9 @@ namespace AIAgent
                     }
                     return GetLowestRank(possibleCards);
                 }
-
-                List<Card> opponentCards = gw.GetOpponentCards();
-                List<Card> playerCards = gw.playerHand;
-
-                // stategy works if P attacking and O does not have any trump cards
-                if (gw.turn == Turn.Attacking && !opponentCards.Exists(c => c.suit == gw.trumpSuit))
-                {
-                    return AttackingStrategy(gw, opponentCards, playerCards, noTrumpCards, 
-                        possibleCards);
-                }
-                else if (gw.turn == Turn.Defending)
-                {
-                    return DefendingStrategy(gw, opponentCards, playerCards, noTrumpCards,
-                        possibleCards);
-                }
+                // use the strategy
+                return CallStrategy(gw, possibleCards, noTrumpCards);
             }
-            return GetLowestRank(noTrumpCards);
         }
 
         public Card? GetCardSimple(List<Card> possibleCards, GameView gw)
