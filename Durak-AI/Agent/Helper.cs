@@ -126,10 +126,20 @@ namespace AIAgent
             return ranks.Count;
         }
 
-        public static void PrintList(string title, List<Card> cards)
+        public static void PrintCards(string title, List<Card> cards)
         {
             Console.Write(title);
             foreach(Card card in cards)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+        }
+
+        public static void PrintRanks(string title, List<Rank> cards)
+        {
+            Console.Write(title);
+            foreach (Rank card in cards)
             {
                 Console.Write(card + " ");
             }

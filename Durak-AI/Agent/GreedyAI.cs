@@ -66,22 +66,32 @@ namespace AIAgent
 
                 return GetLowestRank(pHand.Where(c => c.rank != weakRank).ToList());
             }
-            // if more than one weakness - by attacking a weakness card a defensive card will be
-            // in a non-weakness card of an attacker
-            List<Card> nonweakness = pHand.Where(
-                card => !weaknesses.Contains(card.rank)).ToList();
-
-            if (weaknesses.Count <= Helper.GetNonWeaknessRankSize(nonweakness))
+            if (weaknesses.Count > 1)
             {
-                Rank? weakRank = Helper.GetBadlyCoveredWeakness(gw, oHand,
-                    nonweakness, weaknesses);
+                // Helper.PrintRanks("Weaknesses: ", weaknesses);
 
-                if (weakRank == null)
+                // if more than one weakness - by attacking a weakness card a defensive card will be
+                // in a non-weakness card of an attacker
+                List<Card> nonweakness = pHand.Where(
+                    card => !weaknesses.Contains(card.rank)).ToList();
+
+                // Helper.PrintCards("Non Weaknesses: ", nonweakness);
+
+                // Console.WriteLine("Non weakness Rank Size: " + Helper.GetNonWeaknessRankSize(nonweakness));
+                if (weaknesses.Count <= Helper.GetNonWeaknessRankSize(nonweakness))
                 {
-                    return GetLowestRank(noTrumpCards);
+                    Rank? weakRank = Helper.GetBadlyCoveredWeakness(gw, oHand,
+                        nonweakness, weaknesses);
+
+                    // Console.WriteLine("weak rank: " + weakRank);
+                    if (weakRank == null)
+                    {
+                        return GetLowestRank(noTrumpCards);
+                    }
+                    return Helper.GetCardsOfTheSameRank(pHand, weakRank)[0];
                 }
-                return Helper.GetCardsOfTheSameRank(pHand, weakRank)[0];
             }
+            // Console.WriteLine("NOOOOOOOOOOO");
             return GetLowestRank(noTrumpCards);
         }
 
