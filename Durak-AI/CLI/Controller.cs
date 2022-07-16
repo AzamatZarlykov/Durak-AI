@@ -55,7 +55,7 @@ namespace CLI
             for (int i = 0; i < 2; ++i)
                 Console.WriteLine($"Agent {i + 1} ({agents[i].GetName()}) won " +
                     $"{gamesWon[i]} / {total_games} games " +
-                    $"({(100 * (double)gamesWon[i] / total_games)}%)");
+                    $"({(100 * (double)gamesWon[i] / total_games):f1}%)");
 
             Console.WriteLine();
         }

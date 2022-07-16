@@ -6,8 +6,4 @@
 	<OutputType>Library</OutputType>
 
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Helpers\Helpers.csproj" />
-  </ItemGroup>
 </Project>

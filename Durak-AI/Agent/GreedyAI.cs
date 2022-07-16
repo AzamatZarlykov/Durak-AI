@@ -24,234 +24,6 @@ namespace AIAgent
         private Card GetLowestRank(List<Card> cards) =>
             cards.MinBy(c => c.rank)!;
 
-        private bool IsWeakness(List<Card> sameRankCards, List<Card> oHand)
-        {
-            bool result = true;
-
-            foreach (Card card in sameRankCards)
-            {
-                if (!oHand.Any(c => c.suit == card.suit && c.rank > card.rank))
-                {
-                    return false;
-                }
-            }
-
-            return result;
-        }
-
-        private List<Card> GetCardsOfTheSameRank(List<Card> hand, Rank? cardRank)
-            => hand.Where(c => c.rank == cardRank).ToList();
-
-        // returns the weakness ranks
-        public List<Rank> GetWeaknesses(List<Card> hand, List<Card> opponentHand)
-        {
-            List<Rank> visited = new List<Rank>();
-            List<Rank> weaknesses = new List<Rank>();
-
-            List<Card> sameType = new List<Card>();
-
-            foreach (Card card in hand)
-            {
-                if (visited.Contains(card.rank))
-                {
-                    continue;
-                }
-
-                visited.Add(card.rank);
-                sameType = GetCardsOfTheSameRank(hand, card.rank);
-                
-                if (IsWeakness(sameType, opponentHand))
-                {
-                    weaknesses.Add(card.rank);
-                }
-            }
-
-            return weaknesses;
-        }
-
-        // checks if defensive cards are in the non weakness cards
-        private bool CardsInNonweakness(List<Card> defense, List<Card> nonweakness)
-        {
-            bool result = true;
-
-
-            foreach (Card card in defense)
-            {
-                if (!nonweakness.Any(c => c.rank == card.rank))
-                {
-                    return false;
-                }
-            }
-
-            return result;
-        }
-
-        // returns the defensive cards that can defend all the attacking cards
-        private List<Card> GetDefensiveCards(GameView gw, List<Card> oHand, List<Card> cards)
-        {
-            List<Card> result = new List<Card>();
-
-            foreach (Card card in cards)
-            {
-                result.AddRange(oHand.Where(c => gw.IsLegalDefense(card, c)).ToList());
-            }
-            return result;
-        }
-
-        // This method returns the rank that is badly covered. Rank is badly covered
-        // if by attacking the cards of that rank all the defending cards are within 
-        // non weakness cards
-        public Rank? GetBadlyCoveredWeakness(GameView gw, List<Card> oHand,
-            List<Card> nws, List<Rank> ws)
-        {
-            Rank? weakCard = null;
-            List<Card> sameRank = new List<Card>();
-
-            foreach (Rank cardRank in ws)
-            {
-                sameRank = GetCardsOfTheSameRank(gw.playerHand, cardRank);
-
-                List<Card> defensiveCards = GetDefensiveCards(gw, oHand, sameRank);
-
-                if (CardsInNonweakness(defensiveCards, nws))
-                {
-                    return cardRank;
-
-                }
-            }
-            return weakCard;
-        }
-
-        // This method returns the amout of ranks of the player cards
-        // e.g cards: QH 10H QC JH -> 3 because (Q 10 J)
-        private int GetNonWeaknessRankSize(List<Card> cards)
-        {
-            List<Rank> ranks = new List<Rank>();
-
-            foreach(Card card in cards)
-            {
-                Rank r = card.rank;
-                if (!ranks.Contains(r))
-                {
-                    ranks.Add(r);
-                }
-            }
-            return ranks.Count;
-        }
-
-        private Card? AttackingStrategy(GameView gw, List<Card> oHand, List<Card> pHand,
-            List<Card> noTrumpCards, List<Card> possibleCards)
-        {
-            List<Rank> weaknesses = GetWeaknesses(possibleCards, oHand);
-
-            // if P has only one weakness there is a winning strategy
-            if (weaknesses.Count() == 1)
-            {
-                if (pHand.Count() == 1)
-                {
-                    return pHand[0];
-                }
-                Rank weakRank = weaknesses[0];
-
-                if (noTrumpCards.Count == 1 && noTrumpCards.Any(c => c.rank == weakRank))
-                {
-                    return GetLowestRank(possibleCards.Where(c => c.rank != weakRank).ToList());
-                }
-                return GetLowestRank(noTrumpCards.Where(c => c.rank != weakRank).ToList());
-            }
-            // if by attacking a weakness card a defensive card will be in a 
-            // non-weakness card of an attacker
-            else if (weaknesses.Count() > 1)
-            {
-                List<Card> nonweakness = possibleCards.Where(
-                    card => !weaknesses.Contains(card.rank)).ToList();
-
-                if (weaknesses.Count <= GetNonWeaknessRankSize(nonweakness))
-                {
-                    Rank? weakRank = GetBadlyCoveredWeakness(gw, oHand,
-                            nonweakness, weaknesses);
-
-                    if (weakRank == null)
-                    {
-                        return GetLowestRank(noTrumpCards);
-                    }
-
-                    return GetCardsOfTheSameRank(noTrumpCards, weakRank)[0];
-                }
-            }
-
-            return GetLowestRank(noTrumpCards);
-        }
-
-        private Card? DefendingStrategy(List<Card> oHand, List<Card> noTrumpCards)
-        {
-            foreach (Card card in noTrumpCards)
-            {
-                if (!oHand.Any(c => c.rank == card.rank))
-                {
-                    return card;
-                }
-            }
-
-            return GetLowestRank(noTrumpCards);
-        }
-
-        private Card? CallStrategy(GameView gw, List<Card> possibleCards, List<Card> noTrumpCards)
-        {
-            List<Card> opponentCards = gw.GetOpponentCards();
-            List<Card> playerCards = gw.playerHand;
-
-            // stategy works if P attacking and O does not have any trump cards
-            if (gw.turn == Turn.Attacking && !opponentCards.Exists(c => c.suit == gw.trumpSuit))
-            {
-                return AttackingStrategy(gw, opponentCards, playerCards, noTrumpCards,
-                    possibleCards);
-            }
-            else if (gw.turn == Turn.Defending)
-            {
-                return DefendingStrategy(opponentCards,noTrumpCards);
-            }
-            return GetLowestRank(noTrumpCards);
-        }
-
-        private Card? GetCard(List<Card> possibleCards, GameView gw)
-        {
-            List<Card> noTrumpCards = GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
-
-            if (gw.isEarlyGame)
-            {
-                // closed world in early game just selects the lowest value card
-
-                // there are only trump cards
-                if (noTrumpCards.Count == 0)
-                {
-                    if (gw.turn == Turn.Attacking && gw.bout.GetAttackingCards().Count() > 0)
-                    {
-                        // do not add a trump card if adding extra card
-                        return null;
-                    }
-                    return GetLowestRank(possibleCards);
-                }
-                if (gw.open)    // if open world use strategies
-                {
-                    return CallStrategy(gw, possibleCards, noTrumpCards);
-                }
-                return GetLowestRank(noTrumpCards);
-            }
-            else    // late game - all cards are visible
-            {
-                if (noTrumpCards.Count() == 0)
-                {
-                    if (gw.takes)
-                    {
-                        return null;
-                    }
-                    return GetLowestRank(possibleCards);
-                }
-                // use the strategy
-                return CallStrategy(gw, possibleCards, noTrumpCards);
-            }
-        }
 
         public Card? GetCardSimple(List<Card> possibleCards, GameView gw)
         {
@@ -275,6 +47,117 @@ namespace AIAgent
                 }
             }
             return GetLowestRank(noTrumpCards);
+        }
+
+        private Card? AttackingStrategy(GameView gw, List<Card> oHand, List<Card> pHand,
+                List<Card> noTrumpCards, List<Card> possibleCards)
+        {
+            List<Rank> weaknesses = Helper.GetWeaknesses(possibleCards, oHand);
+
+            // if P has only one weakness there is a winning strategy
+            if (weaknesses.Count() == 1)
+            {
+                Rank weakRank = weaknesses[0];
+                // if only weakrank cards left in my hand
+                if (pHand.All(c => c.rank == weakRank))
+                {
+                    return pHand[0];
+                }
+
+                return GetLowestRank(pHand.Where(c => c.rank != weakRank).ToList());
+            }
+            // if more than one weakness - by attacking a weakness card a defensive card will be
+            // in a non-weakness card of an attacker
+            List<Card> nonweakness = pHand.Where(
+                card => !weaknesses.Contains(card.rank)).ToList();
+
+            if (weaknesses.Count <= Helper.GetNonWeaknessRankSize(nonweakness))
+            {
+                Rank? weakRank = Helper.GetBadlyCoveredWeakness(gw, oHand,
+                    nonweakness, weaknesses);
+
+                if (weakRank == null)
+                {
+                    return GetLowestRank(noTrumpCards);
+                }
+                return Helper.GetCardsOfTheSameRank(pHand, weakRank)[0];
+            }
+            return GetLowestRank(noTrumpCards);
+        }
+
+        private Card? DefendingStrategy(List<Card> oHand, List<Card> noTrumpCards)
+        {
+            foreach (Card card in noTrumpCards)
+            {
+                if (!oHand.Any(c => c.rank == card.rank))
+                {
+                    return card;
+                }
+            }
+
+            return GetLowestRank(noTrumpCards);
+        }
+
+        private Card? CallStrategy(GameView gw, List<Card> possibleCards, List<Card> noTrumpCards)
+        {
+            List<Card> oHand = gw.GetOpponentCards();
+            List<Card> pHand = gw.playerHand;
+
+            // stategy works if P attacking and O does not have any trump cards
+            if (gw.turn == Turn.Attacking && !oHand.Exists(c => c.suit == gw.trumpSuit))
+            {
+                return AttackingStrategy(gw, oHand, pHand, noTrumpCards,
+                    possibleCards);
+            }
+            
+            if (gw.turn == Turn.Defending)
+            {
+                return DefendingStrategy(oHand, noTrumpCards);
+            }
+            return GetLowestRank(noTrumpCards);
+        }
+
+        private Card? GetCard(List<Card> possibleCards, GameView gw)
+        {
+            List<Card> noTrumpCards = GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+
+            if (gw.isEarlyGame)
+            {
+                if (noTrumpCards.Count == 0)    // if only trump cards
+                {
+                    if (gw.turn == Turn.Attacking)
+                    {
+                        if (gw.bout.GetAttackingCardsSize() > 0)
+                        {
+                            return null;
+                        }
+                        return GetLowestRank(possibleCards);
+                    }
+                    return GetLowestRank(possibleCards); 
+                }
+
+                if (gw.open)    // if open world use strategies
+                {
+                    if (gw.turn == Turn.Defending)
+                    {
+                        return DefendingStrategy(gw.GetOpponentCards(), noTrumpCards);
+                    }
+                }
+                return GetLowestRank(noTrumpCards);
+            }
+            else    // late game - for open and closed world same rule
+            {
+                if (noTrumpCards.Count == 0)
+                {
+                    // in late game it is better to attack with lowest trump cards
+                    if (gw.takes)
+                    {
+                        return null;
+                    }
+                    return GetLowestRank(possibleCards);
+                }
+                return CallStrategy(gw, possibleCards, noTrumpCards);
+            }
         }
 
         public override Card? Move(GameView gameView)

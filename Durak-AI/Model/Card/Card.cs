@@ -17,23 +17,17 @@ namespace Model.PlayingCards
             suit = _suit;
             rank = _rank;
         }
+        public string GetRank(int value) =>
+            value < 11 ? value.ToString() : "JQKA"[value - 11].ToString();
 
-        public string GetSuit(int index)
-        {
-            return suitUnicode[index];
-        }
+        public string GetSuit(int index) =>
+            suitUnicode[index];
 
-        public string GetRank(int value)
-        {
-            if (value < 11) { return value.ToString(); }
+        public bool HighValueRank() =>
+            (int)this.rank - 6 >= 0 ? true : false;
 
-            return "JQKA"[value - 11].ToString();
-        }
-
-        public override string ToString()
-        {
-            return GetRank((int)rank) + "" + GetSuit((int)suit) + " ";
-        }
+        public override string ToString() =>
+            GetRank((int)rank) + "" + GetSuit((int)suit) + " ";
 
         public bool Equals(Card ?other) => 
             other is Card c && suit == c.suit && rank == c.rank;
