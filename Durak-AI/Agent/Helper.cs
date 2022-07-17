@@ -11,6 +11,13 @@ namespace AIAgent
 {
     public static class Helper
     {
+
+        public static List<Card> GetCardsWithoutTrump(List<Card> cards, Suit trump) =>
+            cards.Where(c => c.suit != trump).ToList();
+
+        public static Card GetLowestRank(List<Card> cards) =>
+            cards.MinBy(c => c.rank)!;
+
         private static bool IsWeakness(List<Card> sameRankCards, List<Card> oHand)
         {
             bool result = true;

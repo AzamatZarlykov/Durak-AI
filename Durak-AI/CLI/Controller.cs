@@ -117,17 +117,9 @@ namespace CLI
                 case "random":
                     return new RandomAI(name, param);
                 case "greedy":
-                    if (type_param.Length == 1)
-                    {
-                        return new GreedyAI(name);
-                    }
-                    
-                    if (type_param[1] != "simple")
-                    {
-                        throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
-                            $"{type_param[1]}");
-                    }
-                    return new GreedyAI($"simple-{name}", true);
+                    return new GreedyAI(name);
+                case "rule-based":
+                    return new RuleBased(name);
                 case "minimax":
                     if (type_param.Count() == 1)
                     {
