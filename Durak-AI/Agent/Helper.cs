@@ -136,12 +136,12 @@ namespace AIAgent
             Console.WriteLine();
         }
 
-        public static void PrintRanks(string title, List<Rank> cards)
+        public static void PrintRanks(string title, List<Rank> ranks)
         {
             Console.Write(title);
-            foreach (Rank card in cards)
+            foreach (Rank rank in ranks)
             {
-                Console.Write(card + " ");
+                Console.Write(rank + " ");
             }
             Console.WriteLine();
         }
