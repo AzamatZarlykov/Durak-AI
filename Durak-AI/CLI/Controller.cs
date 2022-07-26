@@ -89,13 +89,14 @@ namespace CLI
 
             Console.Write("Game " + gameIndex + ": ");
 
-            if (result == 2)
+            if (result == 0)
             {
                 Console.Write("Draw");
                 Console.WriteLine($" Total bouts: {bout}");
                 draws++;
                 return;
             }
+            result = result == 1 ? 0 : 1;
 
             Console.Write($"Agent {result + 1} ({agents[result].GetName()}) won");
             Console.WriteLine($". Total bouts: {bout}");
@@ -131,6 +132,11 @@ namespace CLI
                     {
                         throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
                             $"{res[0]}");
+                    }
+
+                    if (res.Count() == 1)
+                    {
+                        throw new Exception("Depth value is missing");
                     }
 
                     int.TryParse(res[1], out int value);

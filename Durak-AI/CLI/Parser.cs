@@ -34,11 +34,13 @@ namespace CLI
         [Verb(IsDefault = true)]
         static void Parse(
             [DefaultValue("random")]
-            [Description("The agent for player 1. Possible AIs: random, greedy, minimax, montecarlo")]
+            [Description("The agent for player 1. Possible AIs: random, greedy, rule-based, " +
+            "minimax, montecarlo")]
             string ai1,
 
             [DefaultValue("random")]
-            [Description("The agent for player 2. Possible AIs: random, greedy, minimax, montecarlo")]
+            [Description("The agent for player 2. Possible AIs: random, greedy, rule-based," +
+            " minimax, montecarlo")]
             string ai2,
 
             [Description("A seed for random number generation")]

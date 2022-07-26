@@ -77,9 +77,9 @@ namespace Model.DurakWrapper
         {
             if (isDraw)
             {
-                return 2;
+                return 0;
             }
-            return players[0].GetState() == PlayerState.Winner ? 0 : 1;
+            return players[0].GetState() == PlayerState.Winner ? 1 : -1;
         }
 
         public Durak(int rankStartingPoint, bool verbose)

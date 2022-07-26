@@ -20,6 +20,11 @@ namespace AIAgent
             this.maxDepth = depth;
         }
 
+        private int Evaluate()
+        {
+            return 0;
+        }
+
         // current minimax does always gives the card
         private int Minimax(GameView gw, int alpha, int beta, int depth, out Card? bestMove)
         {
