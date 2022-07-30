@@ -44,8 +44,11 @@ namespace Model.GameState
             this.openWorld = open;
         }
 
-        public void Move(Card? card) => game.Move(card);
+        public void Move(Card? card) => 
+            game.Move(card);
 
+        public List<Card> GetDefendingCards(Card attacking) => 
+            game.GenerateListofDefendingCards(attacking);
         public bool IsLegalDefense(Card attackingCard, Card defensiveCard) =>
             game.IsLegalDefense(attackingCard, defensiveCard);
 

@@ -285,7 +285,7 @@ namespace Model.DurakWrapper
         /// <param name="attackingCard"></param>
         /// <param name="trump"></param>
         /// <returns></returns>
-        private List<Card> GenerateListofDefendingCards(Card attackingCard) =>
+        public List<Card> GenerateListofDefendingCards(Card attackingCard) =>
             players[GetDefendingPlayer()].GetHand()
                                          .Where(c => IsLegalDefense(attackingCard, c))
                                          .ToList();
