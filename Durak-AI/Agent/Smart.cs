@@ -10,9 +10,9 @@ using Model.DurakWrapper;
 
 namespace AIAgent
 {
-    public class RuleBased : Agent
+    public class Smart : Agent
     {
-        public RuleBased(string name)
+        public Smart(string name)
         {
             this.name = name;
         }

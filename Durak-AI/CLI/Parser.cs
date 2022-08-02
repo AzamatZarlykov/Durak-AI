@@ -34,13 +34,13 @@ namespace CLI
         [Verb(IsDefault = true)]
         static void Parse(
             [DefaultValue("random")]
-            [Description("The agent for player 1. Possible AIs: random, greedy, rule-based, " +
-            "minimax, montecarlo")]
+            [Description("The agent for player 1. Possible AIs: random, greedy, smart, " +
+            "minimax:depth=<value>, montecarlo")]
             string ai1,
 
             [DefaultValue("random")]
-            [Description("The agent for player 2. Possible AIs: random, greedy, rule-based," +
-            " minimax, montecarlo")]
+            [Description("The agent for player 2. Possible AIs: random, greedy, smart, " +
+            "minimax:depth=<value>, montecarlo")]
             string ai2,
 
             [Description("A seed for random number generation")]
@@ -66,6 +66,7 @@ namespace CLI
             if (seed > 0)
             {
                 total_games = 1;
+                verbose = true;
             }
 
             string[] agents = { ai1, ai2 };

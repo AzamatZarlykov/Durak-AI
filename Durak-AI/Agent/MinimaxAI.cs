@@ -103,8 +103,9 @@ namespace AIAgent
             }
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
+            List<Card> possibleCards = gw.PossibleCards();
 
-            foreach(Card card in gw.PossibleCards())
+            foreach(Card card in possibleCards)
             {
                 GameView gwCopy = gw.Copy();
                 gwCopy.Move(card);
@@ -131,6 +132,19 @@ namespace AIAgent
                     }
                 }
             }
+            // returns null for card when attacking cards are not taken by opponent
+            if (gw.turn == Turn.Attacking && gw.bout.GetAttackingCardsSize() == 0 && bestMove is null)
+            {
+                List<Card> noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+                if (noTrumpCards.Count == 0)
+                {
+                    bestMove = Helper.GetLowestRank(possibleCards);
+                } else
+                {
+                    bestMove = Helper.GetLowestRank(noTrumpCards);
+                }
+            }
+
             return bestVal;
         }
 
@@ -141,7 +155,8 @@ namespace AIAgent
 
             Minimax(gameView, alpha, beta, 0, out Card? bestMove);
 
-            // Console.WriteLine("#################THE BEST MOVE: ", bestMove);
+            // Console.Write("Actual Card Move: ");
+            // Console.WriteLine(bestMove);
                 
             return bestMove;
         }

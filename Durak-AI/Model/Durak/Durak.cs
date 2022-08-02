@@ -67,20 +67,7 @@ namespace Model.DurakWrapper
         public int GetBoutsCount() => bouts;
         public double GetMovesPerBout() => (double)moves / bouts;
         public List<Card> GetPlayersHand(int playerIndex) => players[playerIndex].GetHand();
-
-        public int GetTurn()
-        {
-            return turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
-        }
-
-        public int GetGameResult()
-        {
-            if (isDraw)
-            {
-                return 0;
-            }
-            return players[0].GetState() == PlayerState.Winner ? 1 : -1;
-        }
+        public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
 
         public Durak(int rankStartingPoint, bool verbose)
         {
@@ -106,6 +93,14 @@ namespace Model.DurakWrapper
 
             return copy;
         }
+        public int GetGameResult()
+        {
+            if (isDraw)
+            {
+                return 0;
+            }
+            return players[0].GetState() == PlayerState.Winner ? 1000 : -1000;
+        }
 
         private void FillPlayerHand(List<Card> cards, Player player, string text)
         {
@@ -130,14 +125,16 @@ namespace Model.DurakWrapper
                 int a = deck.cardsLeft % 2 == 0 ? deck.cardsLeft / 2 : deck.cardsLeft / 2 + 1;
                 int b = deck.cardsLeft - a;
 
-                FillPlayerHand(deck.DrawCards(a), players[0], "Player 1 cards: ");
-                FillPlayerHand(deck.DrawCards(b), players[1], "Player 2 cards: ");
+                FillPlayerHand(deck.DrawCards(a), players[0], $"Player 1 ({players[0].GetName()})" +
+                    $" cards: ");
+                FillPlayerHand(deck.DrawCards(b), players[1], $"Player 2 ({players[1].GetName()})" +
+                    $" cards: ");
                 return;
             }
-            FillPlayerHand(deck.DrawCards(6), players[0], "Player 1 cards: ");
-            FillPlayerHand(deck.DrawCards(6), players[1], "Player 2 cards: ");
-
-
+            FillPlayerHand(deck.DrawCards(6), players[0], $"Player 1 ({players[0].GetName()}) " +
+                $"cards: ");
+            FillPlayerHand(deck.DrawCards(6), players[1], $"Player 2 ({players[1].GetName()}) " +
+                $"cards: ");
         }
 
         // Function will find the player who has the card with
@@ -190,14 +187,23 @@ namespace Model.DurakWrapper
             return new Card((Suit)random.Next(4), (Rank)5);
         }
 
-        public void Initialize(int seed)
+        private void AddPlayers(string[] agents)
+        {
+            players.Clear();
+            for (int i = 0; i < NUMBEROFPLAYERS; i++)
+            {
+                players.Add(new Player(agents[i]));
+            }
+        }
+
+        public void Initialize(int seed, string[] agents)
         {
             Random random = new Random(seed);
 
             gameStatus = GameStatus.GameInProcess;
             isDraw = false;
             defenderTakes = false;
-            bouts = 0;
+            bouts = 1;
             moves = 0;
 
             // instantiate the deck 
@@ -210,10 +216,9 @@ namespace Model.DurakWrapper
 
             // instantiate the pile
             discardPile = new List<Card>();
-
-            players.Clear();
-            players.Add(new Player());
-            players.Add(new Player());
+            
+            // instantiate players 
+            AddPlayers(agents);
 
             Info();
 
@@ -303,7 +308,8 @@ namespace Model.DurakWrapper
                 writer.WriteLineVerbose();
             }
 
-            writer.WriteLineVerbose("TURN: Player " + (GetTurn() + 1) + " (" + turn + ")");
+            writer.WriteLineVerbose($"TURN: Player {GetTurn() + 1} ({players[GetTurn()].GetName()})" +
+                $" ({turn})");
 
             List<Card> cards = new List<Card>();
 
@@ -431,8 +437,10 @@ namespace Model.DurakWrapper
             FillPlayerHand(deck.DrawCards(TOTALCARDS - defender.GetHand().Count), 
                 defender, "Defender Drew: ");
 
-            DisplayCardsInOrder(players[0].GetHand(), "Player 1 Cards: ", 0);
-            DisplayCardsInOrder(players[1].GetHand(), "Player 2 Cards: ", 1);
+            DisplayCardsInOrder(players[0].GetHand(), $"Player 1 ({players[0].GetName()}) " +
+                $"Cards: ", 0);
+            DisplayCardsInOrder(players[1].GetHand(), $"Player 2 ({players[1].GetName()})" +
+                $" Cards: ", 1);
 
             if (discardPile.Count > 0)
             {
@@ -458,7 +466,7 @@ namespace Model.DurakWrapper
                     writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn());
                     attacker.GetHand().Remove(card);
 
-                    bout.AddCard(card, trumpCard, writer, true);
+                    bout.AddCard(card, trumpCard, writer, true, bouts);
                 }
                 else
                 {
@@ -482,7 +490,9 @@ namespace Model.DurakWrapper
                     writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn());
                     defender.GetHand().Remove(card);
 
-                    bout.AddCard(card, trumpCard, writer, false); ;
+                    bout.AddCard(card, trumpCard, writer, false, bouts);
+
+                    IsEndGame(attacker, defender);
                 }
                 else
                 {

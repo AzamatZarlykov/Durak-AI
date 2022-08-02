@@ -2,7 +2,7 @@
   "profiles": {
     "CLI": {
       "commandName": "Project",
-      "commandLineArgs": "-randomAI"
+      "commandLineArgs": "-ai1=minimax:depth=100 -ai2=random -seed=50 -start_rank=13 -open_world"
     }
   }
 }

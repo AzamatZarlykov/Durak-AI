@@ -96,7 +96,7 @@ namespace CLI
                 draws++;
                 return;
             }
-            result = result == 1 ? 0 : 1;
+            result = result == 1000 ? 0 : 1;
 
             Console.Write($"Agent {result + 1} ({agents[result].GetName()}) won");
             Console.WriteLine($". Total bouts: {bout}");
@@ -119,8 +119,8 @@ namespace CLI
                     return new RandomAI(name, param);
                 case "greedy":
                     return new GreedyAI(name);
-                case "rule-based":
-                    return new RuleBased(name);
+                case "smart":
+                    return new Smart(name);
                 case "minimax":
                     if (type_param.Count() == 1)
                     {
@@ -130,6 +130,7 @@ namespace CLI
 
                     if (res[0] != "depth")
                     {
+                        Console.WriteLine();
                         throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
                             $"{res[0]}");
                     }
@@ -169,7 +170,7 @@ namespace CLI
             Console.WriteLine("==== RUNNING ====\n");
             for (; i <= end; i++)
             {
-                game.Initialize(i);
+                game.Initialize(i, gParam.Agents);
                 InitializeAgents(i);
 
                 while (game.gameStatus == GameStatus.GameInProcess)
