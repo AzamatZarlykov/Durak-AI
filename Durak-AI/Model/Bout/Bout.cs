@@ -71,14 +71,14 @@ namespace Model.MiddleBout
             writer.WriteVerbose("Attacking cards: ", isCopy);
             foreach(Card card in attackingCards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3, isCopy);
+                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3, isCopy, true);
             }
             writer.WriteLineVerbose(isCopy);
 
             writer.WriteVerbose("Defending cards: ", isCopy);
             foreach (Card card in defendingCards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3, isCopy);
+                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3, isCopy, true);
             }
             writer.WriteLineVerbose(isCopy);
             writer.WriteLineVerbose(isCopy);

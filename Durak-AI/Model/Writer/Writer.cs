@@ -37,12 +37,18 @@ namespace Helpers.Writer
             writer.WriteLine(s);
         }
         
-        public void WriteVerbose(string s, bool isCopy = false)
+        public void WriteVerbose(string text, bool isCopy = false)
         {
-            if ((isCopy && debug) || (!isCopy && verbose))
+            if (isCopy && debug)
             {
                 Console.ForegroundColor = colors[3];
-                writer.Write(s);
+                writer.Write($"\t{text}");
+            }
+
+            else if (!isCopy && verbose)
+            {
+                Console.ForegroundColor = colors[3];
+                writer.Write(text);
             }
         }
 
@@ -54,28 +60,46 @@ namespace Helpers.Writer
             }
         }
 
-        public void WriteLineVerbose(string s, bool isCopy = false)
+        public void WriteLineVerbose(string text, bool isCopy = false)
         {
-            if ((isCopy && debug) || (!isCopy && verbose))
+            if (isCopy && debug)
             {
                 Console.ForegroundColor = colors[3];
-                writer.WriteLine(s);
+                writer.WriteLine($"\t{text}");
+            }
+
+            else if (!isCopy && verbose)
+            {
+                Console.ForegroundColor = colors[3];
+                writer.WriteLine(text);
             }
         }
 
 
-        public void WriteVerbose(string text, int id, bool isCopy = false)
+        public void WriteVerbose(string text, int id, bool isCopy = false, bool isCards = false)
         {
-            if ((isCopy && debug) || (!isCopy && verbose))
+            if (isCopy && debug)
+            {
+                Console.ForegroundColor = colors[id];
+                writer.Write(isCards ? text : $"\t{text}");
+            }
+
+            else if (!isCopy && verbose)
             {
                 Console.ForegroundColor = colors[id];
                 writer.Write(text);
             }
         }
 
-        public void WriteLineVerbose(string text, int id, bool isCopy = false)
+        public void WriteLineVerbose(string text, int id, bool isCopy = false, bool isCards = false)
         {
-            if ((isCopy && debug) || (!isCopy && verbose))
+            if (isCopy && debug)
+            {
+                Console.ForegroundColor = colors[id];
+                writer.WriteLine(isCards ? text : $"\t{text}");
+            }
+
+            else if (!isCopy && verbose)
             {
                 Console.ForegroundColor = colors[id];
                 writer.WriteLine(text);

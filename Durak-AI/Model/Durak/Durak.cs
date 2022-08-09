@@ -312,7 +312,7 @@ namespace Model.DurakWrapper
 
             foreach (Card card in sortedCards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : turn, isCopy);
+                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : turn, isCopy, true);
             }
 
             writer.WriteLineVerbose(isCopy);
@@ -482,7 +482,7 @@ namespace Model.DurakWrapper
                 if (card is not null)
                 {
                     writer.WriteVerbose("Attacks: ", GetTurn(), isCopy);
-                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn(), isCopy);
+                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn(), isCopy, true);
                     attacker.GetHand().Remove(card);
 
                     bout.AddCard(card, trumpCard, writer, true, bouts, isCopy);
@@ -506,7 +506,7 @@ namespace Model.DurakWrapper
                     moves++; // increment moves only when card is played
 
                     writer.WriteVerbose("Defends: ", GetTurn(), isCopy);
-                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn(), isCopy);
+                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn(), isCopy, true);
                     defender.GetHand().Remove(card);
 
                     bout.AddCard(card, trumpCard, writer, false, bouts, isCopy);
