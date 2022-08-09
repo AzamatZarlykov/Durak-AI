@@ -46,7 +46,7 @@ namespace Model.MiddleBout
         public bool CheckExistingSuits(Suit suit) =>
             attackingCards.Exists(card => card.suit == suit);
 
-        public void AddCard(Card card, Card trump, Writer writer, bool attacking, int count)
+        public void AddCard(Card card, Card trump, Writer writer, bool attacking, int count, bool isCopy = false)
         {
             if (attacking)
             {
@@ -55,7 +55,7 @@ namespace Model.MiddleBout
             {
                 defendingCards.Add(card);
             }
-            Info(trump, writer, count);
+            Info(trump, writer, count, isCopy);
         }
 
         public void RemoveCards()
@@ -64,24 +64,24 @@ namespace Model.MiddleBout
             defendingCards.Clear();
         }
 
-        private void Info(Card trump, Writer writer, int count)
+        private void Info(Card trump, Writer writer, int count, bool isCopy = false)
         {
-            writer.WriteLineVerbose();
-            writer.WriteLineVerbose($"Bout {count}:");
-            writer.WriteVerbose("Attacking cards: ");
+            writer.WriteLineVerbose(isCopy);
+            writer.WriteLineVerbose($"Bout {count}:", isCopy);
+            writer.WriteVerbose("Attacking cards: ", isCopy);
             foreach(Card card in attackingCards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3);
+                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3, isCopy);
             }
-            writer.WriteLineVerbose();
+            writer.WriteLineVerbose(isCopy);
 
-            writer.WriteVerbose("Defending cards: ");
+            writer.WriteVerbose("Defending cards: ", isCopy);
             foreach (Card card in defendingCards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3);
+                writer.WriteVerbose(card + " ", card.suit == trump.suit ? 2 : 3, isCopy);
             }
-            writer.WriteLineVerbose();
-            writer.WriteLineVerbose();
+            writer.WriteLineVerbose(isCopy);
+            writer.WriteLineVerbose(isCopy);
         }
     }
 }

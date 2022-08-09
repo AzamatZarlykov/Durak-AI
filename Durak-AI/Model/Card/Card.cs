@@ -12,13 +12,20 @@ namespace Model.PlayingCards
 
         public Card() { }
 
+        public Card(Suit _suit)
+        {
+            suit = _suit;
+        }
+
         public Card(Suit _suit, Rank _rank)
         {
             suit = _suit;
             rank = _rank;
         }
-        public string GetRank(int value) =>
-            value < 11 ? value.ToString() : "JQKA"[value - 11].ToString();
+        public string GetRank(int value)
+        {
+            return value < 11 ? value == 0 ? "" : value.ToString() : "JQKA"[value - 11].ToString();
+        }
 
         public string GetSuit(int index) =>
             suitUnicode[index];

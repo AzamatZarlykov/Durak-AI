@@ -60,12 +60,21 @@ namespace CLI
 
             [DefaultValue(false)]
             [Description("Enable verbose output")]
-            bool verbose
+            bool verbose,
+
+            [DefaultValue(false)]
+            [Description("Enable debug for minimax algorithm")]
+            bool debug
         )
         {
             if (seed > 0)
             {
                 total_games = 1;
+                verbose = true;
+            }
+
+            if (debug)
+            {
                 verbose = true;
             }
 
@@ -78,6 +87,7 @@ namespace CLI
                 Agents = agents,
                 Seed = seed,
                 Verbose = verbose,
+                Debug = debug,
                 OpenWorld = open_world,
             };
 

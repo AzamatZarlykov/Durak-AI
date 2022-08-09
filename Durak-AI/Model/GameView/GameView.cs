@@ -44,7 +44,7 @@ namespace Model.GameState
             this.openWorld = open;
         }
 
-        public void Move(Card? card) => 
+        public void Move(Card? card, bool copy = false) => 
             game.Move(card);
 
         public List<Card> GetDefendingCards(Card attacking) => 

@@ -28,6 +28,7 @@ namespace CLI
 
         public Controller(GameParameters gameParam) 
         {
+            Console.WriteLine($"Verbose: {gameParam.Verbose}, Debug: {gameParam.Debug}");
             this.gParam = gameParam;
 
             this.gamesWon = new int[2];
@@ -162,7 +163,7 @@ namespace CLI
 
         public void Run()
         {
-            Durak game = new Durak(gParam.StartingRank, gParam.Verbose);
+            Durak game = new Durak(gParam.StartingRank, gParam.Verbose, gParam.Debug);
 
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;

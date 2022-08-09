@@ -54,6 +54,7 @@ namespace Model.DurakWrapper
         private const int NUMBEROFPLAYERS = 2;
         private const int TOTALCARDS = 6;
 
+        public bool isCopy { get; set; }
         public Card GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
         public Bout GetBout() => bout;
@@ -69,12 +70,12 @@ namespace Model.DurakWrapper
         public List<Card> GetPlayersHand(int playerIndex) => players[playerIndex].GetHand();
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
 
-        public Durak(int rankStartingPoint, bool verbose)
+        public Durak(int rankStartingPoint, bool verbose, bool isDebug)
         {
             trumpCard = new Card();
             bout = new Bout();
             deck = new Deck(rankStartingPoint);
-            writer = new Writer(Console.Out, verbose);
+            writer = new Writer(Console.Out, verbose, isDebug);
         }
 
         public Durak Copy(bool open)
@@ -85,6 +86,7 @@ namespace Model.DurakWrapper
             }
             Durak copy = (Durak)this.MemberwiseClone();
 
+            copy.isCopy = true;
             copy.bout = this.bout.Copy();
             copy.deck = this.deck.Copy();
             copy.players = players.ConvertAll(p => p.Copy());
@@ -104,16 +106,16 @@ namespace Model.DurakWrapper
 
         private void FillPlayerHand(List<Card> cards, Player player, string text)
         {
-            writer.WriteVerbose(text);
+            writer.WriteVerbose(text, isCopy);
 
             cards = cards.OrderBy(c => (int)c.suit).ThenBy(c => (int)c.rank).ToList();
 
             foreach (Card card in cards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : 3);
+                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : 3, isCopy);
                 player.GetHand().Add(card);
             }
-            writer.WriteLineVerbose();
+            writer.WriteLineVerbose(isCopy);
         }
 
 
@@ -179,12 +181,12 @@ namespace Model.DurakWrapper
 
         private Card DetermineTrumpCard(Random random)
         {
-            if (deck.cardsLeft > 0)
+            if (deck.cardsLeft - NUMBEROFPLAYERS * 6 > 0)
             {
                 return deck.GetCard(0);
             }
 
-            return new Card((Suit)random.Next(4), (Rank)5);
+            return new Card((Suit)random.Next(4));
         }
 
         private void AddPlayers(string[] agents)
@@ -209,21 +211,22 @@ namespace Model.DurakWrapper
             // instantiate the deck 
             deck.Init(random);
 
-            trumpCard = DetermineTrumpCard(random);
-
             // instantiate the bout of the game
             bout = new Bout();
 
             // instantiate the pile
             discardPile = new List<Card>();
             
-            // instantiate players 
-            AddPlayers(agents);
+            trumpCard = DetermineTrumpCard(random);
 
             Info();
 
+            // instantiate players 
+            AddPlayers(agents);
+
             // Each player draws 6 cards
             DistributeCardsToPlayers();
+
 
             // Set the attacking player
             SetAttacker(random);
@@ -299,9 +302,25 @@ namespace Model.DurakWrapper
             players[GetDefendingPlayer()].GetHand()
                                          .Exists(c => IsLegalDefense(attackingCard, c));
 
+        private void DisplayCardsInOrder(List<Card> cards, string text, int turn)
+        {
+            writer.WriteVerbose(text, isCopy);
+
+            var sortedCards = cards.
+                OrderBy(card => (int)(card.suit)).
+                ThenBy(card => (int)(card.rank));
+
+            foreach (Card card in sortedCards)
+            {
+                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : turn, isCopy);
+            }
+
+            writer.WriteLineVerbose(isCopy);
+        }
+
         public List<Card> PossibleCards()
         {
-            if (bout.GetAttackingCardsSize() == 0)
+            if (bout.GetAttackingCardsSize() == 0 && !isCopy)
             {
                 writer.WriteLineVerbose();
                 writer.WriteLineVerbose("=== New Bout ===");
@@ -309,7 +328,7 @@ namespace Model.DurakWrapper
             }
 
             writer.WriteLineVerbose($"TURN: Player {GetTurn() + 1} ({players[GetTurn()].GetName()})" +
-                $" ({turn})");
+                $" ({turn})", isCopy);
 
             List<Card> cards = new List<Card>();
 
@@ -322,12 +341,12 @@ namespace Model.DurakWrapper
 
                 if (defenderTakes || CanAttack())
                 {
-                    writer.WriteLineVerbose("Can attack", GetTurn());
+                    writer.WriteLineVerbose("Can attack", GetTurn(), isCopy);
                     cards = GenerateListOfAttackingCards();
                 }
                 else
                 {
-                    writer.WriteLineVerbose("cannot attack", GetTurn());
+                    writer.WriteLineVerbose("cannot attack", GetTurn(), isCopy);
                     return cards;
                 }
             } else
@@ -340,11 +359,11 @@ namespace Model.DurakWrapper
                 Card attackingCard = bout.GetAttackingCards()[^1];
                 if (CanDefend(attackingCard))
                 {
-                    writer.WriteLineVerbose("Can defend", GetTurn());
+                    writer.WriteLineVerbose("Can defend", GetTurn(), isCopy);
                     cards = GenerateListofDefendingCards(attackingCard);
                 }else
                 {
-                    writer.WriteLineVerbose("cannot defend", GetTurn());
+                    writer.WriteLineVerbose("cannot defend", GetTurn(), isCopy);
                     return cards;
                 }
             }
@@ -409,9 +428,9 @@ namespace Model.DurakWrapper
             if (IsGameOver())
             {
                 gameStatus = GameStatus.GameOver;
-                writer.WriteLineVerbose();
-                writer.WriteLineVerbose("==== GAME OVER ====");
-                writer.WriteLineVerbose();
+                writer.WriteLineVerbose(isCopy);
+                writer.WriteLineVerbose("==== GAME OVER ====", isCopy);
+                writer.WriteLineVerbose(isCopy);
                 bouts++;
                 return true;
             }
@@ -431,7 +450,7 @@ namespace Model.DurakWrapper
                 defenderTakes = false;
             }
 
-            writer.WriteLineVerbose();
+            writer.WriteLineVerbose(isCopy);
             FillPlayerHand(deck.DrawCards(TOTALCARDS - attacker.GetHand().Count),
                 attacker, "Attacker Drew: ");
             FillPlayerHand(deck.DrawCards(TOTALCARDS - defender.GetHand().Count), 
@@ -462,16 +481,16 @@ namespace Model.DurakWrapper
                 moves++;
                 if (card is not null)
                 {
-                    writer.WriteVerbose("Attacks: ", GetTurn());
-                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn());
+                    writer.WriteVerbose("Attacks: ", GetTurn(), isCopy);
+                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn(), isCopy);
                     attacker.GetHand().Remove(card);
 
-                    bout.AddCard(card, trumpCard, writer, true, bouts);
+                    bout.AddCard(card, trumpCard, writer, true, bouts, isCopy);
                 }
                 else
                 {
                     // means PASS - cannot attack
-                    writer.WriteLineVerbose("PASSES", GetTurn());
+                    writer.WriteLineVerbose("PASSES", GetTurn(), isCopy);
                     if (!IsEndGame(attacker, defender))
                     {
                         EndBoutProcess(attacker, defender);
@@ -486,22 +505,22 @@ namespace Model.DurakWrapper
                 {
                     moves++; // increment moves only when card is played
 
-                    writer.WriteVerbose("Defends: ", GetTurn());
-                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn());
+                    writer.WriteVerbose("Defends: ", GetTurn(), isCopy);
+                    writer.WriteLineVerbose(card.ToString(), card.suit == trumpCard.suit ? 2 : GetTurn(), isCopy);
                     defender.GetHand().Remove(card);
 
-                    bout.AddCard(card, trumpCard, writer, false, bouts);
+                    bout.AddCard(card, trumpCard, writer, false, bouts, isCopy);
 
                     IsEndGame(attacker, defender);
                 }
                 else
                 {
-                    writer.WriteLineVerbose("TAKES");
+                    writer.WriteLineVerbose("TAKES", isCopy);
                     defenderTakes = true;
                     if (CanAttack())
                     {
                         turn = Turn.Attacking;
-                        writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn());
+                        writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn(), isCopy);
                         return;
                     }
                     if (!IsEndGame(attacker, defender))
@@ -512,22 +531,6 @@ namespace Model.DurakWrapper
             }
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
-        }
-
-        private void DisplayCardsInOrder(List<Card> cards, string text, int turn)
-        {
-            writer.WriteVerbose(text);
-
-            var sortedCards = cards.
-                OrderBy(card => (int)(card.suit)).
-                ThenBy(card => (int)(card.rank));
-
-            foreach (Card card in sortedCards)
-            {
-                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : turn);
-            }
-
-            writer.WriteLineVerbose();
         }
     }
 }

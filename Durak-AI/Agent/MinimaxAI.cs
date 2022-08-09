@@ -135,7 +135,7 @@ namespace AIAgent
 
             return bestVal;
         }
-
+        
         public override Card? Move(GameView gameView)
         {
             int alpha = int.MinValue;
@@ -143,9 +143,6 @@ namespace AIAgent
 
             Minimax(gameView, alpha, beta, 0, out Card? bestMove);
 
-            Console.Write("Actual Card Move: ");
-            Console.WriteLine(bestMove);
-                
             return bestMove;
         }
     }
