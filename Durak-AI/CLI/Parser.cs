@@ -31,6 +31,30 @@ namespace CLI
             ExampleUsage();
         }
 
+        private static void EnableLogs(Controller controller)
+        {
+            string dirPath = "CLI/Logs";
+            string fileName = "log.txt";
+            try
+            {
+                Directory.CreateDirectory(dirPath);
+                using (FileStream ostrm = new FileStream(Path.Combine(dirPath, fileName),
+                    FileMode.Create, FileAccess.Write))
+                using (StreamWriter writer = new StreamWriter(stream:ostrm))
+                {
+                    Console.SetOut(writer);
+                    controller.Run();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Cannot open Redirect.txt for writing");
+                Console.WriteLine(e.Message);
+                return;
+            }
+        }
+
         [Verb(IsDefault = true)]
         static void Parse(
             [DefaultValue("random")]
@@ -64,7 +88,12 @@ namespace CLI
 
             [DefaultValue(false)]
             [Description("Enable debug for minimax algorithm")]
-            bool debug
+            bool debug,
+
+            [DefaultValue(false)]
+            [Description("Enable logs for writing in the file")]
+            bool log
+
         )
         {
             if (seed > 0)
@@ -92,7 +121,12 @@ namespace CLI
             };
 
             Controller controller = new Controller(gameParam);
-            controller.Run();
+            if (!log)
+            {
+                controller.Run();
+                return;
+            } 
+            EnableLogs(controller);
         }
     }
 }

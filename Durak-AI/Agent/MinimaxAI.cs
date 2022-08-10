@@ -104,8 +104,11 @@ namespace AIAgent
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
             List<Card> possibleCards = gw.PossibleCards();
+            // one more option is to take/pass
+            List<Card?> possibleMoves = new List<Card?>(possibleCards);
+            possibleMoves.Add(null);
 
-            foreach(Card card in possibleCards)
+            foreach(Card ?card in possibleMoves)
             {
                 GameView gwCopy = gw.Copy();
                 gwCopy.Move(card);

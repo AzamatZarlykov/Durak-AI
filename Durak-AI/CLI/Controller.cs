@@ -28,7 +28,6 @@ namespace CLI
 
         public Controller(GameParameters gameParam) 
         {
-            Console.WriteLine($"Verbose: {gameParam.Verbose}, Debug: {gameParam.Debug}");
             this.gParam = gameParam;
 
             this.gamesWon = new int[2];

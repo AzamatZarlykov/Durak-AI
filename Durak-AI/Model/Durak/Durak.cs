@@ -112,7 +112,7 @@ namespace Model.DurakWrapper
 
             foreach (Card card in cards)
             {
-                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : 3, isCopy);
+                writer.WriteVerbose(card + " ", card.suit == trumpCard.suit ? 2 : 3, isCopy, true);
                 player.GetHand().Add(card);
             }
             writer.WriteLineVerbose(isCopy);
@@ -463,7 +463,7 @@ namespace Model.DurakWrapper
 
             if (discardPile.Count > 0)
             {
-                writer.WriteLineVerbose("Discard pile size: " + discardPile.Count);
+                writer.WriteLineVerbose("Discard pile size: " + discardPile.Count, isCopy);
             }
             bout.RemoveCards();
 
@@ -494,7 +494,8 @@ namespace Model.DurakWrapper
                     if (!IsEndGame(attacker, defender))
                     {
                         EndBoutProcess(attacker, defender);
-                        writer.WriteLineVerbose("\nchanged roles");
+                        writer.WriteLineVerbose(isCopy);
+                        writer.WriteLineVerbose("changed roles", isCopy);
                         return;
                     }
                 }
