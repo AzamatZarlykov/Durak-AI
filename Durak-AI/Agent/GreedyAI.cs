@@ -13,7 +13,14 @@ namespace AIAgent
 
         public Card? GetCard(List<Card> possibleCards, GameView gw)
         {
-            List<Card> noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+            List<Card> noTrumpCards;
+            if (gw.noTrumps)
+            {
+                noTrumpCards = possibleCards;
+            } else
+            {
+                noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+            }
 
             if (noTrumpCards.Count == 0)
             {

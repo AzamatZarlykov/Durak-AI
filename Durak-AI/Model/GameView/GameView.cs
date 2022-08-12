@@ -27,7 +27,7 @@ namespace Model.GameState
         public Deck deck => game.GetDeck();
         public List<Card> discardPile => game.GetDiscardPile();
         public Bout bout => game.GetBout();
-        public Suit trumpSuit => game.GetTrumpCard().suit;
+        public Suit? trumpSuit => game.GetTrumpCard()?.suit;
         public Turn turn => game.GetTurnEnum();
         public List<Card> playerHand => game.GetPlayersHand(agentIndex);
         public List<Card> opponentHand => game.GetPlayersHand((agentIndex + 1) % 2);
@@ -37,6 +37,8 @@ namespace Model.GameState
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
         public bool open => openWorld;
+        public bool noTrumps => game.WithTrumpCards();
+
         public GameView (Durak game, int agent, bool open)
         {
             this.game = game;

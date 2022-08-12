@@ -12,7 +12,7 @@ namespace AIAgent
     public static class Helper
     {
 
-        public static List<Card> GetCardsWithoutTrump(List<Card> cards, Suit trump) =>
+        public static List<Card> GetCardsWithoutTrump(List<Card> cards, Suit? trump) =>
             cards.Where(c => c.suit != trump).ToList();
 
         public static Card GetLowestRank(List<Card> cards) =>

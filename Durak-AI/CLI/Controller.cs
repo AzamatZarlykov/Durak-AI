@@ -162,7 +162,11 @@ namespace CLI
 
         public void Run()
         {
-            Durak game = new Durak(gParam.StartingRank, gParam.Verbose, gParam.Debug);
+            Durak game = new Durak(
+                gParam.StartingRank, 
+                gParam.Verbose, 
+                gParam.Debug, 
+                gParam.NoTrumpCards);
 
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;

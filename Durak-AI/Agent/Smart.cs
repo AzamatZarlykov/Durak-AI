@@ -82,7 +82,7 @@ namespace AIAgent
             List<Card> pHand = gw.playerHand;
 
             // stategy works if P attacking and O does not have any trump cards
-            if (gw.turn == Turn.Attacking && !oHand.Exists(c => c.suit == gw.trumpSuit))
+            if (gw.turn == Turn.Attacking && (gw.noTrumps || !oHand.Exists(c => c.suit == gw.trumpSuit)))
             {
                 return AttackingStrategy(gw, oHand, pHand, noTrumpCards,
                     possibleCards);
@@ -97,7 +97,15 @@ namespace AIAgent
 
         private Card? GetCard(List<Card> possibleCards, GameView gw)
         {
-            List<Card> noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+            List<Card> noTrumpCards;
+            if (gw.noTrumps)
+            {
+                noTrumpCards = possibleCards;
+            }
+            else
+            {
+                noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+            }
 
             if (gw.isEarlyGame)
             {

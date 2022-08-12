@@ -92,7 +92,11 @@ namespace CLI
 
             [DefaultValue(false)]
             [Description("Enable logs for writing in the file")]
-            bool log
+            bool log,
+
+            [DefaultValue(false)]
+            [Description("Enable trump cards in the game")]
+            bool no_trumps
 
         )
         {
@@ -118,6 +122,7 @@ namespace CLI
                 Verbose = verbose,
                 Debug = debug,
                 OpenWorld = open_world,
+                NoTrumpCards = no_trumps,
             };
 
             Controller controller = new Controller(gameParam);

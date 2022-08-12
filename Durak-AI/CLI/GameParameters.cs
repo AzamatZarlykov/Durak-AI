@@ -15,6 +15,7 @@ namespace CLI
         public int Seed { get; set; }
         public bool Verbose { get; set; }
         public bool Debug { get; set; }
+        public bool NoTrumpCards { get; set; }
 
         public bool OpenWorld { get; set; }
         public string[] Agents { get; set; } = new string[2];
