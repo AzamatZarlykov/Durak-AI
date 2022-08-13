@@ -14,11 +14,17 @@ namespace AIAgent
     public class MinimaxAI : Agent
     {
         private int maxDepth;
-        public MinimaxAI(string name, int depth)
+        private int totalGameStates;
+        private int maxSearchedDepth;
+        private bool debug;
+        public MinimaxAI(string name, int depth, bool debug)
         {
             this.name = name;
             this.maxDepth = depth;
+            this.debug = debug;
+            this.totalGameStates = -1;
         }
+
 
         /*        private int DefendAttack(List<Card> oHand, List<Card> pHand, GameView gw)
                 {
@@ -61,28 +67,34 @@ namespace AIAgent
         private int Evaluate(GameView gw)
         {
             int score = 0;
-            var oHand = gw.opponentHand;
 
-            if (gw.isEarlyGame)
+            if (gw.status == GameStatus.GameOver)
             {
-                if (gw.turn == Turn.Attacking)
-                {
-
-                }
-                else
-                {
-
-                }
-            
+                return gw.outcome;
             }
-            else
-            {
-                if (gw.turn == Turn.Attacking && !oHand.Exists(c => c.suit == gw.trumpSuit))
-                {
-                    score += AttackingEval(gw, oHand);
-                }
-            }
+            /*            var oHand = gw.opponentHand;
 
+                        if (gw.isEarlyGame)
+                        {
+                            if (gw.turn == Turn.Attacking)
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
+
+                        }
+                        else
+                        {
+                            if (gw.turn == Turn.Attacking && !oHand.Exists(c => c.suit == gw.trumpSuit))
+                            {
+                                score += AttackingEval(gw, oHand);
+                            }
+                        }
+
+            */
             return score;
         }
 
@@ -90,19 +102,19 @@ namespace AIAgent
         private int Minimax(GameView gw, int alpha, int beta, int depth, out Card? bestMove)
         {
             bestMove = null;
+            totalGameStates += 1;
 
-            if (gw.status == GameStatus.GameOver)
+            if (gw.status == GameStatus.GameOver || depth == maxDepth)
             {
-                return gw.outcome;
-            }
-
-            if (depth == maxDepth)
-            {
-                // heuristc estimate 
+                if (depth > maxSearchedDepth)
+                {
+                    maxSearchedDepth = depth;
+                }
                 return Evaluate(gw);
             }
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
+
             List<Card> possibleCards = gw.PossibleCards();
             // one more option is to take/pass
             List<Card?> possibleMoves = new List<Card?>(possibleCards);
@@ -146,6 +158,13 @@ namespace AIAgent
 
             Minimax(gameView, alpha, beta, 0, out Card? bestMove);
 
+            if (debug)
+            {
+                Console.WriteLine($"Total states explored:    {totalGameStates}");
+                Console.WriteLine($"Max search depth reached: {maxSearchedDepth}");
+                totalGameStates = 0;
+                maxSearchedDepth = 0;
+            }
             return bestMove;
         }
     }

@@ -87,8 +87,12 @@ namespace CLI
             bool verbose,
 
             [DefaultValue(false)]
-            [Description("Enable debug for minimax algorithm")]
-            bool debug,
+            [Description("Displays the number of states and search depth for each minimax move")]
+            bool d1,
+
+            [DefaultValue(false)]
+            [Description("Displays all the moves that minimax considers")]
+            bool d2,
 
             [DefaultValue(false)]
             [Description("Enable logs for writing in the file")]
@@ -106,7 +110,7 @@ namespace CLI
                 verbose = true;
             }
 
-            if (debug)
+            if (d1 || d2)
             {
                 verbose = true;
             }
@@ -120,7 +124,8 @@ namespace CLI
                 Agents = agents,
                 Seed = seed,
                 Verbose = verbose,
-                Debug = debug,
+                D1 = d1,
+                D2 = d2,
                 OpenWorld = open_world,
                 NoTrumpCards = no_trumps,
             };

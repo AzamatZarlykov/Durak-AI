@@ -142,7 +142,7 @@ namespace CLI
 
                     int.TryParse(res[1], out int value);
 
-                    return new MinimaxAI($"{name} (depth={value})", value);
+                    return new MinimaxAI($"{name} (depth={value})", value, gParam.D1);
                 default:
                     throw new Exception("unknown agent");
             }
@@ -165,7 +165,7 @@ namespace CLI
             Durak game = new Durak(
                 gParam.StartingRank, 
                 gParam.Verbose, 
-                gParam.Debug, 
+                gParam.D2, 
                 gParam.NoTrumpCards);
 
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;

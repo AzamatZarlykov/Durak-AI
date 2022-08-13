@@ -14,7 +14,9 @@ namespace CLI
         public int StartingRank { get; set; }
         public int Seed { get; set; }
         public bool Verbose { get; set; }
-        public bool Debug { get; set; }
+        public bool D1 { get; set; }
+        public bool D2 { get; set; }
+
         public bool NoTrumpCards { get; set; }
 
         public bool OpenWorld { get; set; }
