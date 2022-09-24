@@ -110,7 +110,7 @@ namespace CLI
                 verbose = true;
             }
 
-            if (d1 || d2)
+            if (d2)
             {
                 verbose = true;
             }

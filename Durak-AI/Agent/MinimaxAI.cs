@@ -4,6 +4,7 @@ using Model.DurakWrapper;
 
 using System;
 using static System.Math;
+using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace AIAgent
         private int totalGameStates;
         private int maxSearchedDepth;
         private bool debug;
+
+        private HashSet<string> unique_states = new HashSet<string>();
         public MinimaxAI(string name, int depth, bool debug)
         {
             this.name = name;
@@ -24,18 +27,6 @@ namespace AIAgent
             this.debug = debug;
             this.totalGameStates = -1;
         }
-
-
-        /*        private int DefendAttack(List<Card> oHand, List<Card> pHand, GameView gw)
-                {
-                    var oHandCopy = new List<Card>(oHand);
-
-                    foreach (Card oCard in oHand)
-                    {
-                        var dCards = gw.GetDefendingCards(oCard);
-
-                    }
-                }*/
 
         private int AttackingEval(GameView gw, List<Card> oHand)
         {
@@ -49,21 +40,6 @@ namespace AIAgent
             return 0;
         }
 
-/*
-    - Early Game
-        - Attacking
-        - Defending
-            - if can defend any attack of the opponent = +15
-            - else if can defend only non-trump cards  = +10
-    - End Game
-        - Attacking
-            - if opponent does not have trumps and p has 1 weakness = +100 (winner)
-            - else if p has more trump cards than non trump cards and 
-              oHand is at least the same size as pHand = +10
-            - else if p has 
-        - Defending
-            - if can defend any attack of the opponent = +20
- */
         private int Evaluate(GameView gw)
         {
             int score = 0;
@@ -72,30 +48,19 @@ namespace AIAgent
             {
                 return gw.outcome;
             }
-            /*            var oHand = gw.opponentHand;
 
-                        if (gw.isEarlyGame)
-                        {
-                            if (gw.turn == Turn.Attacking)
-                            {
-
-                            }
-                            else
-                            {
-
-                            }
-
-                        }
-                        else
-                        {
-                            if (gw.turn == Turn.Attacking && !oHand.Exists(c => c.suit == gw.trumpSuit))
-                            {
-                                score += AttackingEval(gw, oHand);
-                            }
-                        }
-
-            */
             return score;
+        }
+
+        private void SerializeGameState(GameView gw)
+        {
+            // prepare the options for serialization
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            // serialize the object
+            string json = JsonSerializer.Serialize(gw, options);
+            Console.WriteLine(json);
+            // store to hashset
+            unique_states.Add(json);
         }
 
         // current minimax does always gives the card
@@ -103,6 +68,8 @@ namespace AIAgent
         {
             bestMove = null;
             totalGameStates += 1;
+
+            SerializeGameState(gw);
 
             if (gw.status == GameStatus.GameOver || depth == maxDepth)
             {
@@ -162,6 +129,8 @@ namespace AIAgent
             {
                 Console.WriteLine($"Total states explored:    {totalGameStates}");
                 Console.WriteLine($"Max search depth reached: {maxSearchedDepth}");
+                Console.WriteLine($"Total unique states explored: {unique_states.Count}");
+                unique_states.Clear();
                 totalGameStates = 0;
                 maxSearchedDepth = 0;
             }
