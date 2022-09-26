@@ -8,6 +8,7 @@ using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.TableDeck;
 using Model.MiddleBout;
+using Model.GamePlayer;
 
 namespace Model.GameState
 {
@@ -26,8 +27,10 @@ namespace Model.GameState
         public GameStatus status => game.GetGameStatus();
         public Deck deck => game.GetDeck();
         public List<Card> discardPile => game.GetDiscardPile();
+        public List<Player> players => game.GetPlayers();
         public Bout bout => game.GetBout();
         public Suit? trumpSuit => game.GetTrumpCard()?.suit;
+        public Card? trumpCard => game.GetTrumpCard();
         public Turn turn => game.GetTurnEnum();
         public List<Card> playerHand => game.GetPlayersHand(agentIndex);
         public List<Card> opponentHand => game.GetPlayersHand((agentIndex + 1) % 2);
@@ -38,6 +41,7 @@ namespace Model.GameState
         public int plTurn => game.GetTurn();
         public bool open => openWorld;
         public bool noTrumps => game.WithTrumpCards();
+        public bool isDraw => game.GetIsDraw();
 
         public GameView (Durak game, int agent, bool open)
         {

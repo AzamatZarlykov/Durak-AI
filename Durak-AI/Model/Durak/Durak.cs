@@ -7,6 +7,7 @@ using Model.MiddleBout;
 using Model.PlayingCards;
 using Model.TableDeck;
 using Model.GamePlayer;
+using Model.GameState;
 
 namespace Model.DurakWrapper
 {
@@ -58,6 +59,7 @@ namespace Model.DurakWrapper
         public Card? GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
         public Bout GetBout() => bout;
+        public List<Player> GetPlayers() => players;
         public List<Card> GetDiscardPile() => discardPile;
         public int GetDefendingPlayer() => (attackingPlayer + 1) % NUMBEROFPLAYERS;
         public int GetAttackingPlayer() => attackingPlayer;
@@ -71,6 +73,25 @@ namespace Model.DurakWrapper
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
         public bool WithTrumpCards() => trumpCard is null ? false : true;
 
+        // Constructor for inner game simulation for minimax agent
+        public Durak(GameView gw)
+        {
+            // Set all the values of the respective fields
+            gameStatus = gw.status;
+            trumpCard = gw.trumpCard;
+            attackingPlayer = gw.plTurn;
+            turn = gw.turn;
+            defenderTakes = gw.takes;
+            isDraw = gw.isDraw;
+
+
+            // copy the bout of the game state
+            bout = new Bout(gw.bout.GetAttackingCards(), gw.bout.GetDefendingCards());
+            // copy the deck of the game state
+            deck = new Deck(gw.deck.GetRankStart(), gw.deck.GetCards());
+            // initialize debugger mode to false
+            writer = new Writer(Console.Out, false, false);
+        }
         public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool noTrumps)
         {
             if (!noTrumps)

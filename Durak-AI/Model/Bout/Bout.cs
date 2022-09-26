@@ -16,6 +16,12 @@ namespace Model.MiddleBout
         private List<Card> attackingCards = new List<Card>();
         private List<Card> defendingCards = new List<Card>();
         public Bout() { }
+        public Bout(List<Card> attacking, List<Card> defending)
+        {
+            attackingCards = new List<Card>(attacking);
+            defendingCards = new List<Card>(defending);
+
+        }
         public int GetAttackingCardsSize() => attackingCards.Count();
         public int GetDefendingCardsSize() => defendingCards.Count();
         public List<Card> GetAttackingCards() => attackingCards;

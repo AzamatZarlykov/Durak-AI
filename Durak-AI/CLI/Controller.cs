@@ -142,7 +142,7 @@ namespace CLI
 
                     int.TryParse(res[1], out int value);
 
-                    return new MinimaxAI($"{name} (depth={value})", value, gParam.D1);
+                    return new MinimaxAI($"{name} (depth={value})", value, gParam.D1, gParam.OpenWorld);
                 default:
                     throw new Exception("unknown agent");
             }

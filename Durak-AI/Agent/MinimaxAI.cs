@@ -18,29 +18,19 @@ namespace AIAgent
         private int totalGameStates;
         private int maxSearchedDepth;
         private bool debug;
+        private bool openWorld;
 
-        private HashSet<string> unique_states = new HashSet<string>();
-        public MinimaxAI(string name, int depth, bool debug)
+        private Dictionary<string, int> cache_states = new Dictionary<string, int>();
+        public MinimaxAI(string name, int depth, bool debug, bool openWorld)
         {
             this.name = name;
             this.maxDepth = depth;
             this.debug = debug;
             this.totalGameStates = -1;
+            this.openWorld = openWorld;
         }
 
-        private int AttackingEval(GameView gw, List<Card> oHand)
-        {
-            var possibleCards = gw.PossibleCards();
-            var weaknesses = Helper.GetWeaknesses(possibleCards, oHand);
-
-            if (weaknesses.Count == 1)
-            {
-                return 100;
-            }
-            return 0;
-        }
-
-        private int Evaluate(GameView gw)
+        private int Evaluate(GameView gw, int depth)
         {
             int score = 0;
 
@@ -49,18 +39,27 @@ namespace AIAgent
                 return gw.outcome;
             }
 
-            return score;
-        }
+            // simulate the game between 2 greedy AI agents. 
+            // Based on the outcome return the score
+            Durak inner_game = new Durak(gw);
+            // initialize the agents
+            List<Agent> agents = new List<Agent>()
+            {
+                new GreedyAI("greedy"),
+                new GreedyAI("greedy")
+            };
 
-        private void SerializeGameState(GameView gw)
-        {
-            // prepare the options for serialization
-            var options = new JsonSerializerOptions { IncludeFields = true };
-            // serialize the object
-            string json = JsonSerializer.Serialize(gw, options);
-            Console.WriteLine(json);
-            // store to hashset
-            unique_states.Add(json);
+            // start the game simulation
+            while (inner_game.gameStatus == GameStatus.GameInProcess)
+            {
+                int turn = inner_game.GetTurn();
+
+                Card? card = agents[turn].Move(new GameView(inner_game, turn, openWorld));
+                inner_game.Move(card);
+            }
+
+            
+            return score;
         }
 
         // current minimax does always gives the card
@@ -69,7 +68,15 @@ namespace AIAgent
             bestMove = null;
             totalGameStates += 1;
 
-            SerializeGameState(gw);
+            // serialize the object with fields
+            string json = JsonSerializer.Serialize(gw, 
+                new JsonSerializerOptions { IncludeFields = true }
+            );
+            // if the game state was already explored then return its heurtic value
+            if (cache_states.ContainsKey(json))
+            {
+                return cache_states[json];
+            }
 
             if (gw.status == GameStatus.GameOver || depth == maxDepth)
             {
@@ -77,7 +84,7 @@ namespace AIAgent
                 {
                     maxSearchedDepth = depth;
                 }
-                return Evaluate(gw);
+                return Evaluate(gw, depth);
             }
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
@@ -92,6 +99,8 @@ namespace AIAgent
                 GameView gwCopy = gw.Copy();
                 gwCopy.Move(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
+                // add to the cache the game state with its heurstic value
+                cache_states.Add(json, v);
 
                 if (gw.plTurn == 0 ? v > bestVal : v < bestVal)
                 {
@@ -129,8 +138,8 @@ namespace AIAgent
             {
                 Console.WriteLine($"Total states explored:    {totalGameStates}");
                 Console.WriteLine($"Max search depth reached: {maxSearchedDepth}");
-                Console.WriteLine($"Total unique states explored: {unique_states.Count}");
-                unique_states.Clear();
+                // Console.WriteLine($"Total unique states explored: {unique_states.Count}");
+                // unique_states.Clear();
                 totalGameStates = 0;
                 maxSearchedDepth = 0;
             }

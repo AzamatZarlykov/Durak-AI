@@ -19,10 +19,17 @@ namespace Model.TableDeck
 
         public int cardsLeft => cards.Count;
         public int GetRankStart() => rankStart;    
+        public List<Card> GetCards() => cards;
 
         public Deck(int rankStartingPoint)
         {
             this.rankStart = rankStartingPoint;
+        }
+
+        public Deck(int ranskStartingPoint, List<Card> deckCards)
+        {
+            cards = new List<Card>(deckCards);
+            rankStart = ranskStartingPoint;
         }
 
         public Deck Copy()
