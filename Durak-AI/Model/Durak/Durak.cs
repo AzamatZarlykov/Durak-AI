@@ -83,7 +83,8 @@ namespace Model.DurakWrapper
             turn = gw.turn;
             defenderTakes = gw.takes;
             isDraw = gw.isDraw;
-
+            discardPile = new List<Card>(gw.discardPile);
+            players = gw.players.ConvertAll(p => p.Copy());
 
             // copy the bout of the game state
             bout = new Bout(gw.bout.GetAttackingCards(), gw.bout.GetDefendingCards());
