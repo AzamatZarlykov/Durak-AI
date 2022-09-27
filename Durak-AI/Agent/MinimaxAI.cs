@@ -99,8 +99,12 @@ namespace AIAgent
                 GameView gwCopy = gw.Copy();
                 gwCopy.Move(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
-                // add to the cache the game state with its heurstic value
-                cache_states.Add(json, v);
+                // if the game state was already explored then return its heurtic value
+                if (!cache_states.ContainsKey(json))
+                {
+                    // add to the cache the game state with its heurstic value
+                    cache_states.Add(json, v);
+                }
 
                 if (gw.plTurn == 0 ? v > bestVal : v < bestVal)
                 {
