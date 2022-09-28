@@ -376,6 +376,14 @@ namespace Model.DurakWrapper
             writer.WriteLineVerbose(isCopy);
         }
 
+        // checks if defending player can take more cards from the attacker
+        // in the current game state
+        private bool CanFitMoreCards()
+        {
+            return players[GetDefendingPlayer()].GetHand().Count > 
+                bout.GetAttackingCardsSize() - bout.GetDefendingCardsSize();
+        }
+
         public List<Card> PossibleCards()
         {
             if (bout.GetAttackingCardsSize() == 0 && !isCopy)
@@ -392,12 +400,13 @@ namespace Model.DurakWrapper
 
             if (turn == Turn.Attacking)
             {
+                // if opponent does not have cards then attack nothing
                 if (players[GetDefendingPlayer()].GetNumberOfCards() == 0)
                 {
                     return cards;
                 }
-
-                if (defenderTakes || CanAttack())
+                // if defender takes and can fit more cards or you can attack then attack
+                if ((defenderTakes && CanFitMoreCards()) || CanAttack())
                 {
                     writer.WriteLineVerbose("Can attack", GetTurn(), isCopy);
                     cards = GenerateListOfAttackingCards();
@@ -592,7 +601,7 @@ namespace Model.DurakWrapper
                 {
                     writer.WriteLineVerbose("TAKES", isCopy);
                     defenderTakes = true;
-                    if (CanAttack())
+                    if (CanAttack() && CanFitMoreCards())
                     {
                         turn = Turn.Attacking;
                         writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn(), isCopy);
