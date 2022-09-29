@@ -44,15 +44,15 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
-            List<Card> cards = gameView.PossibleCards();
+            List<Card?> cards = gameView.PossibleCards();
 
             // cannot attack/defend
-            if (cards.Count == 0)
+            if (cards.Count == 1 && cards[0] is null)
             {
                 return null;
             }
 
-            return GetCard(cards, gameView);
+            return GetCard(cards!, gameView);
         }
     }
 }

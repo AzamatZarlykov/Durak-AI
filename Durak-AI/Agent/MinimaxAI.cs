@@ -72,11 +72,14 @@ namespace AIAgent
             string json = JsonSerializer.Serialize(gw, 
                 new JsonSerializerOptions { IncludeFields = true }
             );
+
             // if the game state was already explored then return its heurtic value
-/*            if (cache_states.ContainsKey(json))
+            if (cache_states.ContainsKey(json))
             {
+                Console.WriteLine("Encountered State");
+                Console.WriteLine(json);
                 return cache_states[json];
-            }*/
+            }
 
             if (gw.status == GameStatus.GameOver || depth == maxDepth)
             {
@@ -89,10 +92,10 @@ namespace AIAgent
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
 
-            List<Card> possibleCards = gw.PossibleCards();
+            List<Card?> possibleMoves = gw.PossibleCards();
             // one more option is to take/pass
-            List<Card?> possibleMoves = new List<Card?>(possibleCards);
-            possibleMoves.Add(null);
+/*            List<Card?> possibleMoves = new List<Card?>(possibleCards);
+            possibleMoves.Add(null);*/
 
             foreach(Card ?card in possibleMoves)
             {
@@ -100,12 +103,12 @@ namespace AIAgent
                 gwCopy.Move(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
                 // if the game state was already explored then return its heurtic value
-/*                if (!cache_states.ContainsKey(json))
+                if (!cache_states.ContainsKey(json))
                 {
                     // add to the cache the game state with its heurstic value
                     cache_states.Add(json, v);
                 }
-*/
+
                 if (gw.plTurn == 0 ? v > bestVal : v < bestVal)
                 {
                     bestVal = v;
@@ -140,10 +143,10 @@ namespace AIAgent
 
             if (debug)
             {
-                Console.WriteLine($"Total states explored:    {totalGameStates}");
                 Console.WriteLine($"Max search depth reached: {maxSearchedDepth}");
-/*                Console.WriteLine($"Total unique states explored: {cache_states.Count}");
-                cache_states.Clear();*/
+                Console.WriteLine($"Total states explored:    {totalGameStates}");
+                Console.WriteLine($"Total unique states explored: {cache_states.Count}");
+
                 totalGameStates = 0;
                 maxSearchedDepth = 0;
             }

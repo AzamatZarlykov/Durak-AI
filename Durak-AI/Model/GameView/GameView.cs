@@ -35,7 +35,7 @@ namespace Model.GameState
         public List<Card> playerHand => game.GetPlayersHand(agentIndex);
         public List<Card> opponentHand => game.GetPlayersHand((agentIndex + 1) % 2);
         public bool takes => game.GetTake();
-        public List<Card> PossibleCards() => game.PossibleCards();
+        public List<Card?> PossibleCards() => game.PossibleCards();
         public bool isEarlyGame => deck.cardsLeft != 0;
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();

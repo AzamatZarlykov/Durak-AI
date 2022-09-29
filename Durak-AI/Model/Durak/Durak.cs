@@ -384,7 +384,7 @@ namespace Model.DurakWrapper
                 bout.GetAttackingCardsSize() - bout.GetDefendingCardsSize();
         }
 
-        public List<Card> PossibleCards()
+        public List<Card?> PossibleCards()
         {
             if (bout.GetAttackingCardsSize() == 0 && !isCopy)
             {
@@ -396,30 +396,33 @@ namespace Model.DurakWrapper
             writer.WriteLineVerbose($"TURN: Player {GetTurn() + 1} ({players[GetTurn()].GetName()})" +
                 $" ({turn})", isCopy);
 
-            List<Card> cards = new List<Card>();
+            List<Card?> cards = new List<Card?>();
 
             if (turn == Turn.Attacking)
             {
                 // if opponent does not have cards then attack nothing
                 if (players[GetDefendingPlayer()].GetNumberOfCards() == 0)
                 {
+                    cards.Add(null);
                     return cards;
                 }
                 // if defender takes and can fit more cards or you can attack then attack
                 if ((defenderTakes && CanFitMoreCards()) || CanAttack())
                 {
                     writer.WriteLineVerbose("Can attack", GetTurn(), isCopy);
-                    cards = GenerateListOfAttackingCards();
+                    cards = GenerateListOfAttackingCards()!;
                 }
                 else
                 {
                     writer.WriteLineVerbose("cannot attack", GetTurn(), isCopy);
+                    cards.Add(null);
                     return cards;
                 }
             } else
             {
                 if (defenderTakes)
                 {
+                    cards.Add(null);
                     return cards;
                 }
 
@@ -427,14 +430,15 @@ namespace Model.DurakWrapper
                 if (CanDefend(attackingCard))
                 {
                     writer.WriteLineVerbose("Can defend", GetTurn(), isCopy);
-                    cards = GenerateListofDefendingCards(attackingCard);
+                    cards = GenerateListofDefendingCards(attackingCard)!;
                 }else
                 {
                     writer.WriteLineVerbose("cannot defend", GetTurn(), isCopy);
+                    cards.Add(null);
                     return cards;
                 }
             }
-            DisplayCardsInOrder(cards, "Possible cards: ", GetTurn());
+            DisplayCardsInOrder(cards!, "Possible cards: ", GetTurn());
 
             return cards;
         }
