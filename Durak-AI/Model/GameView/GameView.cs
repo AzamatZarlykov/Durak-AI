@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.TableDeck;
 using Model.MiddleBout;
 using Model.GamePlayer;
+using Helpers;
 
 namespace Model.GameState
 {
@@ -22,14 +24,12 @@ namespace Model.GameState
         private Durak game;
         private int agentIndex;
         private bool openWorld;
-
         public GameView Copy() => new GameView(game.Copy(openWorld), agentIndex, openWorld);
         public GameStatus status => game.GetGameStatus();
         public Deck deck => game.GetDeck();
         public List<Card> discardPile => game.GetDiscardPile();
         public List<Player> players => game.GetPlayers();
         public Bout bout => game.GetBout();
-        public Suit? trumpSuit => game.GetTrumpCard()?.suit;
         public Card? trumpCard => game.GetTrumpCard();
         public Turn turn => game.GetTurnEnum();
         public List<Card> playerHand => game.GetPlayersHand(agentIndex);
@@ -40,15 +40,23 @@ namespace Model.GameState
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
         public bool open => openWorld;
-        public bool noTrumps => game.WithTrumpCards();
+        public bool noTrumps => trumpCard is null ? false : true;
         public bool isDraw => game.GetIsDraw();
 
-        public GameView (Durak game, int agent, bool open)
+        public GameView(Durak game, int agent, bool open)
         {
             this.game = game;
             this.agentIndex = agent;
             this.openWorld = open;
         }
+
+        public override string ToString() =>
+            $"\"Status\":{status}; \"Deck\":{{ {deck} }}; " +
+            $"\"DiscardPile\":{Helper.toString(discardPile)}; " +
+            $"\"Players\":{Helper.toString(players)}; \"Bout\":{bout}; " +
+            $"\"turn\":{turn}; \"playerHand\":{Helper.toString(playerHand)}; " +
+            $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
+            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; \"plTurn\":{plTurn}; ";
 
         public void Move(Card? card, bool copy = false) => 
             game.Move(card);

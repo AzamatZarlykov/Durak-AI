@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Model.PlayingCards;
-using Model.GamePlayer;
+using Helpers;
 
 namespace Model.TableDeck
 {
@@ -31,6 +31,9 @@ namespace Model.TableDeck
             cards = new List<Card>(deckCards);
             rankStart = ranskStartingPoint;
         }
+
+        public override string ToString() =>
+            $"\"cards_left\":{cardsLeft}, \"Cards\":{Helper.toString(cards)}";
 
         public Deck Copy()
         {
@@ -97,7 +100,5 @@ namespace Model.TableDeck
             return cardsToDraw;
         }
 
-        public override string ToString() =>
-            string.Join("", cards);
     }
 }

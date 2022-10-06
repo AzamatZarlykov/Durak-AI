@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Model.PlayingCards;
-using Helpers.Writer;
+using Helpers;
 
 namespace Model.MiddleBout
 {
@@ -22,6 +22,11 @@ namespace Model.MiddleBout
             defendingCards = new List<Card>(defending);
 
         }
+
+        public override string ToString() => 
+            $"{Helper.toString(attackingCards)}_" +
+            $"{Helper.toString(defendingCards)}";
+
         public int GetAttackingCardsSize() => attackingCards.Count();
         public int GetDefendingCardsSize() => defendingCards.Count();
         public List<Card> GetAttackingCards() => attackingCards;

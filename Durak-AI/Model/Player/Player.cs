@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Model.PlayingCards;
-using Helpers.Writer;
+using Helpers;
 
 namespace Model.GamePlayer
 {
@@ -25,7 +25,6 @@ namespace Model.GamePlayer
         private string name;
         private PlayerState state;
         private List<Card> hand = new List<Card>();
-        public string GetName() => name;
         public Player(string name)
         {
             this.name = name;
@@ -39,6 +38,12 @@ namespace Model.GamePlayer
 
             return copy;
         }
+
+        public override string ToString() =>
+            $"{{ \"State\":{state}; \"Hand\":{Helper.toString(hand)} }}";
+            
+        public string GetName() => name;
+
         public PlayerState GetState() => state;
 
         public List<Card> GetHand() => hand;
@@ -55,8 +60,5 @@ namespace Model.GamePlayer
         {
             hand.Clear();
         }
-
-        public override string ToString() =>
-           string.Join("", hand);
     }
 }

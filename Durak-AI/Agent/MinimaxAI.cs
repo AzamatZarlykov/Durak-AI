@@ -69,16 +69,14 @@ namespace AIAgent
             totalGameStates += 1;
 
             // serialize the object with fields
-            string json = JsonSerializer.Serialize(gw, 
-                new JsonSerializerOptions { IncludeFields = true }
-            );
+            string stringified_gamestate = gw.ToString();
 
             // if the game state was already explored then return its heurtic value
-            if (cache_states.ContainsKey(json))
+            if (cache_states.ContainsKey(stringified_gamestate))
             {
-                Console.WriteLine("Encountered State");
-                Console.WriteLine(json);
-                return cache_states[json];
+                //Console.WriteLine("Encountered State");
+                //Console.WriteLine(stringified_gamestate);
+                return cache_states[stringified_gamestate];
             }
 
             if (gw.status == GameStatus.GameOver || depth == maxDepth)
@@ -93,9 +91,6 @@ namespace AIAgent
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
 
             List<Card?> possibleMoves = gw.PossibleCards();
-            // one more option is to take/pass
-/*            List<Card?> possibleMoves = new List<Card?>(possibleCards);
-            possibleMoves.Add(null);*/
 
             foreach(Card ?card in possibleMoves)
             {
@@ -103,10 +98,12 @@ namespace AIAgent
                 gwCopy.Move(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
                 // if the game state was already explored then return its heurtic value
-                if (!cache_states.ContainsKey(json))
+                if (!cache_states.ContainsKey(stringified_gamestate))
                 {
+                    //Console.WriteLine("Storing the state");
+                    //Console.WriteLine(stringified_gamestate);
                     // add to the cache the game state with its heurstic value
-                    cache_states.Add(json, v);
+                    cache_states.Add(stringified_gamestate, v);
                 }
 
                 if (gw.plTurn == 0 ? v > bestVal : v < bestVal)

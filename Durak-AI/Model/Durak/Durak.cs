@@ -2,7 +2,7 @@
 using System.Linq;
 using System;
 
-using Helpers.Writer;
+using Helpers;
 using Model.MiddleBout;
 using Model.PlayingCards;
 using Model.TableDeck;
@@ -71,7 +71,6 @@ namespace Model.DurakWrapper
         public double GetMovesPerBout() => (double)moves / bouts;
         public List<Card> GetPlayersHand(int playerIndex) => players[playerIndex].GetHand();
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
-        public bool WithTrumpCards() => trumpCard is null ? false : true;
 
         // Constructor for inner game simulation for minimax agent
         public Durak(GameView gw)
@@ -135,9 +134,7 @@ namespace Model.DurakWrapper
         {
             writer.WriteVerbose(text, isCopy);
 
-            cards = cards.OrderBy(c => (int)c.suit).ThenBy(c => (int)c.rank).ToList();
-
-            foreach (Card card in cards)
+            foreach (Card card in Helper.SortCards(cards))
             {
                 if (trumpCard is null)
                 {
@@ -358,11 +355,7 @@ namespace Model.DurakWrapper
         {
             writer.WriteVerbose(text, isCopy);
 
-            var sortedCards = cards.
-                OrderBy(card => (int)(card.suit)).
-                ThenBy(card => (int)(card.rank));
-
-            foreach (Card card in sortedCards)
+            foreach (Card card in Helper.SortCards(cards))
             {
                 if (trumpCard is not null)
                 {

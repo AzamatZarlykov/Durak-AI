@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
-namespace Helpers.Writer
+namespace Helpers
 {
     public class Writer
     {

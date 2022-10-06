@@ -19,7 +19,7 @@ namespace AIAgent
                 noTrumpCards = possibleCards;
             } else
             {
-                noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpSuit);
+                noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpCard?.suit);
             }
 
             if (noTrumpCards.Count == 0)
