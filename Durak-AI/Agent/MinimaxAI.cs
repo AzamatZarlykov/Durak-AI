@@ -20,7 +20,9 @@ namespace AIAgent
         private bool debug;
         private bool openWorld;
 
-        private Dictionary<string, int> cache_states = new Dictionary<string, int>();
+        // dictionary where the key is a tuple of stringified game state and depth and value is
+        // the outcome of the game
+        private Dictionary<(string, int), int> cache_states = new Dictionary<(string, int), int>();
         public MinimaxAI(string name, int depth, bool debug, bool openWorld)
         {
             this.name = name;
@@ -72,11 +74,11 @@ namespace AIAgent
             string stringified_gamestate = gw.ToString();
 
             // if the game state was already explored then return its heurtic value
-            if (cache_states.ContainsKey(stringified_gamestate))
+            if (cache_states.ContainsKey((stringified_gamestate, depth)))
             {
                 //Console.WriteLine("Encountered State");
                 //Console.WriteLine(stringified_gamestate);
-                return cache_states[stringified_gamestate];
+                return cache_states[(stringified_gamestate, depth)];
             }
 
             if (gw.status == GameStatus.GameOver || depth == maxDepth)
@@ -98,12 +100,12 @@ namespace AIAgent
                 gwCopy.Move(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
                 // if the game state was already explored then return its heurtic value
-                if (!cache_states.ContainsKey(stringified_gamestate))
+                if (!cache_states.ContainsKey((stringified_gamestate, depth)))
                 {
                     //Console.WriteLine("Storing the state");
                     //Console.WriteLine(stringified_gamestate);
                     // add to the cache the game state with its heurstic value
-                    cache_states.Add(stringified_gamestate, v);
+                    cache_states.Add((stringified_gamestate, depth), v);
                 }
 
                 if (gw.plTurn == 0 ? v > bestVal : v < bestVal)
