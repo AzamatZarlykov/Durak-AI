@@ -43,7 +43,7 @@ namespace AIAgent
 
             // simulate the game between 2 greedy AI agents. 
             // Based on the outcome return the score
-/*            Durak inner_game = new Durak(gw);
+            Durak innerGame = new Durak(gw);
             // initialize the agents
             List<Agent> agents = new List<Agent>()
             {
@@ -52,16 +52,31 @@ namespace AIAgent
             };
 
             // start the game simulation
-            while (inner_game.gameStatus == GameStatus.GameInProcess)
+            while (innerGame.gameStatus == GameStatus.GameInProcess)
             {
-                int turn = inner_game.GetTurn();
+                int turn = innerGame.GetTurn();
 
-                Card? card = agents[turn].Move(new GameView(inner_game, turn, openWorld));
-                inner_game.Move(card);
+                Card? card = agents[turn].Move(new GameView(innerGame, turn, openWorld));
+                innerGame.Move(card);
             }
-*/
-            
-            return score;
+
+            int result = innerGame.GetGameResult();
+            score = 1000 - depth;
+
+            // if draw the score is 0
+            if (result == 0)
+            {
+                return 0;
+            }
+            else if (result == 1)
+            {
+                return -score; // not sure if It has to return -score or just score
+
+            }
+            else
+            {
+                return score; // not sure if It has to return -score or just score
+            }
         }
 
         // current minimax does always gives the card
