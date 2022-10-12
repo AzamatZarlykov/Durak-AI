@@ -121,13 +121,15 @@ namespace Model.DurakWrapper
             return copy;
         }
 
+        // Method that returns the outcome of the game
+        // 0 - draw; 1 - player 1 won; -1 - player 2 won
         public int GetGameResult()
         {
             if (isDraw)
             {
                 return 0;
             }
-            return players[0].GetState() == PlayerState.Winner ? 1000 : -1000;
+            return players[0].GetState() == PlayerState.Winner ? 1 : -1;
         }
 
         private void FillPlayerHand(List<Card> cards, Player player, string text)
@@ -377,7 +379,7 @@ namespace Model.DurakWrapper
                 bout.GetAttackingCardsSize() - bout.GetDefendingCardsSize();
         }
 
-        public List<Card?> PossibleCards()
+        public List<Card?> PossibleCards(bool search = false)
         {
             if (bout.GetAttackingCardsSize() == 0 && !isCopy)
             {
@@ -404,6 +406,12 @@ namespace Model.DurakWrapper
                 {
                     writer.WriteLineVerbose("Can attack", GetTurn(), isCopy);
                     cards = GenerateListOfAttackingCards()!;
+                    // add null (pass option) if there is at least 1 card in the bout
+                    if (search && bout.GetAttackingCardsSize() > 0)
+                    {
+                        cards.Add(null);
+                        return cards;
+                    }
                 }
                 else
                 {

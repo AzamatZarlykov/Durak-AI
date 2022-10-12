@@ -96,7 +96,7 @@ namespace CLI
                 draws++;
                 return;
             }
-            result = result == 1000 ? 0 : 1;
+            result = result == 1 ? 0 : 1;
 
             Console.Write($"Agent {result + 1} ({agents[result].GetName()}) won");
             Console.WriteLine($". Total bouts: {bout}");
@@ -141,6 +141,12 @@ namespace CLI
                     }
 
                     int.TryParse(res[1], out int value);
+
+                    if (value > 1000)
+                    {
+                        throw new ArgumentException(
+                            $"Max depth value is 1000. The given value is {value}");
+                    }
 
                     return new MinimaxAI($"{name} (depth={value})", value, gParam.D1, gParam.OpenWorld);
                 default:

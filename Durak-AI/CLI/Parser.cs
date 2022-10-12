@@ -49,10 +49,10 @@ namespace CLI
             }
             catch (Exception e)
             {
-                Console.WriteLine("Cannot open Redirect.txt for writing");
                 Console.WriteLine(e.Message);
                 return;
             }
+
         }
 
         [Verb(IsDefault = true)]

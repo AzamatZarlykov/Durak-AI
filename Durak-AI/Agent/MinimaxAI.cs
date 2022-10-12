@@ -34,8 +34,6 @@ namespace AIAgent
 
         private int Evaluate(GameView gw, int depth)
         {
-            int score = 0;
-
             if (gw.status == GameStatus.GameOver)
             {
                 return gw.outcome;
@@ -61,21 +59,21 @@ namespace AIAgent
             }
 
             int result = innerGame.GetGameResult();
-            score = 1000 - depth;
+            int score = 1000 - depth;
 
-            // if draw the score is 0
+            // draw
             if (result == 0)
             {
                 return 0;
             }
-            else if (result == 1)
+            else if (result == 1)   // player 1 won
             {
-                return -score; // not sure if It has to return -score or just score
+                return score;
 
             }
-            else
+            else // player 2 won
             {
-                return score; // not sure if It has to return -score or just score
+                return -score;
             }
         }
 
@@ -107,7 +105,7 @@ namespace AIAgent
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
 
-            List<Card?> possibleMoves = gw.PossibleCards();
+            List<Card?> possibleMoves = gw.PossibleCards(true);
 
             foreach(Card ?card in possibleMoves)
             {
