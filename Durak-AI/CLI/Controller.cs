@@ -39,9 +39,9 @@ namespace CLI
         {
             for (int i = 0; i < 2; ++i)
             {
-                double win_proportion = (double)gamesWon[i] / gParam.NumberOfGames;
+                double win_proportion = (double)gamesWon[i] / (gParam.NumberOfGames - draws);
                 (double, double) score = wilson_score.WilsonScore(
-                    win_proportion, gParam.NumberOfGames);
+                    win_proportion, (gParam.NumberOfGames - draws));
 
                 Console.WriteLine($"With 98% confidence, Agent {i + 1} ({agents[i].GetName()}) " +
                     $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% ");

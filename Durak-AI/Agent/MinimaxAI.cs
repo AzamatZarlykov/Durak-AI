@@ -61,20 +61,7 @@ namespace AIAgent
             int result = innerGame.GetGameResult();
             int score = 1000 - depth;
 
-            // draw
-            if (result == 0)
-            {
-                return 0;
-            }
-            else if (result == 1)   // player 1 won
-            {
-                return score;
-
-            }
-            else // player 2 won
-            {
-                return -score;
-            }
+            return result * score;
         }
 
         // current minimax does always gives the card
@@ -105,7 +92,7 @@ namespace AIAgent
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
 
-            List<Card?> possibleMoves = gw.PossibleCards(true);
+            List<Card?> possibleMoves = gw.PossibleMoves(excludePass: false);
 
             foreach(Card ?card in possibleMoves)
             {
