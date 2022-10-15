@@ -9,6 +9,8 @@ using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
 using Helpers.Wilson_Score;
+using CsvHelper;
+using System.Globalization;
 
 namespace CLI
 {
@@ -22,7 +24,7 @@ namespace CLI
 
         public List<Agent> agents;
 
-        private readonly GameParameters gParam;
+        private GameParameters gParam;
 
         private readonly Wilson wilson_score;
 
@@ -35,18 +37,17 @@ namespace CLI
             this.wilson_score = new Wilson();
         }
 
-        private void DisplayWilsonScore(int total_games)
+        private (double, double)[] GetWilsonScore()
         {
+            (double, double)[] results = new (double, double)[2];
+
             for (int i = 0; i < 2; ++i)
             {
                 double win_proportion = (double)gamesWon[i] / (gParam.NumberOfGames - draws);
-                (double, double) score = wilson_score.WilsonScore(
+                results[i] = wilson_score.WilsonScore(
                     win_proportion, (gParam.NumberOfGames - draws));
-
-                Console.WriteLine($"With 98% confidence, Agent {i + 1} ({agents[i].GetName()}) " +
-                    $"wins between {(100 * score.Item1):f1}% and {(100 * score.Item2):f1}% ");
             }
-            Console.WriteLine();
+            return results;
         }
 
         private void DisplayWinRate(int total_games)
@@ -77,7 +78,13 @@ namespace CLI
 
             if (total_games > 1)
             {
-                DisplayWilsonScore(total_games);
+                var results = GetWilsonScore();
+
+                for (int i = 0; i < results.Count(); i++)
+                {
+                    Console.WriteLine($"With 98% confidence, Agent {i + 1} ({agents[i].GetName()}) " +
+                $"wins between {(100 * results[i].Item1):f1}% and {(100 * results[i].Item2):f1}% ");
+                }
             }
         }
                                                                                                    
@@ -193,6 +200,61 @@ namespace CLI
                 HandleEndGameResult(game, i);
             }
             PrintStatistics();
+        }
+
+        private string GetTournamentConfig()
+        {
+            StringBuilder configs = new StringBuilder();
+
+            configs.Append($"\"total_games: {gParam.NumberOfGames}, " +
+                $"start_rank: {gParam.StartingRank}, ");
+            if (gParam.OpenWorld)
+            {
+                configs.Append("open_world\",");
+            }
+            return configs.ToString();
+        }
+
+        private void GenerateCSV(Dictionary<string, string> results)
+        {
+            
+            using (var writer = new StreamWriter("tournament-results.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                writer.WriteLine(GetTournamentConfig());
+                csv.WriteRecords(results);
+            }
+        }
+
+        private void ResetProperties()
+        {
+            gamesWon = new int[2];
+            draws = 0;
+            bouts = 0;
+            movesPerBout = 0;
+        }
+
+        public void RunTournament()
+        {
+            string[] agents = { "random", "greedy", "smart", "minimax:depth=6" };
+            // "smart-greedy": "38.1%-48.4%"
+            Dictionary<string, string> results = new Dictionary<string, string>();
+
+            foreach (string agentA in agents)
+            {
+                foreach (string agentB in agents)
+                {
+                    Console.WriteLine($"Game: {agentA} vs {agentB}");
+                    // change the agents
+                    gParam.Agents = new string[2] { agentA, agentB };
+                    ResetProperties();
+                    Run();
+                    var result = GetWilsonScore();
+                    results.Add($"{agentA}-{agentB}", 
+                        $"{100*result[0].Item1:f1}%-{100*result[0].Item2:f1}%");
+                }
+            }
+            GenerateCSV(results);
         }
     }
 }
