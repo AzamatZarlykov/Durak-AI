@@ -102,20 +102,14 @@ namespace CLI
             [Description("Enable trump cards in the game")]
             bool no_trumps,
 
-            [DefaultValue(false)]
-            [Description("Runs the tournament between the agents and stores the results in csv")]
-            bool csv
+            [Description("Runs the tournament with the agents specified")]
+            string tournament
 
         )
         {
-            if (csv)
+            if (tournament is not null)
             {
-                if (total_games < 500)
-                {
-                    total_games = 500;
-                }
-
-                Controller tournament = new Controller(new GameParameters
+                Controller tournament_controller = new Controller(new GameParameters
                 {
                     NumberOfGames = total_games,
                     StartingRank = start_rank,
@@ -125,9 +119,9 @@ namespace CLI
                     D2 = false,
                     OpenWorld = open_world,
                     NoTrumpCards = no_trumps,
-                    CSV = csv
+                    TournamentAgents = tournament,
                 });
-                tournament.RunTournament();
+                tournament_controller.RunTournament();
                 return;
             }
             if (seed > 0)
@@ -154,7 +148,6 @@ namespace CLI
                 D2 = d2,
                 OpenWorld = open_world,
                 NoTrumpCards = no_trumps,
-                CSV = csv,
             };
 
             Controller controller = new Controller(gameParam);

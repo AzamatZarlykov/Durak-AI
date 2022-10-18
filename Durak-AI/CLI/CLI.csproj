@@ -13,7 +13,6 @@
     <PackageReference Include="CLAP" Version="4.6.0">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
-    <PackageReference Include="CsvHelper" Version="29.0.0" />
   </ItemGroup>
 
   <ItemGroup>

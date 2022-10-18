@@ -9,7 +9,6 @@ using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
 using Helpers.Wilson_Score;
-using CsvHelper;
 using System.Globalization;
 
 namespace CLI
@@ -215,14 +214,52 @@ namespace CLI
             return configs.ToString();
         }
 
-        private void GenerateCSV(Dictionary<string, string> results)
+        private void GenerateCSV(Dictionary<string, string> results, string[] agents)
         {
-            
+            // initialize the table
+            string[][] table = new string[agents.Length][];
+            for (int i = 0; i < agents.Length; i++)
+            {
+                table[i] = new string[agents.Length];
+            }
+            // store the values
+            int adder = 1;
+            for (int i = 1; i < agents.Length; i++)
+            {
+                table[i][0] = agents[i];    // agents names in the first col
+                table[0][i] = agents[i - 1];    // agents names in the first row
+                for (int j = adder; j < agents.Length; j++)
+                {
+                    table[j][i] = results[$"{agents[j]}-{agents[i - 1]}"];
+                }
+                adder++;
+            }
+
             using (var writer = new StreamWriter("tournament-results.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 writer.WriteLine(GetTournamentConfig());
-                csv.WriteRecords(results);
+
+                for (int i = 0; i < table.Length; i++)
+                {
+                    for (int j = 0; j < table.Length; j++)
+                    {
+                        if (table[i][j] is null)
+                        {
+                            if (j == table.Length - 1) continue;
+                            writer.Write(",");
+                        }
+                        else
+                        {
+                            string output = $"{table[i][j]}";
+                            if (j != table.Length - 1)
+                            {
+                                output += ',';
+                            }
+                            writer.Write(output);
+                        }
+                    }
+                    writer.WriteLine();
+                }
             }
         }
 
@@ -236,25 +273,28 @@ namespace CLI
 
         public void RunTournament()
         {
-            string[] agents = { "random", "greedy", "smart", "minimax:depth=6" };
+            // random,greedy,smart,minimax:depth=5,minimax:depth=20
+            string[] agents = gParam.TournamentAgents!.Split(',');
             // "smart-greedy": "38.1%-48.4%"
             Dictionary<string, string> results = new Dictionary<string, string>();
 
-            foreach (string agentA in agents)
+            int starter = 1;
+            
+            for (int i = 0; i < agents.Length - 1; i++)
             {
-                foreach (string agentB in agents)
+                for (int j = starter; j < agents.Length; j++)
                 {
-                    Console.WriteLine($"Game: {agentA} vs {agentB}");
-                    // change the agents
-                    gParam.Agents = new string[2] { agentA, agentB };
+                    Console.WriteLine($"Game: {agents[j]} vs {agents[i]}");
+                    gParam.Agents = new string[2] { agents[j], agents[i] };
                     ResetProperties();
                     Run();
                     var result = GetWilsonScore();
-                    results.Add($"{agentA}-{agentB}", 
-                        $"{100*result[0].Item1:f1}%-{100*result[0].Item2:f1}%");
+                    results.Add($"{agents[j]}-{agents[i]}",
+                        $"{100 * result[0].Item1:f1}%-{100 * result[0].Item2:f1}%");
                 }
+                starter++;
             }
-            GenerateCSV(results);
+            GenerateCSV(results, agents);
         }
     }
 }
