@@ -214,8 +214,37 @@ namespace CLI
             return configs.ToString();
         }
 
+        private void WriteCSV(StreamWriter writer, string[][] table)
+        {
+            writer.WriteLine(GetTournamentConfig());
+
+            for (int i = 0; i < table.Length; i++)
+            {
+                for (int j = 0; j < table.Length; j++)
+                {
+                    if (table[i][j] is null)
+                    {
+                        if (j == table.Length - 1) continue;
+                        writer.Write(",");
+                    }
+                    else
+                    {
+                        string output = $"{table[i][j]}";
+                        if (j != table.Length - 1)
+                        {
+                            output += ',';
+                        }
+                        writer.Write(output);
+                    }
+                }
+                writer.WriteLine();
+            }
+        }
+
         private void GenerateCSV(Dictionary<string, string> results, string[] agents)
         {
+            string dirPath = "CLI/Tournament";
+            string fileName = "tournament-results.csv";
             // initialize the table
             string[][] table = new string[agents.Length][];
             for (int i = 0; i < agents.Length; i++)
@@ -235,31 +264,20 @@ namespace CLI
                 adder++;
             }
 
-            using (var writer = new StreamWriter("tournament-results.csv"))
+            try
             {
-                writer.WriteLine(GetTournamentConfig());
-
-                for (int i = 0; i < table.Length; i++)
+                Directory.CreateDirectory(dirPath);
+                using (FileStream ostrm = new FileStream(Path.Combine(dirPath, fileName),
+                    FileMode.Create, FileAccess.Write))
+                using (StreamWriter writer = new StreamWriter(stream: ostrm))
                 {
-                    for (int j = 0; j < table.Length; j++)
-                    {
-                        if (table[i][j] is null)
-                        {
-                            if (j == table.Length - 1) continue;
-                            writer.Write(",");
-                        }
-                        else
-                        {
-                            string output = $"{table[i][j]}";
-                            if (j != table.Length - 1)
-                            {
-                                output += ',';
-                            }
-                            writer.Write(output);
-                        }
-                    }
-                    writer.WriteLine();
+                    WriteCSV(writer, table);
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return;
             }
         }
 
