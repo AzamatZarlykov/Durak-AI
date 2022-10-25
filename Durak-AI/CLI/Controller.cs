@@ -26,7 +26,8 @@ namespace CLI
         private GameParameters gParam;
 
         private readonly Wilson wilson_score;
-
+        private const int UPPER_BOUND = 50_000;
+        private const int GAME_INCREASE = 500;
         public Controller(GameParameters gameParam) 
         {
             this.gParam = gameParam;
@@ -45,6 +46,8 @@ namespace CLI
                 double win_proportion = (double)gamesWon[i] / (gParam.NumberOfGames - draws);
                 results[i] = wilson_score.WilsonScore(
                     win_proportion, (gParam.NumberOfGames - draws));
+                results[i].Item1 *= 100;
+                results[i].Item2 *= 100;
             }
             return results;
         }
@@ -82,7 +85,7 @@ namespace CLI
                 for (int i = 0; i < results.Count(); i++)
                 {
                     Console.WriteLine($"With 98% confidence, Agent {i + 1} ({agents[i].GetName()}) " +
-                $"wins between {(100 * results[i].Item1):f1}% and {(100 * results[i].Item2):f1}% ");
+                $"wins between {(results[i].Item1):f1}% and {(results[i].Item2):f1}% ");
                 }
             }
         }
@@ -172,7 +175,7 @@ namespace CLI
             }
         }
 
-        public void Run()
+        public void Run(bool tournament = false)
         {
             Durak game = new Durak(
                 gParam.StartingRank, 
@@ -198,26 +201,16 @@ namespace CLI
                 }
                 HandleEndGameResult(game, i);
             }
+            // no need to print the stats for tournament games
+            if (tournament)
+            {
+                return;
+            }
             PrintStatistics();
         }
 
-        private string GetTournamentConfig()
+        private void WriteCSV(StreamWriter writer, List<string> eqAgents, string[][] table)
         {
-            StringBuilder configs = new StringBuilder();
-
-            configs.Append($"\"total_games: {gParam.NumberOfGames}, " +
-                $"start_rank: {gParam.StartingRank}, ");
-            if (gParam.OpenWorld)
-            {
-                configs.Append("open_world\",");
-            }
-            return configs.ToString();
-        }
-
-        private void WriteCSV(StreamWriter writer, string[][] table)
-        {
-            writer.WriteLine(GetTournamentConfig());
-
             for (int i = 0; i < table.Length; i++)
             {
                 for (int j = 0; j < table.Length; j++)
@@ -239,12 +232,28 @@ namespace CLI
                 }
                 writer.WriteLine();
             }
+            writer.WriteLine($"Equally Strong Agents (Upper bound reacher: {UPPER_BOUND}):");
+            foreach(string agentsPair in eqAgents)
+            {
+                writer.WriteLine(agentsPair);
+            }
         }
 
-        private void GenerateCSV(Dictionary<string, string> results, string[] agents)
+        private string GetFileName()
+        {
+            StringBuilder filename = new StringBuilder("tournament-results;");
+
+            filename.Append($"rank={gParam.StartingRank},");
+            filename.Append(gParam.OpenWorld ? "open_world.csv" : "closed_world.csv");
+
+            return filename.ToString();
+        }
+
+        private void GenerateCSV(Dictionary<string, string> results, List<string> eqAgents, 
+            string[] agents)
         {
             string dirPath = "CLI/Tournament";
-            string fileName = "tournament-results.csv";
+            string fileName = GetFileName();
             // initialize the table
             string[][] table = new string[agents.Length][];
             for (int i = 0; i < agents.Length; i++)
@@ -271,7 +280,7 @@ namespace CLI
                     FileMode.Create, FileAccess.Write))
                 using (StreamWriter writer = new StreamWriter(stream: ostrm))
                 {
-                    WriteCSV(writer, table);
+                    WriteCSV(writer, eqAgents, table);
                 }
             }
             catch (Exception e)
@@ -281,38 +290,71 @@ namespace CLI
             }
         }
 
-        private void ResetProperties()
+        private void ResetProperties(string[] agents, int i, int j, int setTotalGames)
         {
-            gamesWon = new int[2];
+            gParam.Agents = new string[2] { agents[j], agents[i] };
+            gParam.Seed = 1;
+            gamesWon = new int[2];  // reset games won
+            gParam.NumberOfGames = setTotalGames;   // reset the total games 
             draws = 0;
-            bouts = 0;
-            movesPerBout = 0;
         }
 
+        private bool IsResultSignificant((double, double) res) 
+        {
+            return res.Item1 > 50 || res.Item2 < 50;
+        }
+        
         public void RunTournament()
         {
-            // random,greedy,smart,minimax:depth=5,minimax:depth=20
+
             string[] agents = gParam.TournamentAgents!.Split(',');
-            // "smart-greedy": "38.1%-48.4%"
             Dictionary<string, string> results = new Dictionary<string, string>();
+            List<string> equallyStrongAgents = new List<string>();
 
             int starter = 1;
-            
+            int setTotalGames = gParam.NumberOfGames;
+            (double, double)[] result;
+
             for (int i = 0; i < agents.Length - 1; i++)
             {
                 for (int j = starter; j < agents.Length; j++)
                 {
                     Console.WriteLine($"Game: {agents[j]} vs {agents[i]}");
-                    gParam.Agents = new string[2] { agents[j], agents[i] };
-                    ResetProperties();
-                    Run();
-                    var result = GetWilsonScore();
+                    ResetProperties(agents,i,j,setTotalGames);
+                    while (true)
+                    {
+                        Run(true);
+                        result = GetWilsonScore();
+                        // significant result or reached the upper bound of total_games=100_000
+                        if (IsResultSignificant(result[0]))
+                        {
+                            Console.WriteLine("Significant Enough or Upper bound reached");
+                            Console.WriteLine($"{result[0].Item1:f1}%-{result[0].Item2:f1}%");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Increasing the number of games and seed");
+                            Console.WriteLine($"{result[0].Item1:f1}%-{result[0].Item2:f1}%");
+                            Console.WriteLine($"Game: {agents[j]} vs {agents[i]}");
+                            if (gParam.NumberOfGames >= UPPER_BOUND)
+                            {
+                                equallyStrongAgents.Add($"{agents[j]} - {agents[i]}");
+                                break;
+                            }
+                            gParam.NumberOfGames += GAME_INCREASE;
+                            gParam.Seed += GAME_INCREASE;
+                        }
+                    }
+
                     results.Add($"{agents[j]}-{agents[i]}",
-                        $"{100 * result[0].Item1:f1}%-{100 * result[0].Item2:f1}%");
+                        $"{result[0].Item1:f1}%-{result[0].Item2:f1}%" +
+                        $" ({gParam.NumberOfGames})");
+
                 }
                 starter++;
             }
-            GenerateCSV(results, agents);
+            GenerateCSV(results, equallyStrongAgents, agents);
         }
     }
 }

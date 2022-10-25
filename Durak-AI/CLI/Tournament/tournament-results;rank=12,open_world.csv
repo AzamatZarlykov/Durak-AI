@@ -1,0 +1,7 @@
+,random,greedy,smart,minimax:depth=6
+greedy,70.4%-79.4%:500,,,
+smart,73.6%-82.2%:500,50.1%-53.6%:4500,,
+minimax:depth=6,76.9%-85.0%:500,50.2%-52.9%:7500,47.8%-49.9%:12500,
+minimax:depth=20,78.9%-86.7%:500,50.6%-55.8%:2000,50.2%-53.9%:4000,51.5%-58.8%:1000
+
+Equally Strong Agents (Upper bound reacher: 50000)

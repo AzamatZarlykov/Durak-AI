@@ -31,7 +31,7 @@ namespace CLI
             ExampleUsage();
         }
 
-        private static void EnableLogs(Controller controller)
+        private static void EnableLogs(Controller controller, bool tournament = false)
         {
             string dirPath = "CLI/Logs";
             string fileName = "log.txt";
@@ -43,6 +43,11 @@ namespace CLI
                 using (StreamWriter writer = new StreamWriter(stream:ostrm))
                 {
                     Console.SetOut(writer);
+                    if (tournament)
+                    {
+                        controller.RunTournament();
+                        return;
+                    }
                     controller.Run();
                 }
 
@@ -121,7 +126,13 @@ namespace CLI
                     NoTrumpCards = no_trumps,
                     TournamentAgents = tournament,
                 });
-                tournament_controller.RunTournament();
+                if (!log)
+                {
+                    tournament_controller.RunTournament();
+                } else
+                {
+                    EnableLogs(tournament_controller, true);
+                }
                 return;
             }
             if (seed > 0)
