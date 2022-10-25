@@ -232,7 +232,7 @@ namespace CLI
                 }
                 writer.WriteLine();
             }
-            writer.WriteLine($"Equally Strong Agents (Upper bound reacher: {UPPER_BOUND}):");
+            writer.WriteLine($"Equally Strong Agents (Upper bound: {UPPER_BOUND}):");
             foreach(string agentsPair in eqAgents)
             {
                 writer.WriteLine(agentsPair);
