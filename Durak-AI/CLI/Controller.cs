@@ -325,10 +325,10 @@ namespace CLI
                     {
                         Run(true);
                         result = GetWilsonScore();
-                        // significant result or reached the upper bound of total_games=100_000
+                        // significant result
                         if (IsResultSignificant(result[0]))
                         {
-                            Console.WriteLine("Significant Enough or Upper bound reached");
+                            Console.WriteLine("Significant Enough");
                             Console.WriteLine($"{result[0].Item1:f1}%-{result[0].Item2:f1}%");
                             break;
                         }
