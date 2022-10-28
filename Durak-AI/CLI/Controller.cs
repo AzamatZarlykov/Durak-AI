@@ -232,10 +232,15 @@ namespace CLI
                 }
                 writer.WriteLine();
             }
-            writer.WriteLine($"Equally Strong Agents (Upper bound: {UPPER_BOUND}):");
-            foreach(string agentsPair in eqAgents)
+
+            if (eqAgents.Count > 0)
             {
-                writer.WriteLine(agentsPair);
+                writer.WriteLine(new string(',', agents.Count));
+                writer.WriteLine($"Equally Strong Agents (Upper bound: {UPPER_BOUND}):");
+                foreach (string agentsPair in eqAgents)
+                {
+                    writer.WriteLine(agentsPair);
+                }
             }
         }
 
@@ -255,20 +260,29 @@ namespace CLI
             string dirPath = "CLI/Tournament";
             string fileName = GetFileName();
             // initialize the table
-            string[][] table = new string[agents.Length][];
-            for (int i = 0; i < agents.Length; i++)
+            string[][] table = new string[agents.Length + 1][];
+            for (int i = 0; i < agents.Length + 1; i++)
             {
-                table[i] = new string[agents.Length];
+                table[i] = new string[agents.Length + 1];
             }
+
             // store the values
             int adder = 1;
-            for (int i = 1; i < agents.Length; i++)
+            for (int i = 1; i < agents.Length + 1; i++)
             {
-                table[i][0] = agents[i];    // agents names in the first col
+                table[i][0] = agents[i - 1];    // agents names in the first col
                 table[0][i] = agents[i - 1];    // agents names in the first row
-                for (int j = adder; j < agents.Length; j++)
+                for (int j = adder; j < agents.Length + 1; j++)
                 {
-                    table[j][i] = results[$"{agents[j]}-{agents[i - 1]}"];
+                    if (i == j)
+                    {
+                        continue;
+                    }
+                    Console.WriteLine($"j: {j}");
+                    Console.WriteLine($"i: {i}");
+
+                    table[j][i] = results[$"{agents[j - 1]}-{agents[i - 1]}"];
+                    table[i][j] = results[$"{agents[i - 1]}-{agents[j - 1]}"];
                 }
                 adder++;
             }
@@ -351,6 +365,9 @@ namespace CLI
                         $"{result[0].Item1:f1}%-{result[0].Item2:f1}%" +
                         $" ({gParam.NumberOfGames})");
 
+                    results.Add($"{agents[i]}-{agents[j]}",
+                        $"{result[1].Item1:f1}%-{result[1].Item2:f1}%" + 
+                        $" ({gParam.NumberOfGames})");
                 }
                 starter++;
             }
