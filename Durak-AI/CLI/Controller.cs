@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 using AIAgent;
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
 using Helpers.Wilson_Score;
-using System.Globalization;
 
 namespace CLI
 {
     class Controller
     {
         private int[] gamesWon;
+        private int[] totalMoves;
+        private Stopwatch[] timers;
 
         private int draws;
         private int bouts;
@@ -33,6 +35,13 @@ namespace CLI
             this.gParam = gameParam;
 
             this.gamesWon = new int[2];
+            this.totalMoves = new int[2];
+            this.timers = new Stopwatch[]
+            {
+                new Stopwatch(),
+                new Stopwatch()
+            };
+
             this.agents = new List<Agent>();
             this.wilson_score = new Wilson();
         }
@@ -75,6 +84,13 @@ namespace CLI
             Console.WriteLine($"Average moves per bout over the game: " +
                 $"{(movesPerBout / total_games):f1}\n");
 
+            for (int i = 0; i < timers.Count(); i++)
+            {
+                Console.WriteLine($"Average number of milliseconds per move ({agents[i].name} agent): " +
+                    $"{((double)timers[i].ElapsedMilliseconds / totalMoves[i]):f4} milliseconds");
+            }
+            Console.WriteLine();
+
 
             DisplayWinRate(total_games);
 
@@ -113,7 +129,7 @@ namespace CLI
 
             gamesWon[result]++;
             bouts += bout;
-            movesPerBout += mpb; 
+            movesPerBout += mpb;
         }
         
         private Agent GetAgentType(string type, int param)
@@ -151,10 +167,10 @@ namespace CLI
 
                     int.TryParse(res[1], out int value);
 
-                    if (value > 1000)
+                    if (value > 10)
                     {
                         throw new ArgumentException(
-                            $"Max depth value is 1000. The given value is {value}");
+                            $"Max depth value is 10. The given value is {value}");
                     }
 
                     return new MinimaxAI($"{name} (depth={value})", value, gParam.D1, gParam.OpenWorld);
@@ -196,8 +212,13 @@ namespace CLI
                 {
                     int turn = game.GetTurn();
 
+                    totalMoves[turn]++;
+                    timers[turn].Start();
+
                     Card? card = agents[turn].Move(new GameView(game, turn, gParam.OpenWorld));
                     game.Move(card);
+
+                    timers[turn].Stop();
                 }
                 HandleEndGameResult(game, i);
             }

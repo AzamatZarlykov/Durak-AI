@@ -1,0 +1,53 @@
+==== RUNNING ====
+
+Game 1: Agent 1 (minimax (depth=12)) won. Total bouts: 18
+Game 2: Draw Total bouts: 15
+Game 3: Agent 1 (minimax (depth=12)) won. Total bouts: 13
+Game 4: Agent 1 (minimax (depth=12)) won. Total bouts: 14
+Game 5: Agent 1 (minimax (depth=12)) won. Total bouts: 17
+Game 6: Agent 1 (minimax (depth=12)) won. Total bouts: 14
+Game 7: Agent 1 (minimax (depth=12)) won. Total bouts: 22
+Game 8: Agent 1 (minimax (depth=12)) won. Total bouts: 16
+Game 9: Agent 1 (minimax (depth=12)) won. Total bouts: 18
+Game 10: Agent 1 (minimax (depth=12)) won. Total bouts: 17
+
+==== STATISTICS ====
+Total games played: 10
+
+Average bouts played over the game: 14.9
+Average moves per bout over the game: 3.2
+
+Draw rate: 10.0%
+Agent 1 (minimax (depth=12)) won 9 / 10 games (90.0%)
+Agent 2 (greedy) won 0 / 10 games (0.0%)
+
+With 98% confidence, Agent 1 (minimax (depth=12)) wins between 62.5% and 100.0%
+With 98% confidence, Agent 2 (greedy) wins between 0.0% and 37.5%
+134870
+
+==== RUNNING ====
+
+Game 1: Agent 1 (minimax (depth=10)) won. Total bouts: 17
+Game 2: Agent 1 (minimax (depth=10)) won. Total bouts: 22
+Game 3: Agent 1 (minimax (depth=10)) won. Total bouts: 12
+Game 4: Agent 1 (minimax (depth=10)) won. Total bouts: 13
+Game 5: Agent 1 (minimax (depth=10)) won. Total bouts: 16
+Game 6: Agent 1 (minimax (depth=10)) won. Total bouts: 20
+Game 7: Agent 1 (minimax (depth=10)) won. Total bouts: 22
+Game 8: Agent 1 (minimax (depth=10)) won. Total bouts: 16
+Game 9: Agent 1 (minimax (depth=10)) won. Total bouts: 18
+Game 10: Agent 2 (greedy) won. Total bouts: 20
+
+==== STATISTICS ====
+Total games played: 10
+
+Average bouts played over the game: 17.6
+Average moves per bout over the game: 3.4
+
+Draw rate: 0.0%
+Agent 1 (minimax (depth=10)) won 9 / 10 games (90.0%)
+Agent 2 (greedy) won 1 / 10 games (10.0%)
+
+With 98% confidence, Agent 1 (minimax (depth=10)) wins between 53.3% and 98.6%
+With 98% confidence, Agent 2 (greedy) wins between 1.4% and 46.7%
+86146

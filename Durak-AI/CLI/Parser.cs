@@ -166,9 +166,11 @@ namespace CLI
             if (!log)
             {
                 controller.Run();
-                return;
+            }else
+            {
+                EnableLogs(controller);
             }
-            EnableLogs(controller);
+
         }
     }
 }
