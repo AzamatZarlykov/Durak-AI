@@ -12,8 +12,75 @@ using Model.MiddleBout;
 using Model.GamePlayer;
 using Helpers;
 
-namespace Model.GameState
+namespace Model.GameState   
 {
+    public class SavedState
+    {
+        public Turn turn;
+        public Bout bout;
+        public Deck deck;
+        public List<Card> attacker;
+        public List<Card> defender;
+        public bool defenderTakes;
+        public SavedState(Durak game)
+        {
+            this.turn = game.GetTurnEnum();
+            this.bout = game.GetBout().Copy();
+            this.deck = game.GetDeck().Copy();
+            this.attacker = new List<Card>(game.GetPlayers()[game.GetTurn()].GetHand());
+            this.defender = new List<Card>(game.GetPlayers()[(game.GetTurn() + 1) % 2].GetHand());
+            this.defenderTakes = game.GetTake();
+/*            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Initialized !!!!!!!!!!!!!!!!!!!");
+            Print();
+            Console.WriteLine();
+            Console.WriteLine();*/
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("##### Saved State ####");
+            Console.WriteLine($"Turn: {turn}");
+            Console.WriteLine($"Deck: ");
+            foreach (Card card in deck.GetCards()!)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine($"Bout:");
+
+            Console.WriteLine("Attacking cards: ");
+            foreach (Card card in bout.GetAttackingCards()!)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Defending cards: ");
+            foreach (Card card in bout.GetDefendingCards()!)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+
+            Console.Write("Player Hand: ");
+            foreach (Card card in attacker!)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+            Console.Write("Opponent Hand: ");
+            foreach (Card card in defender!)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("##### Saved State ####");
+        }
+    }
+
     /// <summary>
     /// Object that contains information of the current state of the game
     /// It is used to give the context for players(AI) to know what changes 
@@ -40,7 +107,7 @@ namespace Model.GameState
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
         public bool open => openWorld;
-        public bool noTrumps => trumpCard is null ? false : true;
+        public bool includeTrumps => trumpCard is not null ? true : false;
         public bool isDraw => game.GetIsDraw();
 
         public GameView(Durak game, int agent, bool open)
@@ -58,8 +125,8 @@ namespace Model.GameState
             $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
             $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; \"plTurn\":{plTurn}; ";
 
-        public void Move(Card? card, bool copy = false) => 
-            game.Move(card);
+        public void Move(Card? card, ref SavedState? st, bool copy = false) =>
+            game.Move(card, ref st);
 
         public List<Card> GetDefendingCards(Card attacking) => 
             game.GenerateListofDefendingCards(attacking);

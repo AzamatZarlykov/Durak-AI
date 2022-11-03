@@ -14,7 +14,7 @@ namespace CLI
         public bool Verbose { get; set; }
         public bool D1 { get; set; }
         public bool D2 { get; set; }
-        public bool NoTrumpCards { get; set; }
+        public bool IncludeTrumps { get; set; }
 
         public bool OpenWorld { get; set; }
         public string[] Agents { get; set; } = new string[2];

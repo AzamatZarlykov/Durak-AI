@@ -9,6 +9,7 @@ using AIAgent;
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
+using Model.MiddleBout;
 using Helpers.Wilson_Score;
 
 namespace CLI
@@ -86,8 +87,8 @@ namespace CLI
 
             for (int i = 0; i < timers.Count(); i++)
             {
-                Console.WriteLine($"Average number of milliseconds per move ({agents[i].name} agent): " +
-                    $"{((double)timers[i].ElapsedMilliseconds / totalMoves[i]):f4} milliseconds");
+                Console.WriteLine($"Average time per move ({agents[i].name} agent): " +
+                    $"{((double)timers[i].ElapsedMilliseconds / totalMoves[i]):f4}ms");
             }
             Console.WriteLine();
 
@@ -167,16 +168,10 @@ namespace CLI
 
                     int.TryParse(res[1], out int value);
 
-                    if (value > 10)
-                    {
-                        throw new ArgumentException(
-                            $"Max depth value is 10. The given value is {value}");
-                    }
-
                     return new MinimaxAI($"{name} (depth={value})", value, gParam.D1, gParam.OpenWorld);
                 default:
                     throw new Exception("unknown agent");
-            }
+            }   
         }
 
         private void InitializeAgents(int seed)
@@ -197,7 +192,9 @@ namespace CLI
                 gParam.StartingRank, 
                 gParam.Verbose, 
                 gParam.D2, 
-                gParam.NoTrumpCards);
+                gParam.IncludeTrumps);
+
+            SavedState? savedState = null;
 
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;
@@ -210,13 +207,17 @@ namespace CLI
 
                 while (game.gameStatus == GameStatus.GameInProcess)
                 {
+
                     int turn = game.GetTurn();
 
                     totalMoves[turn]++;
                     timers[turn].Start();
 
-                    Card? card = agents[turn].Move(new GameView(game, turn, gParam.OpenWorld));
-                    game.Move(card);
+                    GameView gw = new GameView(game, turn, gParam.OpenWorld);
+
+                    Card? card = agents[turn].Move(gw, ref savedState);
+
+                    game.Move(card, ref savedState);
 
                     timers[turn].Stop();
                 }
@@ -299,9 +300,6 @@ namespace CLI
                     {
                         continue;
                     }
-                    Console.WriteLine($"j: {j}");
-                    Console.WriteLine($"i: {i}");
-
                     table[j][i] = results[$"{agents[j - 1]}-{agents[i - 1]}"];
                     table[i][j] = results[$"{agents[i - 1]}-{agents[j - 1]}"];
                 }

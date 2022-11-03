@@ -54,8 +54,8 @@ namespace AIAgent
             {
                 int turn = innerGame.GetTurn();
 
-                Card? card = agents[turn].Move(new GameView(innerGame, turn, openWorld));
-                innerGame.Move(card);
+                // Card? card = agents[turn].Move(new GameView(innerGame, turn, openWorld));
+                //innerGame.Move(card);
             }
 
             int result = innerGame.GetGameResult();
@@ -97,7 +97,7 @@ namespace AIAgent
             foreach(Card ?card in possibleMoves)
             {
                 GameView gwCopy = gw.Copy();
-                gwCopy.Move(card);
+                //gwCopy.Move(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
                 // if the game state was already explored then return its heurtic value
                 if (!cache_states.ContainsKey((stringified_gamestate, depth)))
@@ -132,8 +132,14 @@ namespace AIAgent
 
             return bestVal;
         }
-        
-        public override Card? Move(GameView gameView)
+
+        public override void UpdateMemory(SavedState savedState, bool noTrumps)
+        {
+            return; // because does not rely on the knowledge of the opponent's hand
+        }
+
+
+        public override Card? Move(GameView gameView, ref SavedState? savedState)
         {
             int alpha = int.MinValue;
             int beta = int.MaxValue;

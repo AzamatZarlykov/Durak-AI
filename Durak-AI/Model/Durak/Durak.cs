@@ -92,9 +92,9 @@ namespace Model.DurakWrapper
             // initialize debugger mode to false
             writer = new Writer(Console.Out, false, false);
         }
-        public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool noTrumps)
+        public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps)
         {
-            if (!noTrumps)
+            if (includeTrumps)
             {
                 trumpCard = new Card();
             }
@@ -545,11 +545,12 @@ namespace Model.DurakWrapper
             bouts++;
         }
 
-
-        public void Move(Card? card)
+        public void Move(Card? card, ref SavedState? st)
         {
             Player attacker = players[attackingPlayer];
             Player defender = players[GetDefendingPlayer()];
+
+            bool endBout = false;
 
             if (turn == Turn.Attacking)
             {
@@ -575,6 +576,7 @@ namespace Model.DurakWrapper
                     writer.WriteLineVerbose("PASSES", GetTurn(), isCopy);
                     if (!IsEndGame(attacker, defender))
                     {
+                        st = new SavedState(this);
                         EndBoutProcess(attacker, defender);
                         writer.WriteLineVerbose(isCopy);
                         return;
@@ -612,16 +614,27 @@ namespace Model.DurakWrapper
                     {
                         turn = Turn.Attacking;
                         writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn(), isCopy);
+                        st = new SavedState(this);
                         return;
                     }
                     if (!IsEndGame(attacker, defender))
                     {
+                        endBout = true;
+                        turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
+                        st = new SavedState(this);
+                        turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
                         EndBoutProcess(attacker, defender);
                     }
                 }
             }
+
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
+
+            if (!endBout)
+            {
+                st = new SavedState(this);
+            }
         }
     }
 }

@@ -103,9 +103,9 @@ namespace CLI
             [Description("Enable logs for writing in the file")]
             bool log,
 
-            [DefaultValue(false)]
+            [DefaultValue(true)]
             [Description("Enable trump cards in the game")]
-            bool no_trumps,
+            bool include_trumps,
 
             [Description("Runs the tournament with the agents specified")]
             string tournament
@@ -123,7 +123,7 @@ namespace CLI
                     D1 = false,
                     D2 = false,
                     OpenWorld = open_world,
-                    NoTrumpCards = no_trumps,
+                    IncludeTrumps = include_trumps,
                     TournamentAgents = tournament,
                 });
                 if (!log)
@@ -158,7 +158,7 @@ namespace CLI
                 D1 = d1,
                 D2 = d2,
                 OpenWorld = open_world,
-                NoTrumpCards = no_trumps,
+                IncludeTrumps = include_trumps,
             };
 
             Controller controller = new Controller(gameParam);

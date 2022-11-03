@@ -13,7 +13,12 @@ namespace AIAgent
             this.random = new Random(seed);
         }
 
-        public override Card? Move(GameView gameView)
+        public override void UpdateMemory(SavedState savedState, bool noTrumps)
+        {
+            return; // because does not rely on the knowledge of the opponent's hand
+        }
+
+        public override Card? Move(GameView gameView, ref SavedState? savedState)
         {
             List<Card?> cards = gameView.PossibleMoves(excludePass: true);
 

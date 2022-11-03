@@ -12,6 +12,8 @@ namespace AIAgent
 {
     public class Smart : Agent
     {
+        // stores the cards of the opponents to use in strategies in the closed world
+        private List<Card> memory = new List<Card>();
         public Smart(string name)
         {
             this.name = name;
@@ -81,7 +83,7 @@ namespace AIAgent
             List<Card> pHand = gw.playerHand;
 
             // stategy works if P attacking and O does not have any trump cards
-            if (gw.turn == Turn.Attacking && (gw.noTrumps || !oHand.Exists(c => c.suit == gw.trumpCard?.suit)))
+            if (gw.turn == Turn.Attacking && !oHand.Exists(c => c.suit == gw.trumpCard?.suit))
             {
                 return AttackingStrategy(gw, oHand, pHand, noTrumpCards,
                     possibleCards);
@@ -96,15 +98,8 @@ namespace AIAgent
 
         private Card? GetCard(List<Card> possibleCards, GameView gw)
         {
-            List<Card> noTrumpCards;
-            if (gw.noTrumps)
-            {
-                noTrumpCards = possibleCards;
-            }
-            else
-            {
-                noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpCard?.suit);
-            }
+            List<Card> noTrumpCards = gw.includeTrumps ?
+                Helper.GetCardsWithoutTrump(possibleCards, gw.trumpCard?.suit) : possibleCards;
 
             if (gw.isEarlyGame)
             {
@@ -121,12 +116,15 @@ namespace AIAgent
                     return Helper.GetLowestRank(possibleCards);
                 }
 
-                if (gw.open)    // if open world use strategies
+                if (gw.open)    // if open world use strategy based on all the opponents' cards
                 {
                     if (gw.turn == Turn.Defending)
                     {
                         return DefendingStrategy(gw.GetOpponentCards(), noTrumpCards);
                     }
+                } else // in the closed world use strategy based on the memory of the opponents'cards
+                {
+
                 }
                 return Helper.GetLowestRank(noTrumpCards);
             }
@@ -141,21 +139,113 @@ namespace AIAgent
                     }
                     return Helper.GetLowestRank(possibleCards);
                 }
-                return CallStrategy(gw, possibleCards, noTrumpCards);
+                if (gw.open) 
+                {
+                    return CallStrategy(gw, possibleCards, noTrumpCards);
+                } else
+                {
+                    return CallStrategy(gw, possibleCards, noTrumpCards);
+                }
             }
         }
 
-        public override Card? Move(GameView gameView)
+        private void WithdrawingProcess(SavedState savedGW, bool includeTrumps)
         {
+           // check if defender gets the last trump card
+            int attackerToWithdraw = 6 - savedGW.attacker.Count();
+            int defenderToWithdraw = 6 - savedGW.defender.Count();
+
+            if (savedGW.attacker.Count() < 6 && savedGW.defender.Count() < 6 &&
+                defenderToWithdraw >= savedGW.deck.cardsLeft - attackerToWithdraw)
+            {
+                // adding the face up trump card from the deck to the memory
+                if (includeTrumps)
+                {
+                    memory.Add(savedGW.deck.GetCard(0));
+                }
+            }
+        }
+                    
+        // updates the agent's memory on opponent's hand
+        public override void UpdateMemory(SavedState st, bool includeTrupms)
+         {
+            if (st.turn == Turn.Attacking)
+            {
+                // defender successfully defended this turn
+                if (st.bout.GetAttackingCardsSize() == st.bout.GetDefendingCardsSize() && !st.defenderTakes)
+                {
+                    // remove from the memory the cards that were played
+                    foreach (Card card in st.bout!.GetDefendingCards())
+                    {
+                        if (memory.Contains(card))
+                        {
+                            memory.Remove(card);
+                        }
+                    }
+                }
+                else if (st.defenderTakes)// defender takes 
+                {
+                    foreach (Card card in st.bout.GetEverything())
+                    {
+                        if (!memory.Contains(card))
+                        {
+                            memory.Add(card);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // attacker attacked
+                if (st.bout.GetAttackingCardsSize() > st.bout.GetDefendingCardsSize() && !st.defenderTakes)
+                {
+                    // remove from the memory the cards that were played
+                    foreach (Card card in st.bout!.GetAttackingCards())
+                    {
+                        if (memory.Contains(card))
+                        {
+                            memory.Remove(card);
+                        }
+                    }
+
+                }
+                else // attacker passes
+                {
+                    WithdrawingProcess(st, includeTrupms);
+                }
+            }
+
+            Console.Write("Memory: ");
+            foreach (Card card in memory)
+            {
+                Console.Write($"{card} ");
+            }
+            Console.WriteLine();
+        }
+
+        public override Card? Move(GameView gameView, ref SavedState? savedState)
+        {
+            // update the memory of the agent on the move
+            // UpdateMemoryOnMove(gameView);
+
             List<Card?> cards = gameView.PossibleMoves(excludePass: true);
+
+            if (savedState is not null)
+            {
+                UpdateMemory(savedState, gameView.includeTrumps);
+                savedState = null;
+            }
 
             // cannot attack/defend
             if (cards.Count == 1 && cards[0] is null)
             {
+                // UpdateMemoryOnBoutEnd(gameView);
                 return null;
             }
 
-            return GetCard(cards!, gameView);
+            Card? card = GetCard(cards!, gameView);
+
+            return card;
         }
     }
 }
