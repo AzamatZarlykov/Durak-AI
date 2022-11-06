@@ -14,73 +14,6 @@ using Helpers;
 
 namespace Model.GameState   
 {
-    public class SavedState
-    {
-        public Turn turn;
-        public Bout bout;
-        public Deck deck;
-        public List<Card> attacker;
-        public List<Card> defender;
-        public bool defenderTakes;
-        public SavedState(Durak game)
-        {
-            this.turn = game.GetTurnEnum();
-            this.bout = game.GetBout().Copy();
-            this.deck = game.GetDeck().Copy();
-            this.attacker = new List<Card>(game.GetPlayers()[game.GetTurn()].GetHand());
-            this.defender = new List<Card>(game.GetPlayers()[(game.GetTurn() + 1) % 2].GetHand());
-            this.defenderTakes = game.GetTake();
-/*            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Initialized !!!!!!!!!!!!!!!!!!!");
-            Print();
-            Console.WriteLine();
-            Console.WriteLine();*/
-        }
-
-        public void Print()
-        {
-            Console.WriteLine("##### Saved State ####");
-            Console.WriteLine($"Turn: {turn}");
-            Console.WriteLine($"Deck: ");
-            foreach (Card card in deck.GetCards()!)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-
-            Console.WriteLine($"Bout:");
-
-            Console.WriteLine("Attacking cards: ");
-            foreach (Card card in bout.GetAttackingCards()!)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-            Console.WriteLine("Defending cards: ");
-            foreach (Card card in bout.GetDefendingCards()!)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-
-            Console.Write("Player Hand: ");
-            foreach (Card card in attacker!)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-            Console.Write("Opponent Hand: ");
-            foreach (Card card in defender!)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("##### Saved State ####");
-        }
-    }
-
     /// <summary>
     /// Object that contains information of the current state of the game
     /// It is used to give the context for players(AI) to know what changes 
@@ -125,8 +58,8 @@ namespace Model.GameState
             $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
             $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; \"plTurn\":{plTurn}; ";
 
-        public void Move(Card? card, ref SavedState? st, bool copy = false) =>
-            game.Move(card, ref st);
+        public void Move(Card? card) =>
+            game.Move(card);
 
         public List<Card> GetDefendingCards(Card attacking) => 
             game.GenerateListofDefendingCards(attacking);
@@ -140,22 +73,26 @@ namespace Model.GameState
             {
                 return opponentHand;
             }
-            // o/w infer opponents hand from P hand, bout and discard pile 
-            List<Card> cards = new List<Card>();
-            List<Card> cardsInBout = bout.GetEverything();
 
-            for (int suit = 0; suit < 4; suit++)
+            // o/w infer opponents hand from P hand, bout and discard pile 
+            // for now, just return the cards that are seen from opponent's hand
+
+            List<Card> cards = new List<Card>();
+            
+            foreach (Card card in opponentHand)
             {
-                for (int rank = deck.GetRankStart(); rank < 15; rank++)
+                if (card.GetSeen())
                 {
-                    Card c = new Card((Suit)suit, (Rank)rank);
-                    if (!cardsInBout.Contains(c) && !playerHand.Contains(c) &&
-                        !discardPile.Contains(c))
-                    {
-                        cards.Add(c);
-                    }
+                    cards.Add(card);
                 }
             }
+
+            Console.Write("Seen Cards: ");
+            foreach(Card card in cards)
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
             return cards;
         }
     }

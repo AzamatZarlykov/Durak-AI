@@ -5,10 +5,19 @@ namespace Model.PlayingCards
 {
     public class Card : IEquatable<Card>
     {
+        private bool seen;
+
         public readonly Suit suit;
         public readonly Rank rank;
 
         private string[] suitUnicode = { "♠", "♥", "♦", "♣" };
+
+        public bool GetSeen() => seen;
+        
+        public void SetSeen(bool seen)
+        {
+            this.seen = seen;
+        }
 
         public Card() { }
 

@@ -194,8 +194,6 @@ namespace CLI
                 gParam.D2, 
                 gParam.IncludeTrumps);
 
-            SavedState? savedState = null;
-
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;
 
@@ -207,17 +205,13 @@ namespace CLI
 
                 while (game.gameStatus == GameStatus.GameInProcess)
                 {
-
                     int turn = game.GetTurn();
 
                     totalMoves[turn]++;
                     timers[turn].Start();
 
-                    GameView gw = new GameView(game, turn, gParam.OpenWorld);
-
-                    Card? card = agents[turn].Move(gw, ref savedState);
-
-                    game.Move(card, ref savedState);
+                    Card? card = agents[turn].Move(new GameView(game, turn, gParam.OpenWorld));
+                    game.Move(card);
 
                     timers[turn].Stop();
                 }

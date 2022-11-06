@@ -10,16 +10,9 @@ namespace AIAgent
         {
             this.name = name;
         }
-
-        public override void UpdateMemory(SavedState savedState, bool noTrumps)
-        {
-            return; // because does not rely on the knowledge of the opponent's hand
-        }
-
         public Card? GetCard(List<Card> possibleCards, GameView gw)
         {
-            List<Card> noTrumpCards = gw.includeTrumps ?
-                Helper.GetCardsWithoutTrump(possibleCards, gw.trumpCard?.suit) : possibleCards;
+            List<Card> noTrumpCards = Helper.GetCardsWithoutTrump(possibleCards, gw.trumpCard?.suit);
 
             if (noTrumpCards.Count == 0)
             {
@@ -41,7 +34,7 @@ namespace AIAgent
             return Helper.GetLowestRank(noTrumpCards);
         }
 
-        public override Card? Move(GameView gameView, ref SavedState? savedState)
+        public override Card? Move(GameView gameView)
         {
             List<Card?> cards = gameView.PossibleMoves(excludePass: true);
 

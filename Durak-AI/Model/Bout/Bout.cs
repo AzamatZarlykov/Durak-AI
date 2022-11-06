@@ -59,6 +59,8 @@ namespace Model.MiddleBout
 
         public void AddCard(Card card, Card? trump, Writer writer, bool attacking, int count, bool isCopy = false)
         {
+            card.SetSeen(true);
+
             if (attacking)
             {
                 attackingCards.Add(card);

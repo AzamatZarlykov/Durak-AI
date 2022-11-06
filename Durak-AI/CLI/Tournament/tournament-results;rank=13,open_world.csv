@@ -1,10 +1,11 @@
-,random,greedy,smart,minimax:depth=6
-greedy,57.3%-67.5%:500,,,
-smart,54.8%-65.1%:500,45.9%-49.9%:3500,,
-minimax:depth=6,60.1%-70.0%:500,49.3%-50.3%:50000,51.3%-58.7%:1000,
-minimax:depth=20,60.5%-70.4%:500,49.3%-50.3%:50000,51.3%-58.7%:1000,49.3%-50.3%:50000
-
-Equally Strong Agents (Upper bound reacher: 50000)
-minimax:depth=6 - greedy
+,random,greedy,smart,minimax:depth=4,minimax:depth=20
+random,,32.2%-42.3% (500),32.2%-42.3% (500),31.2%-41.2% (500),29.6%-39.5% (500)
+greedy,57.7%-67.8% (500),,49.7%-50.7% (50000),50.0%-51.8% (18500),49.7%-50.7% (50000)
+smart,57.7%-67.8% (500),49.3%-50.3% (50000),,50.0%-51.8% (18500),49.7%-50.7% (50000)
+minimax:depth=4,58.8%-68.8% (500),48.2%-50.0% (18500),48.2%-50.0% (18500),,47.3%-50.0% (8000)
+minimax:depth=20,60.5%-70.4% (500),49.3%-50.3% (50000),49.3%-50.3% (50000),50.0%-52.7% (8000),
+,,
+Equally Strong Agents (Upper bound: 50000):
+smart - greedy
 minimax:depth=20 - greedy
-minimax:depth=20 - minimax:depth=6
+minimax:depth=20 - smart

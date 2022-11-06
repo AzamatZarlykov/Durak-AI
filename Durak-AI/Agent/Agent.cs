@@ -8,8 +8,7 @@ namespace AIAgent
     public abstract class Agent
     {
         public string ?name;
-        public abstract Card? Move(GameView gameView, ref SavedState? savedState);
-        public abstract void UpdateMemory(SavedState gameView, bool noTrumps);
+        public abstract Card? Move(GameView gameView);
         public string? GetName() => name;
     }
 }
