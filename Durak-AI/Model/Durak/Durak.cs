@@ -71,6 +71,7 @@ namespace Model.DurakWrapper
         public double GetMovesPerBout() => (double)moves / bouts;
         public List<Card> GetPlayersHand(int playerIndex) => players[playerIndex].GetHand();
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
+        public int GetNextTurn() => turn == Turn.Attacking ? GetDefendingPlayer() : attackingPlayer;
 
         // Constructor for inner game simulation for minimax agent
         public Durak(GameView gw)
@@ -90,7 +91,7 @@ namespace Model.DurakWrapper
             // copy the deck of the game state
             deck = new Deck(gw.deck.GetRankStart(), gw.deck.GetCards());
             // initialize debugger mode to false
-            writer = new Writer(Console.Out, false, false);
+            writer = new Writer(Console.Out, true, true);
         }
         public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps)
         {
@@ -103,12 +104,8 @@ namespace Model.DurakWrapper
             writer = new Writer(Console.Out, verbose, isDebug);
         }
 
-        public Durak Copy(bool open)
+        public Durak Copy()
         {
-            if (!open)
-            {
-                throw new Exception("The state of game is hidden");
-            }
             Durak copy = (Durak)this.MemberwiseClone();
 
             copy.isCopy = true;
@@ -120,6 +117,54 @@ namespace Model.DurakWrapper
 
             return copy;
         }
+
+        public void Sample(int seed)
+        {
+            // we want to store all unseen cards to the deck. 
+            // Deck object has all the methods, like Shuffle(), that will help with further steps
+
+            Card? tCard = null;
+            // remove the seen card (trump card) from the deck 
+            if (deck.cardsLeft > 0)
+            {
+                tCard = deck.GetCard(0);
+                deck.RemoveCard(0);
+            }
+
+            Player opponent = players[GetNextTurn()];
+            var opponentHiddenCards = opponent.GetHand().Where(c => !c.GetSeen());
+            int totalHiddenCards = opponentHiddenCards.Count();
+
+            // add hidden cards from opponent's hand to the hidden deck cards
+            deck.GetCards().AddRange(opponentHiddenCards);
+            // remove hidden cards from the hand
+            opponent.GetHand().RemoveAll(card => !card.GetSeen());
+
+            // shuffle the unseen cards 
+            deck.Shuffle(seed);
+
+            // redistribute back totalCards amount to opponent
+            FillPlayerHand(deck.DrawCards(totalHiddenCards), opponent, $"Opponent drew random cards: ");
+            if (tCard is not null)
+            {
+                // set the trump card back to the deck
+                deck.GetCards().Insert(0, tCard!);
+            }
+
+            Console.Write("deck: ");
+            foreach(Card card in deck.GetCards() )
+            {
+                Console.Write(card + " ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("Player hands: ");
+            Console.WriteLine(players[0]);
+            Console.WriteLine(players[1]);
+
+
+        }
+
 
         // Method that returns the outcome of the game
         // 0 - draw; 1 - player 1 won; -1 - player 2 won
@@ -222,7 +267,9 @@ namespace Model.DurakWrapper
         {
             if (deck.cardsLeft - NUMBEROFPLAYERS * 6 > 0)
             {
-                return deck.GetCard(0);
+                Card t = deck.GetCard(0);
+                t.SetSeen(true);    // trump card is always visible to players
+                return t;
             }
 
             return new Card((Suit)random.Next(4));

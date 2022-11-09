@@ -12,8 +12,6 @@ namespace AIAgent
 {
     public class Smart : Agent
     {
-        // stores the cards of the opponents to use in strategies in the closed world
-        private List<Card> memory = new List<Card>();
         public Smart(string name)
         {
             this.name = name;

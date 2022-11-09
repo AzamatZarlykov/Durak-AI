@@ -34,8 +34,8 @@ namespace Model.GamePlayer
         {
             Player copy = (Player)this.MemberwiseClone();
 
-            copy.hand = new List<Card>(hand);
-
+            // copy.hand = new List<Card>(hand);
+            copy.hand = hand.ConvertAll(card => card.Copy());
             return copy;
         }
 

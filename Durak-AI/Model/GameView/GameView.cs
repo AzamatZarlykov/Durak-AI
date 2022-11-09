@@ -24,7 +24,6 @@ namespace Model.GameState
         private Durak game;
         private int agentIndex;
         private bool openWorld;
-        public GameView Copy() => new GameView(game.Copy(openWorld), agentIndex, openWorld);
         public GameStatus status => game.GetGameStatus();
         public Deck deck => game.GetDeck();
         public List<Card> discardPile => game.GetDiscardPile();
@@ -35,21 +34,21 @@ namespace Model.GameState
         public List<Card> playerHand => game.GetPlayersHand(agentIndex);
         public List<Card> opponentHand => game.GetPlayersHand((agentIndex + 1) % 2);
         public bool takes => game.GetTake();
-        public List<Card?> PossibleMoves(bool excludePass) => game.PossibleMoves(excludePass);
         public bool isEarlyGame => deck.cardsLeft != 0;
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
         public bool open => openWorld;
         public bool includeTrumps => trumpCard is not null ? true : false;
         public bool isDraw => game.GetIsDraw();
-
         public GameView(Durak game, int agent, bool open)
         {
             this.game = game;
             this.agentIndex = agent;
             this.openWorld = open;
         }
-
+        public GameView Copy() => new GameView(game.Copy(), agentIndex, openWorld);
+        public int GetAgentIndex() => this.agentIndex;
+        public List<Card?> PossibleMoves(bool excludePass) => game.PossibleMoves(excludePass);
         public override string ToString() =>
             $"\"Status\":{status}; \"Deck\":{{ {deck} }}; " +
             $"\"DiscardPile\":{Helper.toString(discardPile)}; " +

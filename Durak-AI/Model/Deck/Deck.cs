@@ -15,6 +15,7 @@ namespace Model.TableDeck
     {
         private readonly int rankStart;
 
+        private Random random = new Random();
         private List<Card> cards = new List<Card>();
 
         public int cardsLeft => cards.Count;
@@ -52,20 +53,29 @@ namespace Model.TableDeck
                     cards.Add(new Card((Suit)suit, (Rank)rank));
                 }
             }
-            Shuffle(random);
+            this.random = random;
+            Shuffle();
         }
 
 
         // Shuffles the deck of cards using Fisher-Yates shuffle
         // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-        public void Shuffle(Random random)
+        public void Shuffle(int optionalSeed = 0)
         {
+            // used for sampling 
+            if (optionalSeed != 0)
+            {
+                random = new Random(optionalSeed);
+            }
+
             for (int i = cards.Count() - 1; i > 0; i--)
             {
                 int indexGen = random.Next(i + 1);
                 (cards[i], cards[indexGen]) = (cards[indexGen], cards[i]);
             }
         }
+
+        
 
         // Returns the card from the deck given the index
         public Card GetCard(int index)
@@ -84,8 +94,13 @@ namespace Model.TableDeck
         public Card DrawCard()
         {
             Card card = cards.Last();
-            cards.RemoveAt(cardsLeft - 1);
+            RemoveCard(cardsLeft - 1);
             return card;
+        }
+
+        public void RemoveCard(int index)
+        {
+            cards.RemoveAt(index);
         }
 
         // Returns the list of cards to draw to 6 cards

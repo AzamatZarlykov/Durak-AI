@@ -31,6 +31,11 @@ namespace Model.PlayingCards
             suit = _suit;
             rank = _rank;
         }
+
+        public Card Copy()
+        {
+            return (Card)this.MemberwiseClone();
+        }
         public string GetRank(int value)
         {
             return value < 11 ? value == 0 ? "" : value.ToString() : "JQKA"[value - 11].ToString();
