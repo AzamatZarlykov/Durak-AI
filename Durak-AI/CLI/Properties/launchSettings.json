@@ -2,7 +2,7 @@
   "profiles": {
     "CLI": {
       "commandName": "Project",
-      "commandLineArgs": "-ai1=smart -ai2=greedy -seed=1 -start_rank=10"
+      "commandLineArgs": "-ai1=minimax:depth=4 -ai2=greedy -seed=1 -start_rank=11 -d2"
     }
   }
 }
