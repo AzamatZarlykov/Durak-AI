@@ -22,6 +22,12 @@ namespace Helpers
             this.debug = debug;
         }
 
+        ~Writer()
+        {
+            // change to Console.Out default color
+            Console.ForegroundColor = colors[3];
+        }
+
         public void Write(string s)
         {
             Console.ForegroundColor = colors[3];

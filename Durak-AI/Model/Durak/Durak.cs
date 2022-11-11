@@ -74,12 +74,12 @@ namespace Model.DurakWrapper
         public int GetNextTurn() => turn == Turn.Attacking ? GetDefendingPlayer() : attackingPlayer;
 
         // Constructor for inner game simulation for minimax agent
-        public Durak(GameView gw)
+        public Durak(GameView gw, bool setup = false)
         {
             // Set all the values of the respective fields
             gameStatus = gw.status;
             trumpCard = gw.trumpCard;
-            attackingPlayer = gw.plTurn;
+            attackingPlayer = gw.attackingPlayer;
             turn = gw.turn;
             defenderTakes = gw.takes;
             isDraw = gw.isDraw;
@@ -91,7 +91,7 @@ namespace Model.DurakWrapper
             // copy the deck of the game state
             deck = new Deck(gw.deck.GetRankStart(), gw.deck.GetCards());
             // initialize debugger mode to false
-            writer = new Writer(Console.Out, true, true);
+            writer = new Writer(Console.Out, setup, setup);
         }
         public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps)
         {
@@ -118,7 +118,7 @@ namespace Model.DurakWrapper
             return copy;
         }
 
-        public void Sample(int seed)
+        public void Sample()
         {
             // we want to store all unseen cards to the deck. 
             // Deck object has all the methods, like Shuffle(), that will help with further steps
@@ -141,18 +141,19 @@ namespace Model.DurakWrapper
             opponent.GetHand().RemoveAll(card => !card.GetSeen());
 
             // shuffle the unseen cards 
-            deck.Shuffle(seed);
+            deck.Shuffle();
 
             // redistribute back totalCards amount to opponent
-            FillPlayerHand(deck.DrawCards(totalHiddenCards), opponent, $"Opponent drew random cards: ");
+            FillPlayerHand(deck.DrawCards(totalHiddenCards), opponent, $"Opponent drew random cards: ", false);
+
             if (tCard is not null)
             {
                 // set the trump card back to the deck
                 deck.GetCards().Insert(0, tCard!);
             }
-
+/*
             Console.Write("deck: ");
-            foreach(Card card in deck.GetCards() )
+            foreach (Card card in deck.GetCards())
             {
                 Console.Write(card + " ");
             }
@@ -161,7 +162,7 @@ namespace Model.DurakWrapper
             Console.WriteLine("Player hands: ");
             Console.WriteLine(players[0]);
             Console.WriteLine(players[1]);
-
+*/
 
         }
 
@@ -174,14 +175,14 @@ namespace Model.DurakWrapper
             {
                 return 0;
             }
-            return players[0].GetState() == PlayerState.Winner ? 1 : -1;
+            return players[0].GetState() == PlayerState.Winner ? 1000 : -1000;
         }
 
-        private void FillPlayerHand(List<Card> cards, Player player, string text)
+        private void FillPlayerHand(List<Card> cards, Player player, string text, bool sort = true)
         {
             writer.WriteVerbose(text, isCopy);
 
-            foreach (Card card in Helper.SortCards(cards))
+            foreach (Card card in (sort ? Helper.SortCards(cards) : cards))
             {
                 if (trumpCard is null)
                 {
@@ -582,6 +583,7 @@ namespace Model.DurakWrapper
                 $"Cards: ", 0);
             DisplayCardsInOrder(players[1].GetHand(), $"Player 2 ({players[1].GetName()})" +
                 $" Cards: ", 1);
+            writer.WriteLineVerbose(isCopy);
 
             if (discardPile.Count > 0)
             {
@@ -652,7 +654,7 @@ namespace Model.DurakWrapper
                 }
                 else
                 {
-                    writer.WriteLineVerbose("TAKES", isCopy);
+                    writer.WriteLineVerbose("TAKES\n", isCopy);
                     defenderTakes = true;
                     if (CanAttack() && OpponentCanFitMoreCards())
                     {

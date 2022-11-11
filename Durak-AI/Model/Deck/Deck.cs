@@ -60,14 +60,8 @@ namespace Model.TableDeck
 
         // Shuffles the deck of cards using Fisher-Yates shuffle
         // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-        public void Shuffle(int optionalSeed = 0)
+        public void Shuffle()
         {
-            // used for sampling 
-            if (optionalSeed != 0)
-            {
-                random = new Random(optionalSeed);
-            }
-
             for (int i = cards.Count() - 1; i > 0; i--)
             {
                 int indexGen = random.Next(i + 1);

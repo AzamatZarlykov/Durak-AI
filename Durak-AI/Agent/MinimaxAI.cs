@@ -58,7 +58,7 @@ namespace AIAgent
                 innerGame.Move(card);
             }
 
-            int result = innerGame.GetGameResult();
+            int result = innerGame.GetGameResult() / 1000;
             int score = 1000 - depth;
 
             return result * score;
@@ -129,23 +129,22 @@ namespace AIAgent
             return bestVal;
         }
 
-        private Card? ClosedEnvironmentMinimax(GameView gameView, int alpha, int beta)
+        private void ClosedEnvironmentMinimax(GameView gameView, int alpha, int beta, out Card? bestMove)
         {
+            bestMove = null;
             // sample the game state: take the deck (except the trump) and non seen cards
             // and shuffle them. After, redistribute cards back to player and the deck
             // This state should be played out within minimax n times (n=10) and select the
             // most common card option
-
-            Card? bestMove = null;
-            int n = 10;
+            int n = 3;
             // stores the frequency of the best moves out of n played moves
             Dictionary<Card, int> cache = new Dictionary<Card, int>();
             int passTakeTotal = 0;
 
-            Durak sampleGame = new Durak(gameView);
+            Durak sampleGame = new Durak(gameView, false); ;
             for (int i = 1; i <= n; i++)
             {
-                sampleGame.Sample(i * 10);
+                sampleGame.Sample();
                 GameView sampleGameView = new GameView(
                     sampleGame, gameView.GetAgentIndex(), gameView.open
                 );
@@ -170,22 +169,24 @@ namespace AIAgent
                     }
                 }
             }
-            // get the most frequent best move 
-            bestMove = cache.MaxBy(kvp => kvp.Value).Key;
-            // compare it to amout of pass/take instances
-            if (passTakeTotal > cache[bestMove])
+            if (cache.Count > 0)
             {
-                bestMove = null;
+                // get the most frequent best move 
+                bestMove = cache.MaxBy(kvp => kvp.Value).Key;
+
+                // compare it to amout of pass/take instances
+                if (passTakeTotal > cache[bestMove])
+                {
+                    bestMove = null;
+                }
             }
 
             // print the dictionary 
-            foreach (KeyValuePair<Card, int> kvp in cache)
+/*            foreach (KeyValuePair<Card, int> kvp in cache)
             {
                 //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
                 Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-            }
-
-            return bestMove;
+            }*/
         }
 
         public override Card? Move(GameView gameView)
@@ -200,7 +201,7 @@ namespace AIAgent
             }
             else
             {
-                bestMove = ClosedEnvironmentMinimax(gameView, alpha, beta);
+                ClosedEnvironmentMinimax(gameView, alpha, beta, out bestMove);
             }
 
             if (debug)

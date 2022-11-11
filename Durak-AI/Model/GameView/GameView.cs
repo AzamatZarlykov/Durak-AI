@@ -37,6 +37,7 @@ namespace Model.GameState
         public bool isEarlyGame => deck.cardsLeft != 0;
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
+        public int attackingPlayer => game.GetAttackingPlayer();
         public bool open => openWorld;
         public bool includeTrumps => trumpCard is not null ? true : false;
         public bool isDraw => game.GetIsDraw();
@@ -55,7 +56,8 @@ namespace Model.GameState
             $"\"Players\":{Helper.toString(players)}; \"Bout\":{bout}; " +
             $"\"turn\":{turn}; \"playerHand\":{Helper.toString(playerHand)}; " +
             $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
-            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; \"plTurn\":{plTurn}; ";
+            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome / 1000}; " +
+            $"\"plTurn\":{plTurn}; ";
 
         public void Move(Card? card) =>
             game.Move(card);

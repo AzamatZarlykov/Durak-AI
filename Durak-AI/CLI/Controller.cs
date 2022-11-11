@@ -110,7 +110,7 @@ namespace CLI
         private void HandleEndGameResult(Durak game, int gameIndex)
         {
             int bout = game.GetBoutsCount();
-            int result = game.GetGameResult();
+            int result = game.GetGameResult() / 1000;
             double mpb = game.GetMovesPerBout();
 
             Console.Write("Game " + gameIndex + ": ");
@@ -212,7 +212,6 @@ namespace CLI
 
                     Card? card = agents[turn].Move(new GameView(game, turn, gParam.OpenWorld));
                     game.Move(card);
-
                     timers[turn].Stop();
                 }
                 HandleEndGameResult(game, i);
