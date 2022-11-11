@@ -168,7 +168,7 @@ namespace Model.DurakWrapper
 
 
         // Method that returns the outcome of the game
-        // 0 - draw; 1 - player 1 won; -1 - player 2 won
+        // 0 - draw; 1000 - player 1 won; -1000 - player 2 won
         public int GetGameResult()
         {
             if (isDraw)
