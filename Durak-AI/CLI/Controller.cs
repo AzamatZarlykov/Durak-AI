@@ -110,7 +110,7 @@ namespace CLI
         private void HandleEndGameResult(Durak game, int gameIndex)
         {
             int bout = game.GetBoutsCount();
-            int result = game.GetGameResult() / 1000;
+            int result = game.GetGameResult();
             double mpb = game.GetMovesPerBout();
 
             Console.Write("Game " + gameIndex + ": ");
@@ -192,7 +192,8 @@ namespace CLI
                 gParam.StartingRank, 
                 gParam.Verbose, 
                 gParam.D2, 
-                gParam.IncludeTrumps);
+                gParam.IncludeTrumps,
+                gParam.OpenWorld);
 
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;
@@ -210,7 +211,7 @@ namespace CLI
                     totalMoves[turn]++;
                     timers[turn].Start();
 
-                    Card? card = agents[turn].Move(new GameView(game, turn, gParam.OpenWorld));
+                    Card? card = agents[turn].Move(new GameView(game, turn));
                     game.Move(card);
                     timers[turn].Stop();
                 }

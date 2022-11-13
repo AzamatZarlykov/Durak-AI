@@ -23,7 +23,6 @@ namespace Model.GameState
     {
         private Durak game;
         private int agentIndex;
-        private bool openWorld;
         public GameStatus status => game.GetGameStatus();
         public Deck deck => game.GetDeck();
         public List<Card> discardPile => game.GetDiscardPile();
@@ -38,16 +37,16 @@ namespace Model.GameState
         public int outcome => game.GetGameResult();
         public int plTurn => game.GetTurn();
         public int attackingPlayer => game.GetAttackingPlayer();
-        public bool open => openWorld;
+        public bool open => game.isOpen;
         public bool includeTrumps => trumpCard is not null ? true : false;
         public bool isDraw => game.GetIsDraw();
-        public GameView(Durak game, int agent, bool open)
+        public GameView(Durak game, int agent)
         {
             this.game = game;
             this.agentIndex = agent;
-            this.openWorld = open;
         }
-        public GameView Copy() => new GameView(game.Copy(), agentIndex, openWorld);
+        public GameView Copy() => new GameView(game.Copy(), agentIndex);
+        public GameView ShuffleCopy() => new GameView(game.ShuffleCopy(), agentIndex);
         public int GetAgentIndex() => this.agentIndex;
         public List<Card?> PossibleMoves(bool excludePass) => game.PossibleMoves(excludePass);
         public override string ToString() =>
@@ -56,7 +55,7 @@ namespace Model.GameState
             $"\"Players\":{Helper.toString(players)}; \"Bout\":{bout}; " +
             $"\"turn\":{turn}; \"playerHand\":{Helper.toString(playerHand)}; " +
             $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
-            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome / 1000}; " +
+            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; " +
             $"\"plTurn\":{plTurn}; ";
 
         public void Move(Card? card) =>
@@ -70,7 +69,7 @@ namespace Model.GameState
         public List<Card> GetOpponentCards()
         {
             // when open just return the opponents hand from the Durak class
-            if (openWorld)
+            if (open)
             {
                 return opponentHand;
             }

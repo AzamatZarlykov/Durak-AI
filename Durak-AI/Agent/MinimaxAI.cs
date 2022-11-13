@@ -36,12 +36,12 @@ namespace AIAgent
         {
             if (gw.status == GameStatus.GameOver)
             {
-                return gw.outcome;
+                return 1000 * gw.outcome;
             }
 
             // simulate the game between 2 greedy AI agents. 
             // Based on the outcome return the score
-            Durak innerGame = new Durak(gw);
+            GameView innerGameView = gw.Copy();
             // initialize the agents
             List<Agent> agents = new List<Agent>()
             {
@@ -50,15 +50,15 @@ namespace AIAgent
             };
 
             // start the game simulation
-            while (innerGame.gameStatus == GameStatus.GameInProcess)
+            while (innerGameView.status == GameStatus.GameInProcess)
             {
-                int turn = innerGame.GetTurn();
+                int turn = innerGameView.plTurn;
 
-                Card? card = agents[turn].Move(new GameView(innerGame, turn, openWorld));
-                innerGame.Move(card);
+                Card? card = agents[turn].Move(innerGameView);
+                innerGameView.Move(card);
             }
 
-            int result = innerGame.GetGameResult() / 1000;
+            int result = innerGameView.outcome;
             int score = 1000 - depth;
 
             return result * score;
@@ -141,15 +141,10 @@ namespace AIAgent
             Dictionary<Card, int> cache = new Dictionary<Card, int>();
             int passTakeTotal = 0;
 
-            Durak sampleGame = new Durak(gameView, false); ;
             for (int i = 1; i <= n; i++)
             {
-                sampleGame.Sample();
-                GameView sampleGameView = new GameView(
-                    sampleGame, gameView.GetAgentIndex(), gameView.open
-                );
-
-                Minimax(sampleGameView, alpha, beta, 0, out bestMove);
+                GameView sampleGame = gameView.ShuffleCopy();
+                Minimax(sampleGame, alpha, beta, 0, out bestMove);
 
                 // best move can be null (PASS/TAKE). Cannot store null as a key to dict
                 // thus keep track of the occurance
@@ -159,7 +154,7 @@ namespace AIAgent
                 }
                 else
                 {
-                    if (cache.ContainsKey(bestMove))
+                    if (cache.ContainsKey(bestMove))    
                     {
                         cache[bestMove] += 1;
                     }
@@ -182,11 +177,10 @@ namespace AIAgent
             }
 
             // print the dictionary 
-/*            foreach (KeyValuePair<Card, int> kvp in cache)
+            foreach (KeyValuePair<Card, int> kvp in cache)
             {
-                //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
                 Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-            }*/
+            }
         }
 
         public override Card? Move(GameView gameView)

@@ -56,6 +56,7 @@ namespace Model.DurakWrapper
         private const int TOTALCARDS = 6;
 
         public bool isCopy { get; set; }
+        public bool isOpen { get; set; }
         public Card? GetTrumpCard() => trumpCard;
         public Deck GetDeck() => deck;
         public Bout GetBout() => bout;
@@ -73,7 +74,8 @@ namespace Model.DurakWrapper
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
         public int GetNextTurn() => turn == Turn.Attacking ? GetDefendingPlayer() : attackingPlayer;
 
-        // Constructor for inner game simulation for minimax agent
+
+/*        // Constructor for inner game simulation for minimax agent
         public Durak(GameView gw, bool setup = false)
         {
             // Set all the values of the respective fields
@@ -92,13 +94,16 @@ namespace Model.DurakWrapper
             deck = new Deck(gw.deck.GetRankStart(), gw.deck.GetCards());
             // initialize debugger mode to false
             writer = new Writer(Console.Out, setup, setup);
-        }
-        public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps)
+        }*/
+
+
+        public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps, bool open)
         {
             if (includeTrumps)
             {
                 trumpCard = new Card();
             }
+            isOpen = open;
             bout = new Bout();
             deck = new Deck(rankStartingPoint);
             writer = new Writer(Console.Out, verbose, isDebug);
@@ -106,76 +111,89 @@ namespace Model.DurakWrapper
 
         public Durak Copy()
         {
+            // if original game then you're not allowed to make a copy without shuffling (closed).
+            if (!isCopy && !isOpen)
+            {
+                throw new Exception("Cannot create a copy of Durak w/o " +
+                    "shuffling in the closed environment");
+            }
+
             Durak copy = (Durak)this.MemberwiseClone();
 
             copy.isCopy = true;
             copy.bout = this.bout.Copy();
             copy.deck = this.deck.Copy();
             copy.players = players.ConvertAll(p => p.Copy());
-
-            copy.discardPile = new List<Card>(discardPile);
+            copy.discardPile = discardPile.ConvertAll(card => card.Copy());
 
             return copy;
         }
 
-        public void Sample()
+        public Durak ShuffleCopy()
         {
-            // we want to store all unseen cards to the deck. 
-            // Deck object has all the methods, like Shuffle(), that will help with further steps
+            // perform copy
+            Durak copy = (Durak)this.MemberwiseClone();
+
+            copy.isCopy = true;
+            copy.bout = this.bout.Copy();
+            copy.deck = this.deck.Copy();
+            copy.players = players.ConvertAll(p => p.Copy());
+            copy.discardPile = discardPile.ConvertAll(card => card.Copy());
 
             Card? tCard = null;
             // remove the seen card (trump card) from the deck 
-            if (deck.cardsLeft > 0)
+            if (copy.deck.cardsLeft > 0)
             {
-                tCard = deck.GetCard(0);
-                deck.RemoveCard(0);
+                tCard = copy.deck.GetCard(0);
+                copy.deck.RemoveCard(0);
             }
 
-            Player opponent = players[GetNextTurn()];
+            Player opponent = copy.players[GetNextTurn()];
             var opponentHiddenCards = opponent.GetHand().Where(c => !c.GetSeen());
             int totalHiddenCards = opponentHiddenCards.Count();
 
             // add hidden cards from opponent's hand to the hidden deck cards
-            deck.GetCards().AddRange(opponentHiddenCards);
+            copy.deck.GetCards().AddRange(opponentHiddenCards);
             // remove hidden cards from the hand
             opponent.GetHand().RemoveAll(card => !card.GetSeen());
 
             // shuffle the unseen cards 
-            deck.Shuffle();
+            copy.deck.Shuffle();
 
             // redistribute back totalCards amount to opponent
-            FillPlayerHand(deck.DrawCards(totalHiddenCards), opponent, $"Opponent drew random cards: ", false);
+            FillPlayerHand(copy.deck.DrawCards(totalHiddenCards), opponent, 
+                $"Opponent drew random cards: ", false);
 
             if (tCard is not null)
             {
                 // set the trump card back to the deck
-                deck.GetCards().Insert(0, tCard!);
+                copy.deck.GetCards().Insert(0, tCard!);
             }
-/*
+
             Console.Write("deck: ");
-            foreach (Card card in deck.GetCards())
+            foreach (Card card in copy.deck.GetCards())
             {
                 Console.Write(card + " ");
             }
             Console.WriteLine();
 
             Console.WriteLine("Player hands: ");
-            Console.WriteLine(players[0]);
-            Console.WriteLine(players[1]);
-*/
+            Console.Write("Opponent:");
+            Console.WriteLine(opponent);
 
+            return copy;
         }
 
 
         // Method that returns the outcome of the game
-        // 0 - draw; 1000 - player 1 won; -1000 - player 2 won
+        // 0 - draw; 1 - player 1 won; -1 - player 2 won
         public int GetGameResult()
         {
             if (isDraw)
             {
                 return 0;
             }
-            return players[0].GetState() == PlayerState.Winner ? 1000 : -1000;
+            return players[0].GetState() == PlayerState.Winner ? 1  : -1;
         }
 
         private void FillPlayerHand(List<Card> cards, Player player, string text, bool sort = true)
