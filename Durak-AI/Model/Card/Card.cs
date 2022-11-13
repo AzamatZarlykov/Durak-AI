@@ -52,5 +52,10 @@ namespace Model.PlayingCards
 
         public bool Equals(Card ?other) => 
             other is Card c && suit == c.suit && rank == c.rank;
+
+        public override int GetHashCode()
+        {
+            return new { seen, rank, suit }.GetHashCode();
+        }
     }
 }

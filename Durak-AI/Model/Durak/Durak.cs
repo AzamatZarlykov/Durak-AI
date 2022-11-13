@@ -169,18 +169,6 @@ namespace Model.DurakWrapper
                 // set the trump card back to the deck
                 copy.deck.GetCards().Insert(0, tCard!);
             }
-
-            Console.Write("deck: ");
-            foreach (Card card in copy.deck.GetCards())
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("Player hands: ");
-            Console.Write("Opponent:");
-            Console.WriteLine(opponent);
-
             return copy;
         }
 
@@ -500,6 +488,12 @@ namespace Model.DurakWrapper
                 {
                     writer.WriteLineVerbose("Can defend", GetTurn(), isCopy);
                     cards = GenerateListofDefendingCards(attackingCard)!;
+                    if (!excludePass)
+                    {
+                        DisplayCardsInOrder(cards!, "Possible cards: ", GetTurn());
+                        cards.Add(null);
+                        return cards;
+                    }
                 }else
                 {
                     writer.WriteLineVerbose("cannot defend", GetTurn(), isCopy);

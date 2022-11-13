@@ -18,18 +18,16 @@ namespace AIAgent
         private int totalGameStates;
         private int maxSearchedDepth;
         private bool debug;
-        private bool openWorld;
 
         // dictionary where the key is a tuple of stringified game state and depth and value is
         // the outcome of the game
         private Dictionary<(string, int), int> cache_states = new Dictionary<(string, int), int>();
-        public MinimaxAI(string name, int depth, bool debug, bool openWorld)
+        public MinimaxAI(string name, int depth, bool debug)
         {
             this.name = name;
             this.maxDepth = depth;
             this.debug = debug;
             this.totalGameStates = -1;
-            this.openWorld = openWorld;
         }
 
         private int Evaluate(GameView gw, int depth)
@@ -136,13 +134,14 @@ namespace AIAgent
             // and shuffle them. After, redistribute cards back to player and the deck
             // This state should be played out within minimax n times (n=10) and select the
             // most common card option
-            int n = 3;
+            int n = 20;
             // stores the frequency of the best moves out of n played moves
             Dictionary<Card, int> cache = new Dictionary<Card, int>();
             int passTakeTotal = 0;
 
             for (int i = 1; i <= n; i++)
             {
+                cache_states.Clear();
                 GameView sampleGame = gameView.ShuffleCopy();
                 Minimax(sampleGame, alpha, beta, 0, out bestMove);
 
@@ -174,12 +173,6 @@ namespace AIAgent
                 {
                     bestMove = null;
                 }
-            }
-
-            // print the dictionary 
-            foreach (KeyValuePair<Card, int> kvp in cache)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
             }
         }
 
