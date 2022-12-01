@@ -30,6 +30,15 @@ namespace AIAgent
             this.totalGameStates = -1;
         }
 
+        private int EvaluateState(GameView gw)
+        {
+            int score = 0;
+
+
+
+            return score;
+        }
+
         private int Evaluate(GameView gw, int depth)
         {
             if (gw.status == GameStatus.GameOver)

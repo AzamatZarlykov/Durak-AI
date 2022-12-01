@@ -14,12 +14,25 @@ using Helpers;
 
 namespace Model.GameState   
 {
+    interface IAbstractGame
+    {
+        GameView Copy();
+        GameView ShuffleCopy();
+        int Player();   // which player moves next: Attacking or Defending
+        List<Card?> Actions(bool exlcudePassTake);
+        void Apply(Card? action);
+        bool IsDone();
+        GameView Result(Card? action);
+        int Winner();
+    }
+
+
     /// <summary>
     /// Object that contains information of the current state of the game
     /// It is used to give the context for players(AI) to know what changes 
     /// were made
     /// </summary>
-    public class GameView
+    public class GameView : IAbstractGame
     {
         private Durak game;
         private int agentIndex;
@@ -45,10 +58,55 @@ namespace Model.GameState
             this.game = game;
             this.agentIndex = agent;
         }
-        public GameView Copy() => new GameView(game.Copy(), agentIndex);
-        public GameView ShuffleCopy() => new GameView(game.ShuffleCopy(), agentIndex);
-        public int GetAgentIndex() => this.agentIndex;
-        public List<Card?> PossibleMoves(bool excludePass) => game.PossibleMoves(excludePass);
+
+        // Interface Implementation
+        public GameView Copy()
+        {
+            return new GameView(game.Copy(), agentIndex);
+        }
+
+        public GameView ShuffleCopy()
+        {
+            return new GameView(game.ShuffleCopy(), agentIndex);
+        }
+
+        public int Player()
+        {
+            return game.GetTurn();
+        }
+
+        public List<Card?> Actions(bool exlcudePassTake)
+        {
+            return game.PossibleMoves(exlcudePassTake);
+        }
+
+        public void Apply(Card? action)
+        {
+            game.Move(action);
+        }
+
+        public bool IsDone()
+        {
+            return status == GameStatus.GameOver;
+        }
+
+        public GameView Result(Card? action)
+        {
+            GameView state = Copy();
+            state.Apply(action);
+            return state;
+        }
+
+        public int Winner()
+        {
+            return game.GetGameResult();
+        }
+
+        public int GetAgentIndex()
+        {
+            return this.agentIndex;
+        }
+
         public override string ToString() =>
             $"\"Status\":{status}; \"Deck\":{{ {deck} }}; " +
             $"\"DiscardPile\":{Helper.toString(discardPile)}; " +
@@ -58,8 +116,6 @@ namespace Model.GameState
             $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; " +
             $"\"plTurn\":{plTurn}; ";
 
-        public void Move(Card? card) =>
-            game.Move(card);
 
         public List<Card> GetDefendingCards(Card attacking) => 
             game.GenerateListofDefendingCards(attacking);

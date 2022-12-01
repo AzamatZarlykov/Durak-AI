@@ -74,29 +74,6 @@ namespace Model.DurakWrapper
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
         public int GetNextTurn() => turn == Turn.Attacking ? GetDefendingPlayer() : attackingPlayer;
 
-
-/*        // Constructor for inner game simulation for minimax agent
-        public Durak(GameView gw, bool setup = false)
-        {
-            // Set all the values of the respective fields
-            gameStatus = gw.status;
-            trumpCard = gw.trumpCard;
-            attackingPlayer = gw.attackingPlayer;
-            turn = gw.turn;
-            defenderTakes = gw.takes;
-            isDraw = gw.isDraw;
-            discardPile = new List<Card>(gw.discardPile);
-            players = gw.players.ConvertAll(p => p.Copy());
-
-            // copy the bout of the game state
-            bout = new Bout(gw.bout.GetAttackingCards(), gw.bout.GetDefendingCards());
-            // copy the deck of the game state
-            deck = new Deck(gw.deck.GetRankStart(), gw.deck.GetCards());
-            // initialize debugger mode to false
-            writer = new Writer(Console.Out, setup, setup);
-        }*/
-
-
         public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps, bool open)
         {
             if (includeTrumps)
@@ -683,6 +660,18 @@ namespace Model.DurakWrapper
 
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
+        }
+
+        public Durak Result(Card? action)
+        {
+            Durak s = Copy();
+            s.Move(action);
+            return s;
+        }
+
+        public bool IsDone()
+        {
+            return gameStatus == GameStatus.GameOver;
         }
     }
 }
