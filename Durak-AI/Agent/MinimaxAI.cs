@@ -62,7 +62,7 @@ namespace AIAgent
                 int turn = innerGameView.plTurn;
 
                 Card? card = agents[turn].Move(innerGameView);
-                innerGameView.Move(card);
+                innerGameView.Apply(card);
             }
 
             int result = innerGameView.outcome;
@@ -97,12 +97,12 @@ namespace AIAgent
 
             int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
 
-            List<Card?> possibleMoves = gw.PossibleMoves(excludePass: false);
+            List<Card?> possibleMoves = gw.Actions(excludePassTake: false);
 
             foreach(Card ?card in possibleMoves)
             {
                 GameView gwCopy = gw.Copy();
-                gwCopy.Move(card);
+                gwCopy.Apply(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
                 // if the game state was already explored then return its heurtic value
                 if (!cache_states.ContainsKey((stringified_gamestate, depth)))

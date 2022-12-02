@@ -188,20 +188,20 @@ namespace CLI
 
         public void Run(bool tournament = false)
         {
-            Durak game = new Durak(
-                gParam.StartingRank, 
-                gParam.Verbose, 
-                gParam.D2, 
-                gParam.IncludeTrumps,
-                gParam.OpenWorld);
-
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;
 
             Console.WriteLine("==== RUNNING ====\n");
             for (; i <= end; i++)
             {
-                game.Initialize(i, gParam.Agents);
+                Durak game = new Durak(
+                    gParam.StartingRank,
+                    gParam.Verbose,
+                    gParam.D2,
+                    gParam.IncludeTrumps,
+                    gParam.OpenWorld,
+                    i, gParam.Agents);
+
                 InitializeAgents(i);
 
                 while (game.gameStatus == GameStatus.GameInProcess)

@@ -22,9 +22,19 @@ namespace Model.TableDeck
         public int GetRankStart() => rankStart;    
         public List<Card> GetCards() => cards;
 
-        public Deck(int rankStartingPoint)
+        public Deck(int rankStartingPoint, Random random)
         {
             this.rankStart = rankStartingPoint;
+
+            for (int suit = 0; suit < 4; suit++)
+            {
+                for (int rank = rankStart; rank < 15; rank++)
+                {
+                    cards.Add(new Card((Suit)suit, (Rank)rank));
+                }
+            }
+            this.random = random;
+            Shuffle();
         }
 
         public Deck(int ranskStartingPoint, List<Card> deckCards)
@@ -43,20 +53,6 @@ namespace Model.TableDeck
             copy.cards = new List<Card>(cards);
             return copy;
         }
-
-        public void Init(Random random)
-        {
-            for (int suit = 0; suit < 4; suit++)
-            {
-                for (int rank = rankStart; rank < 15; rank++)
-                {
-                    cards.Add(new Card((Suit)suit, (Rank)rank));
-                }
-            }
-            this.random = random;
-            Shuffle();
-        }
-
 
         // Shuffles the deck of cards using Fisher-Yates shuffle
         // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle

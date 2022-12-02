@@ -74,17 +74,41 @@ namespace Model.DurakWrapper
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
         public int GetNextTurn() => turn == Turn.Attacking ? GetDefendingPlayer() : attackingPlayer;
 
-        public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps, bool open)
+        public Durak(int rankStartingPoint, bool verbose, bool isDebug, bool includeTrumps, bool open,
+            int seed, string[] agents)
         {
-            if (includeTrumps)
-            {
-                trumpCard = new Card();
-            }
+            Random random = new Random(seed);
+
             isOpen = open;
             bout = new Bout();
-            deck = new Deck(rankStartingPoint);
+            deck = new Deck(rankStartingPoint, random);
             writer = new Writer(Console.Out, verbose, isDebug);
+
+            if (includeTrumps)
+            {
+                trumpCard = DetermineTrumpCard(random);
+            }
+            discardPile = new List<Card>();
+
+
+            gameStatus = GameStatus.GameInProcess;
+            isDraw = false;
+            defenderTakes = false;
+            bouts = 1;
+            moves = 0;
+
+            Info();
+
+            // instantiate players 
+            AddPlayers(agents);
+
+            // Each player draws 6 cards
+            DistributeCardsToPlayers();
+
+            // Set the attacking player
+            SetAttacker(random);
         }
+
 
         public Durak Copy()
         {
@@ -266,43 +290,6 @@ namespace Model.DurakWrapper
             {
                 players.Add(new Player(agents[i]));
             }
-        }
-
-        public void Initialize(int seed, string[] agents)
-        {
-            Random random = new Random(seed);
-
-            gameStatus = GameStatus.GameInProcess;
-            isDraw = false;
-            defenderTakes = false;
-            bouts = 1;
-            moves = 0;
-
-            // instantiate the deck 
-            deck.Init(random);
-
-            // instantiate the bout of the game
-            bout = new Bout();
-
-            // instantiate the pile
-            discardPile = new List<Card>();
-
-            if (trumpCard is not null)
-            {
-                trumpCard = DetermineTrumpCard(random);
-            }
-
-            Info();
-
-            // instantiate players 
-            AddPlayers(agents);
-
-            // Each player draws 6 cards
-            DistributeCardsToPlayers();
-
-
-            // Set the attacking player
-            SetAttacker(random);
         }
 
         private bool CanAttack()

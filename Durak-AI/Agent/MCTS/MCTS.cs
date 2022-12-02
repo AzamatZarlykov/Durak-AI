@@ -24,7 +24,7 @@ namespace AIAgent
         {
             if (node.GetAllActions() is null)
             {
-                node.SetAllActions(gameState.Actions(exlcudePassTake: false));
+                node.SetAllActions(gameState.Actions(excludePassTake: false));
             }
         }
 

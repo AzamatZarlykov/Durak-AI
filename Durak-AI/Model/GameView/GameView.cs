@@ -19,7 +19,7 @@ namespace Model.GameState
         GameView Copy();
         GameView ShuffleCopy();
         int Player();   // which player moves next: Attacking or Defending
-        List<Card?> Actions(bool exlcudePassTake);
+        List<Card?> Actions(bool excludePassTake);
         void Apply(Card? action);
         bool IsDone();
         GameView Result(Card? action);
@@ -75,9 +75,9 @@ namespace Model.GameState
             return game.GetTurn();
         }
 
-        public List<Card?> Actions(bool exlcudePassTake)
+        public List<Card?> Actions(bool excludePassTake)
         {
-            return game.PossibleMoves(exlcudePassTake);
+            return game.PossibleMoves(excludePassTake);
         }
 
         public void Apply(Card? action)
