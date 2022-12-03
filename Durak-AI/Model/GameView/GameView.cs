@@ -18,7 +18,7 @@ namespace Model.GameState
     {
         GameView Copy();
         GameView ShuffleCopy();
-        int Player();   // which player moves next: Attacking or Defending
+        int Player(bool unchanged = true);   // which player moves next: Attacking or Defending
         List<Card?> Actions(bool excludePassTake);
         void Apply(Card? action);
         bool IsDone();
@@ -48,7 +48,6 @@ namespace Model.GameState
         public bool takes => game.GetTake();
         public bool isEarlyGame => deck.cardsLeft != 0;
         public int outcome => game.GetGameResult();
-        public int plTurn => game.GetTurn();
         public int attackingPlayer => game.GetAttackingPlayer();
         public bool open => game.isOpen;
         public bool includeTrumps => trumpCard is not null ? true : false;
@@ -70,9 +69,18 @@ namespace Model.GameState
             return new GameView(game.ShuffleCopy(), agentIndex);
         }
 
-        public int Player()
+        public int Player(bool unchanged = true)
         {
-            return game.GetTurn();
+            // because Winner() returns 0 = draw; 1 = pl 1; -1 = pl2
+            // change return of game.GetTurn(). i.e if 1 => -1, if 0 => 1
+            int turn = game.GetTurn();
+
+            if (unchanged)
+                return turn;
+
+            return turn == 0 ? 1 : -1;
+
+            //return game.GetTurn();
         }
 
         public List<Card?> Actions(bool excludePassTake)
@@ -114,7 +122,7 @@ namespace Model.GameState
             $"\"turn\":{turn}; \"playerHand\":{Helper.toString(playerHand)}; " +
             $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
             $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; " +
-            $"\"plTurn\":{plTurn}; ";
+            $"\"plTurn\":{Player()}; ";
 
 
         public List<Card> GetDefendingCards(Card attacking) => 

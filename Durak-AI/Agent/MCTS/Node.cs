@@ -19,7 +19,9 @@ namespace AIAgent
         private Node? parent;   // parent Node
         private Card? lastAction;
         private List<Node> childArray = new List<Node>();
-        private List<Card?> allActions = new List<Card?>();
+
+        public bool actionsAdded;
+        private List<Card?>? allActions = new List<Card?>();
 
         // Construtors
         public Node() { }
@@ -111,7 +113,7 @@ namespace AIAgent
 
         public List<Card?> GetAllActions()
         {
-            return allActions;
+            return allActions!;
         }
 
         // Setters

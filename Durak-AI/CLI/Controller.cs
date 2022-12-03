@@ -136,10 +136,11 @@ namespace CLI
         private Agent GetAgentType(string type, int param)
         {
             // for minimax:depth=3 OR montecarlo:depth=5
+            int value;
             string[] type_param = type.Split(':');
             string name = type_param[0];
 
-            switch(name)
+            switch (name)
             {
                 case "random":
                     return new RandomAI(name, param);
@@ -166,9 +167,17 @@ namespace CLI
                         throw new Exception("Depth value is missing");
                     }
 
-                    int.TryParse(res[1], out int value);
+                    int.TryParse(res[1], out value);
 
                     return new MinimaxAI($"{name} (depth={value})", value, gParam.D1);
+                case "mcts":
+                    if (type_param.Count() == 1)
+                    {
+                        throw new Exception("Iterations parameter is missing");
+                    }
+                    int.TryParse(type_param[1], out value);
+
+                    return new MCTS($"{name} (iterations={value})", value);
                 default:
                     throw new Exception("unknown agent");
             }   

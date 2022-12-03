@@ -59,7 +59,7 @@ namespace AIAgent
             // start the game simulation
             while (innerGameView.status == GameStatus.GameInProcess)
             {
-                int turn = innerGameView.plTurn;
+                int turn = innerGameView.Player();
 
                 Card? card = agents[turn].Move(innerGameView);
                 innerGameView.Apply(card);
@@ -95,7 +95,7 @@ namespace AIAgent
                 return Evaluate(gw, depth);
             }
 
-            int bestVal = gw.plTurn == 0 ? int.MinValue : int.MaxValue;
+            int bestVal = gw.Player() == 0 ? int.MinValue : int.MaxValue;
 
             List<Card?> possibleMoves = gw.Actions(excludePassTake: false);
 
@@ -111,11 +111,11 @@ namespace AIAgent
                     cache_states.Add((stringified_gamestate, depth), v);
                 }
 
-                if (gw.plTurn == 0 ? v > bestVal : v < bestVal)
+                if (gw.Player() == 0 ? v > bestVal : v < bestVal)
                 {
                     bestVal = v;
                     bestMove = card;
-                    if (gw.plTurn == 0)
+                    if (gw.Player() == 0)
                     {
                         if (v >= beta)
                         {

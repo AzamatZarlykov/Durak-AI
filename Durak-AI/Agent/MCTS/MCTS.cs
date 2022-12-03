@@ -1,5 +1,7 @@
 ﻿using Model.GameState;
 using Model.PlayingCards;
+using AIAgent.PolicyEvaluation;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +13,20 @@ namespace AIAgent
     public class MCTS : Agent 
     {
         private int limit;
-        private Random random;
 
-        public MCTS(Random r, int limit)
+        public MCTS(string name, int limit)
         {
+            this.name = name;
             this.limit = limit;
-            this.random = r;
         }
         
         // assigns all possible actions for the root node from the game
         private void AssignActions(Node node, GameView gameState)
         {
-            if (node.GetAllActions() is null)
+            if (!node.actionsAdded)
             {
                 node.SetAllActions(gameState.Actions(excludePassTake: false));
+                node.actionsAdded = true;
             }
         }
 
@@ -48,6 +50,8 @@ namespace AIAgent
                     // balancer C = 1.41
                     node = node.BestChild(1.41);
 
+
+
                     gameState = node.GetGame();
                     AssignActions(node, gameState);
                 }
@@ -59,9 +63,18 @@ namespace AIAgent
         //  to produce a value estimate(simulation).
         private int DefaultPolicy(GameView gameStateClone)
         {
-            while(!gameStateClone.IsDone())
+            List<Agent> agents = new List<Agent>()
             {
-                // PLAYOUT USING 2 GREEDY AGENTS 
+                new GreedyAI("greedy"),
+                new GreedyAI("greedy")
+            };
+
+            while (!gameStateClone.IsDone())
+            {
+                int turn = gameStateClone.Player();
+
+                Card? action = agents[turn].Move(gameStateClone);
+                gameStateClone.Apply(action);
             }
             return gameStateClone.Winner();
         }
@@ -81,7 +94,7 @@ namespace AIAgent
                 {
                     tempNode.AddScore(0.5);
                 } 
-                else if (game.Player() == playoutResult)
+                else if (game.Player(false) == playoutResult)
                 {
                     tempNode.AddScore(1.0);
                 }
@@ -97,7 +110,7 @@ namespace AIAgent
             rootNode.SetGameState(gameView);
 
             int curr = 1;
-            while (curr < limit)
+            while (curr <= limit)
             {
                 Node leafNode = TreePolicy(rootNode);
                 int playoutResult = DefaultPolicy(leafNode.GetGame().Copy());
