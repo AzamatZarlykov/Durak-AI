@@ -20,17 +20,21 @@ namespace AIAgent
         private Card? lastAction;
         private List<Node> childArray = new List<Node>();
 
-        public bool actionsAdded;
-        private List<Card?>? allActions = new List<Card?>();
+        private List<Card?> allActions;
 
         // Construtors
-        public Node() { }
+        public Node(GameView game) 
+        {
+            this.game = game;
+            allActions = this.game.Actions(excludePassTake: false);
+        }
 
         public Node(GameView game, Node parent, Card? action)
         {
             this.game = game;
             this.parent = parent;
             this.lastAction = action;
+            this.allActions = game.Actions(excludePassTake: false);
         }
         // MCTS related methods
         public bool IsNotFullyExpanded()
@@ -125,16 +129,6 @@ namespace AIAgent
         public void AddScore(double score)
         {
             winscore += score;
-        }
-
-        public void SetGameState(GameView g)
-        {
-            game = g;
-        }
-
-        public void SetAllActions(List<Card?> actions)
-        {
-            allActions = new List<Card?>(actions);
         }
     }
 }

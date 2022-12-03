@@ -587,10 +587,27 @@ namespace Model.DurakWrapper
             bouts++;
         }
 
-        public void Move(Card? card)
+        // Action is valid if the card belongs to the hand of the moving player
+        // null is valid
+        private bool ValidAction(Card? card, Player attacker, Player defender)
+        {
+            if (card is null) return true;
+
+            if (turn == Turn.Attacking && attacker.GetHand().Contains(card))
+                return true;
+            else if (turn == Turn.Defending && defender.GetHand().Contains(card))
+                return true;
+            return false;
+        }
+
+        public bool Move(Card? card)
         {
             Player attacker = players[attackingPlayer];
             Player defender = players[GetDefendingPlayer()];
+
+            // check if move is valid
+            if (!ValidAction(card, attacker, defender)) 
+                return false;
 
             if (turn == Turn.Attacking)
             {
@@ -618,7 +635,7 @@ namespace Model.DurakWrapper
                     {
                         EndBoutProcess(attacker, defender);
                         writer.WriteLineVerbose(isCopy);
-                        return;
+                        return true;
                     }
                 }
             }
@@ -653,7 +670,7 @@ namespace Model.DurakWrapper
                     {
                         turn = Turn.Attacking;
                         writer.WriteLineVerbose("ATTACKER ADDS EXTRA", GetTurn(), isCopy);
-                        return;
+                        return true;
                     }
                     if (!IsEndGame(attacker, defender))
                     {
@@ -661,15 +678,18 @@ namespace Model.DurakWrapper
                     }
                 }
             }
-
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
+            return true;
         }
 
         public Durak Result(Card? action)
         {
             Durak s = Copy();
-            s.Move(action);
+            
+            if (!s.Move(action))
+                throw new Exception("Illegal Move");
+
             return s;
         }
 

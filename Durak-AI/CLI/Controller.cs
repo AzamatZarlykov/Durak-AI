@@ -222,7 +222,10 @@ namespace CLI
 
                     var gw = new GameView(game, turn);
                     Card? card = agents[turn].Move(gw);
-                    game.Move(card);
+
+                    if (!game.Move(card))
+                        throw new Exception("Illegal Move");
+                    
                     timers[turn].Stop();
                 }
                 HandleEndGameResult(game, i);

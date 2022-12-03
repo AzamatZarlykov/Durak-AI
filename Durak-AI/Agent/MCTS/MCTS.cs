@@ -20,24 +20,10 @@ namespace AIAgent
             this.limit = limit;
         }
         
-        // assigns all possible actions for the root node from the game
-        private void AssignActions(Node node, GameView gameState)
-        {
-            if (!node.actionsAdded)
-            {
-                node.SetAllActions(gameState.Actions(excludePassTake: false));
-                node.actionsAdded = true;
-            }
-        }
-
         //  Select or create a leaf node from the nodes already
         //  contained within the search tree(selection and expansion).
         private Node TreePolicy(Node node)
         {
-            GameView gameState = node.GetGame();
-
-            AssignActions(node, gameState);
-
             // while node is nonterminal
             while(!node.TerminalState())
             {
@@ -49,11 +35,6 @@ namespace AIAgent
                 {
                     // balancer C = 1.41
                     node = node.BestChild(1.41);
-
-
-
-                    gameState = node.GetGame();
-                    AssignActions(node, gameState);
                 }
             }
             return node;
@@ -87,14 +68,13 @@ namespace AIAgent
 
             while(tempNode != null)
             {
-                var game = tempNode.GetGame();
                 tempNode.IncrementPlayouts();
                 // draw
                 if (playoutResult == 0)
                 {
                     tempNode.AddScore(0.5);
                 } 
-                else if (game.Player(false) == playoutResult)
+                else if (tempNode.GetGame().Player(false) == playoutResult)
                 {
                     tempNode.AddScore(1.0);
                 }
@@ -104,10 +84,8 @@ namespace AIAgent
 
         public override Card? Move(GameView gameView)
         {
-            Tree tree = new Tree();
+            Tree tree = new Tree(gameView);
             Node rootNode = tree.GetRoot();
-
-            rootNode.SetGameState(gameView);
 
             int curr = 1;
             while (curr <= limit)

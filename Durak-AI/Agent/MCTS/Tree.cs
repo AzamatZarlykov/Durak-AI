@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model.GameState;
 
 namespace AIAgent
 {
     public  class Tree
     {
         Node root;
-        public Tree()
+        public Tree(GameView game)
         {
-            root = new Node();
+            root = new Node(game) ;
         }
 
         public Tree(Node root)

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace AIAgent.PolicyEvaluation
 {
-    // !!! HAS TO BE CHANGED FOR DURAK MODEL
     public class UCT
     {
-        public static double UctValue(Node parent, Node child, double expParam, bool v = false)
+        public static double UctValue(Node parent, Node child, double expParam)
         {
             int parentPlayouts = parent.GetTotalPlayout();
             int parentTurn = parent.GetGame().Player(false);
@@ -18,21 +17,13 @@ namespace AIAgent.PolicyEvaluation
             int childTurn = child.GetGame().Player(false);
             double childWinscore = child.GetTotalScore();
 
-            if (childPlayouts == 0)
-            {
-                return int.MaxValue;
-            }
+            double avgReturn = childWinscore / childPlayouts;
 
-            if (parentTurn == childTurn)
-            {
-                if (v) Console.WriteLine("NO INVERT");
-                return (double)childWinscore / (double)childPlayouts
-                    + expParam * Math.Sqrt(2 * Math.Log(parentPlayouts) / (double)childPlayouts);
-            }
-            if (v) Console.WriteLine("INVERT");
-
-            return 1 - (double)childWinscore / (double)childPlayouts
-                + expParam * Math.Sqrt(2 * Math.Log(parentPlayouts) / (double)childPlayouts);
+            if (parentTurn != childTurn)
+                avgReturn = 1 - avgReturn;
+            
+            return avgReturn +
+                expParam * Math.Sqrt(2 * Math.Log(parentPlayouts) / (double)childPlayouts);
         }
 
         public static Node FindBestNodeWithUCT(Node node, double expParam)

@@ -90,7 +90,8 @@ namespace Model.GameState
 
         public void Apply(Card? action)
         {
-            game.Move(action);
+            if (!game.Move(action))
+                throw new Exception("Illegal Move");
         }
 
         public bool IsDone()
