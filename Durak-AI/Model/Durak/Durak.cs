@@ -522,19 +522,18 @@ namespace Model.DurakWrapper
             return TOTALCARDS - pCards;
         }
 
-        private bool EnoughCardsInTheDeck(Player attacker, Player defender)
+        private bool EnoughCardsInTheDeck(Player attacker)
         {
             int attackerCardNeeds = CardsNeededForPlayerFromDeck(attacker);
-            int defenderCardNeeds = CardsNeededForPlayerFromDeck(defender);
 
-            if (attackerCardNeeds >= deck.cardsLeft || defenderCardNeeds >= deck.cardsLeft)
+            if (attackerCardNeeds >= deck.cardsLeft)
                 return false;
             return true;
         }
 
         private bool IsEndGame(Player attacker, Player defender)
         {
-            if (EnoughCardsInTheDeck(attacker, defender) && deck.GetRankStart() < 12)
+            if (EnoughCardsInTheDeck(attacker) && deck.GetRankStart() < 12)
             {
                 return false;
             }
