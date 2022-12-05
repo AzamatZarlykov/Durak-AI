@@ -36,22 +36,16 @@ namespace AIAgent
             }
             if (weaknesses.Count > 1)
             {
-                // Helper.PrintRanks("Weaknesses: ", weaknesses);
-
                 // if more than one weakness - by attacking a weakness card a defensive card will be
                 // in a non-weakness card of an attacker
                 List<Card> nonweakness = pHand.Where(
                     card => !weaknesses.Contains(card.rank)).ToList();
-
-                // Helper.PrintCards("Non Weaknesses: ", nonweakness);
-
-                // Console.WriteLine("Non weakness Rank Size: " + Helper.GetNonWeaknessRankSize(nonweakness));
+                
                 if (weaknesses.Count <= Helper.GetNonWeaknessRankSize(nonweakness))
                 {
                     Rank? weakRank = Helper.GetBadlyCoveredWeakness(gw, oHand,
                         nonweakness, weaknesses);
 
-                    // Console.WriteLine("weak rank: " + weakRank);
                     if (weakRank == null)
                     {
                         return Helper.GetLowestRank(noTrumpCards);
@@ -77,7 +71,6 @@ namespace AIAgent
 
         private Card? CallStrategy(GameView gw, List<Card> possibleCards, List<Card> noTrumpCards)
         {
-            // based on the env, GetOpponentCards() will return the cards
             List<Card> oHand = gw.GetOpponentCards();
             List<Card> pHand = gw.playerHand;
 

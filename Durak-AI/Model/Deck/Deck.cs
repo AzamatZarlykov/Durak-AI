@@ -44,7 +44,7 @@ namespace Model.TableDeck
         }
 
         public override string ToString() =>
-            $"\"cards_left\":{cardsLeft}, \"Cards\":{Helper.toString(cards)}";
+            $"\"cards_left\":{cardsLeft}, \"Cards\":{Formatter.toString(cards)}";
 
         public Deck Copy()
         {

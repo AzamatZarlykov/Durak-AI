@@ -118,10 +118,10 @@ namespace Model.GameState
 
         public override string ToString() =>
             $"\"Status\":{status}; \"Deck\":{{ {deck} }}; " +
-            $"\"DiscardPile\":{Helper.toString(discardPile)}; " +
-            $"\"Players\":{Helper.toString(players)}; \"Bout\":{bout}; " +
-            $"\"turn\":{turn}; \"playerHand\":{Helper.toString(playerHand)}; " +
-            $"\"opponentHand\":{Helper.toString(opponentHand)}; " +
+            $"\"DiscardPile\":{Formatter.toString(discardPile)}; " +
+            $"\"Players\":{Formatter.toString(players)}; \"Bout\":{bout}; " +
+            $"\"turn\":{turn}; \"playerHand\":{Formatter.toString(playerHand)}; " +
+            $"\"opponentHand\":{Formatter.toString(opponentHand)}; " +
             $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; " +
             $"\"plTurn\":{Player()}; ";
 
@@ -139,26 +139,14 @@ namespace Model.GameState
                 return opponentHand;
             }
 
-            // o/w infer opponents hand from P hand, bout and discard pile 
-            // for now, just return the cards that are seen from opponent's hand
-
-            List<Card> cards = new List<Card>();
-            
-            foreach (Card card in opponentHand)
+            // in the early game, player knows only cards that were seen
+            if (isEarlyGame)
             {
-                if (card.GetSeen())
-                {
-                    cards.Add(card);
-                }
+                return opponentHand.Where(card => card.GetSeen()).ToList();
             }
 
-            Console.Write("Seen Cards: ");
-            foreach(Card card in cards)
-            {
-                Console.Write(card + " ");
-            }
-            Console.WriteLine();
-            return cards;
+            // in the end game, player knows the opponent hand since it has the perfect memory
+            return opponentHand;
         }
     }
 }

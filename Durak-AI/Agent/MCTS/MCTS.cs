@@ -82,7 +82,7 @@ namespace AIAgent
             }
         }
 
-        public override Card? Move(GameView gameView)
+        private Card? UCTSearch(GameView gameView)
         {
             Tree tree = new Tree(gameView);
             Node rootNode = tree.GetRoot();
@@ -100,6 +100,51 @@ namespace AIAgent
             Node winnerNode = rootNode.BestChild(0);
             tree.SetRoot(rootNode);
             return winnerNode.GetLastAction();
+        }
+
+        private Card? ClosedEnvironmentUCTSearch(GameView gameView)
+        {
+            // runs UCTSearch n times and determines after the most frequent action
+            int n = 30;
+            int passTaketotal = 0;
+            Card? bestAction = null;
+            Dictionary<Card, int> cache = new Dictionary<Card, int>();
+
+            for (int i = 1; i <= n; i++)
+            {
+                GameView shuffledGame = gameView.ShuffleCopy();
+                bestAction = UCTSearch(shuffledGame);
+
+                if (bestAction is null)
+                    passTaketotal++;
+                else
+                {
+                    if (cache.ContainsKey(bestAction))
+                        cache[bestAction] += 1;
+                    else
+                        cache[bestAction] = 1;
+                }
+            }
+
+            if (cache.Count > 0)
+            {
+                // get the most frequent best move
+                bestAction = cache.MaxBy(kvp => kvp.Value).Key;
+
+                // compareit to the amount of pass/take instances
+                if (passTaketotal > cache[bestAction])
+                    bestAction = null;
+            }
+
+            return bestAction;
+        }
+
+        public override Card? Move(GameView gameView)
+        {
+            if (gameView.open)
+                return UCTSearch(gameView);
+
+            return ClosedEnvironmentUCTSearch(gameView);
         }
     }
 }

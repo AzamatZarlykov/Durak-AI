@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace AIAgent
 {
@@ -30,22 +31,118 @@ namespace AIAgent
             this.totalGameStates = -1;
         }
 
+        private int ConvertHandToValue(List<Card> hand, GameView gw)
+        {
+            const int TOTALCARDS = 9;
+            int value = 0;
+
+            foreach (Card card in hand)
+            {
+                if (gw.includeTrumps && card.suit == gw.trumpCard!.suit)
+                    value += (int)card.rank + TOTALCARDS;
+                else
+                    value += (int)card.rank;
+            }
+            return value;
+        }
+
+        // Returns the value of the player's hand. E.g card with rank 6 has value 6 Ace has
+        // value 14. Trump cards, if allowed, continue the sequence 6 trump has value 15
+        private int EvaluatePlayersHandsToValue(GameView gw)
+        {
+            int oValue = 0;
+
+            // converting hands of the player has the turn
+            int pValue = ConvertHandToValue(gw.playerHand, gw);
+
+            // converting opponent's hand
+            if (gw.open)
+                oValue = ConvertHandToValue(gw.opponentHand, gw);
+            else
+            {
+                var oSeenCards = gw.GetOpponentCards();
+                oValue = ConvertHandToValue(oSeenCards, gw);
+
+                // add the average of the cards that are not seen from opponent hand and deck
+                var hiddenOpponentCards = gw.opponentHand.Where(c => !c.GetSeen());
+                var deckCards = gw.deck.GetCards();
+
+                int oppHiddenCardsValue = ConvertHandToValue(hiddenOpponentCards.ToList(), gw);
+                int deckValue = ConvertHandToValue(deckCards.ToList(), gw);
+
+                oValue = (oppHiddenCardsValue + deckValue) / 
+                    (hiddenOpponentCards.Count() + deckCards.Count());
+                
+            }
+/*            Console.WriteLine($"P hand: {Formatter.toString(gw.playerHand)}");
+            Console.WriteLine($"O hand: {Formatter.toString(gw.opponentHand)}");
+
+            Console.WriteLine($"P player hand value: {pValue}");
+            Console.WriteLine($"O player hand value: {oValue}");*/
+            return pValue - oValue;
+        }
+
+        private int EvaluateHandSize(GameView gw)
+        {
+            int pHandSize = gw.playerHand.Count();
+            int oHandSize = gw.opponentHand.Count();
+
+            int dif = pHandSize - oHandSize;
+
+            if (!gw.isEarlyGame)
+            {
+                // in the end game difference in hand size matters more than in the early game
+                dif = dif * 5;
+            }
+            // having more cards is worse thus reverse
+            return dif * (-1);
+        }
+
+        // If there a player has only one weakness it is guaranteed that this player will win
+        private int EvaluateWeaknesses(GameView gw)
+        {
+            int value = 0;
+            // stategy works if P attacking and O does not have any trump cards
+            if (gw.turn == Turn.Attacking && !gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit))
+            {
+                List<Card?> possibleMoves = gw.Actions(excludePassTake: true);
+                List<Rank> weaknesses = Helper.GetWeaknesses(possibleMoves!, gw.GetOpponentCards());
+                
+                if (weaknesses.Count() == 1)
+                {
+                    value += 500; 
+                }
+            }
+            return value * gw.Player(false);
+        }
+
+        // Evaluates the current state of the game and returns its value
+        // Assessment of the state: 1) value of the hand. 2) size of the hand
+        // 3) in the end game, if a player has 1 weakness(also, opponent does not have trump cards)
+        // there is a win for that player
         private int EvaluateState(GameView gw)
         {
             int score = 0;
 
+            // 1) get the value of the hand
+            score += EvaluatePlayersHandsToValue(gw);
 
+            //Console.WriteLine($"Score after hand value: {score}");
+
+            // 2) size of the hand: smaller -> better 
+            score += EvaluateHandSize(gw);
+
+            //Console.WriteLine($"Score after hand size: {score}");
+            if (!gw.open)
+            {
+                score += EvaluateWeaknesses(gw);
+            }
 
             return score;
         }
 
         private int Evaluate(GameView gw, int depth)
         {
-            if (gw.status == GameStatus.GameOver)
-            {
-                return 1000 * gw.outcome;
-            }
-
             // simulate the game between 2 greedy AI agents. 
             // Based on the outcome return the score
             GameView innerGameView = gw.Copy();
@@ -92,7 +189,13 @@ namespace AIAgent
                 {
                     maxSearchedDepth = depth;
                 }
-                return Evaluate(gw, depth);
+
+                if (gw.status == GameStatus.GameOver)
+                {
+                    return 1000 * gw.outcome;
+                }
+
+                return EvaluateState(gw);
             }
 
             int bestVal = gw.Player() == 0 ? int.MinValue : int.MaxValue;

@@ -40,7 +40,7 @@ namespace Model.GamePlayer
         }
 
         public override string ToString() =>
-            $"{{ \"State\":{state}; \"Hand\":{Helper.toString(hand)} }}";
+            $"{{ \"State\":{state}; \"Hand\":{Formatter.toString(hand)} }}";
             
         public string GetName() => name;
 

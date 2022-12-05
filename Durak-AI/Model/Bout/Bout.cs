@@ -24,8 +24,8 @@ namespace Model.MiddleBout
         }
 
         public override string ToString() => 
-            $"{Helper.toString(attackingCards)}_" +
-            $"{Helper.toString(defendingCards)}";
+            $"{Formatter.toString(attackingCards)}_" +
+            $"{Formatter.toString(defendingCards)}";
 
         public int GetAttackingCardsSize() => attackingCards.Count();
         public int GetDefendingCardsSize() => defendingCards.Count();

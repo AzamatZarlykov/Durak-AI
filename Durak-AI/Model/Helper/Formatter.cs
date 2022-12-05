@@ -8,7 +8,7 @@ using Model.PlayingCards;
 
 namespace Helpers
 {
-    public static class Helper
+    public static class Formatter
     {
         public static string toString<T>(List<T> list) =>
        "[" + string.Join(", ",

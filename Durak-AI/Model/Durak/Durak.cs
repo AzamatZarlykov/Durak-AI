@@ -189,7 +189,7 @@ namespace Model.DurakWrapper
         {
             writer.WriteVerbose(text, isCopy);
 
-            foreach (Card card in (sort ? Helper.SortCards(cards) : cards))
+            foreach (Card card in (sort ? Formatter.SortCards(cards) : cards))
             {
                 if (trumpCard is null)
                 {
@@ -375,7 +375,7 @@ namespace Model.DurakWrapper
         {
             writer.WriteVerbose(text, isCopy);
 
-            foreach (Card card in Helper.SortCards(cards))
+            foreach (Card card in Formatter.SortCards(cards))
             {
                 if (trumpCard is not null)
                 {
