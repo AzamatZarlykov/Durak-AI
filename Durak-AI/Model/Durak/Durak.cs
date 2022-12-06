@@ -589,16 +589,10 @@ namespace Model.DurakWrapper
 
         // Action is valid if the card belongs to the hand of the moving player
         // null is valid
-        private bool ValidAction(Card? card, Player attacker, Player defender)
-        {
-            if (card is null) return true;
-
-            if (turn == Turn.Attacking && attacker.GetHand().Contains(card))
-                return true;
-            else if (turn == Turn.Defending && defender.GetHand().Contains(card))
-                return true;
-            return false;
-        }
+        public bool ValidAction(Card? card, Player attacker, Player defender) =>
+            card is null ||
+            turn == Turn.Attacking && attacker.GetHand().Contains(card) ||
+            turn == Turn.Defending && defender.GetHand().Contains(card);
 
         public bool Move(Card? card)
         {

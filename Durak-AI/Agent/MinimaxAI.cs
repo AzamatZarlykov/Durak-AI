@@ -18,17 +18,22 @@ namespace AIAgent
         private int maxDepth;
         private int totalGameStates;
         private int maxSearchedDepth;
+        private int samples;
         private bool debug;
+        private bool playoutEval;
 
         // dictionary where the key is a tuple of stringified game state and depth and value is
         // the outcome of the game
         private Dictionary<(string, int), int> cache_states = new Dictionary<(string, int), int>();
-        public MinimaxAI(string name, int depth, bool debug)
+        public MinimaxAI(string name, int depth, bool debug, bool playout, int samples=20)
         {
             this.name = name;
             this.maxDepth = depth;
             this.debug = debug;
             this.totalGameStates = -1;
+            this.samples = samples;
+            this.playoutEval = playout;
+
         }
 
         private int ConvertHandToValue(List<Card> hand, GameView gw)
@@ -48,70 +53,61 @@ namespace AIAgent
 
         // Returns the value of the player's hand. E.g card with rank 6 has value 6 Ace has
         // value 14. Trump cards, if allowed, continue the sequence 6 trump has value 15
-        private int EvaluatePlayersHandsToValue(GameView gw)
+        private int EvaluatePlayerHandToValue(GameView gw)
         {
-            int oValue = 0;
+            int turn = gw.Player(); // 0 or 1
+            // get hand of player whose turn it is 
+            var pHand = gw.players[turn].GetHand();
 
-            // converting hands of the player has the turn
-            int pValue = ConvertHandToValue(gw.playerHand, gw);
-
-            // converting opponent's hand
-            if (gw.open)
-                oValue = ConvertHandToValue(gw.opponentHand, gw);
-            else
-            {
-                var oSeenCards = gw.GetOpponentCards();
-                oValue = ConvertHandToValue(oSeenCards, gw);
-
-                // add the average of the cards that are not seen from opponent hand and deck
-                var hiddenOpponentCards = gw.opponentHand.Where(c => !c.GetSeen());
-                var deckCards = gw.deck.GetCards();
-
-                int oppHiddenCardsValue = ConvertHandToValue(hiddenOpponentCards.ToList(), gw);
-                int deckValue = ConvertHandToValue(deckCards.ToList(), gw);
-
-                oValue = (oppHiddenCardsValue + deckValue) / 
-                    (hiddenOpponentCards.Count() + deckCards.Count());
-                
-            }
-/*            Console.WriteLine($"P hand: {Formatter.toString(gw.playerHand)}");
-            Console.WriteLine($"O hand: {Formatter.toString(gw.opponentHand)}");
-
-            Console.WriteLine($"P player hand value: {pValue}");
-            Console.WriteLine($"O player hand value: {oValue}");*/
-            return pValue - oValue;
+            return ConvertHandToValue(pHand, gw) * gw.Player(false);
         }
 
         private int EvaluateHandSize(GameView gw)
         {
-            int pHandSize = gw.playerHand.Count();
-            int oHandSize = gw.opponentHand.Count();
+            int turn = gw.Player(); // 0 or 1
+            // get hand of player whose turn it is 
+            int pHandSize = gw.players[turn].GetHand().Count();
 
-            int dif = pHandSize - oHandSize;
+            pHandSize = gw.isEarlyGame ? pHandSize : pHandSize * 15;
 
-            if (!gw.isEarlyGame)
-            {
-                // in the end game difference in hand size matters more than in the early game
-                dif = dif * 5;
-            }
-            // having more cards is worse thus reverse
-            return dif * (-1);
+            // multiply by -1 because it is bad to have more cards
+            return pHandSize * (-1) * gw.Player(false);
         }
 
         // If there a player has only one weakness it is guaranteed that this player will win
         private int EvaluateWeaknesses(GameView gw)
         {
             int value = 0;
+            int turn = gw.Player();
+
             // stategy works if P attacking and O does not have any trump cards
-            if (gw.turn == Turn.Attacking && !gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit))
+            if (gw.turn == Turn.Attacking &&
+                !gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit))
             {
+               // Console.WriteLine($"IN THE WEAKNESSES - EnumTurn: {gw.turn}; Opp has trumps: " +
+                   // $"{gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit)}");
+
                 List<Card?> possibleMoves = gw.Actions(excludePassTake: true);
+                // cannot attack/defend
+                if (possibleMoves.Count == 1 && possibleMoves[0] is null)
+                {
+                    // Console.WriteLine("PASS");
+                    return value; ;
+                }
+
                 List<Rank> weaknesses = Helper.GetWeaknesses(possibleMoves!, gw.GetOpponentCards());
-                
+
                 if (weaknesses.Count() == 1)
                 {
-                    value += 500; 
+                    value += 500;
                 }
+                // Console.WriteLine($"WEAKNESSES COUNT: {weaknesses.Count()}");
+
+            }
+            else
+            {
+                // Console.WriteLine($"NOT IN THE WEAKNESSES - EnumTurn: {gw.turn}; Opp has trumps: " +
+                //    $"{!gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit)}");
             }
             return value * gw.Player(false);
         }
@@ -123,19 +119,24 @@ namespace AIAgent
         private int EvaluateState(GameView gw)
         {
             int score = 0;
-
             // 1) get the value of the hand
-            score += EvaluatePlayersHandsToValue(gw);
+            score += EvaluatePlayerHandToValue(gw);
 
-            //Console.WriteLine($"Score after hand value: {score}");
+            // Console.WriteLine($"Score after hand value: {score}");
 
             // 2) size of the hand: smaller -> better 
             score += EvaluateHandSize(gw);
 
-            //Console.WriteLine($"Score after hand size: {score}");
-            if (!gw.open)
+            // Console.WriteLine($"Score after hand size: {score}");
+            if (!gw.isEarlyGame)
             {
                 score += EvaluateWeaknesses(gw);
+            }
+            // Console.WriteLine($"Score after weaknesses: {score}");
+
+            if(gw.takes)
+            {
+                score += ConvertHandToValue(gw.bout.GetEverything(), gw);
             }
 
             return score;
@@ -195,7 +196,7 @@ namespace AIAgent
                     return 1000 * gw.outcome;
                 }
 
-                return EvaluateState(gw);
+                return playoutEval ? Evaluate(gw, depth) : EvaluateState(gw);
             }
 
             int bestVal = gw.Player() == 0 ? int.MinValue : int.MaxValue;
@@ -239,23 +240,30 @@ namespace AIAgent
             return bestVal;
         }
 
+        private void ClosedPlay(GameView gw, int alpha, int beta, out Card? bestMove)
+        {
+            GameView sampleGame = gw.ShuffleCopy();
+            Minimax(sampleGame, alpha, beta, 0, out bestMove);
+        }
+
         private void ClosedEnvironmentMinimax(GameView gameView, int alpha, int beta, out Card? bestMove)
         {
             bestMove = null;
-            // sample the game state: take the deck (except the trump) and non seen cards
-            // and shuffle them. After, redistribute cards back to player and the deck
-            // This state should be played out within minimax n times (n=10) and select the
-            // most common card option
-            int n = 20;
+
+            if (!gameView.isEarlyGame)
+            {
+                ClosedPlay(gameView, alpha, beta, out bestMove);
+                return;
+            }
+
             // stores the frequency of the best moves out of n played moves
             Dictionary<Card, int> cache = new Dictionary<Card, int>();
             int passTakeTotal = 0;
 
-            for (int i = 1; i <= n; i++)
+            for (int i = 1; i <= samples; i++)
             {
                 cache_states.Clear();
-                GameView sampleGame = gameView.ShuffleCopy();
-                Minimax(sampleGame, alpha, beta, 0, out bestMove);
+                ClosedPlay(gameView, alpha, beta, out bestMove);
 
                 // best move can be null (PASS/TAKE). Cannot store null as a key to dict
                 // thus keep track of the occurance

@@ -132,11 +132,58 @@ namespace CLI
             bouts += bout;
             movesPerBout += mpb;
         }
+
+        // returns the value of the parameter
+        private int ParamValue(string param)
+        {
+            int value;
+            string[] buffer = param.Split('=');
+
+            if (buffer.Count() != 2)
+            {
+                throw new Exception($"Parameter value is missing/wrong");
+            }
+
+            if (buffer[0] != "depth" && buffer[0] != "limit" && buffer[0] != "samples")
+            {
+                throw new Exception($"Wrong parameter name: {buffer[0]}");
+            }
+
+            int.TryParse(buffer[1], out value);
+            return value;
+        }
+
+        private (int, int, bool) ParseSearchParameters(string[] param)
+        {
+            // param = [mcts, limit=100,samples=20] || [minimax, depth=4,samples=20]
+            if (param.Count() == 1)
+            {
+                throw new Exception("Parameters are missing");
+            }
+
+            //[ limit=100,samples=20 ] || [ depth=4,samples=20,playout ] || [ depth=4,playout ]
+            string[] paramBuffer = param[1].Split(',');
+
+            bool playout = false;
+            if (paramBuffer[0].Contains("depth") && (paramBuffer[^1] == "playout"))
+            {
+                playout = true;
+            }
+
+            if (gParam.OpenWorld)
+            {
+                return (ParamValue(paramBuffer[0]), 20, playout);
+            }
+
+            return (ParamValue(paramBuffer[0]),
+                paramBuffer.Count() == 1 || paramBuffer[1] == "playout" ? 20 : 
+                ParamValue(paramBuffer[1]), playout);
+        }
         
         private Agent GetAgentType(string type, int param)
         {
-            // for minimax:depth=3 OR montecarlo:depth=5
-            int value;
+            // -ai1=mcts:limit=100,samples=20 -ai2=minimax:depth=4,samples=20
+            int samples;
             string[] type_param = type.Split(':');
             string name = type_param[0];
 
@@ -149,35 +196,19 @@ namespace CLI
                 case "smart":
                     return new Smart(name);
                 case "minimax":
-                    if (type_param.Count() == 1)
-                    {
-                        throw new Exception("Depth parameter is missing");
-                    }
-                    string[] res = type_param[1].Split('=');
+                    int depth;
+                    bool playout;
+                    (depth, samples, playout) = ParseSearchParameters(type_param);
 
-                    if (res[0] != "depth")
-                    {
-                        Console.WriteLine();
-                        throw new Exception($"Incorrect parameter name in {type_param[0]} AI: " +
-                            $"{res[0]}");
-                    }
+                    string n = playout ? $"{name} (depth={depth}, heuristic=playout)" :
+                       $"{name} (depth={depth}, heuristic=basic)";
 
-                    if (res.Count() == 1)
-                    {
-                        throw new Exception("Depth value is missing");
-                    }
-
-                    int.TryParse(res[1], out value);
-
-                    return new MinimaxAI($"{name} (depth={value})", value, gParam.D1);
+                    return new MinimaxAI(n, depth, gParam.D1, playout, samples);
                 case "mcts":
-                    if (type_param.Count() == 1)
-                    {
-                        throw new Exception("Iterations parameter is missing");
-                    }
-                    int.TryParse(type_param[1], out value);
+                    int limit;
+                    (limit, samples, _) = ParseSearchParameters(type_param);
 
-                    return new MCTS($"{name} (iterations={value})", value);
+                    return new MCTS($"{name} (iterations={limit})", limit, samples);
                 default:
                     throw new Exception("unknown agent");
             }   

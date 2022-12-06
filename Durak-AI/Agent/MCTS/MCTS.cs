@@ -13,11 +13,12 @@ namespace AIAgent
     public class MCTS : Agent 
     {
         private int limit;
-
-        public MCTS(string name, int limit)
+        private int samples;
+        public MCTS(string name, int limit, int samples = 20)
         {
             this.name = name;
             this.limit = limit;
+            this.samples = samples;
         }
         
         //  Select or create a leaf node from the nodes already
@@ -102,18 +103,28 @@ namespace AIAgent
             return winnerNode.GetLastAction();
         }
 
+        private Card? ClosedPlay(GameView gw)
+        {
+            GameView shuffledGame = gw.ShuffleCopy();
+            return UCTSearch(shuffledGame);
+        }
+
         private Card? ClosedEnvironmentUCTSearch(GameView gameView)
         {
             // runs UCTSearch n times and determines after the most frequent action
-            int n = 30;
             int passTaketotal = 0;
             Card? bestAction = null;
+
+            if (!gameView.isEarlyGame)
+            {
+                return ClosedPlay(gameView);
+            }
+
             Dictionary<Card, int> cache = new Dictionary<Card, int>();
 
-            for (int i = 1; i <= n; i++)
+            for (int i = 1; i <= samples; i++)
             {
-                GameView shuffledGame = gameView.ShuffleCopy();
-                bestAction = UCTSearch(shuffledGame);
+                bestAction = ClosedPlay(gameView);
 
                 if (bestAction is null)
                     passTaketotal++;
