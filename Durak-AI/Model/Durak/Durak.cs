@@ -175,7 +175,7 @@ namespace Model.DurakWrapper
 
 
         // Method that returns the outcome of the game
-        // 0 - draw; 1 - player 1 won; -1 - player 2 won
+        // -1 - draw; 0 - player 1 won; 1 - player 2 won
         public int GetGameResult()
         {
             if (isDraw)
@@ -470,7 +470,7 @@ namespace Model.DurakWrapper
             return cards;
         }
 
-        // returns how many players are still playing (have cards in the game)
+        // returns true if Durak is assigned to any of the players, o/w false
         private bool IsDurakAssigned() =>
             players.Exists(p => p.GetState() == PlayerState.Durak);
 
@@ -480,7 +480,7 @@ namespace Model.DurakWrapper
             return IsDurakAssigned() || isDraw;
         }
 
-        // Function that removes the cards from the last player (defending)
+        // Function that removes the cards from the last player
         private void RemovePlayersCards(Player player)
         {
             if (player.GetNumberOfCards() > 0)

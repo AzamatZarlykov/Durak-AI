@@ -53,30 +53,20 @@ namespace AIAgent
 
         // Returns the value of the player's hand. E.g card with rank 6 has value 6 Ace has
         // value 14. Trump cards, if allowed, continue the sequence 6 trump has value 15
-        private int EvaluatePlayerHandToValue(GameView gw)
-        {
-            int turn = gw.Player(); // 0 or 1
-
-            var pHand = gw.players[turn].GetHand();
-            var oHand = gw.players[(turn + 1) % 2].GetHand();
-
-            int a = ConvertHandToValue(pHand, gw) * gw.MMPlayer();
-            int b = ConvertHandToValue(oHand, gw) * gw.MMPlayer() * (-1);
-
-            return a - b;
-        }
+        private int EvaluatePlayerHandToValue(GameView gw) =>
+            ConvertHandToValue(gw.players[0].GetHand(), gw) -
+            ConvertHandToValue(gw.players[1].GetHand(), gw);
 
         private int EvaluateHandSize(GameView gw)
         {
-            int turn = gw.Player(); // 0 or 1
+            int pHandSize = gw.players[0].GetNumberOfCards();
+            int oHandSize = gw.players[1].GetNumberOfCards();
 
-            int pHandSize = gw.players[turn].GetNumberOfCards();
-            int oHandSize = gw.players[(turn + 1) % 2].GetNumberOfCards();
+            // hand size matters in the late game
+            pHandSize = (gw.isEarlyGame ? pHandSize : pHandSize * 15);
+            oHandSize = (gw.isEarlyGame ? oHandSize : oHandSize * 15);
 
-            pHandSize = (gw.isEarlyGame ? pHandSize : pHandSize * 15) * gw.MMPlayer();
-            oHandSize = (gw.isEarlyGame ? oHandSize : oHandSize * 15) * gw.MMPlayer() * (-1);
-
-            return pHandSize - oHandSize;
+            return (pHandSize - oHandSize) * -1;
         }
 
         // If there a player has only one weakness it is guaranteed that this player will win
@@ -116,23 +106,13 @@ namespace AIAgent
             // 1) get the value of the hand
             score += EvaluatePlayerHandToValue(gw);
 
-            // Console.WriteLine($"Score after hand value: {score}");
-
             // 2) size of the hand: smaller -> better 
             score += EvaluateHandSize(gw);
-
-            // Console.WriteLine($"Score after hand size: {score}");
+            // 3) weaknesses 
             if (!gw.isEarlyGame)
             {
                 score += EvaluateWeaknesses(gw);
             }
-            // Console.WriteLine($"Score after weaknesses: {score}");
-
-            if (gw.takes)
-            {
-                score += ConvertHandToValue(gw.bout.GetEverything(), gw) * gw.MMPlayer();
-            }
-
             return score;
         }
 

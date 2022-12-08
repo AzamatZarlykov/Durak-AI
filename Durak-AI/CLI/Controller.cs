@@ -147,6 +147,7 @@ namespace CLI
             int value = 0;
             int samples = 20;
             string eval = "basic";
+            bool success = false;
             foreach (string p in paramBuffer)
             {
                 string[] buffer = p.Split('=');
@@ -159,13 +160,13 @@ namespace CLI
                 switch (buffer[0])
                 {
                     case "limit":
-                        int.TryParse(buffer[1], out value);
+                        success = int.TryParse(buffer[1], out value);
                         break;
                     case "depth":
-                        int.TryParse(buffer[1], out value);
+                        success = int.TryParse(buffer[1], out value);
                         break;
                     case "samples":
-                        int.TryParse(buffer[1], out samples);
+                        success = int.TryParse(buffer[1], out samples);
                         break;
                     case "eval":
                         if (buffer[1] != "playout")
@@ -179,6 +180,11 @@ namespace CLI
 
                 }
             }
+            if (!success || value < 1 || samples < 1)
+            {
+                throw new Exception($"Invalid parameter");
+            }
+
             return (value, samples, eval);
         }
         

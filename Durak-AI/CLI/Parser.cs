@@ -13,11 +13,18 @@ namespace CLI
         private static void ExampleUsage()
         {
             Console.WriteLine("    usage example for multiple games: ");
-            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -total_games=1000 -verbose=false");
+            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy " +
+                "-total_games=1000 -verbose=true");
             Console.WriteLine();
 
             Console.WriteLine("    usage example for a specific game: ");
-            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -seed=29 -verbose=false");
+            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -seed=29 " +
+                "-verbose=false");
+            Console.WriteLine();
+
+            Console.WriteLine("    usage example for a tournament between all the agents ");
+            Console.WriteLine("\t$dotnet run --project .\\CLI\\ -tournament=\"random, greedy, smart, " +
+                "minimax:depth=6, mcts:limit=100\" -total_games=500 -open_world -start_rank=10");
             Console.WriteLine();
         }
 
@@ -64,12 +71,14 @@ namespace CLI
         static void Parse(
             [DefaultValue("random")]
             [Description("The agent for player 1. Possible AIs: random, greedy, smart, " +
-            "minimax:depth=<value>, montecarlo")]
+            "minimax:depth=<value>,samples=<value>,eval=<playout/basic>, " +
+            "mcts:limit=<value>,samples=<value>")]
             string ai1,
 
             [DefaultValue("random")]
             [Description("The agent for player 2. Possible AIs: random, greedy, smart, " +
-            "minimax:depth=<value>, montecarlo")]
+            "minimax:depth=<value>,samples=<value>,eval=<playout/basic>, " +
+            "mcts:limit=<value>,samples=<value>")]
             string ai2,
 
             [Description("A seed for random number generation")]
@@ -107,7 +116,8 @@ namespace CLI
             [Description("Enable trump cards in the game")]
             bool include_trumps,
 
-            [Description("Runs the tournament with the agents specified")]
+            [Description("Runs the tournament with the agents specified. " +
+            "E.g: -tournament=\"random,greedy,smart,minimax:depth=5,mcts:limit=100\"")]
             string tournament
 
         )
