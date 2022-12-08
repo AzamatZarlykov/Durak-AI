@@ -18,7 +18,7 @@ namespace Model.GameState
     {
         GameView Copy();
         GameView ShuffleCopy();
-        int Player(bool unchanged = true);   // which player moves next: Attacking or Defending
+        int Player();   // which player moves next: Attacking or Defending
         List<Card?> Actions(bool excludePassTake);
         void Apply(Card? action);
         bool IsDone();
@@ -47,7 +47,6 @@ namespace Model.GameState
         public List<Card> opponentHand => game.GetPlayersHand((agentIndex + 1) % 2);
         public bool takes => game.GetTake();
         public bool isEarlyGame => deck.cardsLeft != 0;
-        public int outcome => game.GetGameResult();
         public int attackingPlayer => game.GetAttackingPlayer();
         public bool open => game.isOpen;
         public bool includeTrumps => trumpCard is not null ? true : false;
@@ -69,18 +68,19 @@ namespace Model.GameState
             return new GameView(game.ShuffleCopy(), agentIndex);
         }
 
-        public int Player(bool unchanged = true)
+        public int Player()
         {
-            // because Winner() returns 0 = draw; 1 = pl 1; -1 = pl2
-            // change return of game.GetTurn(). i.e if 1 => -1, if 0 => 1
-            int turn = game.GetTurn();
+            return game.GetTurn();
+        }
 
-            if (unchanged)
-                return turn;
+        private int ToMinimax(int player)
+        {
+            return player == 0 ? 1 : -1;
+        }
 
-            return turn == 0 ? 1 : -1;
-
-            //return game.GetTurn();
+        public int MMPlayer()
+        {
+            return ToMinimax(Player());
         }
 
         public List<Card?> Actions(bool excludePassTake)
@@ -122,7 +122,7 @@ namespace Model.GameState
             $"\"Players\":{Formatter.toString(players)}; \"Bout\":{bout}; " +
             $"\"turn\":{turn}; \"playerHand\":{Formatter.toString(playerHand)}; " +
             $"\"opponentHand\":{Formatter.toString(opponentHand)}; " +
-            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{outcome}; " +
+            $"\"takes\":{takes}; \"isEarlyGame\":{isEarlyGame}; \"outcome\":{Winner()}; " +
             $"\"plTurn\":{Player()}; ";
 
 

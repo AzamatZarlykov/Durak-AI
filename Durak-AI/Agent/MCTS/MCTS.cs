@@ -14,7 +14,7 @@ namespace AIAgent
     {
         private int limit;
         private int samples;
-        public MCTS(string name, int limit, int samples = 20)
+        public MCTS(string name, int limit, int samples)
         {
             this.name = name;
             this.limit = limit;
@@ -71,11 +71,11 @@ namespace AIAgent
             {
                 tempNode.IncrementPlayouts();
                 // draw
-                if (playoutResult == 0)
+                if (playoutResult == -1)
                 {
                     tempNode.AddScore(0.5);
                 } 
-                else if (tempNode.GetGame().Player(false) == playoutResult)
+                else if (tempNode.GetGame().MMPlayer() == playoutResult)
                 {
                     tempNode.AddScore(1.0);
                 }

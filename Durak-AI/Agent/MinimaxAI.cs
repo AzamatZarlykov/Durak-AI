@@ -20,19 +20,19 @@ namespace AIAgent
         private int maxSearchedDepth;
         private int samples;
         private bool debug;
-        private bool playoutEval;
+        private string eval;
 
         // dictionary where the key is a tuple of stringified game state and depth and value is
         // the outcome of the game
         private Dictionary<(string, int), int> cache_states = new Dictionary<(string, int), int>();
-        public MinimaxAI(string name, int depth, bool debug, bool playout, int samples=20)
+        public MinimaxAI(string name, int depth, bool debug, string playout, int samples)
         {
             this.name = name;
             this.maxDepth = depth;
             this.debug = debug;
             this.totalGameStates = -1;
             this.samples = samples;
-            this.playoutEval = playout;
+            this.eval = playout;
 
         }
 
@@ -56,22 +56,27 @@ namespace AIAgent
         private int EvaluatePlayerHandToValue(GameView gw)
         {
             int turn = gw.Player(); // 0 or 1
-            // get hand of player whose turn it is 
-            var pHand = gw.players[turn].GetHand();
 
-            return ConvertHandToValue(pHand, gw) * gw.Player(false);
+            var pHand = gw.players[turn].GetHand();
+            var oHand = gw.players[(turn + 1) % 2].GetHand();
+
+            int a = ConvertHandToValue(pHand, gw) * gw.MMPlayer();
+            int b = ConvertHandToValue(oHand, gw) * gw.MMPlayer() * (-1);
+
+            return a - b;
         }
 
         private int EvaluateHandSize(GameView gw)
         {
             int turn = gw.Player(); // 0 or 1
-            // get hand of player whose turn it is 
-            int pHandSize = gw.players[turn].GetHand().Count();
 
-            pHandSize = gw.isEarlyGame ? pHandSize : pHandSize * 15;
+            int pHandSize = gw.players[turn].GetNumberOfCards();
+            int oHandSize = gw.players[(turn + 1) % 2].GetNumberOfCards();
 
-            // multiply by -1 because it is bad to have more cards
-            return pHandSize * (-1) * gw.Player(false);
+            pHandSize = (gw.isEarlyGame ? pHandSize : pHandSize * 15) * gw.MMPlayer();
+            oHandSize = (gw.isEarlyGame ? oHandSize : oHandSize * 15) * gw.MMPlayer() * (-1);
+
+            return pHandSize - oHandSize;
         }
 
         // If there a player has only one weakness it is guaranteed that this player will win
@@ -84,14 +89,10 @@ namespace AIAgent
             if (gw.turn == Turn.Attacking &&
                 !gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit))
             {
-               // Console.WriteLine($"IN THE WEAKNESSES - EnumTurn: {gw.turn}; Opp has trumps: " +
-                   // $"{gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit)}");
-
                 List<Card?> possibleMoves = gw.Actions(excludePassTake: true);
                 // cannot attack/defend
                 if (possibleMoves.Count == 1 && possibleMoves[0] is null)
                 {
-                    // Console.WriteLine("PASS");
                     return value; ;
                 }
 
@@ -101,15 +102,8 @@ namespace AIAgent
                 {
                     value += 500;
                 }
-                // Console.WriteLine($"WEAKNESSES COUNT: {weaknesses.Count()}");
-
             }
-            else
-            {
-                // Console.WriteLine($"NOT IN THE WEAKNESSES - EnumTurn: {gw.turn}; Opp has trumps: " +
-                //    $"{!gw.opponentHand.Exists(c => c.suit == gw.trumpCard?.suit)}");
-            }
-            return value * gw.Player(false);
+            return value * gw.MMPlayer();
         }
 
         // Evaluates the current state of the game and returns its value
@@ -134,9 +128,9 @@ namespace AIAgent
             }
             // Console.WriteLine($"Score after weaknesses: {score}");
 
-            if(gw.takes)
+            if (gw.takes)
             {
-                score += ConvertHandToValue(gw.bout.GetEverything(), gw);
+                score += ConvertHandToValue(gw.bout.GetEverything(), gw) * gw.MMPlayer();
             }
 
             return score;
@@ -163,7 +157,7 @@ namespace AIAgent
                 innerGameView.Apply(card);
             }
 
-            int result = innerGameView.outcome;
+            int result = innerGameView.Winner();
             int score = 1000 - depth;
 
             return result * score;
@@ -193,10 +187,10 @@ namespace AIAgent
 
                 if (gw.status == GameStatus.GameOver)
                 {
-                    return 1000 * gw.outcome;
+                    return 1000 * gw.Winner();
                 }
 
-                return playoutEval ? Evaluate(gw, depth) : EvaluateState(gw);
+                return eval == "playout" ? Evaluate(gw, depth) : EvaluateState(gw);
             }
 
             int bestVal = gw.Player() == 0 ? int.MinValue : int.MaxValue;

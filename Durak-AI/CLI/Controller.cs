@@ -115,14 +115,13 @@ namespace CLI
 
             Console.Write("Game " + gameIndex + ": ");
 
-            if (result == 0)
+            if (result == -1)
             {
                 Console.Write("Draw");
                 Console.WriteLine($" Total bouts: {bout}");
                 draws++;
                 return;
             }
-            result = result == 1 ? 0 : 1;
 
             Console.Write($"Agent {result + 1} ({agents[result].GetName()}) won");
             Console.WriteLine($". Total bouts: {bout}");
@@ -133,27 +132,8 @@ namespace CLI
             movesPerBout += mpb;
         }
 
-        // returns the value of the parameter
-        private int ParamValue(string param)
-        {
-            int value;
-            string[] buffer = param.Split('=');
 
-            if (buffer.Count() != 2)
-            {
-                throw new Exception($"Parameter value is missing/wrong");
-            }
-
-            if (buffer[0] != "depth" && buffer[0] != "limit" && buffer[0] != "samples")
-            {
-                throw new Exception($"Wrong parameter name: {buffer[0]}");
-            }
-
-            int.TryParse(buffer[1], out value);
-            return value;
-        }
-
-        private (int, int, bool) ParseSearchParameters(string[] param)
+        private (int, int, string) ParseSearchParameters(string[] param)
         {
             // param = [mcts, limit=100,samples=20] || [minimax, depth=4,samples=20]
             if (param.Count() == 1)
@@ -161,23 +141,45 @@ namespace CLI
                 throw new Exception("Parameters are missing");
             }
 
-            //[ limit=100,samples=20 ] || [ depth=4,samples=20,playout ] || [ depth=4,playout ]
+            //[ limit=100,samples=20 ] || [ depth=4,samples=20,eval=playout ] || [ depth=4,eval=playout ]
             string[] paramBuffer = param[1].Split(',');
 
-            bool playout = false;
-            if (paramBuffer[0].Contains("depth") && (paramBuffer[^1] == "playout"))
+            int value = 0;
+            int samples = 20;
+            string eval = "basic";
+            foreach (string p in paramBuffer)
             {
-                playout = true;
-            }
+                string[] buffer = p.Split('=');
 
-            if (gParam.OpenWorld)
-            {
-                return (ParamValue(paramBuffer[0]), 20, playout);
-            }
+                if (buffer.Count() != 2)
+                {
+                    throw new Exception($"Parameter value is missing/wrong");
+                }
 
-            return (ParamValue(paramBuffer[0]),
-                paramBuffer.Count() == 1 || paramBuffer[1] == "playout" ? 20 : 
-                ParamValue(paramBuffer[1]), playout);
+                switch (buffer[0])
+                {
+                    case "limit":
+                        int.TryParse(buffer[1], out value);
+                        break;
+                    case "depth":
+                        int.TryParse(buffer[1], out value);
+                        break;
+                    case "samples":
+                        int.TryParse(buffer[1], out samples);
+                        break;
+                    case "eval":
+                        if (buffer[1] != "playout")
+                        {
+                            throw new Exception($"Wrong eval name: {buffer[1]}");
+                        }
+                        eval = buffer[1];
+                        break;
+                    default:
+                        throw new Exception($"Wrong parameter name: { buffer[0] }");
+
+                }
+            }
+            return (value, samples, eval);
         }
         
         private Agent GetAgentType(string type, int param)
@@ -186,6 +188,7 @@ namespace CLI
             int samples;
             string[] type_param = type.Split(':');
             string name = type_param[0];
+            string n;
 
             switch (name)
             {
@@ -197,18 +200,21 @@ namespace CLI
                     return new Smart(name);
                 case "minimax":
                     int depth;
-                    bool playout;
-                    (depth, samples, playout) = ParseSearchParameters(type_param);
+                    string eval;
+                    (depth, samples, eval) = ParseSearchParameters(type_param);
 
-                    string n = playout ? $"{name} (depth={depth}, heuristic=playout)" :
-                       $"{name} (depth={depth}, heuristic=basic)";
+                    n = gParam.OpenWorld ? $"{name} (depth={depth}, heuristic={eval})" :
+                        $"{name} (depth={depth}, heuristic={eval}, samples={samples})";
 
-                    return new MinimaxAI(n, depth, gParam.D1, playout, samples);
+                    return new MinimaxAI(n, depth, gParam.D1, eval, samples);
                 case "mcts":
                     int limit;
                     (limit, samples, _) = ParseSearchParameters(type_param);
 
-                    return new MCTS($"{name} (iterations={limit})", limit, samples);
+                    n = gParam.OpenWorld ? $"{name} (iterations={limit})" :
+                        $"{name} (iterations={limit}, samples={samples})";
+
+                    return new MCTS(n, limit, samples);
                 default:
                     throw new Exception("unknown agent");
             }   

@@ -11,10 +11,10 @@ namespace AIAgent.PolicyEvaluation
         public static double UctValue(Node parent, Node child, double expParam)
         {
             int parentPlayouts = parent.GetTotalPlayout();
-            int parentTurn = parent.GetGame().Player(false);
+            int parentTurn = parent.GetGame().MMPlayer();
 
             int childPlayouts = child.GetTotalPlayout();
-            int childTurn = child.GetGame().Player(false);
+            int childTurn = child.GetGame().MMPlayer();
             double childWinscore = child.GetTotalScore();
 
             double avgReturn = childWinscore / childPlayouts;

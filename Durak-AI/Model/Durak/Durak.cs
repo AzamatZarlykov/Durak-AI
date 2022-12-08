@@ -180,9 +180,9 @@ namespace Model.DurakWrapper
         {
             if (isDraw)
             {
-                return 0;
+                return -1;
             }
-            return players[0].GetState() == PlayerState.Winner ? 1  : -1;
+            return players[0].GetState() == PlayerState.Winner ? 0  : 1;
         }
 
         private void FillPlayerHand(List<Card> cards, Player player, string text, bool sort = true)
@@ -675,21 +675,6 @@ namespace Model.DurakWrapper
             // change the agent's turn
             turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
             return true;
-        }
-
-        public Durak Result(Card? action)
-        {
-            Durak s = Copy();
-            
-            if (!s.Move(action))
-                throw new Exception("Illegal Move");
-
-            return s;
-        }
-
-        public bool IsDone()
-        {
-            return gameStatus == GameStatus.GameOver;
         }
     }
 }
