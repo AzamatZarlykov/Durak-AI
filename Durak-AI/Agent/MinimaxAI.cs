@@ -73,7 +73,6 @@ namespace AIAgent
         private int EvaluateWeaknesses(GameView gw)
         {
             int value = 0;
-            int turn = gw.Player();
 
             // stategy works if P attacking and O does not have any trump cards
             if (gw.turn == Turn.Attacking &&
@@ -83,7 +82,7 @@ namespace AIAgent
                 // cannot attack/defend
                 if (possibleMoves.Count == 1 && possibleMoves[0] is null)
                 {
-                    return value; ;
+                    return value;
                 }
 
                 List<Rank> weaknesses = Helper.GetWeaknesses(possibleMoves!, gw.GetOpponentCards());
@@ -103,11 +102,16 @@ namespace AIAgent
         private int EvaluateState(GameView gw)
         {
             int score = 0;
-            // 1) get the value of the hand
-            score += EvaluatePlayerHandToValue(gw);
+
+            //1) get the value of the hand only if the hand sizes are the same
+            if (gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards())
+            {
+                score += EvaluatePlayerHandToValue(gw);
+            }
 
             // 2) size of the hand: smaller -> better 
             score += EvaluateHandSize(gw);
+
             // 3) weaknesses 
             if (!gw.isEarlyGame)
             {
@@ -137,7 +141,7 @@ namespace AIAgent
                 innerGameView.Apply(card);
             }
 
-            int result = innerGameView.Winner();
+            int result = innerGameView.MMWinner();
             int score = 1000 - depth;
 
             return result * score;
@@ -167,7 +171,7 @@ namespace AIAgent
 
                 if (gw.status == GameStatus.GameOver)
                 {
-                    return 1000 * gw.Winner();
+                    return 1000 * gw.MMWinner();
                 }
 
                 return eval == "playout" ? Evaluate(gw, depth) : EvaluateState(gw);

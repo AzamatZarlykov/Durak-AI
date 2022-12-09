@@ -169,7 +169,7 @@ namespace CLI
                         success = int.TryParse(buffer[1], out samples);
                         break;
                     case "eval":
-                        if (buffer[1] != "playout")
+                        if (buffer[1] != "playout" && buffer[1] != "basic")
                         {
                             throw new Exception($"Wrong eval name: {buffer[1]}");
                         }

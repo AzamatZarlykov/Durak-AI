@@ -182,7 +182,7 @@ namespace Model.DurakWrapper
             {
                 return -1;
             }
-            return players[0].GetState() == PlayerState.Winner ? 0  : 1;
+            return players[0].GetState() == PlayerState.Winner ? 0 : 1;
         }
 
         private void FillPlayerHand(List<Card> cards, Player player, string text, bool sort = true)

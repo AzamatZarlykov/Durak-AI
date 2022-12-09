@@ -75,7 +75,7 @@ namespace AIAgent
                 {
                     tempNode.AddScore(0.5);
                 } 
-                else if (tempNode.GetGame().MMPlayer() == playoutResult)
+                else if (tempNode.GetGame().Player() == playoutResult)
                 {
                     tempNode.AddScore(1.0);
                 }

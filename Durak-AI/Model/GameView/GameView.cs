@@ -75,6 +75,8 @@ namespace Model.GameState
 
         private int ToMinimax(int player)
         {
+            if (player == -1)
+                return 0;
             return player == 0 ? 1 : -1;
         }
 
@@ -109,6 +111,11 @@ namespace Model.GameState
         public int Winner()
         {
             return game.GetGameResult();
+        }
+
+        public int MMWinner()
+        {
+            return ToMinimax(Winner());
         }
 
         public int GetAgentIndex()
