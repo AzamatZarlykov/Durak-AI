@@ -14,11 +14,15 @@ namespace AIAgent
     {
         private int limit;
         private int samples;
-        public MCTS(string name, int limit, int samples)
+        private double c;
+        private Agent simulationAgent;
+        public MCTS(string name, int limit, int samples, double c, Agent agent)
         {
             this.name = name;
             this.limit = limit;
             this.samples = samples;
+            this.c = c;
+            this.simulationAgent = agent;
         }
         
         //  Select or create a leaf node from the nodes already
@@ -35,7 +39,7 @@ namespace AIAgent
                 else
                 {
                     // balancer C = 1.41
-                    node = node.BestChild(1.41);
+                    node = node.BestChild(c);
                 }
             }
             return node;
@@ -45,17 +49,9 @@ namespace AIAgent
         //  to produce a value estimate(simulation).
         private int DefaultPolicy(GameView gameStateClone)
         {
-            List<Agent> agents = new List<Agent>()
-            {
-                new GreedyAI("greedy"),
-                new GreedyAI("greedy")
-            };
-
             while (!gameStateClone.IsDone())
             {
-                int turn = gameStateClone.Player();
-
-                Card? action = agents[turn].Move(gameStateClone);
+                Card? action = simulationAgent.Move(gameStateClone);
                 gameStateClone.Apply(action);
             }
             return gameStateClone.Winner();

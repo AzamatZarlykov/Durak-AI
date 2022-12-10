@@ -133,7 +133,7 @@ namespace CLI
         }
 
 
-        private (int, int, string) ParseSearchParameters(string[] param)
+        private (int, int, string, string, double) ParseSearchParameters(string[] param)
         {
             // param = [mcts, limit=100,samples=20] || [minimax, depth=4,samples=20]
             if (param.Count() == 1)
@@ -141,13 +141,15 @@ namespace CLI
                 throw new Exception("Parameters are missing");
             }
 
-            //[ limit=100,samples=20 ] || [ depth=4,samples=20,eval=playout ] || [ depth=4,eval=playout ]
+            //[ limit=100,samples=20,c=1.41 ] || [ depth=4,samples=20,eval=playout ] ||
+            //[ depth=4,eval=playout ]
             string[] paramBuffer = param[1].Split(',');
 
             int value = 0;
             int samples = 20;
-            string eval = "basic";
+            double c = 1.41;
             bool success = false;
+            string[] types = new string[2] { "random", "basic" };
             foreach (string p in paramBuffer)
             {
                 string[] buffer = p.Split('=');
@@ -173,22 +175,31 @@ namespace CLI
                         {
                             throw new Exception($"Wrong eval name: {buffer[1]}");
                         }
-                        eval = buffer[1];
+                        types[1] = buffer[1];
+                        break;
+                    case "simulation":
+                        if (buffer[1] != "greedy")
+                        {
+                            throw new Exception($"Wrong simulation name: {buffer[1]}");
+                        }
+                        types[0] = buffer[1];
+                        break;
+                    case "c":
+                        success = double.TryParse(buffer[1], out c);
                         break;
                     default:
                         throw new Exception($"Wrong parameter name: { buffer[0] }");
 
                 }
+                if (!success)
+                {
+                    throw new Exception($"Invalid parameter for \"{buffer[0]}\": {buffer[1]}");
+                }
             }
-            if (!success || value < 1 || samples < 1)
-            {
-                throw new Exception($"Invalid parameter");
-            }
-
-            return (value, samples, eval);
+            return (value, samples, types[1], types[0], c);
         }
         
-        private Agent GetAgentType(string type, int param)
+        private Agent GetAgentType(string type, int seed)
         {
             // -ai1=mcts:limit=100,samples=20 -ai2=minimax:depth=4,samples=20
             int samples;
@@ -199,28 +210,34 @@ namespace CLI
             switch (name)
             {
                 case "random":
-                    return new RandomAI(name, param);
+                    return new RandomAI(name, seed);
                 case "greedy":
                     return new GreedyAI(name);
                 case "smart":
                     return new Smart(name);
                 case "minimax":
                     int depth;
-                    string eval;
-                    (depth, samples, eval) = ParseSearchParameters(type_param);
+                    string evalType;
 
-                    n = gParam.OpenWorld ? $"{name} (depth={depth}, heuristic={eval})" :
-                        $"{name} (depth={depth}, heuristic={eval}, samples={samples})";
+                    (depth, samples, evalType, _, _) = ParseSearchParameters(type_param);
 
-                    return new MinimaxAI(n, depth, gParam.D1, eval, samples);
+                    n = gParam.OpenWorld ? $"{name} (depth={depth}, heuristic={evalType})" :
+                        $"{name} (depth={depth}, heuristic={evalType}, samples={samples})";
+
+                    return new MinimaxAI(n, depth, gParam.D1, evalType, samples);
                 case "mcts":
                     int limit;
-                    (limit, samples, _) = ParseSearchParameters(type_param);
+                    double c;
+                    string simType;
+                    (limit, samples, _, simType, c) = ParseSearchParameters(type_param);
 
-                    n = gParam.OpenWorld ? $"{name} (iterations={limit})" :
-                        $"{name} (iterations={limit}, samples={samples})";
+                    n = gParam.OpenWorld ? $"{name} (iterations={limit}, C={c:f2}, simulation={simType})" :
+                        $"{name} (iterations={limit}, C={c:f2}, simulation={simType}, samples={samples})";
 
-                    return new MCTS(n, limit, samples);
+                    Agent agent = simType == "random" ? new RandomAI("random", seed) :
+                        new GreedyAI("greedy");
+
+                    return new MCTS(n, limit, samples, c, agent);
                 default:
                     throw new Exception("unknown agent");
             }   
