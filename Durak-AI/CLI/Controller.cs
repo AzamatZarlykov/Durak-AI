@@ -178,7 +178,7 @@ namespace CLI
                         types[1] = buffer[1];
                         break;
                     case "simulation":
-                        if (buffer[1] != "greedy")
+                        if (buffer[1] != "greedy" && buffer[1] != "random")
                         {
                             throw new Exception($"Wrong simulation name: {buffer[1]}");
                         }

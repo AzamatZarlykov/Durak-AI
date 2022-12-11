@@ -16,6 +16,7 @@ namespace AIAgent
         private int samples;
         private double c;
         private Agent simulationAgent;
+        private bool updatedLimit;
         public MCTS(string name, int limit, int samples, double c, Agent agent)
         {
             this.name = name;
@@ -113,6 +114,11 @@ namespace AIAgent
 
             if (!gameView.isEarlyGame)
             {
+                if (!updatedLimit)
+                {
+                    limit *= samples;
+                    updatedLimit = true;
+                }
                 return ClosedPlay(gameView);
             }
 

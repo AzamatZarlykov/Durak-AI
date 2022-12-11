@@ -72,13 +72,13 @@ namespace CLI
             [DefaultValue("random")]
             [Description("The agent for player 1. Possible AIs: random, greedy, smart, " +
             "minimax:depth=<value>,samples=<value>,eval=<playout/basic>, " +
-            "mcts:limit=<value>,samples=<value>")]
+            "mcts:limit=<value>,c=<value>,simulation=<greedy/playout>,samples=<value>")]
             string ai1,
 
             [DefaultValue("random")]
             [Description("The agent for player 2. Possible AIs: random, greedy, smart, " +
             "minimax:depth=<value>,samples=<value>,eval=<playout/basic>, " +
-            "mcts:limit=<value>,samples=<value>")]
+            "mcts:limit=<value>,c=<value>,simulation=<greedy/playout>,samples=<value>")]
             string ai2,
 
             [Description("A seed for random number generation")]
