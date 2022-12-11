@@ -16,7 +16,6 @@ namespace AIAgent
         private int samples;
         private double c;
         private Agent simulationAgent;
-        private bool updatedLimit;
         public MCTS(string name, int limit, int samples, double c, Agent agent)
         {
             this.name = name;
@@ -80,13 +79,13 @@ namespace AIAgent
             }
         }
 
-        private Card? UCTSearch(GameView gameView)
+        private Card? UCTSearch(GameView gameView, int iterations)
         {
             Tree tree = new Tree(gameView);
             Node rootNode = tree.GetRoot();
 
             int curr = 1;
-            while (curr <= limit)
+            while (curr <= iterations)
             {
                 Node leafNode = TreePolicy(rootNode);
                 int playoutResult = DefaultPolicy(leafNode.GetGame().Copy());
@@ -100,10 +99,10 @@ namespace AIAgent
             return winnerNode.GetLastAction();
         }
 
-        private Card? ClosedPlay(GameView gw)
+        private Card? ClosedPlay(GameView gw, int iterations)
         {
             GameView shuffledGame = gw.ShuffleCopy();
-            return UCTSearch(shuffledGame);
+            return UCTSearch(shuffledGame, iterations);
         }
 
         private Card? ClosedEnvironmentUCTSearch(GameView gameView)
@@ -114,19 +113,14 @@ namespace AIAgent
 
             if (!gameView.isEarlyGame)
             {
-                if (!updatedLimit)
-                {
-                    limit *= samples;
-                    updatedLimit = true;
-                }
-                return ClosedPlay(gameView);
+                return ClosedPlay(gameView, limit * samples);
             }
 
             Dictionary<Card, int> cache = new Dictionary<Card, int>();
 
             for (int i = 1; i <= samples; i++)
             {
-                bestAction = ClosedPlay(gameView);
+                bestAction = ClosedPlay(gameView, limit);
 
                 if (bestAction is null)
                     passTaketotal++;
@@ -155,7 +149,7 @@ namespace AIAgent
         public override Card? Move(GameView gameView)
         {
             if (gameView.open)
-                return UCTSearch(gameView);
+                return UCTSearch(gameView, limit);
 
             return ClosedEnvironmentUCTSearch(gameView);
         }

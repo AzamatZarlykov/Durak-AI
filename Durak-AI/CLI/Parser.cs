@@ -12,18 +12,32 @@ namespace CLI
     {
         private static void ExampleUsage()
         {
-            Console.WriteLine("    usage example for multiple games: ");
-            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy " +
+            string[] agents = new string[5]
+            {
+                "random", "greedy", "smart",
+                "minimax:depth=<value>,samples=<value>,eval=<playout/basic>",
+                "mcts:limit=<value>,c=<value>,simulation=<greedy/playout>,samples=<value>"
+            };
+
+            Console.WriteLine("\tPossible Agents:");
+            foreach(string s in agents)
+            {
+                Console.WriteLine($"\t\t{s}");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("\tusage example for multiple games: ");
+            Console.WriteLine("\t\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy " +
                 "-total_games=1000 -verbose=true");
             Console.WriteLine();
 
-            Console.WriteLine("    usage example for a specific game: ");
-            Console.WriteLine("\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -seed=29 " +
+            Console.WriteLine("\tusage example for a specific game: ");
+            Console.WriteLine("\t\tdotnet run --project .\\CLI\\ -ai1=random -ai2=greedy -seed=29 " +
                 "-verbose=false");
             Console.WriteLine();
 
-            Console.WriteLine("    usage example for a tournament between all the agents ");
-            Console.WriteLine("\t$dotnet run --project .\\CLI\\ -tournament=\"random, greedy, smart, " +
+            Console.WriteLine("\tusage example for a tournament between all the agents ");
+            Console.WriteLine("\t\t$dotnet run --project .\\CLI\\ -tournament=\"random, greedy, smart, " +
                 "minimax:depth=6, mcts:limit=100\" -total_games=500 -open_world -start_rank=10");
             Console.WriteLine();
         }
@@ -70,15 +84,11 @@ namespace CLI
         [Verb(IsDefault = true)]
         static void Parse(
             [DefaultValue("random")]
-            [Description("The agent for player 1. Possible AIs: random, greedy, smart, " +
-            "minimax:depth=<value>,samples=<value>,eval=<playout/basic>, " +
-            "mcts:limit=<value>,c=<value>,simulation=<greedy/playout>,samples=<value>")]
+            [Description("The agent for player 1.")]
             string ai1,
 
             [DefaultValue("random")]
-            [Description("The agent for player 2. Possible AIs: random, greedy, smart, " +
-            "minimax:depth=<value>,samples=<value>,eval=<playout/basic>, " +
-            "mcts:limit=<value>,c=<value>,simulation=<greedy/playout>,samples=<value>")]
+            [Description("The agent for player 2.")]
             string ai2,
 
             [Description("A seed for random number generation")]
