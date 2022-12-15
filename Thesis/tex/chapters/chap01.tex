@@ -1,0 +1,70 @@
+\chapter{Game Description}
+The objective of this thesis is to develop a simulation of the Durak game, which would serve as an experimental environment for artificial intelligence agents using various techniques. By implementing the full range of gameplay mechanics, our aim is to create a comprehensive simulation that could be used to evaluate the performance of previously mentioned agents.
+
+There are many variations of the Durak game that are played around the world. However, this thesis focuses on the most well-known version of the game, which is called Podkidnoy Durak (also known as "fool with throwing in"). In this chapter, we will provide a thorough description of this particular variation in depth, providing an in-depth analysis of its rules and gameplay mechanics. It should be noted that the description provided below pertains only to the two-player variant of the game. While the official rules allow for more than two players to participate, this description is limited to the two-player version.
+
+\section{Terminology}
+In this section, any unfamiliar or potentially confusing terminology is defined to facilitate understanding of the material.\\
+
+\begin{enumerate}
+\begin{paracol}{2}
+
+
+        \item Trump card \\
+        \item Bout
+        \item Discard pile
+
+\switchcolumn
+        \item It is a playing card that belongs to a deck and has a higher rank than any other card from a different suit. This card is typically used strategically during gameplay to defeat the other player's cards and gain an advantage.
+        \item It is a process of exchange of attacks and defenses between the players. The bout continues until either the attack is successfully defended or the defender is unable to play a suitable card, at which point the attacker wins the bout and the defender is forced to take the played cards into their hand.
+        \item During a bout, if an attack is successfully defended, all of the cards played during this process are placed face down on a discard pile and are not used again for the remainder of the game.
+
+\end{paracol}
+\end{enumerate}
+
+\section{Players}
+While the game of Durak is typically played with a range of two to six players, allowing for the possibility of team play, this work only focuses on the two-player variant of the game. This decision is made in order to maintain a consistent and focused scope for the analysis
+
+\section{Cards}
+The game is played with a 36-card pack, with each suit ranked from high to low as follows: ace, king, queen, jack, 10, 9, 8, 7, 6.
+
+\section{Dealing the cards}
+At the beginning of the game, cards are dealt to each player until each has a hand of six cards. The final card of the deck is then placed face up, and its suit is used to determine the trump suit for the game. The remaining undealt cards are then placed in a stack face down on top of the trump card.
+
+During the first hand of a session, the player who holds the lowest trump card plays first. If no one holds the trump 6, the player with the trump 7 plays first; if no one holds that card, the player with the trump 8 plays first, and so on. The first play does not have to include the lowest trump card; the player who holds the lowest trump card can begin with any card they choose.
+
+\section{Drawing from the deck}
+Once the bout is over, all players who have fewer than six cards in their hand must, if possible, draw enough cards from the top of the deck to bring their hand size back up to six. The attacker of the previous bout replenishes their hand first, followed by the defender. If there are not enough cards remaining in the deck to replenish all players' hands, then the game continues with the remaining cards.
+
+\section{Beating the card}
+Before discussing the gameplay, it is necessary to establish what it means for an attacking card to be successfully defended. A card that is not a trump can be beaten by playing a higher card of the same suit, or by any trump card. A trump card can only be beaten by playing a higher trump card. It is important to note that a non-trump attack can always be beaten by a trump card, even if the defender also holds cards in the suit of the attack card. There is no requirement for the defender to "follow suit" in this case.
+
+\section{Game play}
+The play consists of a series of bouts, during which one player, the attacker, plays a card and their opponent, the defender, responds by playing a card. 
+
+During each bout, the attacker begins by playing a card from their hand face up on the table in front of the defender. The defender must then attempt to beat this card by placing its own face up and any subsequent cards played by the attacker. Alternatively, if the defender is unable or unwilling to beat the attacking card, they must pick up that card along with other played cards on the table.
+
+\subsection{Conditions on the attack}
+Every attacking card except for the first one must meet the following conditions in order to be played by the attacker.
+
+\begin{itemize}
+    \item Each new attacking card played during a bout must have the same rank as a card that has already been played during that bout, whether it was an attacking card or a card played by the defender.
+    \item If the defender had fewer than six cards in their hand before the bout began, the number of attacking cards played must not exceed the number of cards in the defender's hand.
+\end{itemize}
+The first attacking card can be any card from the attacker's hand.
+
+\subsection{Successful defense}
+The defender successfully beats off the entire attack if either of the following conditions is met:
+\begin{itemize}
+    \item the defender has successfully beaten all of the attack cards and the attacking player is unable or unwilling to continue the attack.
+    \item the defender has no cards left in hand while defending.
+\end{itemize}
+
+Upon successful defense of an attack, all cards played during the bout are placed in the \textbf{discard pile} face down and are no longer eligible for use in the remainder of the game. On top of that, the roles of the players change i.e. the defender becomes the attacker and the attacker becomes the defender for the next bout.
+
+Furthermore, if the defender decides to take the cards, the attacker may play additional cards as long as doing so does not violate the conditions of the attack.
+
+\section{Endgame and Objective}
+Once the deck is run out of cards, there is no further replenishment and the goal is to get rid of all the cards in one's hand. The player who is left holding cards at the end is the loser, also known as the fool (durak). As it was mentioned before, this game is characterized by the absence of a winner, with only a loser remaining at the end. 
+
+However, it is not always the case. It is possible for the game to end as a draw. In the event that both the attacking and defending player possess the same number of cards and all of the attacking player's cards are successfully defended, the game ends in a draw.

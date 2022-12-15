@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Lobashev(2022)]{website:PAGAT}
+Alexey Lobashev.
+\newblock Durak (fool), March 2022.
+\newblock URL \url{https://www.pagat.com/beating/durak.html}.
+
+\end{thebibliography}
