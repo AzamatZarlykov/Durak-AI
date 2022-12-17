@@ -1,13 +1,18 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{2}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Lobashev(2022)]{website:PAGAT}
-Alexey Lobashev.
-\newblock Durak (fool), March 2022.
+\bibitem[McLeod(2022{\natexlab{a}})]{website:PAGAT_DURAK}
+J.~McLeod.
+\newblock Durak (fool), March 2022{\natexlab{a}}.
 \newblock URL \url{https://www.pagat.com/beating/durak.html}.
+
+\bibitem[McLeod(2022{\natexlab{b}})]{website:PAGAT_PODKIDNOY_DURAK}
+J.~McLeod.
+\newblock Podkidnoy durak, March 2022{\natexlab{b}}.
+\newblock URL \url{https://www.pagat.com/beating/podkidnoy_durak.html}.
 
 \end{thebibliography}

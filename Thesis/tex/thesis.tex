@@ -31,7 +31,7 @@
 
 %% Character encoding: usually latin2, cp1250 or utf8:
 \usepackage[utf8]{inputenc}
-
+\usepackage{amssymb}
 %% Prefer Latin Modern fonts
 \usepackage{lmodern}
 
@@ -51,6 +51,7 @@
 \usepackage{booktabs}       % improved horizontal lines in tables
 \usepackage{paralist}       % improved enumerate and itemize
 \usepackage{xcolor}         % typesetting in color
+
 
 %%% Basic information on the thesis
 
@@ -91,7 +92,7 @@ Moreover, I would like to thank my family and friends who have always been there
 
 % Abstract (recommended length around 80-200 words; this is not a copy of your thesis assignment!)
 \def\Abstract{%
-Because of its potential to improve the efficiency and effectiveness of many different fields, Artificial Intelligence (AI) has been the subject of extensive research and continues to be a major area of study. Given the numerous approaches to AI implementation, games provide a convenient and effective environment for testing and evaluating these algorithms. Nevertheless, card games with imperfect information present a unique challenge for many common game-playing algorithms because of their hidden game state. As a result, making them an active area of research in the field of game theory and AI. The objective of this thesis is to create a framework for implementing and testing various AI agents in the popular imperfect information card game "Durak" to identify the most effective approach in this environment. This paper presents a theoretical and experimental comparison of agents using various techniques, including rules-based heuristics, minimax search, and Monte Carlo tree search, to evaluate their effectiveness in the given context. In our analysis, we found that the Monte Carlo Tree Search agent performed the best among the implemented AI agents, whereas the rule-based heuristic agent and the minimax agent were less effective in the context of the imperfect information card game Durak.
+Card games with imperfect information present a unique challenge for many common game-playing algorithms because of their hidden game state. The objective of this thesis is to create a framework for implementing and testing various AI agents in the popular imperfect information card game "Durak" to identify the most effective approach in this environment. This paper presents a theoretical and experimental comparison of agents using various techniques, including rules-based heuristics, minimax search, and Monte Carlo tree search. In our analysis, we found that the Monte Carlo Tree Search agent performed the best among the implemented AI agents, whereas the rule-based heuristic agent and the minimax agent were less effective.
 }
 
 % 3 to 5 keywords (recommended), each enclosed in curly braces

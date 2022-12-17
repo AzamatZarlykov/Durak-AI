@@ -1,7 +1,7 @@
 \chapter{Game Description}
 The objective of this thesis is to develop a simulation of the Durak game, which would serve as an experimental environment for artificial intelligence agents using various techniques. By implementing the full range of gameplay mechanics, our aim is to create a comprehensive simulation that could be used to evaluate the performance of previously mentioned agents.
 
-There are many variations of the Durak game that are played around the world. However, this thesis focuses on the most well-known version of the game, which is called Podkidnoy Durak (also known as ``fool with throwing in''). In this chapter, we will provide a thorough description of this particular variation, providing an in-depth analysis of its rules and gameplay mechanics. It should be noted that the description provided below pertains only to the two-player variant of the game. While the official rules allow for more than two players to participate, this description is limited to the two-player version.
+There are many variations of the Durak game that are played around the world. However, this thesis focuses on the most well-known version of the game, which is called Podkidnoy Durak (also known as ``fool with throwing in'')\citep*{website:PAGAT_PODKIDNOY_DURAK}. In this chapter, we will provide a thorough description of this particular variation, providing an in-depth analysis of its rules and gameplay mechanics.
 
 \section{Terminology}
 In this section, any unfamiliar or potentially confusing terminology is defined to facilitate understanding of the material.
@@ -22,22 +22,22 @@ In this section, any unfamiliar or potentially confusing terminology is defined 
 While the game of Durak is typically played with a range of two to six players, allowing for the possibility of team play, this work only focuses on the two-player variant of the game. This decision is made in order to maintain a consistent and focused scope for the analysis
 
 \section{Cards}
-The game is played with a 36-card pack, with each suit ranked from high to low as follows: ace, king, queen, jack, 10, 9, 8, 7, 6.
+The game is played with a 36-card deck, which is divided into four suits: hearts, spades, clubs, and diamonds. The ranks of the cards within each suit are ranked from high to low as follows: ace, king, queen, jack, 10, 9, 8, 7, 6.
 
 \section{Dealing the cards}
 At the beginning of the game, cards are dealt to each player until each has a hand of six cards. The final card of the deck is then placed face up, and its suit is used to determine the trump suit for the game. The remaining undealt cards are then placed in a stack face down on top of the trump card.
 
-During the first hand of a session, the player who holds the lowest trump card plays first. If no one holds the trump 6, the player with the trump 7 plays first; if no one holds that card, the player with the trump 8 plays first, and so on. The first play does not have to include the lowest trump card; the player who holds the lowest trump card can begin with any card they choose.
+During the first hand of a session, the player who holds the lowest trump card plays first. If no one holds the trump 6, the player with the trump 7 plays first; if no one holds that card, the player with the trump 8 plays first, and so on. The first play does not have to include the lowest trump card; the player who holds the lowest trump card can begin with any card they choose. If neither player has a trump card, the player who goes first is randomly determined.
 
-\section{Beating the card}
+\section{Beating the card} 
+\label{BeatingRule}
 Before discussing the gameplay, it is necessary to establish what it means for an attacking card to be successfully defended. A card that is not a trump can be beaten by playing a higher card of the same suit, or by any trump card. A trump card can only be beaten by playing a higher trump card. It is important to note that a non-trump attack can always be beaten by a trump card, even if the defender also holds cards in the suit of the attack card. There is no requirement for the defender to "follow suit" in this case.
 
 \section{Game play}
-The game consists of a series of bouts, during which one player, the attacker, plays a card and their opponent, the defender, responds by playing a card. 
-
-During each bout, the attacker initiates the game by placing a card from their hand, face up, on the table in front of the defender. The defender must then attempt to defeat this card by playing a card of their own, face up. Once the attacking card is defeated, the attacker has the option to continue the attack or to end it. If the attack continues, the defender must attempt to defend against this additional card. This process continues until the attacking player is unable or unwilling to attack. Alternatively, if the defender is unable or unwilling to beat the attacking card, they must pick up that card along with other played cards on the table.
+The game consists of a series of bouts. During each bout, the attacker begins by placing a card from their hand, face up, on the table in front of the defender. The defender may then attempt to defeat this card by playing a card of their own, face up. Once the attacking card is defeated, the attacker has the option to continue the attack or to end it. If the attack continues, the defender must attempt to defend against this additional card. This process continues until the attacking player is unable or unwilling to attack. Alternatively, if the defender is unable or unwilling to beat the attacking card, they must pick up that card along with other played cards on the table.
 
 \subsection{Conditions on the attack}
+\label{attackconditions}
 Every attacking card except for the first one must meet the following conditions in order to be played by the attacker.
 
 \begin{itemize}
@@ -56,6 +56,8 @@ The defender successfully beats off the entire attack if either of the following
 Upon successful defense of an attack, all cards played during the bout are placed in the \textbf{discard pile} face down and are no longer eligible for use in the remainder of the game. On top of that, the roles of the players change i.e. the defender becomes the attacker and the attacker becomes the defender for the next bout.
 
 Furthermore, if the defender decides to take the cards, the attacker may play additional cards as long as doing so does not violate the conditions of the attack. In this case, the defender is required to also accept these supplementary cards.
+
+For the purpose of demonstrating the mechanics of the game, we will consider a scenario in which there are two players, A and B, and it is currently player A's turn. In this particular instance of the game, player A is holding the 6$\textcolor{red}{\heartsuit}$, 8$\textcolor{black}{\clubsuit}$, 8$\textcolor{red}{\diamondsuit}$ and A$\textcolor{black}{\clubsuit}$, while player B has the 8$\textcolor{red}{\heartsuit}$, A$\textcolor{red}{\heartsuit}$, 6$\textcolor{black}{\spadesuit}$ and K$\textcolor{black}{\clubsuit}$ in their hand. It should also be noted that $\textcolor{black}{\spadesuit}$ are the trump suit for this round. Player A initiates the attack with 6$\textcolor{red}{\heartsuit}$, which is the lowest value card in their hand. Player B has the option to respond to player A's attack by playing one of the 8$\textcolor{red}{\heartsuit}$, A$\textcolor{red}{\heartsuit}$, 6$\textcolor{black}{\spadesuit}$ from their hand, as these cards conform to the rules outlined in section \ref{BeatingRule}. Alternatively, player B can take the card. If player B chooses to defend player A's attack by playing the 8$\textcolor{red}{\heartsuit}$, the turn returns to player A. According to the conditions of the attack specified in section \ref{attackconditions}, player A has the option to either end the attack or continue the offensive play by playing either the 8$\textcolor{black}{\clubsuit}$ or 8$\textcolor{red}{\diamondsuit}$ from their hand. In case player A decides to finish the attack, all the cards in the bout move to the discard pile. On the other hand, if player A decides to continue the attack by playing one of their remaining cards, such as the 8$\textcolor{red}{\diamondsuit}$, the bout will continue and the turn will pass to player B. Of the three remaining cards in player B's hand, the only one that can be used to defend against player A's current attack is the 6$\textcolor{black}{\spadesuit}$, a trump card. Assume that because of strategic reasons, player B decides to take the cards. Then, all the cards in the bout move to player B's possession.
 
 \section{Drawing from the deck}
 Once the bout is over, all players who have fewer than six cards in their hand must, if possible, draw enough cards from the top of the deck to bring their hand size back up to six. The attacker of the previous bout replenishes their hand first, followed by the defender. If there are not enough cards remaining in the deck to replenish all players' hands, then the game continues with the remaining cards.
