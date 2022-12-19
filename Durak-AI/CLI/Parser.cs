@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CLAP;
 using CLAP.Validation;
+using System.Text;
 
 using AIAgent;
 using Helpers;
@@ -52,14 +53,15 @@ namespace CLI
             ExampleUsage();
         }
 
-        private static void EnableLogs(Controller controller, bool tournament = false)
+
+        private static void EnableLogs(Controller controller, bool config, bool tournament = false)
         {
-            string dirPath = "CLI/Logs";
-            string fileName = "log.txt";
+            string dirPath = config ? "CLI/ParameterLogs" : "CLI/GameLogs";
+            string filename = "log.txt";
             try
             {
                 Directory.CreateDirectory(dirPath);
-                using (FileStream ostrm = new FileStream(Path.Combine(dirPath, fileName),
+                using (FileStream ostrm = new FileStream(Path.Combine(dirPath, filename),
                     FileMode.Create, FileAccess.Write))
                 using (StreamWriter writer = new StreamWriter(stream:ostrm))
                 {
@@ -128,10 +130,21 @@ namespace CLI
 
             [Description("Runs the tournament with the agents specified. " +
             "E.g: -tournament=\"random,greedy,smart,minimax:depth=5,mcts:limit=100\"")]
-            string tournament
+            string tournament,
+
+            [DefaultValue(false)]
+            [Description("Used for grid search parameter configuration. For the purpose of experiments")]
+            bool config
 
         )
         {
+            if (config && tournament is not null) { 
+                throw new Exception($"Cannot run the tournament with 'config' parameter set");
+            }
+            else if (config && !log) {
+                log = !log;
+            }
+
             if (tournament is not null)
             {
                 Controller tournament_controller = new Controller(new GameParameters
@@ -146,13 +159,8 @@ namespace CLI
                     IncludeTrumps = include_trumps,
                     TournamentAgents = tournament,
                 });
-                if (!log)
-                {
-                    tournament_controller.RunTournament();
-                } else
-                {
-                    EnableLogs(tournament_controller, true);
-                }
+                // No need for logs in tournaments; better to see the outputs on console
+                tournament_controller.RunTournament();
                 return;
             }
             if (seed > 0)
@@ -188,7 +196,7 @@ namespace CLI
                 controller.Run();
             }else
             {
-                EnableLogs(controller);
+                EnableLogs(controller, config);
             }
 
         }
