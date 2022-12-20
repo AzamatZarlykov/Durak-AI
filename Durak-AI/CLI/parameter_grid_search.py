@@ -50,12 +50,12 @@ def run_mcts(param_buffer, keys, open_state):
 						change_parameter(command, False)
 						# run the command
 						print(" ".join(command))
-						# subprocess.run(command)
+						subprocess.run(command)
 				else:
 					change_parameter(command, True)
 					# run the command
 					print(" ".join(command))
-					# subprocess.run(command)
+					subprocess.run(command)
 
 
 
@@ -103,9 +103,12 @@ def error_checking(agent_name, open_state, keys):
 	if agent_name == "minimax" and ("depth" not in keys or "eval" not in keys):
 		raise Exception(f"not all parameters are specified in Minimax")
 
-def remove_previous_result(name, param_buffer, keys, open):
+def separate_results(name, param_buffer, keys):
 	if os.path.exists("ParamLogs/result.txt"):
-		os.remove("ParamLogs/result.txt")
+		# instead of overwriting to a file, make a clear seperation 
+		# between the previous and current experiment
+		with open("ParamLogs/result.txt",'a') as f:
+			f.write("\n===========================\n\n")
 
 def main(agent_name, agent_param, opponent, total_games, open_state):
 	# store the parameters and their values to dict
@@ -117,7 +120,7 @@ def main(agent_name, agent_param, opponent, total_games, open_state):
 	keys = list(param_buffer.keys())
 
 	error_checking(agent_name, open_state, keys)  
-	remove_previous_result(agent_name, param_buffer, keys, open_state)
+	separate_results(agent_name, param_buffer, keys)
 
 	print(keys)
 	if agent_name == "mcts":
