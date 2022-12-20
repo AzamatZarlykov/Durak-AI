@@ -22,33 +22,42 @@ def parse(agent_param, param_buffer):
 		param_buffer[name] = values
 
 def run_mcts(param_buffer, keys, open_state):
+	def change_parameter(command, open):
+		if open:
+			s = command[-1].split(',')[:-1]
+			s.append(f"limit={limit}")
+			command[-1] = ','.join(s)
+			command.append("-open_world")
+		else:
+			s = command[-1].split(',')[:-2]
+			s.append(f"samples={sample}")
+			s.append(f"limit={limit//sample}")
+			command[-1] =  ','.join(s)
+
 	limits, cs, simulations = param_buffer[keys[0]], param_buffer[keys[1]], param_buffer[keys[2]]
 	opp, games = param_buffer["opponent"], param_buffer["total-games"]
 
 	for limit in range(limits[0], limits[1], limits[2]):
 		for c in np.arange(float(cs[0]), float(cs[1]), float(cs[2])):
 			for simulation in simulations:
-				command = ["dotnet", "run", 
-							f"-ai1=mcts:limit={limit},c={c},simulation={simulation}",
-							f"-ai2={opp}", f"-total_games={games}", "-start_rank=6", "-config"]
+				command = ["dotnet", "run", "-start_rank=6", "-config", f"-total_games={games}",
+							f"-ai2={opp}", f"-ai1=mcts:c={c},simulation={simulation},"]
 
 				if not open_state:
-					command[2] += f",samples=0"
-
 					# in the closed-world update the -ai1 parameter by adding samples parameter
 					samples = param_buffer[keys[3]]
 					for sample in range(samples[0], samples[1], samples[2]):
-						s = command[2].split(',')[:-1]
-						s.append(f"samples={sample}")
-						command[2] =  ','.join(s)
+						change_parameter(command, False)
 						# run the command
 						print(" ".join(command))
-						subprocess.run(command)
+						# subprocess.run(command)
 				else:
-					command.append("-open_world")
+					change_parameter(command, True)
 					# run the command
 					print(" ".join(command))
-					subprocess.run(command)
+					# subprocess.run(command)
+
+
 
 def run_minimax(param_buffer, keys, open_state):
 	depths, heuristics = param_buffer[keys[0]], param_buffer[keys[1]]
