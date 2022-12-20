@@ -1,0 +1,6 @@
+minimax:depth=2:heuristic=basic:0
+minimax:depth=2:heuristic=playout:4
+minimax:depth=4:heuristic=basic:3
+minimax:depth=4:heuristic=playout:6
+minimax:depth=6:heuristic=basic:2
+minimax:depth=6:heuristic=playout:2

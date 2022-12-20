@@ -54,26 +54,20 @@ namespace CLI
         }
 
 
-        private static void EnableLogs(Controller controller, bool config, bool tournament = false)
+        private static void EnableLogs(Controller controller)
         {
-            string dirPath = config ? "CLI/ParameterLogs" : "CLI/GameLogs";
+            string dirPath = "GameLogs";
             string filename = "log.txt";
             try
             {
                 Directory.CreateDirectory(dirPath);
                 using (FileStream ostrm = new FileStream(Path.Combine(dirPath, filename),
-                    FileMode.Create, FileAccess.Write))
+                    FileMode.Append, FileAccess.Write))
                 using (StreamWriter writer = new StreamWriter(stream:ostrm))
                 {
                     Console.SetOut(writer);
-                    if (tournament)
-                    {
-                        controller.RunTournament();
-                        return;
-                    }
                     controller.Run();
                 }
-
             }
             catch (Exception e)
             {
@@ -141,9 +135,6 @@ namespace CLI
             if (config && tournament is not null) { 
                 throw new Exception($"Cannot run the tournament with 'config' parameter set");
             }
-            else if (config && !log) {
-                log = !log;
-            }
 
             if (tournament is not null)
             {
@@ -187,6 +178,7 @@ namespace CLI
                 D2 = d2,
                 OpenWorld = open_world,
                 IncludeTrumps = include_trumps,
+                Config = config
             };
 
             Controller controller = new Controller(gameParam);
@@ -196,7 +188,7 @@ namespace CLI
                 controller.Run();
             }else
             {
-                EnableLogs(controller, config);
+                EnableLogs(controller);
             }
 
         }

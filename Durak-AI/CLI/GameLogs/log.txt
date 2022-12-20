@@ -1,0 +1,236 @@
+==== RUNNING ====
+
+Game 1: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 2: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 22
+Game 3: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 4: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 5: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 6: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 7: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 8: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 9: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 10: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 11: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 23
+Game 12: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 13
+Game 13: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 14: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 15: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 16: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 22
+Game 17: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 18: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 19: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 20: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 21: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 22: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 23
+Game 23: Agent 2 (greedy) won. Total bouts: 16
+Game 24: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 20
+Game 25: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 26: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 27: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 28: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 29: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 30: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 31: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 13
+Game 32: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 20
+Game 33: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 34: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 35: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 36: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 10
+Game 37: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 38: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 22
+Game 39: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 40: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 20
+Game 41: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 42: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 43: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 44: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 22
+Game 45: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 13
+Game 46: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 47: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 12
+Game 48: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 12
+Game 49: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 13
+Game 50: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 51: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 52: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 53: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 54: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 55: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 56: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 57: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 58: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 59: Agent 2 (greedy) won. Total bouts: 22
+Game 60: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 11
+Game 61: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 62: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 63: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 13
+Game 64: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 65: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 66: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 11
+Game 67: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 68: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 21
+Game 69: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 12
+Game 70: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 71: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 72: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 73: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 74: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 13
+Game 75: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 22
+Game 76: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 77: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 12
+Game 78: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 79: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 21
+Game 80: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 81: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 82: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 20
+Game 83: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 84: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 18
+Game 85: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 23
+Game 86: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 87: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 26
+Game 88: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 89: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 90: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 91: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 16
+Game 92: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 93: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+Game 94: Agent 2 (greedy) won. Total bouts: 24
+Game 95: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 12
+Game 96: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 17
+Game 97: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 15
+Game 98: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 14
+Game 99: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 20
+Game 100: Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won. Total bouts: 19
+
+==== STATISTICS ====
+Total games played: 100
+
+Average bouts played over the game: 16.8
+Average moves per bout over the game: 3.4
+
+Average time per move (mcts (iterations=100, C=1.41, simulation=greedy) agent): 9.6158ms
+Average time per move (greedy agent): 0.0039ms
+
+Draw rate: 0.0%
+Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) won 97 / 100 games (97.0%)
+Agent 2 (greedy) won 3 / 100 games (3.0%)
+
+With 98% confidence, Agent 1 (mcts (iterations=100, C=1.41, simulation=greedy)) wins between 90.0% and 99.1% 
+With 98% confidence, Agent 2 (greedy) wins between 0.9% and 10.0% 
+==== RUNNING ====
+
+Game 1: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 2: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 22
+Game 3: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 4: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 5: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 6: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 7: Agent 2 (greedy) won. Total bouts: 15
+Game 8: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 9: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 16
+Game 10: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 11: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 12: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 13: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 14: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 16
+Game 15: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 16
+Game 16: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 17: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 18: Agent 2 (greedy) won. Total bouts: 14
+Game 19: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 20: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 21: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 22: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 23
+Game 23: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 24: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 25: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 26: Draw Total bouts: 22
+Game 27: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 28: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 29: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 30: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 31: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 32: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 33: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 34: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 35: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 36: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 37: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 38: Agent 2 (greedy) won. Total bouts: 20
+Game 39: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 40: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 41: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 42: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 43: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 21
+Game 44: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 22
+Game 45: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 46: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 47: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 12
+Game 48: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 21
+Game 49: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 50: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 51: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 52: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 53: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 21
+Game 54: Agent 2 (greedy) won. Total bouts: 17
+Game 55: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 56: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 22
+Game 57: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 58: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 12
+Game 59: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 60: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 11
+Game 61: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 62: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 63: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 64: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 65: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 25
+Game 66: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 67: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 68: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 21
+Game 69: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 18
+Game 70: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 71: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 72: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 73: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 74: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 75: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 22
+Game 76: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 77: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 78: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 79: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 80: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 81: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 17
+Game 82: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 83: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 16
+Game 84: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 85: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 19
+Game 86: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 87: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 22
+Game 88: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 89: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 90: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 13
+Game 91: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 16
+Game 92: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 11
+Game 93: Draw Total bouts: 18
+Game 94: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 20
+Game 95: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 12
+Game 96: Agent 2 (greedy) won. Total bouts: 18
+Game 97: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 15
+Game 98: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 14
+Game 99: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 26
+Game 100: Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won. Total bouts: 16
+
+==== STATISTICS ====
+Total games played: 100
+
+Average bouts played over the game: 16.5
+Average moves per bout over the game: 3.3
+
+Average time per move (mcts (iterations=100, C=2.41, simulation=greedy) agent): 12.7414ms
+Average time per move (greedy agent): 0.0052ms
+
+Draw rate: 2.0%
+Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) won 93 / 100 games (93.0%)
+Agent 2 (greedy) won 5 / 100 games (5.0%)
+
+With 98% confidence, Agent 1 (mcts (iterations=100, C=2.41, simulation=greedy)) wins between 87.0% and 98.1% 
+With 98% confidence, Agent 2 (greedy) wins between 1.9% and 13.0% 

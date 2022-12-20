@@ -19,6 +19,6 @@ namespace CLI
         public bool OpenWorld { get; set; }
         public string[] Agents { get; set; } = new string[2];
         public string? TournamentAgents { get; set; }
-
+        public bool Config {get;set;}
     }
 }

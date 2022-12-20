@@ -25,9 +25,7 @@ namespace CLI
         private double movesPerBout;
 
         public List<Agent> agents;
-
         private GameParameters gParam;
-
         private readonly Wilson wilson_score;
         private const int UPPER_BOUND = 50_000;
         private const int GAME_INCREASE = 500;
@@ -42,7 +40,6 @@ namespace CLI
                 new Stopwatch(),
                 new Stopwatch()
             };
-
             this.agents = new List<Agent>();
             this.wilson_score = new Wilson();
         }
@@ -66,10 +63,25 @@ namespace CLI
         {
             Console.WriteLine($"Draw rate: {(100 * (double)draws / total_games):f1}%");
             for (int i = 0; i < 2; ++i)
+            {
+                // record only the first players win score
+                if (gParam.Config && i == 0)
+                {
+                    // create a file to record the win results of the parameters of the first agent
+                    string dirpath = "ParamLogs";
+                    string filename = "result.txt";
+                    Directory.CreateDirectory(dirpath);
+                    using (FileStream fs = new FileStream(
+                        Path.Combine(dirpath, filename), FileMode.Append, FileAccess.Write))
+                    using (StreamWriter writer = new StreamWriter(stream: fs))
+                    {
+                        writer!.WriteLine($"{agents[i].GetName()}:{gamesWon[0]}");
+                    }
+                }
                 Console.WriteLine($"Agent {i + 1} ({agents[i].GetName()}) won " +
                     $"{gamesWon[i]} / {total_games} games " +
                     $"({(100 * (double)gamesWon[i] / total_games):f1}%)");
-
+            }
             Console.WriteLine();
         }
 
@@ -105,6 +117,7 @@ namespace CLI
                 $"wins between {(results[i].Item1):f1}% and {(results[i].Item2):f1}% ");
                 }
             }
+            Console.WriteLine();
         }
                                                                                                    
         private void HandleEndGameResult(Durak game, int gameIndex)
@@ -221,8 +234,8 @@ namespace CLI
 
                     (depth, samples, evalType, _, _) = ParseSearchParameters(type_param);
 
-                    n = gParam.OpenWorld ? $"{name} (depth={depth}, heuristic={evalType})" :
-                        $"{name} (depth={depth}, heuristic={evalType}, samples={samples})";
+                    n = gParam.OpenWorld ? $"{name}:depth={depth}:heuristic={evalType}" :
+                        $"{name}:depth={depth}:heuristic={evalType}:samples={samples}";
 
                     return new MinimaxAI(n, depth, gParam.D1, evalType, samples);
                 case "mcts":
@@ -231,8 +244,8 @@ namespace CLI
                     string simType;
                     (limit, samples, _, simType, c) = ParseSearchParameters(type_param);
 
-                    n = gParam.OpenWorld ? $"{name} (iterations={limit}, C={c:f2}, simulation={simType})" :
-                        $"{name} (iterations={limit}, C={c:f2}, simulation={simType}, samples={samples})";
+                    n = gParam.OpenWorld ? $"{name}:iterations={limit}:C={c:f2}:simulation={simType}" :
+                        $"{name}:iterations={limit}:C={c:f2}:simulation={simType}:samples={samples}";
 
                     Agent agent = simType == "random" ? new RandomAI("random", seed) :
                         new GreedyAI("greedy");
@@ -260,7 +273,7 @@ namespace CLI
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
             int end = gParam.NumberOfGames == 1 ? i : gParam.NumberOfGames;
 
-            Console.WriteLine("==== RUNNING ====\n");
+            Console.WriteLine("\n==== RUNNING ====\n");
             for (; i <= end; i++)
             {
                 Durak game = new Durak(

@@ -1,8 +1,7 @@
 {
   "profiles": {
     "CLI": {
-      "commandName": "Project",
-      "commandLineArgs": "-ai1=mcts:2 -ai2=greedy -seed=26 -start_rank=10 -open_world"
+      "commandName": "Project"
     }
   }
 }

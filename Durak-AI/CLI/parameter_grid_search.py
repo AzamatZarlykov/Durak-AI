@@ -1,15 +1,16 @@
-﻿import sys
+﻿import os
+import sys
+import numpy as np
 import subprocess
 
 def parse_param(param):
 	p = param.split('=')
-
 	name = p[0]
 	val_arr = p[1][1:-1] #10/100/500
 
 	values = []
 	for v in val_arr.split('/'):
-		values.append(v)
+		values.append(int(v)) if v.isdigit() else values.append(v)
 
 	return (name, values)
 
@@ -21,41 +22,81 @@ def parse(agent_param, param_buffer):
 		param_buffer[name] = values
 
 def run_mcts(param_buffer, keys, open_state):
-	limits = param_buffer[keys[0]]
-	cs = param_buffer[keys[1]]
-	simulations = param_buffer[keys[2]]
+	limits, cs, simulations = param_buffer[keys[0]], param_buffer[keys[1]], param_buffer[keys[2]]
+	opp, games = param_buffer["opponent"], param_buffer["total-games"]
 
-	
-	
-	opp = param_buffer["opponent"]
-	games = param_buffer["total-games"]
-
-	for limit in limits:
-		for c in cs:
+	for limit in range(limits[0], limits[1], limits[2]):
+		for c in np.arange(float(cs[0]), float(cs[1]), float(cs[2])):
 			for simulation in simulations:
 				command = ["dotnet", "run", 
 							f"-ai1=mcts:limit={limit},c={c},simulation={simulation}",
-							f"-ai2={opp}", f"-total_games={games}", "-start_rank=6", "-log"]
+							f"-ai2={opp}", f"-total_games={games}", "-start_rank=6", "-config"]
 
 				if not open_state:
-					if "samples" not in param_buffer:
-						raise Exception("'samples' parameter is not provided in the closed world")
-					
+					command[2] += f",samples=0"
+
 					# in the closed-world update the -ai1 parameter by adding samples parameter
 					samples = param_buffer[keys[3]]
-					for sample in samples:
-						command[2] += f",samples={sample}"
+					for sample in range(samples[0], samples[1], samples[2]):
+						s = command[2].split(',')[:-1]
+						s.append(f"samples={sample}")
+						command[2] =  ','.join(s)
 						# run the command
+						print(" ".join(command))
 						subprocess.run(command)
-
 				else:
 					command.append("-open_world")
 					# run the command
-					#subprocess.run(command)
 					print(" ".join(command))
-				
+					subprocess.run(command)
 
+def run_minimax(param_buffer, keys, open_state):
+	depths, heuristics = param_buffer[keys[0]], param_buffer[keys[1]]
+	opp, games = param_buffer["opponent"], param_buffer["total-games"]
 
+	for depth in range(depths[0], depths[1], depths[2]):
+		for heuristic in heuristics:
+			command = ["dotnet", "run", 
+						f"-ai1=minimax:depth={depth},eval={heuristic}",
+						f"-ai2={opp}", f"-total_games={games}", "-start_rank=6", "-config"]
+
+			if not open_state:
+				command[2] += f",samples=0"
+
+				# in the closed-world update the -ai1 parameter by adding samples parameter
+				samples = param_buffer[keys[2]]
+				for sample in range(samples[0], samples[1], samples[2]):
+					s = command[2].split(',')[:-1]
+					s.append(f"samples={sample}")
+					command[2] =  ','.join(s)
+					# run the command
+					print(" ".join(command))
+					subprocess.run(command) 
+			else:
+				command.append("-open_world")
+				# run the command
+				print(" ".join(command))
+				subprocess.run(command)
+
+def error_checking(agent_name, open_state, keys):
+	# check samples for open world
+	if open_state and "samples" in keys:
+		raise Exception(f"'sample' parameter must not be specified in the open world")
+	# check samples for closed world
+	if not open_state and "samples" not in keys:
+		raise Exception(f"'samples' parameter must be specified in the closed world" )
+
+	# check mcts if all parameters are provided: e.g 3 in the open world (limit,c,simulations)
+	if agent_name == "mcts" and ("limit" not in keys or "c" not in keys or "simulations" not in keys):
+		raise Exception(f"not all parameters are specified in {agent_name}")
+
+	# check minimax if all parameters are provided: e.g 3 in the open world (depth,eval)
+	if agent_name == "minimax" and ("depth" not in keys or "eval" not in keys):
+		raise Exception(f"not all parameters are specified in Minimax")
+
+def remove_previous_result(name, param_buffer, keys, open):
+	if os.path.exists("ParamLogs/result.txt"):
+		os.remove("ParamLogs/result.txt")
 
 def main(agent_name, agent_param, opponent, total_games, open_state):
 	# store the parameters and their values to dict
@@ -65,12 +106,16 @@ def main(agent_name, agent_param, opponent, total_games, open_state):
 	param_buffer["total-games"] = total_games
 
 	keys = list(param_buffer.keys())
+
+	error_checking(agent_name, open_state, keys)  
+	remove_previous_result(agent_name, param_buffer, keys, open_state)
+
 	print(keys)
 	if agent_name == "mcts":
 		# run the game with all the possible values for parameters to find the best combination of params
 		run_mcts(param_buffer, keys, open_state)
 	elif agent_name == "minimax":
-		pass
+		run_minimax(param_buffer, keys, open_state)
 	else:
 		raise Exception("Unknown agent: {agent_name}")
 
@@ -78,13 +123,14 @@ def main(agent_name, agent_param, opponent, total_games, open_state):
 
 if __name__ == '__main__':
 	# parameters (strict order):
+	# [min/max/step value]
 	# open-world: 
-	#	(1) mcts:limit=[10/100/500],c=[0/1/1.41],simulations=[greedy/random] greedy 100 open_world
-	#	(2) minimax:depth=[2/4/6/8],eval=[basic/playout] greedy 100 open_world
+	#	(1) mcts:limit=[100/1000/100],c=[0.6/2.4/0.2],simulations=[greedy/random] greedy 100 open_world
+	#	(2) minimax:depth=[2/8/2],eval=[basic/playout] greedy 100 open_world
 	# closed-world: 
 	# (must provide samples param)
-	#	(1) mcts:limit=[10/100/500],c=[0/1/1.41],simulations=[greedy/random],samples=[20/30] greedy	100
-	#	(2) minimax:depth=[2/4/6/8],eval=[basic/playout],samples=[20/30] greedy 100
+	#	(1) mcts:limit=[100/1000/100],c=[0.6/2.4/0.2],simulations=[greedy/random],samples=[20/30/10] greedy	100
+	#	(2) minimax:depth=[2/8/2],eval=[basic/playout],samples=[20/30/10] greedy 100
 
 	n = len(sys.argv)
 
