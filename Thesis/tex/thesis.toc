@@ -1,32 +1,43 @@
-\contentsline {chapter}{Introduction}{2}{chapter*.2}%
-\contentsline {chapter}{\numberline {1}Game Description}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Terminology}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Players}{3}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Cards}{3}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Dealing the cards}{4}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Beating the card}{4}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Game play}{4}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}Conditions on the attack}{4}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}Successful defense}{5}{subsection.1.6.2}%
-\contentsline {section}{\numberline {1.7}Drawing from the deck}{5}{section.1.7}%
-\contentsline {section}{\numberline {1.8}Endgame and Objective}{5}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Illustrative Gameplay Scenario}{5}{section.1.9}%
-\contentsline {chapter}{\numberline {2}Game Analysis}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Classification}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Branching Factor}{7}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Game Implementation}{8}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Title of the first subchapter of the second chapter}{8}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Title of the second subchapter of the second chapter}{8}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{9}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Title of the first subchapter of the second chapter}{9}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Title of the second subchapter of the second chapter}{9}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Experiments}{10}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{10}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{10}{section.5.2}%
-\contentsline {chapter}{Conclusion}{11}{chapter*.3}%
-\contentsline {chapter}{Bibliography}{12}{chapter*.4}%
-\contentsline {chapter}{List of Figures}{13}{chapter*.5}%
-\contentsline {chapter}{List of Tables}{14}{chapter*.6}%
-\contentsline {chapter}{List of Abbreviations}{15}{chapter*.7}%
-\contentsline {chapter}{\numberline {A}Attachments}{16}{appendix.A}%
-\contentsline {section}{\numberline {A.1}First Attachment}{16}{section.A.1}%
+\contentsline {chapter}{Introduction}{3}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Game Description}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Terminology}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Players}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Cards}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Dealing the cards}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Beating the card}{5}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Game play}{5}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Conditions on the attack}{5}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Successful defense}{6}{subsection.1.6.2}%
+\contentsline {section}{\numberline {1.7}Drawing from the deck}{6}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Endgame and Objective}{6}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Illustrative Gameplay Scenario}{6}{section.1.9}%
+\contentsline {chapter}{\numberline {2}Game Analysis}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Classification}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Branching Factor}{9}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Game and AI Framework Implementation}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}OS support}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Design}{10}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Project Structure}{11}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Game Model}{11}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}CLI}{12}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}AI Agents}{12}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}Interface}{12}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Random Agent}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{13}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{13}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{13}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Minimax Agent}{13}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{13}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments}{14}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{14}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{14}{section.5.2}%
+\contentsline {chapter}{Conclusion}{15}{chapter*.4}%
+\contentsline {chapter}{Bibliography}{16}{chapter*.5}%
+\contentsline {chapter}{List of Figures}{17}{chapter*.6}%
+\contentsline {chapter}{List of Tables}{18}{chapter*.7}%
+\contentsline {chapter}{List of Abbreviations}{19}{chapter*.8}%
+\contentsline {chapter}{\numberline {A}Attachments}{20}{appendix.A}%
+\contentsline {section}{\numberline {A.1}User Documentation}{20}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Requirement}{20}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Developer Documentation}{20}{section.A.2}%
