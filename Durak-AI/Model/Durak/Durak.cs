@@ -34,11 +34,12 @@ namespace Model.DurakWrapper
         private readonly Writer writer;
         
         public GameStatus gameStatus;
-
+        // Representation of the bout in the game
         private Bout bout;
+        // Representation of the deck in the game
         private Deck deck;
+        // Trump card of the game that can be assigned or not
         private Card? trumpCard;
-        // private DiscardPile discardPile;
 
         private int attackingPlayer;
         private Turn turn;
@@ -48,8 +49,9 @@ namespace Model.DurakWrapper
 
         private int bouts;
         private int moves;
-
+        // Representation of the discard pile in the game
         private List<Card> discardPile = new List<Card>();
+        // Players inside the game
         private List<Player> players = new List<Player>();
 
         private const int NUMBEROFPLAYERS = 2;

@@ -1,7 +1,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A UML diagram showing the relationship between the objects within the Model library.\relax }}{11}{figure.caption.3}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A simplified UML diagram showing the relationship between the objects within the Model library.\relax }}{11}{figure.caption.3}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces A simplified diagram of the Durak class, which encompasses the main properties of the game\relax }}{12}{figure.caption.4}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A simplified overview of the PossibleMoves method inside the Durak class\relax }}{13}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A simplified overview of the Move method inside the Durak class\relax }}{13}{figure.caption.6}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
