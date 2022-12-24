@@ -14,30 +14,29 @@
 \contentsline {chapter}{\numberline {2}Game Analysis}{8}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Classification}{8}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Branching Factor}{9}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Game and AI Framework Implementation}{10}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Game and AI Implementation}{10}{chapter.3}%
 \contentsline {section}{\numberline {3.1}OS support}{10}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Design}{10}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Project Structure}{11}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.2}A High-Level View of the Framework}{10}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Project Structure}{10}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Game Model}{11}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}CLI}{14}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}AI Agents}{14}{subsection.3.2.4}%
-\contentsline {section}{\numberline {3.3}Interface}{14}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Random Agent}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{15}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{15}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{15}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Minimax Agent}{15}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{15}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experiments}{16}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{16}{section.5.2}%
-\contentsline {chapter}{Conclusion}{17}{chapter*.7}%
-\contentsline {chapter}{Bibliography}{18}{chapter*.8}%
-\contentsline {chapter}{List of Figures}{19}{chapter*.9}%
-\contentsline {chapter}{List of Tables}{20}{chapter*.10}%
-\contentsline {chapter}{List of Abbreviations}{21}{chapter*.11}%
-\contentsline {chapter}{\numberline {A}Attachments}{22}{appendix.A}%
-\contentsline {section}{\numberline {A.1}User Documentation}{22}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Requirement}{22}{subsection.A.1.1}%
-\contentsline {section}{\numberline {A.2}Developer Documentation}{22}{section.A.2}%
+\contentsline {subsection}{\numberline {3.2.3}CLI}{13}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}AI Agents}{16}{subsection.3.2.4}%
+\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Random Agent}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{17}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{17}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{17}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Minimax Agent}{17}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{17}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments}{18}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{18}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{18}{section.5.2}%
+\contentsline {chapter}{Conclusion}{19}{chapter*.8}%
+\contentsline {chapter}{Bibliography}{20}{chapter*.9}%
+\contentsline {chapter}{List of Figures}{21}{chapter*.10}%
+\contentsline {chapter}{List of Tables}{22}{chapter*.11}%
+\contentsline {chapter}{List of Abbreviations}{23}{chapter*.12}%
+\contentsline {chapter}{\numberline {A}Attachments}{24}{appendix.A}%
+\contentsline {section}{\numberline {A.1}User Documentation}{24}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Requirement}{24}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Developer Documentation}{24}{section.A.2}%
