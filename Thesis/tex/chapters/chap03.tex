@@ -14,7 +14,7 @@ The Durak AI framework includes a game model, AI agents, and a Command-Line Inte
 
 In order to run and test the program, the project has to be cloned from the repository and opened with an Integrated Development Environment (IDE) of user's choice. From the root directory of the project, the user can utilize the command line to enter the command 
 \begin{lstlisting}[frame=single]
-dotnet run --project CLI
+$ dotnet run --project CLI
 \end{lstlisting}
 , which will launch the Command-Line Interface (CLI) and provide guidance on how to proceed with experimentation. The CLI will provide further instructions on how to use and test the program (for additional information, please refer to Section \ref{CLI}.).
 
@@ -33,7 +33,7 @@ The aforementioned components will be further discussed in the following subsect
 
 \end{itemize}
 
-\subsection{Game Model}
+\subsection{Model}
 
 The game model, which represents the current state of the game, is implemented using object-oriented programming principles. As it was mentioned before, the game logic for Durak is contained within the \textbf{Model} C\# library, which serves as a modular and reusable unit. It includes class objects, such as Player, Card, and Deck, as well as all of the other main components that make up the game each of which is equipped with the necessary methods to support the game's functionality. These objects and their methods are designed to reflect the key components and features described in the game description.
 
@@ -145,32 +145,50 @@ The command-line interface (CLI) plays a crucial role in the architecture of the
 
 Before discussing the organizational structure of the project, it is important to introduce the parameters and their roles within the project (Please refer to Figure \ref{fig:parameters}). This will facilitate a better understanding of the various components and how they interact with one another. 
 
-\begin{figure}[h]
+\begin{table}
 \captionsetup{justification=centering}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ | m{0.2\textwidth} | m{0.8\textwidth}| } 
+  \hline
+   Parameter & Description \\
+  \hline
+  -ai1 & The agent for player 1. (String)(Default = random) \\ 
+  \hline
+  -ai2 & The agent for player 2. (String)(Default = random) \\ 
+  \hline
+  -config & Used for grid search parameter configuration.(Default = False) \\ 
+  \hline
+  -d1 & Displays \# of states \& depth for minimax move(Default = False) \\ 
+  \hline
+  -d2 & Displays all the moves that minimax considers(Default = False) \\ 
+  \hline
+  -include\_trumps & Enable trump cards in the game(Default = True) \\ 
+  \hline
+  -log & Enable logs for writing in the file(Default = False) \\ 
+  \hline
+  -open\_world & Make all cards visible to both players(Default = False) \\ 
+  \hline
+  -seed & A seed for random number generation(Int32) \\ 
+  \hline
+  -start\_rank & The starting rank of cards in the deck(Int32)(Default = 6) \\ 
+  \hline
+  -total\_games & The number of games to play(Int32)(Default = 1000) \\ 
+  \hline
+  -tournament & Runs the tournament with the agents specified. \\ 
+  \hline
+  -verbose & Enable verbose output(Default = False) \\ 
+  \hline
+  
+\end{tabular}}
+\end{center}
+\caption{\label{paramsTable} A text-based 'Help' statement that describes the parameters that can be used}
+\end{table}
+
+There are various ways to utilize the aforementioned parameters. An example of using the default settings to run a game between RandomAI agent(random) and GreedyAI agent(greedy) is provided below. Note that the user can select different agents as well:
+
 \begin{lstlisting}[frame=single]
-/ai1            : The agent for player 1. (String)(Default = random)
-/ai2            : The agent for player 2. (String)(Default = random)
-/config         : Used for grid search parameter configuration.(Default = False)
-/d1             : Displays # of states & depth for minimax move(Default = False)
-/d2             : Displays all the moves that minimax considers(Default = False)
-/include_trumps : Enable trump cards in the game(Default = True)
-/log            : Enable logs for writing in the file(Default = False)
-/open_world     : Make all cards visible to both players(Default = False)
-/seed           : A seed for random number generation(Int32)
-/start_rank     : The starting rank of cards in the deck(Int32)(Default = 6)
-/total_games    : The number of games to play(Int32)(Default = 1000)
-/tournament     : Runs the tournament with the agents specified.
-/verbose        : Enable verbose output(Default = False)
-
-\end{lstlisting}
-\caption{A text-based 'Help' statement that describes the parameters that can be used}
-\label{fig:parameters}
-\end{figure}
-
-There are various ways to utilize the aforementioned parameters. An example of using the default settings to run a game between RandomAI agent and GreedyAI agent is provided below:
-
-\begin{lstlisting}[frame=single]
-dotnet run --project CLI -ai1=random -ai2=greedy
+$ dotnet run --project CLI -ai1=random -ai2=greedy
 \end{lstlisting}
 
 This command initiates the simulation of 1000 games between the RandomAI and GreedyAI agents in a fully enclosed environment (with a starting rank of 6) and provides the following output to the console:
@@ -190,7 +208,7 @@ To more thoroughly analyze the results of the specific game, \texttt{seed} with 
 
 
 \begin{lstlisting}[frame=single]
-dotnet run --project CLI -ai1=random -ai2=greedy -verbose -seed=1
+$ dotnet run --project CLI -ai1=random -ai2=greedy -verbose -seed=1
 \end{lstlisting}
 
 The command above generates a verbose output, as shown below. It should be noted that this is only a portion of the full output and the blue colored suits are the indications of the trump suit.
@@ -226,7 +244,38 @@ Defending cards: Q(*@$\textcolor{black}{\spadesuit}$@*)
 ...
 \end{lstlisting}
 
-It is important to consider that when utilizing certain advanced agents, such as Monte-Carlo Tree Search (MCTS) and Minimax, it is necessary to specify their respective parameters in order to effectively utilize their capabilities. 
+Upon completion of an experiment, the program presents statistical analysis on all simulations conducted using the specified game and agent configuration. This analysis includes various metrics, such as the average number of rounds played per game, the average number of moves made per bout, the average time taken per move by each agent, the win rate, and the \textbf{Wilson confidence interval} between the two agents.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+$ dotnet run --project CLI -ai1=greedy -ai2=random -open_world -total_games=1000 
+			-start_rank=6 -include trumps
+...
+
+==== STATISTICS ====
+Total games played: 1000
+
+Average bouts played over the game: 17.1
+Average moves per bout over the game: 3.1
+
+Average time per move (greedy agent): 0.0201ms
+Average time per move (random agent): 0.0181ms
+
+Draw rate: 0.8%
+Agent 1 (greedy) won 913 / 1000 games (91.3%)
+Agent 2 (random) won 79 / 1000 games (7.9%)
+
+With 98% confidence, Agent 1 (greedy) wins between 89.8% and 93.8% 
+With 98% confidence, Agent 2 (random) wins between 6.2% and 10.2% 
+\end{lstlisting}
+\caption{A representation of command and statistics.}
+\label{fig:statistics}
+\end{figure}
+
+Wilson's confidence interval was chosen in order to assess the statistical significance of the observed difference in win rates between the two players. By using this measure, it was possible to determine whether the observed difference in win rates was likely to be a true reflection of the relative abilities of the players, or whether it may have occurred by chance. Overall, the statistical data generated from the simulations was useful for identifying potential errors and for optimizing the strategies for the rule-based agents. As an example, the figure \ref{fig:statistics}  presents the statistical result of a simulation comparing the performance of greedy and random agents in a full open-world game.
+
+Other than that, it is important to consider that when utilizing certain advanced agents, such as Monte-Carlo Tree Search (MCTS) and Minimax, it is necessary to specify their respective parameters in order to effectively utilize their capabilities. 
 
 In the context of the Minimax algorithm, it is necessary to specify the value of the \texttt{depth} parameter, which determines the depth to which the search tree will be explored in order to identify the optimal move. In addition to the depth parameter, it is also necessary to specify the \texttt{eval} parameter, which specifies the heuristic function used to evaluate the state when the maximum depth has been reached. The \texttt{eval} parameter can take on either the value "basic" or "playout" (additional information on these parameters can be found in Section \ref{minimax}). It is worth noting that, in a closed world scenario, the \texttt{samples} parameter is optional and has a default value of 20. The \texttt{samples} parameter serves to prevent agents such as Minimax and MCTS from cheating by accessing information about future states of the game (details in Section \ref{AIAgents}). This illustration presents an example of a simulation between the Minimax and greedy agents with arbitrary parameter values in the open and closed world:\\
 
@@ -240,7 +289,7 @@ dotnet run --project CLI -ai1=minimax:depth=4,eval=basic -ai2=greedy -open_world
 dotnet run --project CLI -ai1=minimax:depth=6,eval=basic,samples=15 -ai2=smart
 \end{lstlisting}
 
-Regarding MCTS, it is necessary to specify the value of the \texttt{limit} parameter, which determines the computational budget allocated for the algorithm to build the search tree. The search is halted and the best-performing root action is returned once this budget is reached. The \texttt{c}, which is called exploration constant, parameter also needs to be specified because it determines the balance between exploitation and exploration in the UCB equation(detailed information is provided in Section \ref{MCTS}). This parameter is set to a default value of  $\sqrt{2}$ ($\approx 1.41$) and can be adjusted to fine-tune the performance of the algorithm. The \texttt{simulation} parameter should also be specified, indicating whether to use a smart simulation ("greedy") or a random simulation ("random"). Lastly, in a closed world setting, just like in Minimax, it is necessary to specify the \texttt{samples} parameter to prevent the MCTS agent from cheating by considering future states of the game. This example demonstrates a simulation between MCTS and greedy agents with arbitrary parameter values in open and closed world settings: \\
+Regarding MCTS, it is necessary to specify the value of the \texttt{limit} parameter, which determines the computational budget allocated for the algorithm to build the search tree. The search is halted and the best-performing root action is returned once this budget is reached. The \texttt{c}, which is called exploration constant, parameter also needs to be specified because it determines the balance between exploitation and exploration in the UCB equation (detailed information is provided in Section \ref{MCTS}). This parameter is set to a default value of  $\sqrt{2}$ ($\approx 1.41$) and can be adjusted to fine-tune the performance of the algorithm. The \texttt{simulation} parameter should also be specified, indicating whether to use a smart simulation ("greedy") or a random simulation ("random"). Lastly, in a closed world setting, just like in Minimax, it is necessary to specify the \texttt{samples} parameter to prevent the MCTS agent from cheating by considering future states of the game. This example demonstrates a simulation between MCTS and greedy agents with arbitrary parameter values in open and closed world settings: \\
 
 \textbf{Open-world: }
 \begin{lstlisting}[frame=single]
@@ -256,5 +305,24 @@ dotnet run --project CLI -ai1=mcts:limit=100,simulation=greedy,samples=10
 
 
 
-\subsection{AI Agents}
+\subsection{Agent}
 
+The Agent library is a collection of artificial intelligence (AI) agents that are utilized in the experiment. The agents included in this library are: Random, Greedy, Smart, Minimax, and MCTS. The functionality and implementation of these agents will be elaborated upon in the subsequent chapter. In this section, focus on the overall structure and organization of the Agent library is placed.
+
+The abstract class \texttt{Agent} represents a common interface for all agents, enabling them to make a move based on a given set of options. This is achieved through the implementation of a abstract method called \texttt{Move}. A visual representation of the abstract class \texttt{Agent} is provided in Figure \ref{fig:abstractClass}.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+public abstract class Agent
+{
+	public string ?name;
+	public string? GetName() => name;
+    	public abstract Card? Move(GameView gameView);
+}
+\end{lstlisting}
+\caption{A representation of the abstract class 'Agent'}
+\label{fig:abstractClass}
+\end{figure}
+
+As an example, the behavior of a Random agent, which selects a move from the list of possible moves at random, can be examined. This process is demonstrated in Figure \ref{fig:randomMove}. The Move method of the Random agent is responsible for implementing this behavior. The figure illustrates the process of overriding the abstract Move method in order to modify the behavior of the function based on the random nature. This process is followed for all agents that must implement this method, resulting in diverse behaviors depending on the agent in question.

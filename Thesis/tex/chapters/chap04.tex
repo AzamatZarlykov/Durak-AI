@@ -1,13 +1,107 @@
 \chapter{Artificial Intelligence Agents}
 \label{AIAgents}
 
+Durak features five distinct artificial intelligence (AI) agents: Random, Greedy, Smart, Minimax, and MCTS. In this chapter, we will delve into the characteristics and behaviors of each of these agents in order to gain a better understanding of their nature. 
+
 \section{Random Agent}
+The random decision algorithm is a basic approach that simply selects a choice of actions at random, as its name suggests, when presented with a decision. It serves as a foundational reference point for comparison with more advanced algorithms, as well as serving as a demonstration of the concept's feasibility. 
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+public override Card? Move(GameView gameView)
+{
+    List<Card?> cards = gameView.Actions(excludePassTake: true);
+
+    // cannot attack/defend
+    if (cards.Count == 1 && cards[0] is null)
+    {
+        return null;
+    }
+
+    // include the case when the ai can decide to pass/take
+    // even if it can defend/attack (20% chance)
+    // allow only when the first attack was given
+    int rn = random.Next(0, 100);
+    if (rn <= 20 && gameView.bout.GetAttackingCards().Count > 0)
+    {
+        return null;
+    }
+
+    return cards[random.Next(cards.Count)];
+}
+\end{lstlisting}
+\caption{A representation of Move method of the Random agent}
+\label{fig:randomMove}
+\end{figure}
+
+In Figure \ref{fig:randomMove}, the Move method for the Random agent is presented. When there are no available moves to be made (i.e., the \texttt{gameView.Actions(...)} method returns an null at the first index of the list), the agent interprets this as a Pass if it is the attacker, or as a Take if it is the defender. Given that there are multiple options available, the random agent has a 20\% probability of randomly deciding to either Pass or Take the card, depending on its role. The choice of a 20\% probability is arbitrary, but it represents a reasonable balance between actively selecting a card and opting to pass or take.
+
 
 \section{Rule-Based Heuristic Agents}
 
+Rule-based heuristic agents are artificial intelligence (AI) agents that use a set of predefined rules, heuristics or strategies to make decisions. These rules are designed to capture the key characteristics of a problem or task, and they are used by the agent to determine the best course of action to take in a given situation.
+
+The strategies employed by the agents in this section were developed through the accumulation of experience gained over multiple games. These strategies are not guaranteed to produce victory in every game, but they increase the chances of winning by making safe moves based on predefined rules. 
+
 \subsection{Greedy Agent}
 
+It has been observed through years of playing this game that the optimal move in any given game state is to play the card with the lowest value. As such, the greedy agent employs a predetermined strategy in which it selects the lowest ranked card for attack or defense based on the current turn. Specifically, if the agent is attacking, it will choose the lowest valued card to attack with. If the agent is defending, it will select the lowest valued card to defend against an incoming attack. To provide an example, consider the scenario described in section \ref{illustration}, in which Player A attacks with 6$\textcolor{red}{\heartsuit}$ as a first turn. Among all the possible options, which includes 8$\textcolor{red}{\heartsuit}$, A$\textcolor{red}{\heartsuit}$, 6$\textcolor{black}{\spadesuit}$, to select to defend the attacking card, Player B chooses 8$\textcolor{red}{\heartsuit}$ which is the lowest rank value in their hand to defend against the attacking card. This decision-making process aligns with the strategy employed by a greedy agent, which aims to maximize their own short-term gain at the expense of potentially more optimal long-term outcomes.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+function Move(gameView)
+  moves = Actions(gameView)
+  if HasNull(moves) then:
+  	return NULL
+  else
+  	return GetCard(moves)
+
+function GetCard(possbileCards, gw)
+  noTrumpCards <- FilteroutNontrumpCards(possibleCards)
+  if size(noTrumpCards) == 0 then
+	if EarlyGame(gw) then
+	  if Turn(gw) == ATTACK && size(GetBoutAttackCards(gw)) > 0 then
+		return NULL
+	  else
+		return LowestRank(possibleCards)
+	else
+		return LowestRank(possibleCards)
+  else
+	return LowestRank(noTrumpCards)
+\end{lstlisting}
+\caption{A pseudocode of Move method of the Greedy agent}
+\label{fig:greedyMove}
+\end{figure}
+
+The pseudocode shown in Figure \ref{fig:greedyMove} outlines the steps taken by the greedy agent to evaluate its options and make a decision. Specifically inside the \texttt{Move} method, the agent utilizes the \texttt{Actions} method to obtain a list of all possible actions it can take based on the current game state. If no actions are available, the agent will either pass or take a card, depending on its role in the game. However, if there are available actions, the agent will use the \texttt{GetCard} method to identify the card with the lowest value among the possible moves and select it as its next action. To ensure that the greedy agent is able to maximize its gain, we filter out any non-trump cards from the list of available options when determining the agent's next move. If the agent has a choice between non-trump cards, it will naturally select the one with the lowest rank value. However, if the agent only has trump cards to choose from, we must consider the \textbf{stage} of the game in order to make an optimal decision. In this context, the \textbf{early game} refers to any point in the game when there are still cards remaining in the deck, while the \textbf{end game} occurs when the deck is depleted. If the greedy agent is acting as an attacker and has the option to pass the attack, it is generally better to do so during the early game, as this allows the agent to preserve its trump cards for use in the end game, when they are likely to be more valuable. On the other hand, if the greedy agent is defending, it does not matter whether it uses trump cards or not at any stage of the game, as giving up these cards is preferable to taking the entire bout.
+
 \subsection{Smart Agent}
+A smart agent using rule-based heuristics can exhibit improved performance compared to a greedy agent. This is because the smart agent utilizes rules that take into account the opponent's hand, providing a strategic advantage. One specific rule that may be implemented during the defensive stage is the selection of a defending card with a rank that the opponent does not possess. The implementation of the method is represented in the figure \ref{fig:defStratSmart}. This rule aims to prevent further attacks in the same bout by mitigating the opponent's options. While this rule may not be the most effective in every scenario, it has demonstrated successful outcomes in certain situations.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+private Card? DefendingStrategy(List<Card> oHand, List<Card> noTrumpCards)
+{
+     foreach (Card card in noTrumpCards)
+     {
+          if (!oHand.Any(c => c.rank == card.rank))
+          {
+               return card;
+           }
+     }
+
+     return Helper.GetLowestRank(noTrumpCards);
+}
+\end{lstlisting}
+\caption{A pseudocode of Move method of the Greedy agent}
+\label{fig:defStratSmart}
+\end{figure}
+
+
+\section{Closed World Sampling}
 
 \section{Minimax Agent}
 \label{minimax}

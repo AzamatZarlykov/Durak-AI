@@ -18,25 +18,26 @@
 \contentsline {section}{\numberline {3.1}OS support}{10}{section.3.1}%
 \contentsline {section}{\numberline {3.2}A High-Level View of the Framework}{10}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Project Structure}{10}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Game Model}{11}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.2}Model}{11}{subsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.2.3}CLI}{13}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}AI Agents}{16}{subsection.3.2.4}%
-\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Random Agent}{17}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{17}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{17}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{17}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Minimax Agent}{17}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{17}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experiments}{18}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{18}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{18}{section.5.2}%
-\contentsline {chapter}{Conclusion}{19}{chapter*.8}%
-\contentsline {chapter}{Bibliography}{20}{chapter*.9}%
-\contentsline {chapter}{List of Figures}{21}{chapter*.10}%
-\contentsline {chapter}{List of Tables}{22}{chapter*.11}%
-\contentsline {chapter}{List of Abbreviations}{23}{chapter*.12}%
-\contentsline {chapter}{\numberline {A}Attachments}{24}{appendix.A}%
-\contentsline {section}{\numberline {A.1}User Documentation}{24}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Requirement}{24}{subsection.A.1.1}%
-\contentsline {section}{\numberline {A.2}Developer Documentation}{24}{section.A.2}%
+\contentsline {subsection}{\numberline {3.2.4}Agent}{17}{subsection.3.2.4}%
+\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Random Agent}{18}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{18}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{19}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{20}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Closed World Sampling}{20}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Minimax Agent}{20}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Monte-Carlo Tree Search Agent}{20}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Experiments}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{21}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{21}{section.5.2}%
+\contentsline {chapter}{Conclusion}{22}{chapter*.13}%
+\contentsline {chapter}{Bibliography}{23}{chapter*.14}%
+\contentsline {chapter}{List of Figures}{24}{chapter*.15}%
+\contentsline {chapter}{List of Tables}{25}{chapter*.16}%
+\contentsline {chapter}{List of Abbreviations}{26}{chapter*.17}%
+\contentsline {chapter}{\numberline {A}Attachments}{27}{appendix.A}%
+\contentsline {section}{\numberline {A.1}User Documentation}{27}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Requirement}{27}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Developer Documentation}{27}{section.A.2}%

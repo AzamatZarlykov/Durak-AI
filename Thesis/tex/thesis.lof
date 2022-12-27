@@ -5,7 +5,11 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces A simplified diagram of the Durak class, which encompasses the main properties of the game\relax }}{12}{figure.caption.4}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces A simplified overview of the PossibleMoves method inside the Durak class\relax }}{12}{figure.caption.5}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces A simplified overview of the Move method inside the Durak class\relax }}{13}{figure.caption.6}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces A text-based 'Help' statement that describes the parameters that can be used\relax }}{14}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces A representation of command and statistics.\relax }}{15}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces A representation of the abstract class 'Agent'\relax }}{17}{figure.caption.9}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces A representation of Move method of the Random agent\relax }}{18}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces A pseudocode of Move method of the Greedy agent\relax }}{19}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces A pseudocode of Move method of the Greedy agent\relax }}{20}{figure.caption.12}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
