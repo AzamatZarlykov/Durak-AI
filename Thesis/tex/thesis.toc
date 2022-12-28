@@ -26,18 +26,20 @@
 \contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{18}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{19}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Smart Agent}{20}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Closed World Sampling}{20}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Minimax Agent}{20}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Monte-Carlo Tree Search Agent}{20}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Experiments}{21}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{21}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{21}{section.5.2}%
-\contentsline {chapter}{Conclusion}{22}{chapter*.13}%
-\contentsline {chapter}{Bibliography}{23}{chapter*.14}%
-\contentsline {chapter}{List of Figures}{24}{chapter*.15}%
-\contentsline {chapter}{List of Tables}{25}{chapter*.16}%
-\contentsline {chapter}{List of Abbreviations}{26}{chapter*.17}%
-\contentsline {chapter}{\numberline {A}Attachments}{27}{appendix.A}%
-\contentsline {section}{\numberline {A.1}User Documentation}{27}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Requirement}{27}{subsection.A.1.1}%
-\contentsline {section}{\numberline {A.2}Developer Documentation}{27}{section.A.2}%
+\contentsline {section}{\numberline {4.3}Minimax Agent}{21}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Basic Heuristic}{22}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{22}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{22}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Closed World Sampling}{22}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Experiments}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{23}{section.5.2}%
+\contentsline {chapter}{Conclusion}{24}{chapter*.13}%
+\contentsline {chapter}{Bibliography}{25}{chapter*.14}%
+\contentsline {chapter}{List of Figures}{26}{chapter*.15}%
+\contentsline {chapter}{List of Tables}{27}{chapter*.16}%
+\contentsline {chapter}{List of Abbreviations}{28}{chapter*.17}%
+\contentsline {chapter}{\numberline {A}Attachments}{29}{appendix.A}%
+\contentsline {section}{\numberline {A.1}User Documentation}{29}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Requirement}{29}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Developer Documentation}{29}{section.A.2}%

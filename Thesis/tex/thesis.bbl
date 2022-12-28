@@ -1,9 +1,14 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{5}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bonnet(2016)]{Bonnet2016TheCO}
+{\'E}.~Bonnet.
+\newblock The complexity of playing durak.
+\newblock In \emph{IJCAI}, 2016.
 
 \bibitem[Guillermo(2013)]{Gametheory4}
 O.~Guillermo.
@@ -20,5 +25,11 @@ J.~McLeod.
 J.~McLeod.
 \newblock Podkidnoy durak, March 2022{\natexlab{b}}.
 \newblock URL \url{https://www.pagat.com/beating/podkidnoy_durak.html}.
+
+\bibitem[S.~Russell(2020)]{AI4Ed}
+P.~Norvig S.~Russell.
+\newblock \emph{Artificial Intelligence A Modern Approach Fourth Edition}.
+\newblock Pearson, 2020.
+\newblock ISBN 0-13-461099-7.
 
 \end{thebibliography}

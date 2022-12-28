@@ -78,14 +78,14 @@ function GetCard(possbileCards, gw)
 The pseudocode shown in Figure \ref{fig:greedyMove} outlines the steps taken by the greedy agent to evaluate its options and make a decision. Specifically inside the \texttt{Move} method, the agent utilizes the \texttt{Actions} method to obtain a list of all possible actions it can take based on the current game state. If no actions are available, the agent will either pass or take a card, depending on its role in the game. However, if there are available actions, the agent will use the \texttt{GetCard} method to identify the card with the lowest value among the possible moves and select it as its next action. To ensure that the greedy agent is able to maximize its gain, we filter out any non-trump cards from the list of available options when determining the agent's next move. If the agent has a choice between non-trump cards, it will naturally select the one with the lowest rank value. However, if the agent only has trump cards to choose from, we must consider the \textbf{stage} of the game in order to make an optimal decision. In this context, the \textbf{early game} refers to any point in the game when there are still cards remaining in the deck, while the \textbf{end game} occurs when the deck is depleted. If the greedy agent is acting as an attacker and has the option to pass the attack, it is generally better to do so during the early game, as this allows the agent to preserve its trump cards for use in the end game, when they are likely to be more valuable. On the other hand, if the greedy agent is defending, it does not matter whether it uses trump cards or not at any stage of the game, as giving up these cards is preferable to taking the entire bout.
 
 \subsection{Smart Agent}
-A smart agent using rule-based heuristics can exhibit improved performance compared to a greedy agent. This is because the smart agent utilizes rules that take into account the opponent's hand, providing a strategic advantage. One specific rule that may be implemented during the defensive stage is the selection of a defending card with a rank that the opponent does not possess. The implementation of the method is represented in the figure \ref{fig:defStratSmart}. This rule aims to prevent further attacks in the same bout by mitigating the opponent's options. While this rule may not be the most effective in every scenario, it has demonstrated successful outcomes in certain situations.
+A smart agent using rule-based heuristics can exhibit improved performance compared to a greedy agent. This is because the smart agent utilizes rules that take into account the opponent's hand, providing a strategic advantage. One specific rule that may be implemented during the defensive stage is the selection of a defending card with a rank that the opponent does not possess. If it is not possible to utilize the aforementioned defensive strategy due to the opponent holding cards of the same rank as the available defending cards, the agent may choose to defend with the card of the lowest rank.  The implementation of the method is represented in the figure \ref{fig:defStratSmart}. This rule aims to prevent further attacks in the same bout by mitigating the opponent's options. While this rule may not be the most effective in every scenario, it has demonstrated successful outcomes in certain situations.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}[frame=single]
-private Card? DefendingStrategy(List<Card> oHand, List<Card> noTrumpCards)
+private Card? DefendingStrategy(List<Card> oHand, List<Card> cards)
 {
-     foreach (Card card in noTrumpCards)
+     foreach (Card card in cards)
      {
           if (!oHand.Any(c => c.rank == card.rank))
           {
@@ -93,18 +93,44 @@ private Card? DefendingStrategy(List<Card> oHand, List<Card> noTrumpCards)
            }
      }
 
-     return Helper.GetLowestRank(noTrumpCards);
+     return Helper.GetLowestRank(cards);
 }
 \end{lstlisting}
-\caption{A pseudocode of Move method of the Greedy agent}
+\caption{A pseudocode of Move method of the Greedy agent, where oHand list is the opponent's hand and cards list is the possible cards for the defense.}
 \label{fig:defStratSmart}
 \end{figure}
 
+Moreover, a smart agent may employ a strategy that leverages the concept of \textbf{weaknesses} in order to gain an advantage. A weakness for a player, referred to as player P, is defined as a rank r that meets the following criteria: 
+\begin{enumerate}
+	\item player P's hand contains at least one card of rank r, and
+	\item for each suit s of rank r in player P's hand, there exists a rank r$'$ \> r such that the opponent holds a card of rank r$'$ and suit s \citep{Bonnet2016TheCO}.
+\end{enumerate}
 
-\section{Closed World Sampling}
+To clarify the concept of weaknesses, consider the following scenario: Player P holds the cards 10$\textcolor{red}{\heartsuit}$, 10$\textcolor{black}{\spadesuit}$, and K$\textcolor{red}{\diamondsuit}$, while player O holds Q$\textcolor{red}{\heartsuit}$, Q$\textcolor{black}{\spadesuit}$, and J$\textcolor{black}{\clubsuit}$. In this case, player P has a weakness at rank 10, as it satisfies the two conditions outlined in the definition of weakness. Specifically, player P holds at least one card of rank 10 (10$\textcolor{red}{\heartsuit}$ and 10$\textcolor{black}{\spadesuit}$), and for each suit of rank 10 in player P's hand (10$\textcolor{red}{\heartsuit}$ and 10$\textcolor{black}{\spadesuit}$), the opponent holds a card of higher rank (Q$\textcolor{red}{\heartsuit}$ and Q$\textcolor{black}{\spadesuit}$, respectively).
+
+One limitation of this strategy is that it is only applicable in open-world environments, where the player is able to gather information about their opponent's hand in order to identify weakness in their hand. 
+
+Now that the concept of weakness has been adequately defined, we can proceed to examine a new strategy that utilizes this concept. \textit{If player P only possesses a single weakness at rank r during their turn, then they have a winning strategy} \citep{Bonnet2016TheCO}. In the given example, player P possesses a weakness of rank 10. According to the aforementioned statement, this implies that player P has a winning strategy and can outmaneuver their opponent. This is indeed the case. To initiate the attack, player P can utilize all non-weakness rank cards, such as the K$\textcolor{red}{\diamondsuit}$. The opponent must take the attacking card, as they are unable to defend against it due to K being a non-weakness rank. In the subsequent bout, it remains player P's turn and they can attack all remaining weakness cards to become a winner.
+
+As previously mentioned, the weakness strategy is only effective in open world games where players are able to view each other's cards. However, this method is not applicable in real-life situations and presents difficulties in its use. Nonetheless, the weakness strategy can still be utilized in closed-world games, but only in the endgame when the deck is exhausted. This is because when players have used up the entire deck, it implies that certain cards played during the bout have been placed in the discard pile. This allows the players to deduce the opponent's cards through deduction and successfully use the strategy for their advantage. A smart agent adheres to this principle, which, while not being a common occurrence in the game, is highly effective and ensures victory for the smart agent.
 
 \section{Minimax Agent}
 \label{minimax}
 
+In this chapter, we will discuss the application of the minimax algorithm to the card game Durak. Specifically, the importance of the parameters in the minimax algorithm in the Durak Command Line Interface (CLI) as well as what heuristic functions that are included to evaluate the game state. Through this discussion, we will gain a deeper understanding of the functions and responsibilities of each parameter in the minimax algorithm as it pertains to the Durak game.
+
+The minimax algorithm is a decision-making algorithm often used in two-player turn-based perfect information games, such as chess, tic-tac-toe, and Go \citep{AI4Ed}. It is called minimax because it tries to minimize the maximum loss that a player can incur. It operates by constructing a game tree, with each node representing a potential game state, and the branches representing the possible moves that can be made from that state. The minimax algorithm then traverses the tree, evaluating the value of each node using a combination of recursive calculations and a heuristic evaluation function. When applied to the entire tree, the minimax values produced by this algorithm accurately reflect the outcome of the game with perfect play by both players.
+
+However, due to the exponential increase in the size of the tree as the search depth increases, it is often infeasible to search the entire tree. As a result, the minimax algorithm must be terminated at some depth, and the minimax value for a given node is approximated using a heuristic evaluation function. This function assigns a score to the current game state based on a set of predefined criteria, which will be discussed further in this section. While the use of a heuristic evaluation function introduces some error into the minimax values, it allows the algorithm to produce reasonable results in a reasonable amount of time.
+
+\subsection{Basic Heuristic}
+
+
+\subsection{Playout Heuristic}
+
+
+
 \section{Monte-Carlo Tree Search Agent}
 \label{MCTS}
+
+\section{Closed World Sampling}
