@@ -11,5 +11,8 @@
 \contentsline {figure}{\numberline {4.1}{\ignorespaces A representation of Move method of the Random agent\relax }}{18}{figure.caption.10}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces A pseudocode of Move method of the Greedy agent\relax }}{19}{figure.caption.11}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces A pseudocode of Move method of the Greedy agent, where oHand list is the opponent's hand and cards list is the possible cards for the defense.\relax }}{20}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces A representation of basic heuristic function evaluating the state based on the players' hand value\relax }}{22}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces A representation of basic heuristic function evaluating the state based on the players' hand size value\relax }}{23}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces A representation of basic heuristic function\relax }}{23}{figure.caption.15}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

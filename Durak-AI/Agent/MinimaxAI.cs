@@ -51,8 +51,6 @@ namespace AIAgent
             return value;
         }
 
-        // Returns the value of the player's hand. E.g card with rank 6 has value 6 Ace has
-        // value 14. Trump cards, if allowed, continue the sequence 6 trump has value 15
         private int EvaluatePlayerHandToValue(GameView gw) =>
             ConvertHandToValue(gw.players[0].GetHand(), gw) -
             ConvertHandToValue(gw.players[1].GetHand(), gw);
@@ -102,16 +100,13 @@ namespace AIAgent
         private int EvaluateState(GameView gw)
         {
             int score = 0;
-
             //1) get the value of the hand only if the hand sizes are the same
             if (gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards())
             {
                 score += EvaluatePlayerHandToValue(gw);
             }
-
             // 2) size of the hand: smaller -> better 
             score += EvaluateHandSize(gw);
-
             // 3) weaknesses 
             if (!gw.isEarlyGame)
             {

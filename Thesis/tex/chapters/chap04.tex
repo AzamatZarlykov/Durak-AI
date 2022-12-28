@@ -78,6 +78,7 @@ function GetCard(possbileCards, gw)
 The pseudocode shown in Figure \ref{fig:greedyMove} outlines the steps taken by the greedy agent to evaluate its options and make a decision. Specifically inside the \texttt{Move} method, the agent utilizes the \texttt{Actions} method to obtain a list of all possible actions it can take based on the current game state. If no actions are available, the agent will either pass or take a card, depending on its role in the game. However, if there are available actions, the agent will use the \texttt{GetCard} method to identify the card with the lowest value among the possible moves and select it as its next action. To ensure that the greedy agent is able to maximize its gain, we filter out any non-trump cards from the list of available options when determining the agent's next move. If the agent has a choice between non-trump cards, it will naturally select the one with the lowest rank value. However, if the agent only has trump cards to choose from, we must consider the \textbf{stage} of the game in order to make an optimal decision. In this context, the \textbf{early game} refers to any point in the game when there are still cards remaining in the deck, while the \textbf{end game} occurs when the deck is depleted. If the greedy agent is acting as an attacker and has the option to pass the attack, it is generally better to do so during the early game, as this allows the agent to preserve its trump cards for use in the end game, when they are likely to be more valuable. On the other hand, if the greedy agent is defending, it does not matter whether it uses trump cards or not at any stage of the game, as giving up these cards is preferable to taking the entire bout.
 
 \subsection{Smart Agent}
+\label{smart}
 A smart agent using rule-based heuristics can exhibit improved performance compared to a greedy agent. This is because the smart agent utilizes rules that take into account the opponent's hand, providing a strategic advantage. One specific rule that may be implemented during the defensive stage is the selection of a defending card with a rank that the opponent does not possess. If it is not possible to utilize the aforementioned defensive strategy due to the opponent holding cards of the same rank as the available defending cards, the agent may choose to defend with the card of the lowest rank.  The implementation of the method is represented in the figure \ref{fig:defStratSmart}. This rule aims to prevent further attacks in the same bout by mitigating the opponent's options. While this rule may not be the most effective in every scenario, it has demonstrated successful outcomes in certain situations.
 
 \begin{figure}[h]
@@ -124,7 +125,85 @@ The minimax algorithm is a decision-making algorithm often used in two-player tu
 However, due to the exponential increase in the size of the tree as the search depth increases, it is often infeasible to search the entire tree. As a result, the minimax algorithm must be terminated at some depth, and the minimax value for a given node is approximated using a heuristic evaluation function. This function assigns a score to the current game state based on a set of predefined criteria, which will be discussed further in this section. While the use of a heuristic evaluation function introduces some error into the minimax values, it allows the algorithm to produce reasonable results in a reasonable amount of time.
 
 \subsection{Basic Heuristic}
+The basic heuristic function utilizes predetermined criteria to evaluate the game state, using the contents of the players' hands, the size of the players' hands, and the presence of any weaknesses. It should be noted that this is not the only method of evaluating the state, and there are potentially numerous other criteria that could be incorporated into the heuristic function. However, the criteria mentioned are considered to be the primary ones used in the basic heuristic function. It is important to note that this approach to evaluating the game state is based on a heuristic function, which is an estimation rather than a definitive measure of the value of a state.
 
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+private int ConvertHandToValue(List<Card> hand, GameView gw)
+{
+    const int TOTALCARDS = 9;
+    int value = 0;
+
+    foreach (Card card in hand)
+    {
+        if (gw.includeTrumps && card.suit == gw.trumpCard!.suit)
+            value += (int)card.rank + TOTALCARDS;
+        else
+            value += (int)card.rank;
+    }
+    return value;
+}
+
+private int EvaluatePlayerHandToValue(GameView gw) =>
+    ConvertHandToValue(gw.players[0].GetHand(), gw) -
+    ConvertHandToValue(gw.players[1].GetHand(), gw);
+\end{lstlisting}
+\caption{A representation of basic heuristic function evaluating the state based on the players' hand value}
+\label{fig:BHPlayersHandValue}
+\end{figure}
+
+In order to evaluate the state of a card game based on the cards held by each player, the heuristic function begins by computing the individual hand value of each player. Prior to beginning this calculation, the value of each card must be determined. This can be done by assigning the value of a card as its rank. For example, if player P holds the cards 6$\textcolor{red}{\heartsuit}$ and A$\textcolor{red}{\heartsuit}$, the value of their hand would be 20 (6 + 14). It is common for trump cards to be considered powerful and, as such, they may be assigned a higher value. To achieve this, the value of a trump card can be calculated by adding its rank to the total number of ranks in the deck. For example, the value of a trump card with rank 6 would be calculated as 6 + the total number of ranks in the deck (6, 7, ..., K, A). After the individual hand value of each player has been calculated, a basic heuristic function may be used to evaluate the game state. This can be done by subtracting the hand value of player P from that of player O. The result of this calculation can then be used to represent the game state. How this is achieved can be view in the figure \ref{fig:BHPlayersHandValue}. It should be noted that this method of evaluating the game state is only suitable for use when the players have an equal number of cards. When the players have an equal number of cards, these factors can be accurately compared and used to evaluate the state. In past experiments, using this evaluation method with players who have an equal number of cards has been found to produce more accurate and reliable results.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+private int EvaluateHandSize(GameView gw)
+{
+     int pHandSize = gw.players[0].GetNumberOfCards();
+     int oHandSize = gw.players[1].GetNumberOfCards();
+
+     // hand size matters in the late game
+     pHandSize = (gw.isEarlyGame ? pHandSize : pHandSize * 15);
+     oHandSize = (gw.isEarlyGame ? oHandSize : oHandSize * 15);
+
+     return (pHandSize - oHandSize) * -1;
+}
+\end{lstlisting}
+\caption{A representation of basic heuristic function evaluating the state based on the players' hand size value}
+\label{fig:BHPlayerHandSize}
+\end{figure}
+
+Another criterion that may be used to evaluate the state of a card game is the size of the players' hands. The number of cards held by each player can provide insight into the likely outcome of the game. This can be done by subtracting the size of player P's hand from that of player O's hand. In the end game, the value of the hand size is given additional weight by being multiplied by a factor, such as 15, which is arbitrarily selected. This is because the number of cards held at the end of the game can be particularly important in determining the outcome. It is important to note that the resulting value is inverted, by being multiplied by -1, because a player with more cards is generally considered to be at a disadvantage. The method being described is illustrated in a figure, labeled as Figure \ref{fig:BHPlayerHandSize}.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+private int EvaluateState(GameView gw)
+{
+    int score = 0;
+    //1) get the value of the hand only if the hand sizes are the same
+    if (gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards())
+    {
+        score += EvaluatePlayerHandToValue(gw);
+    }
+    // 2) size of the hand: smaller -> better 
+    score += EvaluateHandSize(gw);
+    // 3) weaknesses 
+    if (!gw.isEarlyGame)
+    {
+       score += EvaluateWeaknesses(gw);
+    }
+    return score;
+}
+\end{lstlisting}
+\caption{A representation of basic heuristic function}
+\label{fig:basicEval}
+\end{figure}
+
+As a final criterion for evaluating the game state, it is possible to consider the existence of weakness in the state. This concept was discussed in more detail in section \ref{smart}. The occurrence of this type of scenario is relatively rare, as it only occurs in specific game environments. However, if a player does happen to have only one weakness in a particular game state, it can provide a strong advantage and increase the likelihood of winning the game. As a result, a basic heuristic function may assign a high value to this type of game state.
+
+Figure \ref{fig:basicEval} illustrates the basic evaluation function, which combines the values obtained from the various criteria discussed earlier to assign a single value to the game state. The function adds together the values calculated for each criterion, resulting in a single value that represents the estimated value of the state. This value is then returned to the minimax function, which can use it to evaluate the state and guide decision-making.
 
 \subsection{Playout Heuristic}
 
