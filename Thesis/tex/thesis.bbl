@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{6}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -9,6 +9,16 @@
 {\'E}.~Bonnet.
 \newblock The complexity of playing durak.
 \newblock In \emph{IJCAI}, 2016.
+
+\bibitem[Browne et~al.(2012)Browne, Powley, Whitehouse, Lucas, Cowling,
+  Rohlfshagen, Tavener, Perez, Samothrakis, and Colton]{MCTSSurvey}
+Cameron~B. Browne, Edward Powley, Daniel Whitehouse, Simon~M. Lucas, Peter~I.
+  Cowling, Philipp Rohlfshagen, Stephen Tavener, Diego Perez, Spyridon
+  Samothrakis, and Simon Colton.
+\newblock A survey of monte carlo tree search methods.
+\newblock \emph{IEEE Transactions on Computational Intelligence and AI in
+  Games}, 4\penalty0 (1):\penalty0 1--43, 2012.
+\newblock \doi{10.1109/TCIAIG.2012.2186810}.
 
 \bibitem[Guillermo(2013)]{Gametheory4}
 O.~Guillermo.

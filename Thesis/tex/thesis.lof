@@ -14,5 +14,7 @@
 \contentsline {figure}{\numberline {4.4}{\ignorespaces A representation of basic heuristic function evaluating the state based on the players' hand value\relax }}{22}{figure.caption.13}%
 \contentsline {figure}{\numberline {4.5}{\ignorespaces A representation of basic heuristic function evaluating the state based on the players' hand size value\relax }}{23}{figure.caption.14}%
 \contentsline {figure}{\numberline {4.6}{\ignorespaces A representation of basic heuristic function\relax }}{23}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces A representation of playout heuristic function\relax }}{24}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces A simplified representation of alpha beta pruning technique inside the minimax Move method\relax }}{25}{figure.caption.17}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

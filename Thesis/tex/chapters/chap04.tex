@@ -207,9 +207,136 @@ Figure \ref{fig:basicEval} illustrates the basic evaluation function, which comb
 
 \subsection{Playout Heuristic}
 
+In the minimax algorithm, the playout heuristic is an alternative evaluation function that is used to determine the potential outcome of a given game state. It is based on MCTS Simulation playouts which will be covered in later section. Essentially, it involves creating a copy of the current state and simulating the play of the game between two greedy agents. The result of the simulation is used to assign a heuristic value to the game state, which can be used to guide the search process in minimax. The use of greedy agents in the playout heuristic leads to improved performance compared to basic heuristics, due to their ability to make effective and efficient decisions. The illustration of playout heuristic function can be found in Figure \ref{fig:playoutEval}.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+private int Evaluate(GameView gw, int depth)
+{
+     // simulate the game between 2 greedy AI agents. 
+     // Based on the outcome return the score
+     GameView innerGameView = gw.Copy();
+     // initialize the agents
+     List<Agent> agents = new List<Agent>()
+     {
+          new GreedyAI("greedy"),
+          new GreedyAI("greedy")
+     };
+
+     // start the game simulation
+     while (innerGameView.status == GameStatus.GameInProcess)
+     {
+          int turn = innerGameView.Player();
+
+          Card? card = agents[turn].Move(innerGameView);
+          innerGameView.Apply(card);
+     }
+
+     int result = innerGameView.MMWinner();
+     int score = 1000 - depth;
+
+     return result * score;
+}
+\end{lstlisting}
+\caption{A representation of playout heuristic function}
+\label{fig:playoutEval}
+\end{figure}
+
+The minimax algorithm is capable of finding the optimal move in a two-player game by searching the entire game tree and considering all possible moves by both players. However, for some games, such as Durak, the game tree can be extremely large, making it computationally infeasible to fully explore. In these cases, the \textbf{alpha beta} pruning technique is used in conjunction with minimax to optimize the search process. Alpha beta pruning involves eliminating branches of the game tree that cannot affect the final decision, allowing the algorithm to focus its search on more promising areas of the tree and significantly reducing the overall computational burden.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}[frame=single]
+private int Minimax(GameView gw, int (*@\textbf{alpha}@*), int (*@beta@*), int depth, out Card? bm)
+{
+...
+    foreach(Card ?card in possibleMoves)
+    {
+        GameView gwCopy = gw.Copy();
+        gwCopy.Apply(card);
+        int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
+
+        if (gw.Player() == 0 ? v > bestVal : v < bestVal)
+        {
+           bestVal = v;
+           bm = card;
+           if (gw.Player() == 0)
+           {
+                if (v >= beta)
+                {
+                     return v;
+                }
+                alpha = Max(alpha, v);
+           } else
+           {
+                if (v <= alpha)
+                {
+                     return v;
+                }
+                beta = Min(beta, v);
+           }
+       }
+   }
+...
+}
+\end{lstlisting}
+\caption{A simplified representation of alpha beta pruning technique inside the minimax Move method}
+\label{fig:alphabeta}
+\end{figure}
+
+The implementation of this technique, given in Figure \ref{fig:alphabeta}, involves adding two additional parameters, ``alpha'' and ``beta'', to the minimax function. These parameters are initialized to negative and positive infinity, respectively, indicating that any minimax value is acceptable. The algorithm then compares the values of alpha and beta to the current minimax value during the search, and if the value exceeds a certain threshold, the search is terminated as a game-winning move has been identified. Overall, the incorporation of alpha-beta pruning into the minimax algorithm involves only a minor modification to the existing code, making it a useful tool for optimizing the performance of minimax in certain situations.
+
+Another method for optimizing the search of a game tree using the minimax algorithm was to implement state caching. This technique involves serializing the current game state with its current depth and storing its corresponding heuristic value in a cache. During the search process, the minimax agent can then check the cache before evaluating a given state. If the state has already been explored, the agent can retrieve the stored heuristic value and avoid the need to recalculate it, thereby reducing the overall computational complexity of the search. It was observed during the development of the program that the same game state may be encountered multiple times through different paths in the tree, making state caching an effective optimization technique for the minimax algorithm.
+
 
 
 \section{Monte-Carlo Tree Search Agent}
 \label{MCTS}
 
+Monte Carlo Tree Search (MCTS) is a search algorithm that is commonly used in games such as chess, Go, and other board games to find the best move to make. It is based on the idea of using random sampling to estimate the value of different moves, rather than explicitly searching through the entire game tree \citep{MCTSSurvey}.
+
+The MCTS algorithm consists of four main steps at every iteration:
+
+\begin{enumerate}
+	\item Selection: The algorithm starts at the root of the game tree and selects successive child nodes by using a heuristic evaluation function to guide the search towards promising areas of the tree.
+	
+	\item Expansion: Once a leaf node (a node without any children) is reached, the algorithm creates one or more child nodes for that leaf node and performs a simulation from that point.
+	
+	\item Simulation: The simulation involves playing out a random sequence of moves from the current position to the end of the game, using a simple evaluation function to determine the outcome.
+	
+	\item Backpropagation: The results of the simulation are then propagated back up the tree, updating the values of the nodes visited during the selection and expansion steps.
+	
+\end{enumerate}
+
+The MCTS algorithm repeats these steps until a sufficient number of simulations have been performed, at which point it selects the move with the highest estimated value as the best move to make. Considering the possibility of regrouping the four main steps in MCTS, this version of the algorithm works with two distinct policies: 
+
+\begin{enumerate}
+	\item Tree Policy: From the nodes contained within the search tree, either select a leaf node or create a new one by expanding the tree (selection and expansion).
+	
+	\item Default Policy: Evaluate a non-terminal state in the domain by simulating its progression to a terminal state and generating an estimate of its value (simulation).
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
 \section{Closed World Sampling}
+
+
+
+
+
+
+
+
+
+
+
+

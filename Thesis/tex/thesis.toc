@@ -29,17 +29,17 @@
 \contentsline {section}{\numberline {4.3}Minimax Agent}{21}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Basic Heuristic}{22}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{24}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{24}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Closed World Sampling}{24}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Experiments}{25}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{25}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{25}{section.5.2}%
-\contentsline {chapter}{Conclusion}{26}{chapter*.16}%
-\contentsline {chapter}{Bibliography}{27}{chapter*.17}%
-\contentsline {chapter}{List of Figures}{28}{chapter*.18}%
-\contentsline {chapter}{List of Tables}{29}{chapter*.19}%
-\contentsline {chapter}{List of Abbreviations}{30}{chapter*.20}%
-\contentsline {chapter}{\numberline {A}Attachments}{31}{appendix.A}%
-\contentsline {section}{\numberline {A.1}User Documentation}{31}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Requirement}{31}{subsection.A.1.1}%
-\contentsline {section}{\numberline {A.2}Developer Documentation}{31}{section.A.2}%
+\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Closed World Sampling}{26}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Experiments}{27}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{27}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{27}{section.5.2}%
+\contentsline {chapter}{Conclusion}{28}{chapter*.18}%
+\contentsline {chapter}{Bibliography}{29}{chapter*.19}%
+\contentsline {chapter}{List of Figures}{30}{chapter*.20}%
+\contentsline {chapter}{List of Tables}{31}{chapter*.21}%
+\contentsline {chapter}{List of Abbreviations}{32}{chapter*.22}%
+\contentsline {chapter}{\numberline {A}Attachments}{33}{appendix.A}%
+\contentsline {section}{\numberline {A.1}User Documentation}{33}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Requirement}{33}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Developer Documentation}{33}{section.A.2}%
