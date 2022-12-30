@@ -1,4 +1,4 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -25,6 +25,14 @@ O.~Guillermo.
 \newblock \emph{Game Theory}.
 \newblock Emerald Group Publishing Limited, 4 edition, 2013.
 \newblock ISBN 978-1781905074.
+
+\bibitem[Long et~al.(2010)Long, Sturtevant, Buro, and
+  Furtak]{PerfectInformationMC}
+Jeffrey Long, Nathan~R. Sturtevant, Michael Buro, and Timothy Furtak.
+\newblock Understanding the success of perfect information monte carlo sampling
+  in game tree search.
+\newblock In \emph{Proceedings of the Twenty-Fourth AAAI Conference on
+  Artificial Intelligence}, AAAI'10, page 134–140. AAAI Press, 2010.
 
 \bibitem[McLeod(2022{\natexlab{a}})]{website:PAGAT_DURAK}
 J.~McLeod.

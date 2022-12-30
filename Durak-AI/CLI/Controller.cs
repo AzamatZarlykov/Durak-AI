@@ -9,7 +9,7 @@ using AIAgent;
 using Model.DurakWrapper;
 using Model.PlayingCards;
 using Model.GameState;
-using Model.MiddleBout;
+using Model.GamePlayer;
 using Helpers.Wilson_Score;
 
 namespace CLI
@@ -19,7 +19,7 @@ namespace CLI
         private int[] gamesWon;
         private int[] totalMoves;
         private Stopwatch[] timers;
-
+        private long bfCount = 1;
         private int draws;
         private int bouts;
         private double movesPerBout;
@@ -68,7 +68,7 @@ namespace CLI
                 if (gParam.Config && i == 0)
                 {
                     // create a file to record the win results of the parameters of the first agent
-                    string dirpath = "ParamLogs";
+                    string dirpath = "CLI/ParamLogs";
                     string filename = "result.txt";
                     Directory.CreateDirectory(dirpath);
                     using (FileStream fs = new FileStream(
@@ -268,6 +268,28 @@ namespace CLI
             }
         }
 
+        private void BranchingFactor(Durak game) 
+        {
+            var options = game.PossibleMoves(excludePass: true);
+            int count = options.Count;
+            bfCount *= count;
+            Player a = game.GetPlayers()[game.GetAttackingPlayer()];
+            Player d = game.GetPlayers()[game.GetDefendingPlayer()];
+            // bout ends when the attacker passes
+            if (count == 1 && options[0] is null && !game.IsEndGame(a, d)) {
+                // create a file to record the win results of the parameters of the first agent
+                string dirpath = "CLI/ParamLogs";
+                string filename = "bf.txt";
+                Directory.CreateDirectory(dirpath);
+                using (FileStream fs = new FileStream(
+                    Path.Combine(dirpath, filename), FileMode.Append, FileAccess.Write))
+                using (StreamWriter writer = new StreamWriter(stream: fs))
+                {
+                    writer!.Write($"{bfCount}:{game.GetBoutsCount()} ");
+                }
+            }
+        }
+
         public void Run(bool tournament = false)
         {
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
@@ -294,6 +316,10 @@ namespace CLI
                     timers[turn].Start();
 
                     var gw = new GameView(game, turn);
+                    if (gParam.BF) 
+                    {
+                        BranchingFactor(game);
+                    }
                     Card? card = agents[turn].Move(gw);
 
                     if (!game.Move(card))

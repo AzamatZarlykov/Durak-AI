@@ -56,7 +56,7 @@ namespace CLI
 
         private static void EnableLogs(Controller controller)
         {
-            string dirPath = "GameLogs";
+            string dirPath = "CLI/GameLogs";
             string filename = "log.txt";
             try
             {
@@ -128,8 +128,11 @@ namespace CLI
 
             [DefaultValue(false)]
             [Description("Used for grid search parameter configuration. For the purpose of experiments")]
-            bool config
+            bool config,
 
+            [DefaultValue(false)]
+            [Description("Used for estimating the branching factor (with greedy agents)")]
+            bool bf
         )
         {
             if (config && tournament is not null) { 
@@ -167,6 +170,11 @@ namespace CLI
 
             string[] agents = { ai1, ai2 };
 
+            if (ai1 != "greedy" && ai2 != "greedy" || total_games > 1)
+            {
+                throw new Exception($"-bf parameter works with -ai1=greedy, ai2=greedy and total_games=1");
+            }
+
             var gameParam = new GameParameters
             {
                 NumberOfGames = total_games,
@@ -178,7 +186,8 @@ namespace CLI
                 D2 = d2,
                 OpenWorld = open_world,
                 IncludeTrumps = include_trumps,
-                Config = config
+                Config = config,
+                BF = bf
             };
 
             Controller controller = new Controller(gameParam);

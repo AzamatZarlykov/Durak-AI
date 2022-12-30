@@ -38,7 +38,6 @@ namespace AIAgent
                 }
                 else
                 {
-                    // balancer C = 1.41
                     node = node.BestChild(c);
                 }
             }

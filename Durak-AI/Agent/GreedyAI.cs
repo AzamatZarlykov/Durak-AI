@@ -37,7 +37,7 @@ namespace AIAgent
         public override Card? Move(GameView gameView)
         {
             List<Card?> cards = gameView.Actions(excludePassTake: true);
-
+            
             // cannot attack/defend
             if (cards.Count == 1 && cards[0] is null)
             {

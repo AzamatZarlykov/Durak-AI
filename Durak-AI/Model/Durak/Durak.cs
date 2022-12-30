@@ -533,7 +533,7 @@ namespace Model.DurakWrapper
             return true;
         }
 
-        private bool IsEndGame(Player attacker, Player defender)
+        public bool IsEndGame(Player attacker, Player defender)
         {
             if (EnoughCardsInTheDeck(attacker) && deck.GetRankStart() < 12)
             {

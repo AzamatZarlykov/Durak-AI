@@ -13,7 +13,7 @@ The game framework for Durak was tested on both Windows 10 and Linux operating s
 The Durak AI framework includes a game model, AI agents, and a Command-Line Interface (CLI) that are implemented using the C\# programming language and targeted for the .NET Core 6 platform. C\# was selected as the programming language for the implementation of aforementioned projects in Durak due to its suitability for writing back-end systems. The language offers a range of reliable libraries and benefits from a highly optimized Just-In-Time (JIT) compiler, resulting in enhanced speed. These attributes made C\# an ideal choice for this development.
 
 In order to run and test the program, the project has to be cloned from the repository and opened with an Integrated Development Environment (IDE) of user's choice. From the root directory of the project, the user can utilize the command line to enter the command 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 $ dotnet run --project CLI
 \end{lstlisting}
 , which will launch the Command-Line Interface (CLI) and provide guidance on how to proceed with experimentation. The CLI will provide further instructions on how to use and test the program (for additional information, please refer to Section \ref{CLI}.).
@@ -52,7 +52,7 @@ The representation of the game state \texttt{Durak} in the model is a key aspect
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \lstset{basicstyle=\ttfamily\scriptsize}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 // Bout object of the game
 private Bout bout;
 
@@ -78,7 +78,7 @@ The object in question serves as a comprehensive representation of all game stat
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \lstset{basicstyle=\ttfamily\scriptsize}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 
 if (turn == Turn.Attacking){
 	if (CanAttack() && OpponentCanFitMoreCards()) {
@@ -108,7 +108,7 @@ The \texttt{Move} method modifies the current game state by executing the action
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 if (turn == Turn.Attacking){
 	// the attacker played a card	
 	if (card is not null) {
@@ -187,13 +187,13 @@ Before discussing the organizational structure of the project, it is important t
 
 There are various ways to utilize the aforementioned parameters. An example of using the default settings to run a game between RandomAI agent(random) and GreedyAI agent(greedy) is provided below. Note that the user can select different agents as well:
 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 $ dotnet run --project CLI -ai1=random -ai2=greedy
 \end{lstlisting}
 
 This command initiates the simulation of 1000 games between the RandomAI and GreedyAI agents in a fully enclosed environment (with a starting rank of 6) and provides the following output to the console:
 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 ==== RUNNING ====
 
 Game 1: Agent 1 (random) won. Total bouts: 21
@@ -207,13 +207,13 @@ Game 5: Agent 2 (greedy) won. Total bouts: 18
 To more thoroughly analyze the results of the specific game, \texttt{seed} with the game id and the \texttt{-verbose}  parameters may be utilized. This provides detailed information about the progression of the game by showing every possible move, the chosen move and other game related details. An example of the first game in which a RandomAI agent defeats a GreedyAI agent using this parameter is shown below:
 
 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 $ dotnet run --project CLI -ai1=random -ai2=greedy -verbose -seed=1
 \end{lstlisting}
 
 The command above generates a verbose output, as shown below. It should be noted that this is only a portion of the full output and the blue colored suits are the indications of the trump suit.
 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 ==== START ====
 
 Trump card: A(*@$\textcolor{blue}{\diamondsuit}$@*)
@@ -248,7 +248,7 @@ Upon completion of an experiment, the program presents statistical analysis on a
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 $ dotnet run --project CLI -ai1=greedy -ai2=random -open_world -total_games=1000 
 			-start_rank=6 -include trumps
 ...
@@ -280,25 +280,25 @@ Other than that, it is important to consider that when utilizing certain advance
 In the context of the Minimax algorithm, it is necessary to specify the value of the \texttt{depth} parameter, which determines the depth to which the search tree will be explored in order to identify the optimal move. In addition to the depth parameter, it is also necessary to specify the \texttt{eval} parameter, which specifies the heuristic function used to evaluate the state when the maximum depth has been reached. The \texttt{eval} parameter can take on either the value \texttt{basic} or \texttt{playout} (additional information on these parameters can be found in Section \ref{minimax}). It is worth noting that, in a closed world scenario, the \texttt{samples} parameter is optional and has a default value of 20. The \texttt{samples} parameter serves to prevent agents such as Minimax and MCTS from cheating by accessing information about future states of the game (details in Section \ref{AIAgents}). This illustration presents an example of a simulation between the Minimax and greedy agents with arbitrary parameter values in the open and closed world:\\
 
 \textbf{Open-world: }
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 dotnet run --project CLI -ai1=minimax:depth=4,eval=basic -ai2=greedy -open_world
 \end{lstlisting}
 
 \textbf{Closed-world: }
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 dotnet run --project CLI -ai1=minimax:depth=6,eval=basic,samples=15 -ai2=smart
 \end{lstlisting}
 
 Regarding MCTS, it is necessary to specify the value of the \texttt{limit} parameter, which determines the computational budget allocated for the algorithm to build the search tree. The search is halted and the best-performing root action is returned once this budget is reached. The \texttt{c}, which is called exploration constant, parameter also needs to be specified because it determines the balance between exploitation and exploration in the UCB equation (detailed information is provided in Section \ref{MCTS}). This parameter is set to a default value of  $\sqrt{2}$ ($\approx 1.41$) and can be adjusted to fine-tune the performance of the algorithm. The \texttt{simulation} parameter should also be specified, indicating whether to use a smart simulation (\texttt{greedy}) or a random simulation (\texttt{random}). Lastly, in a closed world setting, just like in Minimax, it is necessary to specify the \texttt{samples} parameter to prevent the MCTS agent from cheating by considering future states of the game. This example demonstrates a simulation between MCTS and greedy agents with arbitrary parameter values in open and closed world settings: \\
 
 \textbf{Open-world: }
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 dotnet run --project CLI -ai1=mcts:limit=100,simulation=greedy -ai2=greedy 
 							-open_world
 \end{lstlisting}
 
 \textbf{Closed-world: }
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 dotnet run --project CLI -ai1=mcts:limit=100,simulation=greedy,samples=10 
 							-ai2=greedy
 \end{lstlisting}
@@ -313,7 +313,7 @@ The abstract class \texttt{Agent} represents a common interface for all agents, 
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 public abstract class Agent
 {
 	public string ?name;

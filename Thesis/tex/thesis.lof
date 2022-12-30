@@ -16,5 +16,9 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces A representation of basic heuristic function\relax }}{23}{figure.caption.15}%
 \contentsline {figure}{\numberline {4.7}{\ignorespaces A representation of playout heuristic function\relax }}{24}{figure.caption.16}%
 \contentsline {figure}{\numberline {4.8}{\ignorespaces A simplified representation of alpha beta pruning technique inside the minimax Move method\relax }}{25}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces A general pseudocode for MCTS\relax }}{27}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces A snippet of Backpropagation method\relax }}{28}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces A MCTS Pseudocode\relax }}{29}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{30}{figure.caption.21}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

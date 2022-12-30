@@ -8,7 +8,7 @@ The random decision algorithm is a basic approach that simply selects a choice o
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 public override Card? Move(GameView gameView)
 {
     List<Card?> cards = gameView.Actions(excludePassTake: true);
@@ -50,7 +50,7 @@ It has been observed through years of playing this game that the optimal move in
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 function Move(gameView)
   moves = Actions(gameView)
   if HasNull(moves) then:
@@ -83,7 +83,7 @@ A smart agent using rule-based heuristics can exhibit improved performance compa
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 private Card? DefendingStrategy(List<Card> oHand, List<Card> cards)
 {
      foreach (Card card in cards)
@@ -129,7 +129,7 @@ The basic heuristic function utilizes predetermined criteria to evaluate the gam
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 private int ConvertHandToValue(List<Card> hand, GameView gw)
 {
     const int TOTALCARDS = 9;
@@ -157,7 +157,7 @@ In order to evaluate the state of a card game based on the cards held by each pl
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 private int EvaluateHandSize(GameView gw)
 {
      int pHandSize = gw.players[0].GetNumberOfCards();
@@ -178,7 +178,7 @@ Another criterion that may be used to evaluate the state of a card game is the s
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 private int EvaluateState(GameView gw)
 {
     int score = 0;
@@ -211,7 +211,7 @@ In the minimax algorithm, the playout heuristic is an alternative evaluation fun
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 private int Evaluate(GameView gw, int depth)
 {
      // simulate the game between 2 greedy AI agents. 
@@ -247,7 +247,7 @@ The minimax algorithm is capable of finding the optimal move in a two-player gam
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 private int Minimax(GameView gw, int (*@\textbf{alpha}@*), int (*@beta@*), int depth, out Card? bm)
 {
 ...
@@ -309,7 +309,7 @@ The MCTS algorithm consists of four main steps at every iteration:
 	
 \end{enumerate}
 
-The MCTS algorithm repeats these steps until a sufficient number of simulations have been performed, at which point it selects the move with the highest estimated value as the best move to make. Considering the possibility of regrouping the four main steps in MCTS, this version of the algorithm works with two distinct policies: 
+The MCTS algorithm repeats these steps until a sufficient number of iterations (in this program `limits') have been performed, at which point it selects the move with the highest estimated value as the best move to make. Considering the possibility of regrouping the four main steps in MCTS, this version of the algorithm works with two distinct policies: 
 
 \begin{enumerate}
 	\item Tree Policy: From the nodes contained within the search tree, either select a leaf node or create a new one by expanding the tree (selection and expansion).
@@ -317,22 +317,160 @@ The MCTS algorithm repeats these steps until a sufficient number of simulations 
 	\item Default Policy: Evaluate a non-terminal state in the domain by simulating its progression to a terminal state and generating an estimate of its value (simulation).
 \end{enumerate}
 
+The backpropagation step does not involve the use of a policy itself, but rather adjusts the internal parameters of node statistics that inform future tree policy. These steps are summarized in the pseudocode in Figure \ref{fig:mctsGeneral}.
 
 
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+function MCTSSearch((*@$s_0$@*))
+	create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
+	while limit has not reached do
+		(*@$v_l$@*) = TreePolicy((*@$v_0$@*))
+		reward = DefaultPolicy(s((*@$v_l$@*))
+		BackPropagation((*@$v_l$@*), reward)
+	return a(BestChild((*@$v_0$@*), 0))
+\end{lstlisting}
+\caption{A general pseudocode for MCTS}
+\label{fig:mctsGeneral}
+\end{figure}
+
+$v_0$ is the root node that corresponds to the state $s_0$. \texttt{TreePolicy} returns the last node, $v_l$, reached either by expanding or selecting the node, which corresponds to the state $s_l$. \texttt{DefaultPolicy} method simulates the whole game given the last node and returns the outcome of the playout from the state $s_l$, which is \texttt{result}. Given the \texttt{result} from the simulated game, the \texttt{BackPropagation} method adjusts the values from $v_l$ up until the root node $v_0$. Once the limit of computation is reached, the algorithm provides the result of the overall search \texttt{a(BestChild($v_0$))} where \texttt{a} is the action that provides the best move in the state $s_0$ of the root $v_0$.
+
+The UCT (Upper Confidence bounds applied to Trees) algorithm is a heuristic method for finding the optimal move in a two-player game by considering both the exploration of new nodes in the search tree and the exploitation of known information about the value of certain nodes. It is a method that allows to find the best node in the \texttt{TreePolicy} method and best move given the root node \texttt{BestChild} method. It is commonly used in situations where it is necessary to balance the trade-off between exploration and exploitation in order to make the most informed decision. By using this approach, it is possible to effectively navigate the search tree and identify the best possible move, taking into account the inherent uncertainty and complexity of the game at hand \citep{MCTSSurvey}. To calculate the UCT value for each node, 
+
+\[ UCT(v) = 1 - \frac{Q(v')}{N(v')} + c*\sqrt{\frac{2 * ln{N(v)}}{N(v')}} \]
+
+is used. Every node has the value of \textit{Q(v)} that corresponds to the total reward of all playouts that passed through this state and the number \textit{N(v)} of times it has been visited. The \textit{c} value is the exploration constant that balances the exploration exploitation trade off. The reason why the 1 subtracts from fraction of \textit{Q(v)} and \textit{N(v)} is because we want to invert the win rate, i.e. the average reward, which will always be between 0 and 1. As an example, consider a scenario in a two-player game if a given move leads to an average reward of 0.3 for player 1, then the same move leads to an average reward of 0.7 for player 2. 
+
+It is important to note that the calculation mentioned above assumes that moves strictly alternate between the two players, such that the first player makes a move, followed by the second player, and then the first player again, and so on. However, it is important to note that the alternating move structure mentioned previously does not always hold true in the game of Durak. Specifically, in Durak, the moves do not necessarily alternate between players. For example, if the first player makes an attack as their first move and the second player decides to take the cards, the first player may consecutively attack more until they no longer have the necessary card or simply choose not to attack any further. In this scenario, the move turn would not follow the alternating pattern described earlier. Because of that in cases where the moves do not strictly alternate between players, the win rate is not inverted as previously described. Instead, it is only inverted in cases where the turns alternate between players.
+
+Now that we have a general understanding of MCTS and the Upper Confidence Bound applied to Trees (UCT) algorithms, it is time to explore the implementation of the TreePolicy, DefaultPolicy, and BackPropagation in these algorithms. The pseudocode of MCTS algorithm is depicted in Figure  \ref{fig:mctsREST}. 
+
+For each node v, there are four pieces of data associated with it: the state s(v) corresponding to the node, the action a(v) that led to the node, the total simulation reward Q(v), and the number of visits N(v) to the node represented as a nonnegative integer. The term \texttt{reward} indicates the outcome of the simulated game and \texttt{f(s(v), a)} represents the function that takes state of the node and action as arguments and produces the new state. 
+
+The return value of the overall search in this case is \texttt{a(BESTCHILD($v_0$, 0))} which will give the action \texttt{a} that leads to the child with the highest reward, since the exploration parameter \texttt{c} is set to 0 for this final call on the root node $v_0$. \citep{MCTSSurvey}.
+
+It should be noted that the simulation process in the \texttt{DefaultPolicy} follows a random path through the search tree. While this approach allows for a broad exploration of potential moves, it may result in slower convergence and lower accuracy compared to using a more informed strategy for selecting simulation moves. In the program, it is possible to choose the simulation type when running experiments using MCTS. The options include using a random simulation (simulation=`random') or using a more informed strategy (simulation=`greedy'). The informed strategy employs a greedy agent to make decisions, which tends to guide the search more effectively towards areas of the tree that are more promising.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+private void Backpropagation(Node nodeToExplore, int playoutResult)
+{
+    while(tempNode != null)
+    {
+         tempNode.IncrementPlayouts();
+         // draw
+         if (playoutResult == -1)
+         {
+             tempNode.AddScore(0.5);
+         } 
+         else if (tempNode.GetGame().Player() == playoutResult)
+         {
+             tempNode.AddScore(1.0);
+         }
+         tempNode = tempNode.GetParent();
+    }
+}
+\end{lstlisting}
+\caption{A snippet of Backpropagation method}
+\label{fig:mctsBackpropagation}
+\end{figure}
+
+Upon receiving the reward result from the \texttt{DefaultPolicy}, the program passes this information to the \texttt{Backpropagation} function in order to update the values of the nodes in the path traversed during the simulation. These values include the visit count and the reward count, also known as the win count. In zero sum games, where one player's win corresponds to the other player's loss, the \texttt{Backpropagation} method increments the score of the winning player. However, in the card game Durak, there is the possibility of a draw between two players. To account for this possibility and ensure consistency in the scores, the \texttt{Backpropagation} method has been modified to include the case of a draw in its update process. The figure \ref{fig:mctsBackpropagation} illustrates the version of \texttt{Backpropagation} function that includes the case of draw. Specifically, the algorithm now awards a score of 0.5 to nodes in the case of a draw and a score of 1.0 in the case of a win.  
 
 
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+function MCTSSearch((*@$s_0$@*))
+	create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
+	while limit has not reached do
+		(*@$v_l$@*) = TreePolicy((*@$v_0$@*))
+		reward = DefaultPolicy(s((*@$v_l$@*))
+		BackPropagation((*@$v_l$@*), reward)
+	return a(BestChild((*@$v_0$@*), 0))
+	
+function TreePolicy(v)
+	while v is nonterminal do 
+		if v is not fully expanded then
+			return Expand(v)
+		else
+			v = BestChild(v, c)
+	return v
 
+function Expand(v)
+	get (*@ $a \in $ @*)first untried action from A(s(v))
+	add a new child v' to v
+		with s(v') = f(s(v), a) 
+		and a(v') = a
+	return v'
+	
+function BestChild(v, c)
+	return (*@ $ \underset{v' \in children of v}{\arg\max} UCTValue(v,v',c) $ @*)
+	
+function UCTValue(v,v',c)
+	avgReturn = (*@ $ \frac{Q(v')}{N(v')} $ @*)
+	if Turn(v) != Turn(v') then 
+		avgReturn = 1 - avgReturn
+	return (*@ $ avgReturn + c * \sqrt{\frac{2 * ln{N(v)}}{N(v')}} $ @*)
+	
+function DefaultPolicy(s)
+	while s is non-terminal do
+		choose (*@ $a \in $ @*) A(s) uniformly at random
+		s = f(s,a)
+	return reward for state s
 
-
-
+function Backpropagation(s, reward)
+	while v is not null do
+		N(v) = N(v) + 1
+		Q(v) = Q(v) + reward
+		v = parent of v
+\end{lstlisting}
+\caption{A MCTS Pseudocode}
+\label{fig:mctsREST}
+\end{figure}
 
 
 \section{Closed World Sampling}
 
+It is well-known that algorithms such as Minimax and Monte Carlo Tree Search (MCTS) can provide optimal play in games by thoroughly exploring the game tree. However, in imperfect information games such as Durak, this is not considered fair play because it allows the agent to access hidden information that it would not normally have access to. One way this can be done is through the use of a cloning method, which allows the agent to create a copy of the current game state and explore the potential outcomes of different moves. While this is acceptable in games with perfect information, such as chess or checkers, it is considered cheating in games with hidden information.
 
+One way to address the issue of hidden information in imperfect information games is to use a \textbf{sampling} method that randomly generates a game state based on the information that the player can currently observe. This allows the agent to explore and evaluate potential moves without access to hidden information. The agent can then repeat this process a number of times, using algorithms such as Minimax or MCTS to determine the best course of action in each sampled game state. By considering the outcomes of these randomized scenarios, the agent can make a decision that is likely to be successful across a range of potential game states. This approach is called  ``Perfect Information Monte Carlo'' \citep{PerfectInformationMC}.
 
+To implement a closed world sampling method in the game of Durak, a shuffled copy, \texttt{ShuffleCopy}, method was developed. In this game, the hidden information in the early stages of play includes the cards in the deck and the opponent's hand. To generate a randomly shuffled game state, the \texttt{ShuffleCopy} method combines these two sources of hidden information and shuffles them, before redistributing the same number of cards to the player and the deck. This process is represented in the Figure \ref{fig:shuffleCopy}. This shuffled game state is then returned to the calling agent, which can be either a Minimax or a MCTS. Thanks to that the shuffling process preserves the hidden information while allowing the agent to determine the best move to make in the current game state.
 
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+public Durak ShuffleCopy()
+{
+    // perform copy
+    Durak copy = (Durak)this.MemberwiseClone();
+	...
+	
+    Player opponent = copy.players[GetNextTurn()];
+    var opponentHiddenCards = opponent.GetHand().Where(c => !c.GetSeen());
+    int totalHiddenCards = opponentHiddenCards.Count();
 
+    // add hidden cards from opponent's hand to the hidden deck cards
+    copy.deck.GetCards().AddRange(opponentHiddenCards);
+    // remove hidden cards from the hand
+    opponent.GetHand().RemoveAll(card => !card.GetSeen());
+
+    // shuffle the unseen cards 
+    copy.deck.Shuffle();
+	...
+	
+    return copy;
+}
+\end{lstlisting}
+\caption{A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method}
+\label{fig:shuffleCopy}
+\end{figure}
+
+The number of samples to be generated by the agents is determined by the user. A larger number of samples can lead to a more accurate result, but it also increases the time required to find the best move. To determine the optimal move after a certain number (n) of samples have been generated, the agents can keep track of the best moves identified in each shuffled game state. As the agents, such as Minimax and MCTS, evaluate each shuffled game state, they can store the results in a cache that tracks the frequency of each move. Once all n samples have been played, the agent can select the move that was identified as the best option in the greatest number of these scenarios.
 
 
 
