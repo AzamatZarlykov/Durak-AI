@@ -279,17 +279,16 @@ namespace CLI
             if (count == 1 && options[0] is null && !game.IsEndGame(a, d)) {
                 // create a file to record the win results of the parameters of the first agent
                 string dirpath = "CLI/ParamLogs";
-                string filename = "bf.txt";
                 Directory.CreateDirectory(dirpath);
                 using (FileStream fs = new FileStream(
-                    Path.Combine(dirpath, filename), FileMode.Append, FileAccess.Write))
+                    Path.Combine(dirpath, "bf.txt"), FileMode.Append, FileAccess.Write))
                 using (StreamWriter writer = new StreamWriter(stream: fs))
                 {
                     writer!.Write($"{bfCount}:{game.GetBoutsCount()} ");
                 }
             }
         }
-
+        
         public void Run(bool tournament = false)
         {
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
@@ -331,9 +330,7 @@ namespace CLI
             }
             // no need to print the stats for tournament games
             if (tournament)
-            {
                 return;
-            }
             PrintStatistics();
         }
 

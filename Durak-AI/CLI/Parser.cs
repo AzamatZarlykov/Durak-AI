@@ -170,7 +170,7 @@ namespace CLI
 
             string[] agents = { ai1, ai2 };
 
-            if (ai1 != "greedy" && ai2 != "greedy" || total_games > 1)
+            if (bf && (ai1 != "greedy" && ai2 != "greedy" || total_games > 1))
             {
                 throw new Exception($"-bf parameter works with -ai1=greedy, ai2=greedy and total_games=1");
             }

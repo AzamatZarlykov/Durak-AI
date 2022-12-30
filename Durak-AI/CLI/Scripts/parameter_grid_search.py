@@ -50,12 +50,12 @@ def run_mcts(param_buffer, keys, open_state):
 						change_parameter(command, False)
 						# run the command
 						print(" ".join(command))
-						subprocess.run(command)
+						subprocess.run(command, cwd="../")
 				else:
 					change_parameter(command, True)
 					# run the command
 					print(" ".join(command))
-					subprocess.run(command)
+					subprocess.run(command, cwd="../")
 
 
 
@@ -80,12 +80,12 @@ def run_minimax(param_buffer, keys, open_state):
 					command[2] =  ','.join(s)
 					# run the command
 					print(" ".join(command))
-					subprocess.run(command) 
+					subprocess.run(command, cwd="../") 
 			else:
 				command.append("-open_world")
 				# run the command
 				print(" ".join(command))
-				subprocess.run(command)
+				subprocess.run(command, cwd="../")
 
 def error_checking(agent_name, open_state, keys):
 	# check samples for open world
