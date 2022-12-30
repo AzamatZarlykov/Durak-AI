@@ -14,8 +14,7 @@ y = list(values.values())
 print(f"X: {x}")
 print(f"Y: {y}")
 
-# Create the plot
-plt.plot(x, y)
+plt.semilogy(x, y, base=10, marker='o')
 
 # Add a title and labels to the x and y axes
 plt.title('Sample Graph')
