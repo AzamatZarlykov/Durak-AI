@@ -29,7 +29,7 @@ def run_mcts(param_buffer, keys, open_state):
 			command[-1] = ','.join(s)
 			command.append("-open_world")
 		else:
-			s = command[-1].split(',')[:-2]
+			s = command[-1].split(',')[:-1]
 			s.append(f"samples={sample}")
 			s.append(f"limit={limit//sample}")
 			command[-1] =  ','.join(s)
@@ -37,7 +37,7 @@ def run_mcts(param_buffer, keys, open_state):
 	limits, cs, simulations = param_buffer[keys[0]], param_buffer[keys[1]], param_buffer[keys[2]]
 	opp, games = param_buffer["opponent"], param_buffer["total-games"]
 
-	for limit in range(limits[0], limits[1], limits[2]):
+	for limit in range(limits[0], limits[1] + limits[2], limits[2]):
 		for c in np.arange(float(cs[0]), float(cs[1]), float(cs[2])):
 			for simulation in simulations:
 				command = ["dotnet", "run", "-start_rank=6", "-config", f"-total_games={games}",
@@ -104,10 +104,10 @@ def error_checking(agent_name, open_state, keys):
 		raise Exception(f"not all parameters are specified in Minimax")
 
 def separate_results(name, param_buffer, keys):
-	if os.path.exists("ParamLogs/result.txt"):
+	if os.path.exists("../ParamLogs/result.txt"):
 		# instead of overwriting to a file, make a clear seperation 
 		# between the previous and current experiment
-		with open("ParamLogs/result.txt",'a') as f:
+		with open("../ParamLogs/result.txt",'a') as f:
 			f.write("\n===========================\n\n")
 
 def main(agent_name, agent_param, opponent, total_games, open_state):

@@ -32,8 +32,8 @@
 \contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{26}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Closed World Sampling}{29}{section.4.5}%
 \contentsline {chapter}{\numberline {5}Experiments}{32}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Title of the first subchapter of the second chapter}{32}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Title of the second subchapter of the second chapter}{32}{section.5.2}%
+\contentsline {section}{\numberline {5.1}Open world}{32}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Closed world}{32}{section.5.2}%
 \contentsline {chapter}{Conclusion}{33}{chapter*.22}%
 \contentsline {chapter}{Bibliography}{34}{chapter*.23}%
 \contentsline {chapter}{List of Figures}{35}{chapter*.24}%

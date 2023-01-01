@@ -19,7 +19,6 @@ namespace CLI
         private int[] gamesWon;
         private int[] totalMoves;
         private Stopwatch[] timers;
-        private long bfCount = 1;
         private int draws;
         private int bouts;
         private double movesPerBout;
@@ -29,6 +28,8 @@ namespace CLI
         private readonly Wilson wilson_score;
         private const int UPPER_BOUND = 50_000;
         private const int GAME_INCREASE = 500;
+
+        private StreamWriter? fwriter;
         public Controller(GameParameters gameParam) 
         {
             this.gParam = gameParam;
@@ -42,6 +43,21 @@ namespace CLI
             };
             this.agents = new List<Agent>();
             this.wilson_score = new Wilson();
+
+            if (gameParam.BF)
+            {
+                string dirpath = "ParamLogs";
+                Directory.CreateDirectory(dirpath);
+                FileStream fs = new FileStream(
+                    Path.Combine(dirpath, "bf.txt"), FileMode.Append, FileAccess.Write);
+                fwriter = new StreamWriter(stream: fs);
+            }
+        }
+
+        ~Controller()
+        {
+            if (gParam.BF)
+                fwriter!.Close();
         }
 
         private (double, double)[] GetWilsonScore()
@@ -68,14 +84,15 @@ namespace CLI
                 if (gParam.Config && i == 0)
                 {
                     // create a file to record the win results of the parameters of the first agent
-                    string dirpath = "CLI/ParamLogs";
+                    string dirpath = "ParamLogs";
                     string filename = "result.txt";
                     Directory.CreateDirectory(dirpath);
                     using (FileStream fs = new FileStream(
                         Path.Combine(dirpath, filename), FileMode.Append, FileAccess.Write))
                     using (StreamWriter writer = new StreamWriter(stream: fs))
                     {
-                        writer!.WriteLine($"{agents[i].GetName()}:{gamesWon[0]}");
+                        writer!.WriteLine($"{agents[i].GetName()}:{gamesWon[0]}:" +
+                        $"{((double)timers[i].ElapsedMilliseconds / totalMoves[i]):f4}");
                     }
                 }
                 Console.WriteLine($"Agent {i + 1} ({agents[i].GetName()}) won " +
@@ -271,22 +288,8 @@ namespace CLI
         private void BranchingFactor(Durak game) 
         {
             var options = game.PossibleMoves(excludePass: true);
-            int count = options.Count;
-            bfCount *= count;
-            Player a = game.GetPlayers()[game.GetAttackingPlayer()];
-            Player d = game.GetPlayers()[game.GetDefendingPlayer()];
-            // bout ends when the attacker passes
-            if (count == 1 && options[0] is null && !game.IsEndGame(a, d)) {
-                // create a file to record the win results of the parameters of the first agent
-                string dirpath = "CLI/ParamLogs";
-                Directory.CreateDirectory(dirpath);
-                using (FileStream fs = new FileStream(
-                    Path.Combine(dirpath, "bf.txt"), FileMode.Append, FileAccess.Write))
-                using (StreamWriter writer = new StreamWriter(stream: fs))
-                {
-                    writer!.Write($"{bfCount}:{game.GetBoutsCount()} ");
-                }
-            }
+
+            fwriter!.Write($"{options.Count} ");
         }
         
         public void Run(bool tournament = false)
@@ -315,10 +318,10 @@ namespace CLI
                     timers[turn].Start();
 
                     var gw = new GameView(game, turn);
-                    if (gParam.BF) 
-                    {
+
+                    if (gParam.BF)
                         BranchingFactor(game);
-                    }
+
                     Card? card = agents[turn].Move(gw);
 
                     if (!game.Move(card))
@@ -327,7 +330,10 @@ namespace CLI
                     timers[turn].Stop();
                 }
                 HandleEndGameResult(game, i);
+                if (gParam.BF)
+                    fwriter!.WriteLine();
             }
+            
             // no need to print the stats for tournament games
             if (tournament)
                 return;
