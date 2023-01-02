@@ -33,12 +33,15 @@
 \contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{28}{subsection.4.3.2}%
 \contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{29}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Closed World Sampling}{33}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Experiments}{37}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Open world}{37}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Closed world}{37}{section.5.2}%
-\contentsline {chapter}{Conclusion}{38}{chapter*.22}%
-\contentsline {chapter}{Bibliography}{39}{chapter*.23}%
-\contentsline {chapter}{List of Figures}{40}{chapter*.24}%
-\contentsline {chapter}{List of Tables}{41}{chapter*.25}%
-\contentsline {chapter}{List of Abbreviations}{42}{chapter*.26}%
-\contentsline {chapter}{\numberline {A}Attachments}{43}{appendix.A}%
+\contentsline {subsection}{\numberline {4.5.1}Parameter Specification}{34}{subsection.4.5.1}%
+\contentsline {subsubsection}{Minimax}{34}{section*.22}%
+\contentsline {subsubsection}{MCTS}{34}{section*.23}%
+\contentsline {chapter}{\numberline {5}Experiments}{38}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Open world}{38}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Closed world}{38}{section.5.2}%
+\contentsline {chapter}{Conclusion}{39}{chapter*.24}%
+\contentsline {chapter}{Bibliography}{40}{chapter*.25}%
+\contentsline {chapter}{List of Figures}{41}{chapter*.26}%
+\contentsline {chapter}{List of Tables}{42}{chapter*.27}%
+\contentsline {chapter}{List of Abbreviations}{43}{chapter*.28}%
+\contentsline {chapter}{\numberline {A}Attachments}{44}{appendix.A}%

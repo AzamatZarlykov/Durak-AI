@@ -12,6 +12,26 @@ mcts:iterations=800:C=1.41:simulation=greedy:956:99.9898 (BEST UNDER 100ms)
 mcts:iterations=900:C=1.41:simulation=greedy:944:126.2651
 mcts:iterations=1000:C=1.41:simulation=greedy:943:133.1405
 
+==========================
+(mcts:limit=[800/800/100],c=[0.6/2.4/0.2],simulations=[greedy] greedy 1000 open_world)
+mcts:iterations=800:C=0.60:simulation=greedy:952:105.5412
+mcts:iterations=800:C=0.80:simulation=greedy:956:106.2824
+mcts:iterations=800:C=1.00:simulation=greedy:958:95.4331 (BEST UNDER 100ms)
+mcts:iterations=800:C=1.20:simulation=greedy:951:93.4577
+mcts:iterations=800:C=1.40:simulation=greedy:950:93.4980
+mcts:iterations=800:C=1.60:simulation=greedy:939:93.9515
+mcts:iterations=800:C=1.80:simulation=greedy:941:114.1157
+mcts:iterations=800:C=2.00:simulation=greedy:933:182.7775
+mcts:iterations=800:C=2.20:simulation=greedy:929:141.9007
+
+===========================
+(mcts:limit=[800/800/100],c=[1.00/1.01/0.1],simulations=[greedy/random] greedy 1000 open_world)
+mcts:iterations=800:C=1.00:simulation=greedy:958:120.1823 (BEST UNDER ~100ms)
+mcts:iterations=800:C=1.00:simulation=random:738:202.7049
+
+
+MCTS OPEN WORLD PARAMS: limit=800,c=1.00,simulations=greedy
+
 ===========================
 (mcts:limit=[1000/2000/100],c=[1.41/1.42/0.1],simulations=[greedy],samples=[10/20/10] greedy 100)
 mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:223.9009
@@ -25,4 +45,13 @@ mcts:iterations=170:C=1.41:simulation=greedy:samples=10:75:239.0509
 mcts:iterations=180:C=1.41:simulation=greedy:samples=10:76:243.2876
 mcts:iterations=190:C=1.41:simulation=greedy:samples=10:74:282.1850
 mcts:iterations=200:C=1.41:simulation=greedy:samples=10:79:269.1116
-mcts:iterations=800:C=0.60:simulation=greedy:952:105.5412
+===========================
+
+minimax:depth=2:heuristic=playout:626:0.8021
+minimax:depth=4:heuristic=playout:498:5.7641
+minimax:depth=6:heuristic=playout:478:21.6235
+minimax:depth=8:heuristic=playout:550:57.7265
+
+===========================
+
+minimax:depth=10:heuristic=playout:610:160.4083

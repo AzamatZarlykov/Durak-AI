@@ -35,7 +35,7 @@ The aforementioned components will be further discussed in the following subsect
 
 \subsection{Model}
 
-The game model, which represents the current state of the game, is implemented using object-oriented programming principles. As it was mentioned before, the game logic for Durak is contained within the \textbf{Model} C\# library, which serves as a modular and reusable unit. It includes class objects, such as Player, Card, and Deck, as well as all of the other main components that make up the game each of which is equipped with the necessary methods to support the game's functionality. These objects and their methods are designed to reflect the key components and features described in the game description.
+The game model, which represents the current state of the game, is implemented using object-oriented programming principles. As was mentioned before, the game logic for Durak is contained within the \textbf{Model} C\# library, which serves as a modular and reusable unit. It includes class objects, such as Player, Card, and Deck, as well as all of the other main components that make up the game. 
 
 \begin{figure}[h]
     \centering
@@ -46,6 +46,8 @@ The game model, which represents the current state of the game, is implemented u
 \end{figure}
 
 Before delving into the description of the game state and components of Durak, it is useful to first consider the relationship of all of the objects in the model to that state. A class diagram illustrating the relationships between the objects in the model can be found in Figure \ref{fig:modelUML}.
+
+The Deck object includes the property \texttt{rankStart}, which is an integer value that can be modified from the command-line to alter the starting rank of the cards in the deck. By default, the \texttt{rankStart} is set to 6, but it can be changed to any value between 6 and 14. For instance, if the \texttt{rankStart} is set to 13, the deck will only consist of 8 cards: 4 Aces (rank value 14) and 4 Kings (rank value 13). 
 
 The representation of the game state \texttt{Durak} in the model is a key aspect of the overall system. This representation holds all of the necessary information and logic required to play the game of Durak, shown in Figure \ref{fig:codeDurak}, and therefore plays a central role in the functioning of the model. As such, it is important to carefully consider the design and implementation of the game state representation along with its components. 
 
@@ -72,7 +74,7 @@ private List<Player> players = new List<Player>();
 \label{fig:codeDurak}
 \end{figure}
 
-The object in question serves as a comprehensive representation of all game states and data throughout a single game of Durak. Because of that it is utilized to communicate this information to other components within the system, such as the command-line interface (CLI) or artificial intelligence (AI) scripts. To facilitate communication and coordination between the Durak model and the agents that interact with it, the game state provides two primary functions: \texttt{PossibleMoves}, shown in Figure \ref{fig:codePossibleMoves} and \texttt{Move}, shown in Figure \ref{fig:codeMove}. These functions serve as the primary means through which changes can be made to the game state, and as such, play a crucial role in the overall operation of the model. 
+The object in question serves as a comprehensive representation of all game states and data throughout a single game of Durak. To facilitate communication and coordination between the Durak model and the agents that interact with it, the game state provides two primary functions: \texttt{PossibleMoves}, shown in Figure \ref{fig:codePossibleMoves} and \texttt{Move}, shown in Figure \ref{fig:codeMove}. These functions serve as the primary means of interaction between agents and the game state, and as such, play a crucial role in the overall operation of the model. 
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
@@ -100,13 +102,15 @@ else {
 \label{fig:codePossibleMoves}
 \end{figure}
 
-The \texttt{PossibleMoves} method determines the list of actions that are available to the current player based on the current game state and the rules of the game. When it is the attacker's turn, the method considers the rules for attacking (details in section \ref{attackconditions}) and generates a list of eligible cards that can be played or allows the player to pass if no suitable cards are available. Similarly, when it is the defender's turn (details in section \ref{BeatingRule}), the method takes into account the card being attacked and generates a list of cards that can be played to defend or offers the option to take the attack if no suitable defense is available. This enables the method to adapt to the specific circumstances of the game and provide appropriate options for the current player to make a move.
-
-The \texttt{Move} method modifies the current game state by executing the action chosen by the current player. This move is selected by the agent, which performs calculations based on the possible moves generated by the \texttt{PossibleMoves} method. The specific nature of these calculations depends on the type of agent being used. For example, a rule-based agent may simply select the lowest value rank card, while a more sophisticated agent, such Monte-Carlo Tree Search (MCTS), may use more complex decision-making processes to determine the optimal move to make. Regardless of the type of agent being used, the \texttt{Move} method ultimately updates the game state to reflect the chosen action and advances the game to the next turn.
+The \texttt{PossibleMoves} method determines the list of actions that are available to the current player based on the current game state and the rules of the game. When it is the attacker's turn, the method considers the rules for attacking (details in section \ref{attackconditions}) and generates a list of eligible cards that can be played or allows the player to pass if no suitable cards are available. Similarly, when it is the defender's turn (details in section \ref{BeatingRule}), the method takes into account the card being attacked and generates a list of cards that can be played to defend or offers the option to take the attack if no suitable defense is available. Because of that the \texttt{PossibleMove} function returns \texttt{List<Card?>} type. If there are possible moves that can be made in the current state, the function returns a list of the available cards to play. If no moves can be made, the function returns a list containing a single \texttt{null} element, which indicates that the current player must pass or take the card or cards from the bout, depending on the current turn. It should be noted that the example provided in Figure \ref{fig:codePossibleMoves} is a simplified version that omits certain implementation details, such as the process of adding elements to the list. 
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
+// check if move is valid
+if (!ValidAction(card, attacker, defender)) 
+	return false;
+	
 if (turn == Turn.Attacking){
 	// the attacker played a card	
 	if (card is not null) {
@@ -114,7 +118,7 @@ if (turn == Turn.Attacking){
 		bout.AddCard(card);
 	} else {
 		bout.RemoveCards();
-		return;
+		return true;
 	}
 }
 else {
@@ -124,24 +128,28 @@ else {
 		bout.AddCard(card);
 	} else {
 		FillPlayerHand(bout.GetEverything(), defender)
-		return;
+		return true;
 	}	
 }
 turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
+return true;
 \end{lstlisting}
 \caption{A simplified overview of the Move method inside the Durak class}
 \label{fig:codeMove}
 \end{figure}
 
-Additionally, it is important to note that, for security purposes, the agents are not provided with the entire \texttt{Durak} object. Instead, they are given access to a \texttt{GameView} class representation, which allows them to obtain essential information about the current game state and make changes through the methods outlined in Figures \ref{fig:codePossibleMoves} and \ref{fig:codeMove}. This approach ensures that the agents are not able to manipulate the game in an unauthorized manner.
+The \texttt{Move} method modifies the current game state by executing the action chosen by the current player. This move is selected by the agent, which performs calculations based on the possible moves generated by the \texttt{PossibleMoves} method. The specific nature of these calculations depends on the type of agent being used. For example, a rule-based agent may simply select the lowest value rank card, while a more sophisticated agent, such Monte-Carlo Tree Search (MCTS), may use more complex decision-making processes to determine the optimal move to make. Regardless of the type of agent being used, the \texttt{Move} method ultimately updates the game state to reflect the chosen action and advances the game to the next turn. To implement the desired changes, the \texttt{Move} method accepts a parameter of type \texttt{Card?}. This parameter represents the move made by the agent, which can be a card play (type \texttt{Card}), or a pass or draw (type \texttt{null}), depending on the role of the agent. Also, it is worth noting that the Move method returns a boolean value. In order to prevent invalid moves, the method verifies the validity of the intended action before making any changes. If the action is deemed valid, the method returns true; otherwise, it returns false.
 
+Additionally, it is important to note that, for efficiency and security purposes, the agents are not provided with the entire \texttt{Durak} object. One reason is that the Durak class contains a large amount of data and methods that are not relevant to the agents' decision-making process. By providing a smaller class such as \texttt{GameView} that only includes the necessary information, such as methods outlined in Figures \ref{fig:codePossibleMoves} and \ref{fig:codeMove}, the agents can more efficiently access the information they need and ignore the rest. Another reason is that the Durak class contains sensitive or proprietary information that should not be shared with the agents. By using a smaller class such as \texttt{GameView} to provide the necessary information, it is possible to control what information is exposed to the agents and protect any sensitive data.
+
+Other than \texttt{PossibleMoves} and \texttt{Move} methods, the \texttt{Copy} method is an important feature of the GameView object worth mentioning. This method creates a duplicate of the current game state, which is useful for game tree exploration by agents such as Minimax and MCTS, due to their need to examine multiple potential moves and outcomes. For further information on the use of the Copy() method in Minimax and MCTS, please refer to section \ref{minimax} and \ref{MCTS} of the text.
 
 \subsection{CLI}
 \label{CLI}
 
-The command-line interface (CLI) plays a crucial role in the architecture of the application. Through the CLI, the user can interact with the application using a text-based interface, providing parameters and receiving feedback or results. The CLI enables a range of experimental and testing scenarios, including the ability to conduct playouts between different agents within a customizable game environment that can be modified by altering various parameters. The flexibility and versatility of the CLI is crucial for exploring the capabilities of the system and evaluating the performance of the AI agents. In this chapter, we will examine the various parameters that can be used to manipulate the behavior of the agents and the game environment through the CLI. This will provide insight into the capabilities of the system and enable a more thorough evaluation of the AI agents' performance.
+The command-line interface (CLI) plays a crucial role in the architecture of the application. Through the CLI, the user can interact with the application using a text-based interface, providing parameters and receiving feedback or results. The CLI enables a range of experimental and testing scenarios, including the ability to conduct playouts between different agents within a customizable game environment that can be modified by altering various parameters. In this section, we will examine the various parameters that can be used to manipulate the behavior of the agents and the game environment through the CLI.
 
-Before discussing the organizational structure of the project, it is important to introduce the parameters and their roles within the project (Please refer to Figure \ref{fig:parameters}). This will facilitate a better understanding of the various components and how they interact with one another. 
+Before discussing the organizational structure of the project, it is important to introduce the parameters and their roles within the project (please refer to Table \ref{paramsTable}).
 
 \begin{table}
 \captionsetup{justification=centering}
@@ -151,45 +159,50 @@ Before discussing the organizational structure of the project, it is important t
   \hline
    Parameter & Description \\
   \hline
-  -ai1 & The agent for player 1. (String)(Default = random) \\ 
+  -ai1 & The agent for player 1. (String) (Default = random) \\ 
   \hline
-  -ai2 & The agent for player 2. (String)(Default = random) \\ 
+  -ai2 & The agent for player 2. (String) (Default = random) \\ 
   \hline
-  -config & Used for grid search parameter configuration.(Default = False) \\ 
+  -d1 & Displays \# of states \& depth for minimax move (Default = False) \\ 
   \hline
-  -d1 & Displays \# of states \& depth for minimax move(Default = False) \\ 
+  -d2 & Displays all the moves that minimax considers (Default = False) \\ 
   \hline
-  -d2 & Displays all the moves that minimax considers(Default = False) \\ 
+  -include\_trumps & Enable trump cards in the game (Default = True) \\ 
   \hline
-  -include\_trumps & Enable trump cards in the game(Default = True) \\ 
+  -log & Enable logs for writing in the file (Default = False) \\ 
   \hline
-  -log & Enable logs for writing in the file(Default = False) \\ 
+  -open\_world & Make all cards visible to both players (Default = False) \\ 
   \hline
-  -open\_world & Make all cards visible to both players(Default = False) \\ 
+  -seed & A seed for random number generation (Int32) \\ 
   \hline
-  -seed & A seed for random number generation(Int32) \\ 
+  -start\_rank & The starting rank of cards in the deck (Int32)(Default = 6) \\ 
   \hline
-  -start\_rank & The starting rank of cards in the deck(Int32)(Default = 6) \\ 
-  \hline
-  -total\_games & The number of games to play(Int32)(Default = 1000) \\ 
+  -total\_games & The number of games to play (Int32)(Default = 1000) \\ 
   \hline
   -tournament & Runs the tournament with the agents specified. \\ 
   \hline
-  -verbose & Enable verbose output(Default = False) \\ 
-  \hline
-  
+  -verbose & Enable verbose output (Default = False) \\ 
+
 \end{tabular}}
 \end{center}
-\caption{\label{paramsTable} A text-based 'Help' statement that describes the parameters that can be used}
+\caption{\label{paramsTable} Command-line parameters}
 \end{table}
 
-There are various ways to utilize the aforementioned parameters. An example of using the default settings to run a game between RandomAI agent(random) and GreedyAI agent(greedy) is provided below. Note that the user can select different agents as well:
+The \texttt{-open\_world} parameter plays a key role in determining the level of information available to players in the game. If the \texttt{-open\_world} parameter is present, the game environment is fully visible to all players, including the cards in the deck and the cards in players' hands. This results in a perfect information environment, where all players have access to the same information. By comparing agents in this type of environment, it is possible to identify the most effective one. On the other hand, if the \texttt{-open\_world} parameter is not present, the game environment is not fully visible to all players, resulting in an imperfect information environment where players may not have complete knowledge of the game state
+
+The \texttt{-tournament} parameter allows for the specified agents to engage in a series of games, the results of which are recorded in a CSV file. The game settings for the tournament can be customized when the \texttt{-tournament} parameter is included. These settings will be applied to all games played between the agents. However, if the results of the games between two agents do not show a significant difference according to Wilson's score, the number of games will be increased by 500 and the tournament will be restarted for two equally strong agents in order to ensure that the best player can be accurately determined. There is an upper limit on the number of games that can be played in cases where the agents are evenly matched and unable to produce a clear winner. In such situations, the agents will be listed in a separate table within the CSV file. An example of how to initiate a tournament between the Random, Greedy, and Smart agents is provided below:
 
 \begin{lstlisting}
-$ dotnet run --project CLI -ai1=random -ai2=greedy
+$ dotnet run -tournament="random,greedy,smart" -total_games=100
 \end{lstlisting}
 
-This command initiates the simulation of 1000 games between the RandomAI and GreedyAI agents in a fully enclosed environment (with a starting rank of 6) and provides the following output to the console:
+There are various ways to utilize the parameters in Table \ref{paramsTable}. An example of using the default settings to run a game between RandomAI agent(random) and GreedyAI agent(greedy) is provided below.
+
+\begin{lstlisting}
+$ dotnet run -ai1=random -ai2=greedy
+\end{lstlisting}
+
+This command initiates the simulation of 1000 games between the RandomAI and GreedyAI agents in a fully enclosed environment, where players can only see their own cards and not those of other players, (with a starting rank of 6) and provides the following output to the console:
 
 \begin{lstlisting}
 ==== RUNNING ====
@@ -202,14 +215,14 @@ Game 5: Agent 2 (greedy) won. Total bouts: 18
 ...
 \end{lstlisting}
 
-To more thoroughly analyze the results of the specific game, \texttt{seed} with the game id and the \texttt{-verbose}  parameters may be utilized. This provides detailed information about the progression of the game by showing every possible move, the chosen move and other game related details. An example of the first game in which a RandomAI agent defeats a GreedyAI agent using this parameter is shown below:
+To more thoroughly analyze the results of any specific game, \texttt{seed} with the game id and the \texttt{-verbose}  parameters may be utilized. This provides detailed information about the progression of the game by showing every possible move, the chosen move and other game related details. An example of the first game in which a RandomAI agent defeats a GreedyAI agent using this parameter is shown below:
 
 
 \begin{lstlisting}
-$ dotnet run --project CLI -ai1=random -ai2=greedy -verbose -seed=1
+$ dotnet run -ai1=random -ai2=greedy -verbose -seed=1
 \end{lstlisting}
 
-The command above generates a verbose output, as shown below. It should be noted that this is only a portion of the full output and the blue colored suits are the indications of the trump suit.
+The command above generates verbose output, as shown below. It should be noted that this is only a portion of the full output and the blue colored suits are the indications of the trump suit.
 
 \begin{lstlisting}
 ==== START ====
@@ -242,12 +255,14 @@ Defending cards: Q(*@$\textcolor{black}{\spadesuit}$@*)
 ...
 \end{lstlisting}
 
-Upon completion of an experiment, the program presents statistical analysis on all simulations conducted using the specified game and agent configuration. This analysis includes various metrics, such as the average number of rounds played per game, the average number of moves made per bout, the average time taken per move by each agent, the win rate, and the \textbf{Wilson confidence interval} between the two agents.
+Reproducibility is a critical aspect of scientific experimentation. In this context, reproducibility refers to the ability to obtain the same results by running the program with the same command line parameters. To ensure reproducibility, the program assigns a unique identifier to each game, which serves as a seed for the random number generator that deals cards to players. This allows testing  different agents in a controlled and consistent environment, facilitating comparison of performance and error detection.
+
+Upon completion of an experiment, the program presents statistical analysis on all simulations conducted using the specified game and agent configuration. This analysis includes various metrics, such as the average number of rounds played per game, the average number of plies made per bout, the average time taken per ply by each agent, the win rate, and the \textbf{Wilson confidence interval} between the two agents.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-$ dotnet run --project CLI -ai1=greedy -ai2=random -open_world -total_games=1000 
+$ dotnet run -ai1=greedy -ai2=random -open_world -total_games=1000 
 			-start_rank=6 -include trumps
 ...
 
@@ -271,50 +286,22 @@ With 98% confidence, Agent 2 (random) wins between 6.2% and 10.2%
 \label{fig:statistics}
 \end{figure}
 
-I chose Wilson's confidence interval in order to assess the statistical significance of the observed difference in win rates between the two players. By using this measure, it was possible to determine whether the observed difference in win rates was likely to be a true reflection of the relative abilities of the players, or whether it may have occurred by chance. Overall, the statistical data generated from the simulations was useful for identifying potential errors and for optimizing the strategies for the rule-based agents. As an example, the figure \ref{fig:statistics}  presents the statistical result of a simulation comparing the performance of greedy and random agents in a full open-world game.
+I chose Wilson's confidence interval in order to assess the statistical significance of the observed difference in win rates between the two players. By using this measure, we may determine whether the observed difference in win rates was likely to be a true reflection of the relative abilities of the players, or whether it may have occurred by chance \citep{moore_mccabe_craig_2017}. Overall, the statistical data generated from the simulations was useful for identifying potential errors and for optimizing the strategies for the rule-based agents. As an example, Figure \ref{fig:statistics}  presents the statistical result of a simulation comparing the performance of greedy and random agents in a full open-world game.
 
-Other than that, it is important to consider that when utilizing certain advanced agents, such as Monte-Carlo Tree Search (MCTS) and Minimax, it is necessary to specify their respective parameters in order to effectively utilize their capabilities. 
-
-In the context of the Minimax algorithm, it is necessary to specify the value of the \texttt{depth} parameter, which determines the depth to which the search tree will be explored in order to identify the optimal move. In addition to the depth parameter, it is also necessary to specify the \texttt{eval} parameter, which specifies the heuristic function used to evaluate the state when the maximum depth has been reached. The \texttt{eval} parameter can take on either the value \texttt{basic} or \texttt{playout} (additional information on these parameters can be found in Section \ref{minimax}). It is worth noting that, in a closed world scenario, the \texttt{samples} parameter is optional and has a default value of 20. The \texttt{samples} parameter serves to prevent agents such as Minimax and MCTS from cheating by accessing information about future states of the game (details in Section \ref{AIAgents}). This illustration presents an example of a simulation between the Minimax and greedy agents with arbitrary parameter values in the open and closed world:\\
-
-\textbf{Open-world: }
-\begin{lstlisting}
-dotnet run --project CLI -ai1=minimax:depth=4,eval=basic -ai2=greedy -open_world
-\end{lstlisting}
-
-\textbf{Closed-world: }
-\begin{lstlisting}
-dotnet run --project CLI -ai1=minimax:depth=6,eval=basic,samples=15 -ai2=smart
-\end{lstlisting}
-
-Regarding MCTS, it is necessary to specify the value of the \texttt{limit} parameter, which determines the computational budget allocated for the algorithm to build the search tree. The search is halted and the best-performing root action is returned once this budget is reached. The \texttt{c}, which is called exploration constant, parameter also needs to be specified because it determines the balance between exploitation and exploration in the UCB equation (detailed information is provided in Section \ref{MCTS}). This parameter is set to a default value of  $\sqrt{2}$ ($\approx 1.41$) and can be adjusted to fine-tune the performance of the algorithm. The \texttt{simulation} parameter should also be specified, indicating whether to use a smart simulation (\texttt{greedy}) or a random simulation (\texttt{random}). Lastly, in a closed world setting, just like in Minimax, it is necessary to specify the \texttt{samples} parameter to prevent the MCTS agent from cheating by considering future states of the game. This example demonstrates a simulation between MCTS and greedy agents with arbitrary parameter values in open and closed world settings: \\
-
-\textbf{Open-world: }
-\begin{lstlisting}
-dotnet run --project CLI -ai1=mcts:limit=100,simulation=greedy -ai2=greedy 
-							-open_world
-\end{lstlisting}
-
-\textbf{Closed-world: }
-\begin{lstlisting}
-dotnet run --project CLI -ai1=mcts:limit=100,simulation=greedy,samples=10 
-							-ai2=greedy
-\end{lstlisting}
-
-
+Other than that, it is important to consider that when utilizing certain advanced agents, such as Monte-Carlo Tree Search (MCTS) and Minimax, it is necessary to specify their respective parameters in order to effectively utilize their capabilities. Those parameters will be discussed in Section \ref{paramSpecification}.
 
 \subsection{Agent}
 
-The Agent library is a collection of artificial intelligence (AI) agents that are utilized in the experiment. The agents included in this library are: Random, Greedy, Smart, Minimax, and MCTS. The functionality and implementation of these agents will be elaborated upon in the subsequent chapter. In this section, focus on the overall structure and organization of the Agent library is placed.
+The Agent library is a collection of artificial intelligence agents that are utilized in the experiment. The agents included in this library are: Random, Greedy, Smart, Minimax, and MCTS. The functionality and implementation of these agents will be elaborated upon in the next chapter. This section describes the overall structure and organization of the Agent library.
 
-The abstract class \texttt{Agent} represents a common interface for all agents, enabling them to make a move based on a given set of options. This is achieved through the implementation of a abstract method called \texttt{Move}. A visual representation of the abstract class \texttt{Agent} is provided in Figure \ref{fig:abstractClass}.
+The abstract class \texttt{Agent} represents a common interface for all agents. By implementing the abstract method \texttt{Move} inside the \texttt{Agent} abstract class, the agents are able to make a move inside the game given the set of possible options or moves. A visual representation of the abstract class \texttt{Agent} is provided in Figure \ref{fig:abstractClass}.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
 public abstract class Agent
 {
-    	public string ?name;
+    	public string? name;
 	public string? GetName() => name;
     	public abstract Card? Move(GameView gameView);
 }
