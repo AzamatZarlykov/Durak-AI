@@ -29,7 +29,8 @@ namespace CLI
         private const int UPPER_BOUND = 50_000;
         private const int GAME_INCREASE = 500;
 
-        private StreamWriter? fwriter;
+        private List<double> bfactor = new List<double>();
+        private List<int> plies = new List<int>();
         public Controller(GameParameters gameParam) 
         {
             this.gParam = gameParam;
@@ -43,21 +44,6 @@ namespace CLI
             };
             this.agents = new List<Agent>();
             this.wilson_score = new Wilson();
-
-            if (gameParam.BF)
-            {
-                string dirpath = "ParamLogs";
-                Directory.CreateDirectory(dirpath);
-                FileStream fs = new FileStream(
-                    Path.Combine(dirpath, "bf.txt"), FileMode.Append, FileAccess.Write);
-                fwriter = new StreamWriter(stream: fs);
-            }
-        }
-
-        ~Controller()
-        {
-            if (gParam.BF)
-                fwriter!.Close();
         }
 
         private (double, double)[] GetWilsonScore()
@@ -102,6 +88,21 @@ namespace CLI
             Console.WriteLine();
         }
 
+        private double GeometricMean()
+        {
+            // Convert each number to its logarithm
+            double[] logNumbers = bfactor.Select(x => Math.Log(x)).ToArray();
+
+            // Sum up the logarithms
+            double sum = logNumbers.Sum();
+
+            // Divide the sum by the number of numbers to get the mean logarithm
+            double meanLog = sum / bfactor.Count;
+
+            // Convert the mean logarithm back to its original scale
+            return Math.Exp(meanLog);
+        }
+
         private void PrintStatistics()
         {
             int total_games = gParam.NumberOfGames;
@@ -110,9 +111,14 @@ namespace CLI
             Console.WriteLine("Total games played: {0}\n", total_games);
             Console.WriteLine($"Average bouts played over the game: " +
                 $"{((double)bouts / total_games):f1}");
+            Console.WriteLine($"Average plies per bout over the game: " +
+                $"{(movesPerBout / total_games):f1}");
+            Console.WriteLine($"Average plies played over the game: " +
+                $"{(plies.Sum() / total_games):f1}");
 
-            Console.WriteLine($"Average moves per bout over the game: " +
-                $"{(movesPerBout / total_games):f1}\n");
+            if (gParam.BF)
+                Console.WriteLine($"Average branching factor " +
+                    $"(computed using the geometric mean:) was {GeometricMean():f2}\n");
 
             for (int i = 0; i < timers.Count(); i++)
             {
@@ -142,6 +148,7 @@ namespace CLI
             int bout = game.GetBoutsCount();
             int result = game.GetGameResult();
             double mpb = game.GetMovesPerBout();
+            plies.Add(game.GetMovesCount());
 
             Console.Write("Game " + gameIndex + ": ");
 
@@ -285,13 +292,6 @@ namespace CLI
             }
         }
 
-        private void BranchingFactor(Durak game) 
-        {
-            var options = game.PossibleMoves(excludePass: true);
-
-            fwriter!.Write($"{options.Count} ");
-        }
-        
         public void Run(bool tournament = false)
         {
             int i = gParam.Seed == 0 ? 1 : gParam.Seed;
@@ -317,12 +317,10 @@ namespace CLI
                     totalMoves[turn]++;
                     timers[turn].Start();
 
-                    var gw = new GameView(game, turn);
-
                     if (gParam.BF)
-                        BranchingFactor(game);
+                        bfactor.Add(game.PossibleMoves(excludePass: true).Count);
 
-                    Card? card = agents[turn].Move(gw);
+                    Card? card = agents[turn].Move(new GameView(game, turn));
 
                     if (!game.Move(card))
                         throw new Exception("Illegal Move");
@@ -330,8 +328,6 @@ namespace CLI
                     timers[turn].Stop();
                 }
                 HandleEndGameResult(game, i);
-                if (gParam.BF)
-                    fwriter!.WriteLine();
             }
             
             // no need to print the stats for tournament games

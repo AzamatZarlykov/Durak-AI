@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -49,5 +49,17 @@ P.~Norvig S.~Russell.
 \newblock \emph{Artificial Intelligence A Modern Approach Fourth Edition}.
 \newblock Pearson, 2020.
 \newblock ISBN 0-13-461099-7.
+
+\bibitem[Silver et~al.(2016)Silver, Huang, Maddison, Guez, Sifre, van~den
+  Driessche, Schrittwieser, Antonoglou, Panneershelvam, Lanctot, Dieleman,
+  Grewe, Nham, Kalchbrenner, Sutskever, Lillicrap, Leach, Kavukcuoglu, Graepel,
+  and Hassabis]{Silver2016MasteringTG}
+David Silver, Aja Huang, Chris~J. Maddison, Arthur Guez, L.~Sifre, George
+  van~den Driessche, Julian Schrittwieser, Ioannis Antonoglou, Vedavyas
+  Panneershelvam, Marc Lanctot, Sander Dieleman, Dominik Grewe, John Nham, Nal
+  Kalchbrenner, Ilya Sutskever, Timothy~P. Lillicrap, Madeleine Leach, Koray
+  Kavukcuoglu, Thore Graepel, and Demis Hassabis.
+\newblock Mastering the game of go with deep neural networks and tree search.
+\newblock \emph{Nature}, 529:\penalty0 484--489, 2016.
 
 \end{thebibliography}

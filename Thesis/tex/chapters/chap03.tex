@@ -1,33 +1,33 @@
 \chapter{Game and AI Implementation}
 
-The primary objective of this study is to design and develop a framework for the implementation and evaluation of artificial intelligence (AI) agents in Durak. Since framework in this game is tailored to support the application and evaluation of AI algorithms within the game environment, the focus of this chapter is to provide a high-level overview of the framework's architecture, including its capabilities for supporting the development and evaluation of AI agents for Durak.
-
-%%%A more in-depth analysis of the implementation and functionality of the game model can be found in section \ref{devdoc} of the developer documentation, as well as in the user documentation provided in section \ref{userdoc}. These sections provide comprehensive information on the design and implementation of the game model, as well as its capabilities and usage for both developers and end users.
+The primary objective of this study is to design and develop a framework for the implementation and evaluation of artificial intelligence (AI) agents in Durak. Since the framework in this game is tailored to support the application and evaluation of AI algorithms within the game environment, the focus of this chapter is to provide a high-level overview of the framework's architecture, including its capabilities for supporting the development and evaluation of AI agents for Durak.
 
 \section{OS support}
 
-The game framework for Durak was tested on both Windows 10 and Linux operating systems to confirm compatibility and functionality. While this list is not exhaustive, and the framework may potentially run on other operating systems, these are the only ones that were formally tested. It is possible that the framework will operate correctly on other platforms, but this has not been verified.
+I tested the game framework for Durak on both the Windows 10 and Linux operating systems to confirm compatibility and functionality. While this list is not exhaustive, and the framework may potentially run on other operating systems, these are the only ones that were formally tested.
 
 \section{A High-Level View of the Framework}
 
-The Durak AI framework includes a game model, AI agents, and a Command-Line Interface (CLI) that are implemented using the C\# programming language and targeted for the .NET Core 6 platform. C\# was selected as the programming language for the implementation of aforementioned projects in Durak due to its suitability for writing back-end systems. The language offers a range of reliable libraries and benefits from a highly optimized Just-In-Time (JIT) compiler, resulting in enhanced speed. These attributes made C\# an ideal choice for this development.
+The Durak AI framework includes a game model, AI agents, and a command-line interface (CLI) that are implemented using the C\# programming language and targeted for the .NET 6 platform. C\# was selected as the programming language for the implementation of aforementioned projects in Durak. The language offers benefits from a highly optimized Just-In-Time (JIT) compiler, resulting in enhanced speed. This attribute made C\# an ideal choice for this development.
 
-In order to run and test the program, the project has to be cloned from the repository and opened with an Integrated Development Environment (IDE) of user's choice. From the root directory of the project, the user can utilize the command line to enter the command 
+In order to run and test the program, the project has to be cloned from the repository . The source code for the project is available on \underline{\href{https://github.com/AzamatZarlykov/Durak-AI}{GitHub}}. From the CLI directory of the project, the user can use the command line to enter the following command: 
 \begin{lstlisting}
-$ dotnet run --project CLI
+$ dotnet run
 \end{lstlisting}
-, which will launch the Command-Line Interface (CLI) and provide guidance on how to proceed with experimentation. The CLI will provide further instructions on how to use and test the program (for additional information, please refer to Section \ref{CLI}.).
+This will launch the command-line interface and provide guidance on how to proceed with experimentation (for additional information, please refer to Section \ref{CLI}).
+
+An analysis of the source code using Visual Studio's Calculate Code Metrics for Solution feature revealed that the solution consists of a total of 3034 lines of source code. This includes 993 lines in the Agent project, 757 lines in the CLI project, and 1284 lines in the game model.
 
 \subsection{Project Structure}
 The game Durak is organized within a solution file, with the file extension ``.sln'', which is a type of file used to manage projects in Visual Studio. This solution includes three individual projects: 
 
 \begin{itemize}
 
-\item Model - A C\# library project contains the game logic for Durak.
+\item Model - A C\# library project that contains the game logic for Durak.
 
-\item Agent - A C\# library contains all of the implemented AI agents.
+\item Agent - A C\# library that contains all of the implemented AI agents.
 
-\item CLI - A C\# Command-Line Interface (CLI) project includes parameters for modifying the game model and agents settings in order to perform experiments.
+\item CLI - A C\# Command-Line Interface (CLI) project that includes parameters for modifying the game model and agents settings in order to perform experiments.
 
 The aforementioned components will be further discussed in the following subsections.
 
@@ -51,7 +51,6 @@ The representation of the game state \texttt{Durak} in the model is a key aspect
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\lstset{basicstyle=\ttfamily\scriptsize}
 \begin{lstlisting}
 // Bout object of the game
 private Bout bout;
@@ -77,11 +76,10 @@ The object in question serves as a comprehensive representation of all game stat
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
-\lstset{basicstyle=\ttfamily\scriptsize}
 \begin{lstlisting}
 
 if (turn == Turn.Attacking){
-	if (CanAttack() && OpponentCanFitMoreCards()) {
+    	if (CanAttack() && OpponentCanFitMoreCards()) {
 		return GenerateListOfAttackingCards();
 	} else {
 		// passing the attack
@@ -273,7 +271,7 @@ With 98% confidence, Agent 2 (random) wins between 6.2% and 10.2%
 \label{fig:statistics}
 \end{figure}
 
-Wilson's confidence interval was chosen in order to assess the statistical significance of the observed difference in win rates between the two players. By using this measure, it was possible to determine whether the observed difference in win rates was likely to be a true reflection of the relative abilities of the players, or whether it may have occurred by chance. Overall, the statistical data generated from the simulations was useful for identifying potential errors and for optimizing the strategies for the rule-based agents. As an example, the figure \ref{fig:statistics}  presents the statistical result of a simulation comparing the performance of greedy and random agents in a full open-world game.
+I chose Wilson's confidence interval in order to assess the statistical significance of the observed difference in win rates between the two players. By using this measure, it was possible to determine whether the observed difference in win rates was likely to be a true reflection of the relative abilities of the players, or whether it may have occurred by chance. Overall, the statistical data generated from the simulations was useful for identifying potential errors and for optimizing the strategies for the rule-based agents. As an example, the figure \ref{fig:statistics}  presents the statistical result of a simulation comparing the performance of greedy and random agents in a full open-world game.
 
 Other than that, it is important to consider that when utilizing certain advanced agents, such as Monte-Carlo Tree Search (MCTS) and Minimax, it is necessary to specify their respective parameters in order to effectively utilize their capabilities. 
 
@@ -316,7 +314,7 @@ The abstract class \texttt{Agent} represents a common interface for all agents, 
 \begin{lstlisting}
 public abstract class Agent
 {
-	public string ?name;
+    	public string ?name;
 	public string? GetName() => name;
     	public abstract Card? Move(GameView gameView);
 }
@@ -325,4 +323,4 @@ public abstract class Agent
 \label{fig:abstractClass}
 \end{figure}
 
-As an example, the behavior of a Random agent, which selects a move from the list of possible moves at random, can be examined. This process is demonstrated in Figure \ref{fig:randomMove}. The Move method of the Random agent is responsible for implementing this behavior. The figure illustrates the process of overriding the abstract Move method in order to modify the behavior of the function based on the random nature. This process is followed for all agents that must implement this method, resulting in diverse behaviors depending on the agent in question.
+As an example, we can examine the behavior of a Random agent, which selects a move from the list of possible moves at random, can be examined. This process is demonstrated in Figure \ref{fig:randomMove}. The Move method of the Random agent is responsible for implementing this behavior. The figure illustrates the process of overriding the abstract Move method in order to modify the behavior of the function based on the random nature. This process is followed for all agents that must implement this method, resulting in diverse behaviors depending on the agent in question.

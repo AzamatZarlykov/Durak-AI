@@ -71,7 +71,8 @@ namespace Model.DurakWrapper
         public bool GetTake() => defenderTakes;
         public bool GetIsDraw() => isDraw;
         public int GetBoutsCount() => bouts;
-        public double GetMovesPerBout() => (double)moves / bouts;
+        public double GetMovesPerBout() => (double)GetMovesCount() / bouts;
+        public int GetMovesCount() => moves;
         public List<Card> GetPlayersHand(int playerIndex) => players[playerIndex].GetHand();
         public int GetTurn() => turn == Turn.Attacking ? attackingPlayer : GetDefendingPlayer();
         public int GetNextTurn() => turn == Turn.Attacking ? GetDefendingPlayer() : attackingPlayer;

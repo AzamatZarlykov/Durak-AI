@@ -54,10 +54,12 @@
 \usepackage{caption}			% for text alignment
 \usepackage{listings}		% for code 
 \usepackage{tabularx}		% for tables
+\usepackage{hyperref}		% links
 \lstset{
 	frame=tb,
-    escapeinside={(*@}{@*)},          % if you want to add LaTeX within your code
-    basicstyle=\ttfamily\scriptsize,
+    escapeinside={(*@}{@*)},
+    basicstyle={\fontsize{9}{12}\ttfamily},
+    breaklines=true,
 }
 
 %%% Basic information on the thesis
