@@ -1,4 +1,4 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{10}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -43,6 +43,11 @@ J.~McLeod.
 J.~McLeod.
 \newblock Podkidnoy durak, March 2022{\natexlab{b}}.
 \newblock URL \url{https://www.pagat.com/beating/podkidnoy_durak.html}.
+
+\bibitem[Millington and Funge(2009)]{millington_funge_2009}
+I.~Millington and J.~David Funge.
+\newblock \emph{Artificial Intelligence for Games}.
+\newblock Morgan Kaufmann, 2009.
 
 \bibitem[Moore et~al.(2017)Moore, McCabe, and Craig]{moore_mccabe_craig_2017}
 D.~S. Moore, G.~P. McCabe, and B.~A. Craig.

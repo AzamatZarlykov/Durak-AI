@@ -2,7 +2,7 @@
 \contentsline {chapter}{\numberline {1}Game Description}{5}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Terminology}{5}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Players}{5}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Cards}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Cards}{6}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Dealing the cards}{6}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Beating the card}{6}{section.1.5}%
 \contentsline {section}{\numberline {1.6}Game play}{6}{section.1.6}%
@@ -10,12 +10,16 @@
 \contentsline {subsection}{\numberline {1.6.2}Successful defense}{7}{subsection.1.6.2}%
 \contentsline {section}{\numberline {1.7}Drawing from the deck}{7}{section.1.7}%
 \contentsline {section}{\numberline {1.8}Endgame and Objective}{7}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Illustrative Gameplay Scenario}{7}{section.1.9}%
+\contentsline {section}{\numberline {1.9}Illustrative Gameplay Scenario}{8}{section.1.9}%
 \contentsline {chapter}{\numberline {2}Game Analysis}{9}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Classification}{9}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Branching Factor}{10}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Duration}{11}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Weakness Concept}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.1}The Termination of Durak}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Repetition of States in Durak}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}The Advantage of the First Moving Player}{9}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Classification}{10}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Branching Factor}{10}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Duration}{11}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Weakness Concept}{11}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Closed World Deduction}{12}{section.2.8}%
 \contentsline {chapter}{\numberline {3}Game and AI Implementation}{13}{chapter.3}%
 \contentsline {section}{\numberline {3.1}OS support}{13}{section.3.1}%
 \contentsline {section}{\numberline {3.2}A High-Level View of the Framework}{13}{section.3.2}%
@@ -25,7 +29,7 @@
 \contentsline {subsection}{\numberline {3.2.4}Agent}{20}{subsection.3.2.4}%
 \contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{22}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Random Agent}{22}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{23}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{22}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{23}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Smart Agent}{24}{subsection.4.2.2}%
 \contentsline {section}{\numberline {4.3}Minimax Agent}{25}{section.4.3}%

@@ -33,13 +33,28 @@ mcts:iterations=800:C=1.00:simulation=random:738:202.7049
 MCTS OPEN WORLD PARAMS: limit=800,c=1.00,simulations=greedy
 
 ===========================
+(minimax:depth=[2/14/2],eval=[playout] greedy 1000 open_world)
+minimax:depth=2:heuristic=playout:626:0.8021
+minimax:depth=4:heuristic=playout:498:5.7641
+minimax:depth=6:heuristic=playout:478:21.6235
+minimax:depth=8:heuristic=playout:550:57.7265
+minimax:depth=9:heuristic=playout:601:110.9742 (BEST)
+minimax:depth=10:heuristic=playout:610:160.4083
+minimax:depth=12:heuristic=playout:688:581.7359
+
+===========================
+( minimax:depth=[9/10/2],eval=[basic] greedy 1000 open_world)
+minimax:depth=9:heuristic=basic:359:34.0321
+
+===========================
+
 (mcts:limit=[1000/2000/100],c=[1.41/1.42/0.1],simulations=[greedy],samples=[10/20/10] greedy 100)
 mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:223.9009
 mcts:iterations=110:C=1.41:simulation=greedy:samples=10:73:206.6879
 mcts:iterations=120:C=1.41:simulation=greedy:samples=10:77:217.8466
 mcts:iterations=130:C=1.41:simulation=greedy:samples=10:72:212.5971
 mcts:iterations=140:C=1.41:simulation=greedy:samples=10:77:218.7084
-mcts:iterations=150:C=1.41:simulation=greedy:samples=10:77:254.2979
+mcts:iterations=150:C=1.41:simulation=greedy:samples=10:77:254.2979 (GOOD)
 mcts:iterations=160:C=1.41:simulation=greedy:samples=10:71:211.2288
 mcts:iterations=170:C=1.41:simulation=greedy:samples=10:75:239.0509
 mcts:iterations=180:C=1.41:simulation=greedy:samples=10:76:243.2876
@@ -47,11 +62,5 @@ mcts:iterations=190:C=1.41:simulation=greedy:samples=10:74:282.1850
 mcts:iterations=200:C=1.41:simulation=greedy:samples=10:79:269.1116
 ===========================
 
-minimax:depth=2:heuristic=playout:626:0.8021
-minimax:depth=4:heuristic=playout:498:5.7641
-minimax:depth=6:heuristic=playout:478:21.6235
-minimax:depth=8:heuristic=playout:550:57.7265
-
-===========================
-
-minimax:depth=10:heuristic=playout:610:160.4083
+mcts:iterations=150:C=0.60:simulation=greedy:samples=10:74:181.9914
+mcts:iterations=150:C=0.80:simulation=greedy:samples=10:79:187.6372
