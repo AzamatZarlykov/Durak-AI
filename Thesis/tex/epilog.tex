@@ -1,6 +1,20 @@
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 
+In conclusion, this thesis provided a detailed description and analysis of the card game Durak, as well as the development of a game and AI framework for implementing and testing different agents. Through the implementation and experimentation of various agents, including Minimax, Rule-Based, and MCTS, the MCTS agent consistently outperformed the other agents in both perfect and imperfect information versions of Durak.
+
+The results of this study demonstrate the effectiveness of the MCTS approach for developing AI agents that can perform well in the Durak game. The various parameters used in the MCTS agent, such as the \texttt{iterations}, \texttt{exploration constant} and the \texttt{simulation} strategy, played a crucial role in determining its performance. By carefully tuning these parameters, it was possible to achieve strong results across a range of experimental conditions.
 
 \chapter*{Future Work}
-a
+
+Future work on this project could involve the implementation of additional agents beyond Minimax and MCTS. Some possibilities could include evolutionary algorithms, reinforcement learning, or other search-based approaches.
+
+Another direction for future work could be to extend the game to other variations of Durak, such as Durak with fooling or Durak with transfers or even Passports. These variations introduce additional rules and complexity to the game, which could provide interesting challenges for the agents to tackle.
+
+In the experiments, it would be interesting to run a tournament between the agents with the trump cards removed. This would provide valuable insight into the influence of the trump cards on the agents' performance and whether the same agent can perform well in this modified environment.
+
+Another area for future work could be to improve the rule-based agents in this framework. One possibility could be to expand the set of rules that the agent uses besides the weaknesses to make decisions, potentially incorporating more advanced strategies and tactics. Additionally, it might be useful to explore ways of incorporating additional information, such as the cards that have already been played, into the rule-based agent's decision-making process to improve its performance.
+
+Also, improving the heuristic function of the Minimax agent could be a useful direction for future work. The current implementation of the heuristic function relies on a relatively small number of criteria to evaluate the state of the game, such as the number of cards in the player's hand, the value of the hand and the existence of weaknesses.
+
+Another direction for future work could be to improve the optimization technique of state caching in the current implementation of the Minimax agent. While the current implementation does include this feature, the results of experiments comparing the use of state caching versus not using it have shown relatively little difference in performance.

@@ -10,20 +10,20 @@ The random agent simply selects an action at random, as its name suggests. It se
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function Move(gameView: GameView)
-    	cards = gameView.Actions(excludePassTake: true)
+    cards = gameView.Actions(excludePassTake: true)
 
-    	// cannot attack/defend
-    	if cards.Count == 1 and cards[0] is null
-        	return null
+    // cannot attack/defend
+    if cards.Count == 1 and cards[0] is null
+        return null
     
-    	// include the case when the ai can decide to pass/take
-    	// even if it can defend/attack (20% chance)
-    	// allow only when the first attack was given
-    	rn = random number between 0 and 100
-    	if rn <= 20 and gameView.bout.GetAttackingCards().Count > 0
-        	return null
+    // include the case when the ai can decide to pass/take
+    // even if it can defend/attack (20% chance)
+    // allow only when the first attack was given
+    rn = random number between 0 and 100
+    if rn <= 20 and gameView.bout.GetAttackingCards().Count > 0
+        return null
     
-    	return a random card from cards
+    return a random card from cards
 \end{lstlisting}
 \caption{Pseudocode of Move method of the Random agent}
 \label{fig:randomMove}
@@ -79,11 +79,10 @@ A smart agent using rule-based heuristics can exhibit improved performance compa
 \captionsetup{justification=centering}
 \begin{lstlisting}
 Card? DefendingStrategy(List<Card> oHand, List<Card> cards)
-	for each card(*@$\in$@*)cards do
-		if (oHand) contains any cards with the same rank as (card) then
-			return (card)
-	return GetLowestRank(cards);
-
+    for each card(*@$\in$@*)cards do
+        if (oHand) contains any cards with the same rank as (card) then
+            return (card)
+    return GetLowestRank(cards);
 \end{lstlisting}
 \caption{Pseudocode of the \texttt{Move} method of the Greedy agent, where \texttt{oHand} is a list of cards in the opponent's hand and \texttt{cards} is a list of possible cards to defend with}
 \label{fig:defStratSmart}
@@ -104,21 +103,21 @@ The minimax algorithm is a decision-making algorithm often used in two-player tu
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function minimax(game, depth, out bestMove)
-    	if depth = MAX_DEPTH or game is in terminal state
-        	return the heuristic value of state
+    if depth = MAX_DEPTH or game is in terminal state
+        return the heuristic value of state
         
-    	bestVal = game.turn == 1 ? -infinity : +infinity
+    bestVal = game.turn == 1 ? -infinity : +infinity
         
-	for each card of game.PossibleMoves()
-		stateCopy = 	game.Copy()
-		stateCopy.Move(card)
-		v = minimax(stateCopy, depth + 1, _)
+    for each card of game.PossibleMoves()
+        stateCopy = game.Copy()
+        stateCopy.Move(card)
+        v = minimax(stateCopy, depth + 1, _)
 		
-		if game.turn == 1 && v > bestVal or game.turn == 2 && v < bestVal then
-			bestVal = v;
-			bestMove = card;
+        if game.turn == 1 && v > bestVal or game.turn == 2 && v < bestVal then
+            bestVal = v;
+            bestMove = card;
 			
-	return bestVal
+    return bestVal
 \end{lstlisting}
 \caption{Pseudocode for the minimax algorithm}
 \label{fig:minimaxPseudocode}
@@ -133,19 +132,19 @@ The basic heuristic function utilizes predetermined criteria to evaluate the gam
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function ConvertHandToValue(hand: List of Card, gw: GameView)
-	TOTALCARDS = 9
-    	value = 0
+    TOTALCARDS = 9
+    value = 0
 
-    	for each card in hand
-        	if gw.includeTrumps is true and card.suit == gw.trumpCard.suit
-            	value = value + card.rank + TOTALCARDS
-        	else
-            	value = value + card.rank
+    for each card in hand
+        if gw.includeTrumps is true and card.suit == gw.trumpCard.suit
+            value = value + card.rank + TOTALCARDS
+        else
+            value = value + card.rank
 
-    	return value
+    return value
 
 function EvaluatePlayerHandToValue(gw: GameView)
-    	return ConvertHandToValue(gw.players[0].GetHand(), gw) - 	ConvertHandToValue(gw.players[1].GetHand(), gw)
+    return ConvertHandToValue(gw.players[0].GetHand(), gw) - 	ConvertHandToValue(gw.players[1].GetHand(), gw)
 \end{lstlisting}
 \caption{Pseudocode of partial basic heuristic function evaluating the state based on the players' hand value}
 \label{fig:BHPlayersHandValue}
@@ -157,19 +156,19 @@ In order to evaluate the state of a card game based on the cards held by each pl
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function EvaluateHandSize(gw: GameView)
-    	pHandSize = gw.players[0].GetNumberOfCards()
-    	oHandSize = gw.players[1].GetNumberOfCards()
+    pHandSize = gw.players[0].GetNumberOfCards()
+    oHandSize = gw.players[1].GetNumberOfCards()
 
-    	if gw.isEarlyGame is true
-        	pHandSize = pHandSize
-    	else
-        	pHandSize = pHandSize * 15
-    	if gw.isEarlyGame is true
-        	oHandSize = oHandSize
-    	else
-        	oHandSize = oHandSize * 15
+    if gw.isEarlyGame is true
+        pHandSize = pHandSize
+    else
+        pHandSize = pHandSize * 15
+    if gw.isEarlyGame is true
+        oHandSize = oHandSize
+    else
+        oHandSize = oHandSize * 15
 
-    	return (pHandSize - oHandSize) * -1
+    return (pHandSize - oHandSize) * -1
 \end{lstlisting}
 \caption{Pseudocode of partial basic heuristic function evaluating the state based on the players' hand size value}
 \label{fig:BHPlayerHandSize}
@@ -181,27 +180,27 @@ Another criterion that may be used to evaluate the state of a card game is the s
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function AttackingStrategy(gw: GameView, noTrumpCards: List of Card, possibleCards: List of Card)
-	oHand = gw.GetOpponentCards()
-    	pHand = gw.playerHand
+    oHand = gw.GetOpponentCards()
+    pHand = gw.playerHand
     
-    	weaknesses = GetWeaknesses(possibleCards, oHand)
+    weaknesses = GetWeaknesses(possibleCards, oHand)
     
-    	if size of weaknesses is 1
-        	weakRank = weaknesses[0]
+    if size of weaknesses is 1
+        weakRank = weaknesses[0]
 
-        	if (pHand) contains all cards with rank (weakRank)
-            	return first card in pHand  
-        	return lowest rank (card) in (pHand) where (card)'s rank is not weakRank
+        if (pHand) contains all cards with rank (weakRank)
+            return first card in pHand  
+        return lowest rank (card) in (pHand) where (card)'s rank is not weakRank
         		
-    	if size of weaknesses is greater than 1
-        	nonweakness = cards in pHand where each card's rank is not a weakness
+    if size of weaknesses is greater than 1
+        nonweakness = cards in pHand where each card's rank is not a weakness
         
-        	if size of weaknesses is less than or equal to size of nonweakness ranks
-        		weakRank = GetBadlyCoveredWeakness(gw, oHand, nonweakness, weaknesses)
-			if weakRank does not exist
-				return lowest rank in noTrumpCards
-			return first card in pHand such that its rank is weakRank
-    	return lowest rank in noTrumpCards
+        if size of weaknesses is less than or equal to size of nonweakness ranks
+            weakRank = GetBadlyCoveredWeakness(gw, oHand, nonweakness, weaknesses)
+            if weakRank does not exist
+                return lowest rank in noTrumpCards
+            return first card in pHand such that its rank is weakRank
+    return lowest rank in noTrumpCards
 \end{lstlisting}
 \caption{Pseudocode of partial basic heuristic function evaluating the state based on the weaknesses}
 \label{fig:BHWeakness}
@@ -213,16 +212,16 @@ As a final criterion for evaluating the game state, it is possible to consider t
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function EvaluateState(gw: GameView)
-    	score = 0
-    	// 1) get the value of the hand only if the hand sizes are the same
-    	if gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards()
-        	score = score + EvaluatePlayerHandToValue(gw)
-    	// 2) size of the hand: smaller -> better 
-    	score = score + EvaluateHandSize(gw)
-    	// 3) weaknesses 
-    	if gw.isEarlyGame is false
-        	score = score + EvaluateWeaknesses(gw)
-    	return score
+    score = 0
+    // 1) get the value of the hand only if the hand sizes are the same
+    if gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards()
+        score = score + EvaluatePlayerHandToValue(gw)
+    // 2) size of the hand: smaller -> better 
+    score = score + EvaluateHandSize(gw)
+    // 3) weaknesses 
+    if gw.isEarlyGame is false
+        score = score + EvaluateWeaknesses(gw)
+    return score
 \end{lstlisting}
 \caption{Pseudocode of \texttt{basic} heuristic function}
 \label{fig:basicEval}
@@ -238,16 +237,16 @@ In the minimax algorithm, the playout heuristic is an alternative evaluation fun
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function Evaluate(gw: GameView, depth: int)
-    	innerGameView = gw.Copy()
-    	agents = List of Agent containing GreedyAI("greedy") and GreedyAI("greedy")
+    innerGameView = gw.Copy()
+    agents = List of Agent containing GreedyAI("greedy") and GreedyAI("greedy")
 
-    	while innerGameView.status is GameStatus.GameInProcess
-        	turn = innerGameView.Turn()
-        	card = agents[turn].Move(innerGameView)
-        	innerGameView.Move(card)
-    	result = innerGameView.Winner()
-    	score = 1000 - depth
-    	return result * score
+    while innerGameView.status is GameStatus.GameInProcess
+        turn = innerGameView.Turn()
+        card = agents[turn].Move(innerGameView)
+        innerGameView.Move(card)
+    result = innerGameView.Winner()
+    score = 1000 - depth
+    return result * score
 \end{lstlisting}
 \caption{Pseudocode of playout heuristic function}
 \label{fig:playoutEval}
@@ -270,26 +269,26 @@ The minimax algorithm is capable of finding the optimal move in a two-player gam
 \begin{lstlisting}
 function minimax(gameView, alpha, beta, depth, bestMove)
 ...
-	bestVal = game.turn == 1 ? -infinity : +infinity
+    bestVal = game.turn == 1 ? -infinity : +infinity
 	
-	possibleMoves = getPossibleMoves(gameView)
-    	for each move in possibleMoves
-        	gameViewCopy = copy(gameView)
-        	gameViewCopy.Move(move)
-        	v = minimax(gameViewCopy, alpha, beta, depth + 1, null)
+    possibleMoves = getPossibleMoves(gameView)
+    for each move in possibleMoves
+        gameViewCopy = copy(gameView)
+        gameViewCopy.Move(move)
+        v = minimax(gameViewCopy, alpha, beta, depth + 1, null)
         	
-        	if game.turn == 1 && v > bestVal or game.turn == 2 && v < bestVal then
-        		bestVal = v
-        		bestMove = move
+        if game.turn == 1 && v > bestVal or game.turn == 2 && v < bestVal then
+            bestVal = v
+            bestMove = move
         		
-        		if game.turn == 1 then 
-        			if v >= beta then 
-        				return v
-        			alpha = Max(alpha, v)
-        		else
-        			if v <= alpha then
-        				return v
-        			beta = Min(beta, v)
+            if game.turn == 1 then 
+                if v >= beta then 
+                    return v
+                alpha = Max(alpha, v)
+            else
+                if v <= alpha then
+                    return v
+                beta = Min(beta, v)
 ...
 \end{lstlisting}
 \caption{Part of the pseudocode of alpha-beta pruning technique inside the minimax \texttt{Move} method}
@@ -333,12 +332,12 @@ The backpropagation step does not involve the use of a policy itself, but rather
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function MCTSSearch((*@$s_0$@*))
-	create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
-	while limit has not reached do
-		(*@$v_l$@*) = TreePolicy((*@$v_0$@*))
-		reward = DefaultPolicy(s((*@$v_l$@*))
-		BackPropagation((*@$v_l$@*), reward)
-	return a(BestChild((*@$v_0$@*), 0))
+    create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
+    while limit has not reached do
+        (*@$v_l$@*) = TreePolicy((*@$v_0$@*))
+        reward = DefaultPolicy(s((*@$v_l$@*))
+        BackPropagation((*@$v_l$@*), reward)
+    return a(BestChild((*@$v_0$@*), 0))
 \end{lstlisting}
 \caption{A general pseudocode for MCTS}
 \label{fig:mctsGeneral}
@@ -394,48 +393,48 @@ Upon receiving the reward result from the \texttt{DefaultPolicy}, the program pa
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function MCTSSearch((*@$s_0$@*))
-	create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
-	while limit has not reached do
-		(*@$v_l$@*) = TreePolicy((*@$v_0$@*))
-		reward = DefaultPolicy(s((*@$v_l$@*))
-		BackPropagation((*@$v_l$@*), reward)
-	return a(BestChild((*@$v_0$@*), 0))
+    create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
+    while limit has not reached do
+        (*@$v_l$@*) = TreePolicy((*@$v_0$@*))
+        reward = DefaultPolicy(s((*@$v_l$@*))
+        BackPropagation((*@$v_l$@*), reward)
+    return a(BestChild((*@$v_0$@*), 0))
 	
 function TreePolicy(v)
-	while v is nonterminal do 
-		if v is not fully expanded then
-			return Expand(v)
-		else
-			v = BestChild(v, c)
-	return v
+    while v is nonterminal do 
+        if v is not fully expanded then
+            return Expand(v)
+        else
+            v = BestChild(v, c)
+    return v
 
 function Expand(v)
-	get (*@ $a \in $ @*)first untried action from A(s(v))
-	add a new child v' to v
-		with s(v') = f(s(v), a) 
-		and a(v') = a
-	return v'
+    get (*@ $a \in $ @*)first untried action from A(s(v))
+    add a new child v' to v
+        with s(v') = f(s(v), a) 
+        and a(v') = a
+    return v'
 	
 function BestChild(v, c)
-	return (*@ $ \underset{v' \in children of v}{\arg\max} UCTValue(v,v',c) $ @*)
+    return (*@ $ \underset{v' \in children of v}{\arg\max} UCTValue(v,v',c) $ @*)
 	
 function UCTValue(v,v',c)
-	avgReturn = (*@ $ \frac{Q(v')}{N(v')} $ @*)
-	if Turn(v) != Turn(v') then 
-		avgReturn = 1 - avgReturn
-	return (*@ $ avgReturn + c * \sqrt{\frac{2 * ln{N(v)}}{N(v')}} $ @*)
+    avgReturn = (*@ $ \frac{Q(v')}{N(v')} $ @*)
+    if Turn(v) != Turn(v') then 
+        avgReturn = 1 - avgReturn
+    return (*@ $ avgReturn + c * \sqrt{\frac{2 * ln{N(v)}}{N(v')}} $ @*)
 	
 function DefaultPolicy(s)
-	while s is non-terminal do
-		choose (*@ $a \in $ @*) A(s) uniformly at random
-		s = f(s,a)
-	return reward for state s
+    while s is non-terminal do
+        choose (*@ $a \in $ @*) A(s) uniformly at random
+        s = f(s,a)
+    return reward for state s
 
 function Backpropagation(s, reward)
-	while v is not null do
-		N(v) = N(v) + 1
-		Q(v) = Q(v) + reward
-		v = parent of v
+    while v is not null do
+        N(v) = N(v) + 1
+        Q(v) = Q(v) + reward
+        v = parent of v
 \end{lstlisting}
 \caption{A MCTS Pseudocode}
 \label{fig:mctsREST}

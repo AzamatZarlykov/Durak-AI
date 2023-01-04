@@ -10,7 +10,7 @@ With the game environment parameters set to be  in the perfect information world
 
 \subsection{Configuring Minimax Parameters}
 
-In order to optimize the performance of the Minimax algorithm in an open world environment, it is necessary to determine the optimal values for the \texttt{depth} and \texttt{eval} parameters. To find the best value for one of the parameters, the other one has to be set with the value that intuitively seems better suited. Because of that we will use the playout heuristic for \texttt{eval} parameter as it is generally superior to the basic heuristic. To find the best value for the \texttt{depth} parameter, I run an 1000 game experiment that tries different values for it against the Greedy agent. Figure \ref{minimaxOWDepth} illustrates the win rates and the average time taken per ply by the minimax agent with different depth parameters. The plot shows that the win rate of the minimax agent improves as the depth of the game tree exploration increases. The same trend can be observed for the average time taken to make a move. However, it is surprising to see that lower depth values such as 2 and 3 have higher win rates than the highest depth value of 6, which has the lowest win rate. This observation warrants further investigation. Besides this, a horizontal shaded line is included in the plot to represent the optimal average time that the agent should take to make a move. This allows for the evaluation of both the effectiveness and efficiency of the agent. It can be observed that the grey shaded line intersects with the average time of the minimax agent at a depth of 9. This suggests that, in an open environment, this value of the parameter is the most suitable and will be used in tournament. 
+In order to optimize the performance of the Minimax algorithm in an open world environment, it is necessary to determine the optimal values for the \texttt{depth} and \texttt{eval} parameters. To find the best value for one of the parameters, the other one has to be set with the value that intuitively seems better suited. Because of that we will use the playout heuristic for \texttt{eval} parameter as it is generally superior to the basic heuristic. To find the best value for the \texttt{depth} parameter, I run an 1000 game experiment that tries different values for it against the Greedy agent. 
 
 \begin{figure}[h]
   \centering
@@ -19,6 +19,8 @@ In order to optimize the performance of the Minimax algorithm in an open world e
   \caption{Comparison of win rates of different fixed depths parameters in minimax algorithm along with average time taken per ply}
   \label{minimaxOWDepth}
 \end{figure}
+
+Figure \ref{minimaxOWDepth} illustrates the win rates and the average time taken per ply by the minimax agent with different depth parameters. The plot shows that the win rate of the minimax agent improves as the depth of the game tree exploration increases. The same trend can be observed for the average time taken to make a move. However, it is surprising to see that lower depth values such as 2 and 3 have higher win rates than the highest depth value of 6, which has the lowest win rate. This observation warrants further investigation. Besides this, a horizontal shaded line is included in the plot to represent the optimal average time that the agent should take to make a move. This allows for the evaluation of both the effectiveness and efficiency of the agent. It can be observed that the grey shaded line intersects with the average time of the minimax agent at a depth of 9. This suggests that, in an open environment, this value of the parameter is the most suitable and will be used in tournament.
 
 Figure \ref{minimaxOWEval} illustrates the comparison between two heuristic evaluation functions, namely \texttt{basic} and \texttt{playout}, for the minimax algorithm with a fixed depth of 9. The left subplot shows the win rates for the two evaluation functions, and the right subplot displays the average time (ms) taken to make a move. It can be observed that the playout heuristic consistently outperforms the basic heuristic in terms of win rate, achieving almost twice the win rate of the basic heuristic. However, the playout heuristic is slower than the basic heuristic, as shown by the right subplot. Despite this, the playout heuristic still performs within the optimal time range of 100ms, making it the preferred choice for the tournament. As a result, the minimax agent will use the depth 9 and playout heuristic for the tournament.
 
@@ -29,7 +31,6 @@ Figure \ref{minimaxOWEval} illustrates the comparison between two heuristic eval
   \caption{Comparison of win rates and average time taken per ply of \texttt{basic} and \texttt{playout} evaluation functions in minimax algorithm}
   \label{minimaxOWEval}
 \end{figure}
-
 
 \subsection{Configuring MCTS Parameters}
 
@@ -45,6 +46,70 @@ In order to compare MCTS agents with other agents in the open world, it is neces
 
 Similar to the minimax algorithm, it can be seen that an increase in the number of \texttt{iterations} generally results in a corresponding increase in the average time taken per move, as well as an increase in the win rate. By examining the shaded region in Figure \ref{mctsOWIterations}, which represents the optimal time per move, it can be determined that the optimal value for the \texttt{iterations} parameter is 800. This value results in the highest win rate and the lowest average time taken per move.
 
-With the \texttt{iterations} parameter set to 800 and the \texttt{simulation} value remaining at greedy, a new experiment was conducted to determine the optimal value for the \texttt{c} exploration parameter in MCTS. The results of this experiment are shown in Figure 6. From the figure, it can be observed that the optimal value for the \texttt{c} parameter is 1.00, as it yields the highest win rate while still operating within the optimal average time per move.
+With the \texttt{iterations} parameter set to 800 and the \texttt{simulation} value remaining at greedy, a new experiment was conducted to determine the optimal value for the \texttt{c} exploration parameter in MCTS. The results of this experiment are shown in Figure \ref{mctsOWC}. From the figure, it can be observed that the optimal value for the \texttt{c} parameter is 1.00, as it yields the highest win rate while still operating within the optimal average time per move.
+
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{../img/mcts_c_openworld.png}
+  \caption{Comparison of win rates and average time taken per ply of different fixed exploration parameters in MCTS algorithm}
+  \label{mctsOWC}
+\end{figure}
+
+Like in the comparison of heuristic evaluation functions for the Minimax algorithm, bar plots were used to visualize the win rates and average times per move for different simulation types in the MCTS algorithm. The left subplot in Figure \ref{mctsOWSimulations} compares the win rates of the two simulations, and it can be seen that the greedy simulation performs significantly better than the random playouts. Additionally, the greedy simulation is much faster than the random playouts, as can be seen in the right subplot. This is due to the nature of random simulation, as discussed in Section \ref{MCTS}. Based on these results, it can be concluded that the optimal parameters for the simulation in MCTS are greedy.
+
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{../img/mcts_simulation_openworld.png}
+  \caption{Comparison of win rates and average time taken per ply of \texttt{random} and \texttt{greedy} simulations in MCTS algorithm}
+  \label{mctsOWSimulations}
+\end{figure}
+
+After conducting a series of experiments and analyzing the results, it can be concluded that the parameters of the MCTS algorithm have been properly configured for the tournament.
+
+\subsection{Tournament}
+In order to begin the tournament, the following list of agents and their corresponding parameters were used: Random, Greedy, Smart, Minimax (depth 9 and playout heuristic evaluation function), and MCTS (limit 800, exploration parameter 1.00 and greedy simulation type).
+
+Furthermore, the game environment was configured with the following settings: open world, including trumps, 500 games and starting rank '6'.
+
+The tournament was initiated using the following command, with the aforementioned configurations.
+
+\begin{lstlisting}
+$ dotnet run -tournament="random/greedy/smart/minimax:depth=9,eval=playout/mcts:limit=800,c=1.00,simulation=greedy" -total_games=500 -open_world
+\end{lstlisting}
+
+It is important to note that \texttt{-include\_trumps} and \texttt{=start\_rank=6} game environment parameters are not explicitly listed in the above command as they are already set to their default values in the game setup.
+
+To improve the readability of the table, we will use shortened versions of the long agent names as aliases. The full names and their corresponding aliases are listed below:
+
+\begin{itemize}
+	\item \textbf{minimax} := minimax:depth=9:eval=playout
+	\item \textbf{mcts} := mcts:limit=800:c=1.00:simulation=greedy
+\end{itemize}
+
+\begin{table}[]
+\captionsetup{justification=centering}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+\toprule
+
+                                        & random               & greedy               & smart                & minimax & mcts \\ \midrule
+random                                  &                      & \footnotesize{5.6\%-11.3\% (500)}   & \footnotesize{3.3\%-8.0\% (500)}    & \footnotesize{1.2\%-4.6\% (500)}            & \footnotesize{0.0\%-1.1\% (500)}                       \\ \midrule
+greedy                                  & \footnotesize{88.7\%-94.4\% (500)}  &                      & \footnotesize{45.7\%-49.9\% (3500)} & \footnotesize{33.5\%-43.6\% (500)}          & \footnotesize{1.1\%-4.4\% (500)}                       \\ \midrule
+smart                                   & \footnotesize{92.0\%-96.7\% (500)}  & \footnotesize{50.1\%-54.3\% (3500)} &                      & \footnotesize{34.7\%-45.0\% (500)}          & \footnotesize{2.8\%-7.2\% (500)}                       \\ \midrule
+minimax            & \footnotesize{95.4\%-98.8\% (500)}  & \footnotesize{56.4\%-66.5\% (500)}  & \footnotesize{55.0\%-65.3\% (500)}  &                              & \footnotesize{16.4\%-24.8\% (500)}                     \\ \midrule
+mcts & \footnotesize{98.9\%-100.0\% (500)} & \footnotesize{95.6\%-98.9\% (500)}  & \footnotesize{92.8\%-97.2\% (500)}  & \footnotesize{75.2\%-83.6\% (500)}          &                                         \\ \bottomrule
+\end{tabularx}
+    \caption{Tournament between the agents in the open world}
+    \label{tournamentOpenWorld}
+\end{table}
+
+It should be noted that in this tournament, every agent mentioned in the command line played against each other to determine the winner. These agents did not play against themselves, as this would provide almost the same win rate and the tournament would continue to increase the number of games played for them.
+
+From the Table \ref{tournamentOpenWorld}, the results of the tournament indicate that the MCTS agent with the parameter configuration of \texttt{simulation=greedy}, \texttt{limit=800} and \texttt{c=1.00}  was the clear winner, with a consistently high win rate against all other opponents. In particular, the MCTS agent outperformed the other agents, with win rates of 98.9\%-100.0\% against Random, 95.6\%-98.9\% against Greedy, and 92.8\%-97.2\% against Smart. The minimax agent also performed well, with a win rate of 75.2\%-83.6\% against MCTS. Due to the dominance of the MCTS algorithm, all results were gathered after 500 games, with no need for additional increments.
+
+The minimax agent with the parameter configuration of \texttt{eval=playout} and \texttt{depth=9}` was equally competitive as the MCTS agent, against other three agents as the results suggest. It shows that the agent performed well against the Random, Greedy and Smart agents, although its results were not as strong as those of the MCTS agent. However, 500 games were sufficient to identify the clear winner in these matchups. 
+
+In summary, the MCTS agent with the specified parameter configuration emerged as the clear winner in terms of win rate, with a strong performance against all other agents. The minimax agent with the specified parameter configuration came in second, with strong performances against the random, greedy, and smart agents. The smart agent came in third, with a win rate that outperformed the greedy agent, although it took 3500 simulations to find a significant winner between the two. The greedy agent came in fourth, while the random agent had the lowest win rate among all agents. Overall, these results indicate that the MCTS and minimax agents with their respective parameter configurations are the most effective at winning games, while also having good performance in terms of average time per move.
 
 \section{Closed world}

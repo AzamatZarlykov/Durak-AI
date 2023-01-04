@@ -79,23 +79,22 @@ The object in question serves as a comprehensive representation of all game stat
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-
 if (turn == Turn.Attacking){
-    	if (CanAttack() && OpponentCanFitMoreCards()) {
-		return GenerateListOfAttackingCards();
-	} else {
-		// passing the attack
-		return null;	
-	}
+    if (CanAttack() && OpponentCanFitMoreCards()) {
+        return GenerateListOfAttackingCards();
+    } else {
+        // passing the attack
+        return null;	
+    }
 }
 else {
-	Card attackingCard = bout.GetAttackingCards()[^1]
-	if (CanDefend(attackingCard)) {
-		return GenerateListofDefendingCards(attackingCard);
-	} else {
-		// taking the cards
-		return null
-	}
+    Card attackingCard = bout.GetAttackingCards()[^1]
+    if (CanDefend(attackingCard)) {
+        return GenerateListofDefendingCards(attackingCard);
+    } else {
+        // taking the cards
+        return null
+    }
 }
 \end{lstlisting}
 \caption{A simplified overview of the PossibleMoves method inside the Durak class}
@@ -107,29 +106,26 @@ The \texttt{PossibleMoves} method determines the list of actions that are availa
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-// check if move is valid
 if (!ValidAction(card, attacker, defender)) 
-	return false;
+    return false;
 	
 if (turn == Turn.Attacking){
-	// the attacker played a card	
-	if (card is not null) {
-		attacker.GetHand().Remove(card);
-		bout.AddCard(card);
-	} else {
-		bout.RemoveCards();
-		return true;
-	}
+    if (card is not null) {
+        attacker.GetHand().Remove(card);
+        bout.AddCard(card);
+    } else {
+        bout.RemoveCards();
+        return true;
+    }
 }
 else {
-	// the defender beat the attacking card
-	if (card is not null){
-		defender.GetHand().Remove(card);
-		bout.AddCard(card);
-	} else {
-		FillPlayerHand(bout.GetEverything(), defender)
-		return true;
-	}	
+    if (card is not null){
+        defender.GetHand().Remove(card);
+        bout.AddCard(card);
+    } else {
+        FillPlayerHand(bout.GetEverything(), defender)
+        return true;
+    }	
 }
 turn = turn == Turn.Attacking ? Turn.Defending : Turn.Attacking;
 return true;
@@ -193,7 +189,7 @@ The \texttt{-open\_world} parameter plays a key role in determining the level of
 The \texttt{-tournament} parameter allows for the specified agents to engage in a series of games, the results of which are recorded in a CSV file. The game settings for the tournament can be customized when the \texttt{-tournament} parameter is included. These settings will be applied to all games played between the agents. However, if the results of the games between two agents do not show a significant difference according to Wilson's score, the number of games will be increased by 500 and the tournament will be restarted for two equally strong agents in order to ensure that the best player can be accurately determined. There is an upper limit on the number of games that can be played in cases where the agents are evenly matched and unable to produce a clear winner. In such situations, the agents will be listed in a separate table within the CSV file. An example of how to initiate a tournament between the Random, Greedy, and Smart agents is provided below:
 
 \begin{lstlisting}
-$ dotnet run -tournament="random,greedy,smart" -total_games=100
+$ dotnet run -tournament="random/greedy/smart" -total_games=100
 \end{lstlisting}
 
 There are various ways to utilize the parameters in Table \ref{paramsTable}. An example of using the default settings to run a game between RandomAI agent(random) and GreedyAI agent(greedy) is provided below.
@@ -301,9 +297,9 @@ The abstract class \texttt{Agent} represents a common interface for all agents. 
 \begin{lstlisting}
 public abstract class Agent
 {
-    	public string? name;
-	public string? GetName() => name;
-    	public abstract Card? Move(GameView gameView);
+    public string? name;
+    public string? GetName() => name;
+    public abstract Card? Move(GameView gameView);
 }
 \end{lstlisting}
 \caption{A representation of the abstract class 'Agent'}

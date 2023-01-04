@@ -18,6 +18,11 @@ C.Browne, E.~Powley, and et~al. D.~Whitehouse.
   Games}, 4\penalty0 (1):\penalty0 1–43, 2012.
 \newblock \doi{10.1109/tciaig.2012.2186810}.
 
+\bibitem[G.Yannakakis and Togelius(2018)]{yannakakis_togelius_2018}
+G.Yannakakis and J.~Togelius.
+\newblock \emph{Artificial Intelligence and games}.
+\newblock Springer, 2018.
+
 \bibitem[Long et~al.(2010)Long, Sturtevant, Buro, and
   Furtak]{PerfectInformationMC}
 J.~Long, N.~Sturtevant, M.~Buro, and T.~Furtak.
@@ -54,12 +59,5 @@ G.~Owen.
 S.~Russell, P.~Norvig, and M.~Chang.
 \newblock \emph{Artificial Intelligence: A modern approach}.
 \newblock Pearson, 2022.
-
-\bibitem[Silver et~al.(2016)Silver, Huang, and
-  J.~Maddison]{Silver2016MasteringTG}
-D.~Silver, A.~Huang, and et~al. J.~Maddison.
-\newblock Mastering the game of go with deep neural networks and tree search.
-\newblock \emph{Nature}, 529\penalty0 (7587):\penalty0 484–489, 2016.
-\newblock \doi{10.1038/nature16961}.
 
 \end{thebibliography}

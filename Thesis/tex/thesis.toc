@@ -35,20 +35,21 @@
 \contentsline {section}{\numberline {4.3}Minimax Agent}{26}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Basic Heuristic}{27}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{30}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Alpha-Beta Pruning}{31}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.3}Alpha-Beta Pruning}{30}{subsection.4.3.3}%
 \contentsline {section}{\numberline {4.4}Monte Carlo Tree Search Agent}{32}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Closed World Sampling}{36}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Parameter Specification}{37}{subsection.4.5.1}%
 \contentsline {subsubsection}{Minimax}{37}{section*.25}%
 \contentsline {subsubsection}{MCTS}{37}{section*.26}%
-\contentsline {chapter}{\numberline {5}Experiments}{41}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Open world}{41}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Configuring Minimax Parameters}{41}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Configuring MCTS Parameters}{43}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}Closed world}{43}{section.5.2}%
-\contentsline {chapter}{Conclusion}{45}{chapter*.30}%
-\contentsline {chapter}{Bibliography}{47}{chapter*.32}%
-\contentsline {chapter}{List of Figures}{48}{chapter*.33}%
-\contentsline {chapter}{List of Tables}{49}{chapter*.34}%
-\contentsline {chapter}{List of Abbreviations}{50}{chapter*.35}%
-\contentsline {chapter}{\numberline {A}Attachments}{51}{appendix.A}%
+\contentsline {chapter}{\numberline {5}Experiments}{40}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Open world}{40}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Configuring Minimax Parameters}{40}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Configuring MCTS Parameters}{42}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Tournament}{43}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Closed world}{45}{section.5.2}%
+\contentsline {chapter}{Conclusion}{47}{chapter*.33}%
+\contentsline {chapter}{Bibliography}{49}{chapter*.35}%
+\contentsline {chapter}{List of Figures}{50}{chapter*.36}%
+\contentsline {chapter}{List of Tables}{51}{chapter*.37}%
+\contentsline {chapter}{List of Abbreviations}{52}{chapter*.38}%
+\contentsline {chapter}{\numberline {A}Attachments}{53}{appendix.A}%

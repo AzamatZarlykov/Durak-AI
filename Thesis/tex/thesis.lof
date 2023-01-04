@@ -3,8 +3,8 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces A simplified UML diagram showing the relationship between the objects within the Model library.\relax }}{15}{figure.caption.3}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces A simplified diagram of the Durak class, which encompasses the main properties of the game\relax }}{16}{figure.caption.4}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces A simplified overview of the PossibleMoves method inside the Durak class\relax }}{17}{figure.caption.5}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces A simplified overview of the Move method inside the Durak class\relax }}{18}{figure.caption.6}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A simplified overview of the PossibleMoves method inside the Durak class\relax }}{16}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A simplified overview of the Move method inside the Durak class\relax }}{17}{figure.caption.6}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces A representation of command and statistics.\relax }}{21}{figure.caption.8}%
 \contentsline {figure}{\numberline {3.6}{\ignorespaces A representation of the abstract class 'Agent'\relax }}{22}{figure.caption.9}%
 \addvspace {10\p@ }
@@ -21,10 +21,12 @@
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Part of the pseudocode of alpha-beta pruning technique inside the minimax \texttt {Move} method\relax }}{33}{figure.caption.20}%
 \contentsline {figure}{\numberline {4.12}{\ignorespaces A general pseudocode for MCTS\relax }}{34}{figure.caption.21}%
 \contentsline {figure}{\numberline {4.13}{\ignorespaces A snippet of Backpropagation method\relax }}{35}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces A MCTS Pseudocode\relax }}{39}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{40}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces A MCTS Pseudocode\relax }}{38}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{39}{figure.caption.24}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of win rates of different fixed depths parameters in minimax algorithm along with average time taken per ply\relax }}{42}{figure.caption.27}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison of win rates and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in minimax algorithm\relax }}{43}{figure.caption.28}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed iterations in MCTS algorithm\relax }}{44}{figure.caption.29}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of win rates of different fixed depths parameters in minimax algorithm along with average time taken per ply\relax }}{41}{figure.caption.27}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison of win rates and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in minimax algorithm\relax }}{42}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed iterations in MCTS algorithm\relax }}{43}{figure.caption.29}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed exploration parameters in MCTS algorithm\relax }}{44}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparison of win rates and average time taken per ply of \texttt {random} and \texttt {greedy} simulations in MCTS algorithm\relax }}{45}{figure.caption.31}%
 \addvspace {10\p@ }
