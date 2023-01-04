@@ -26,7 +26,7 @@ namespace CLI
         public List<Agent> agents;
         private GameParameters gParam;
         private readonly Wilson wilson_score;
-        private const int UPPER_BOUND = 50_000;
+        private const int UPPER_BOUND = 10_000;
         private const int GAME_INCREASE = 500;
 
         private List<double> bfactor = new List<double>();
@@ -384,7 +384,7 @@ namespace CLI
         private void GenerateCSV(Dictionary<string, string> results, List<string> eqAgents, 
             string[] agents)
         {
-            string dirPath = "CLI/Tournament";
+            string dirPath = "Tournament";
             string fileName = GetFileName();
             // initialize the table
             string[][] table = new string[agents.Length + 1][];

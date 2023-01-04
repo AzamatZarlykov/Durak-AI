@@ -20,32 +20,33 @@
 \contentsline {section}{\numberline {2.6}Duration}{11}{section.2.6}%
 \contentsline {section}{\numberline {2.7}Weakness Concept}{11}{section.2.7}%
 \contentsline {section}{\numberline {2.8}Closed World Deduction}{12}{section.2.8}%
-\contentsline {chapter}{\numberline {3}Game and AI Implementation}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}OS support}{13}{section.3.1}%
-\contentsline {section}{\numberline {3.2}A High-Level View of the Framework}{13}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Project Structure}{13}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Model}{14}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}CLI}{17}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Agent}{20}{subsection.3.2.4}%
-\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{22}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Random Agent}{22}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{22}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{23}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{24}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Minimax Agent}{25}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Basic Heuristic}{26}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{28}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{29}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Closed World Sampling}{33}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Parameter Specification}{34}{subsection.4.5.1}%
-\contentsline {subsubsection}{Minimax}{34}{section*.22}%
-\contentsline {subsubsection}{MCTS}{34}{section*.23}%
-\contentsline {chapter}{\numberline {5}Experiments}{38}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Open world}{38}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Closed world}{38}{section.5.2}%
-\contentsline {chapter}{Conclusion}{39}{chapter*.24}%
-\contentsline {chapter}{Bibliography}{40}{chapter*.25}%
-\contentsline {chapter}{List of Figures}{41}{chapter*.26}%
-\contentsline {chapter}{List of Tables}{42}{chapter*.27}%
-\contentsline {chapter}{List of Abbreviations}{43}{chapter*.28}%
-\contentsline {chapter}{\numberline {A}Attachments}{44}{appendix.A}%
+\contentsline {chapter}{\numberline {3}Game and AI Implementation}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}OS support}{14}{section.3.1}%
+\contentsline {section}{\numberline {3.2}A High-Level View of the Framework}{14}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Project Structure}{14}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Model}{15}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}CLI}{18}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Agent}{21}{subsection.3.2.4}%
+\contentsline {chapter}{\numberline {4}Artificial Intelligence Agents}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Random Agent}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Rule-Based Heuristic Agents}{23}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Greedy Agent}{24}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Smart Agent}{25}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Minimax Agent}{26}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Basic Heuristic}{27}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{30}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Alpha-Beta Pruning}{31}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Monte-Carlo Tree Search Agent}{32}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Closed World Sampling}{36}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Parameter Specification}{37}{subsection.4.5.1}%
+\contentsline {subsubsection}{Minimax}{37}{section*.25}%
+\contentsline {subsubsection}{MCTS}{37}{section*.26}%
+\contentsline {chapter}{\numberline {5}Experiments}{40}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Open world}{40}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Closed world}{40}{section.5.2}%
+\contentsline {chapter}{Conclusion}{41}{chapter*.27}%
+\contentsline {chapter}{Bibliography}{42}{chapter*.28}%
+\contentsline {chapter}{List of Figures}{43}{chapter*.29}%
+\contentsline {chapter}{List of Tables}{44}{chapter*.30}%
+\contentsline {chapter}{List of Abbreviations}{45}{chapter*.31}%
+\contentsline {chapter}{\numberline {A}Attachments}{46}{appendix.A}%

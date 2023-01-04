@@ -37,7 +37,7 @@ def run_mcts(param_buffer, keys, open_state):
 	limits, cs, simulations = param_buffer[keys[0]], param_buffer[keys[1]], param_buffer[keys[2]]
 	opp, games = param_buffer["opponent"], param_buffer["total-games"]
 
-	for limit in range(limits[0], limits[1] + limits[2], limits[2]):
+	for limit in range(limits[0], limits[1], limits[2]):
 		for c in np.arange(float(cs[0]), float(cs[1]), float(cs[2])):
 			for simulation in simulations:
 				command = ["dotnet", "run", "-start_rank=6", "-config", f"-total_games={games}",

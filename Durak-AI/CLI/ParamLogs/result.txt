@@ -1,66 +1,166 @@
+WITH ALPHA-BETA
+minimax:depth=1:heuristic=playout:100:0.4675
+minimax:depth=2:heuristic=playout:57:0.8932
+minimax:depth=3:heuristic=playout:69:1.5182
+minimax:depth=4:heuristic=playout:43:2.9174
+minimax:depth=5:heuristic=playout:70:5.5492
+minimax:depth=6:heuristic=playout:38:10.5764
 
 ===========================
-(mcts:limit=[100/1000/100],c=[1.41/1.42/0.1],simulations=[greedy] greedy 1000 open_world )
-mcts:iterations=100:C=1.41:simulation=greedy:945:18.0446
-mcts:iterations=200:C=1.41:simulation=greedy:951:30.9835
-mcts:iterations=300:C=1.41:simulation=greedy:945:46.9140
-mcts:iterations=400:C=1.41:simulation=greedy:946:63.6019
-mcts:iterations=500:C=1.41:simulation=greedy:948:70.9326
-mcts:iterations=600:C=1.41:simulation=greedy:949:140.3530
-mcts:iterations=700:C=1.41:simulation=greedy:947:115.4155
-mcts:iterations=800:C=1.41:simulation=greedy:956:99.9898 (BEST UNDER 100ms)
-mcts:iterations=900:C=1.41:simulation=greedy:944:126.2651
-mcts:iterations=1000:C=1.41:simulation=greedy:943:133.1405
-
-==========================
-(mcts:limit=[800/800/100],c=[0.6/2.4/0.2],simulations=[greedy] greedy 1000 open_world)
-mcts:iterations=800:C=0.60:simulation=greedy:952:105.5412
-mcts:iterations=800:C=0.80:simulation=greedy:956:106.2824
-mcts:iterations=800:C=1.00:simulation=greedy:958:95.4331 (BEST UNDER 100ms)
-mcts:iterations=800:C=1.20:simulation=greedy:951:93.4577
-mcts:iterations=800:C=1.40:simulation=greedy:950:93.4980
-mcts:iterations=800:C=1.60:simulation=greedy:939:93.9515
-mcts:iterations=800:C=1.80:simulation=greedy:941:114.1157
-mcts:iterations=800:C=2.00:simulation=greedy:933:182.7775
-mcts:iterations=800:C=2.20:simulation=greedy:929:141.9007
+WITHOUT ALPHA-BETA
+minimax:depth=1:heuristic=playout:100:0.4883
+minimax:depth=2:heuristic=playout:57:1.4212
+minimax:depth=3:heuristic=playout:69:3.3980
+minimax:depth=4:heuristic=playout:43:27.4948
+minimax:depth=5:heuristic=playout:67:50.9900
+minimax:depth=6:heuristic=playout:37:258.1767
 
 ===========================
-(mcts:limit=[800/800/100],c=[1.00/1.01/0.1],simulations=[greedy/random] greedy 1000 open_world)
-mcts:iterations=800:C=1.00:simulation=greedy:958:120.1823 (BEST UNDER ~100ms)
-mcts:iterations=800:C=1.00:simulation=random:738:202.7049
-
-
-MCTS OPEN WORLD PARAMS: limit=800,c=1.00,simulations=greedy
-
-===========================
-(minimax:depth=[2/14/2],eval=[playout] greedy 1000 open_world)
-minimax:depth=2:heuristic=playout:626:0.8021
-minimax:depth=4:heuristic=playout:498:5.7641
-minimax:depth=6:heuristic=playout:478:21.6235
-minimax:depth=8:heuristic=playout:550:57.7265
-minimax:depth=9:heuristic=playout:601:110.9742 (BEST)
-minimax:depth=10:heuristic=playout:610:160.4083
-minimax:depth=12:heuristic=playout:688:581.7359
+W/O CACHING
+minimax:depth=1:heuristic=playout:100:0.6550
+minimax:depth=2:heuristic=playout:57:0.8222
+minimax:depth=3:heuristic=playout:69:1.4917
+minimax:depth=4:heuristic=playout:44:2.8098
+minimax:depth=5:heuristic=playout:68:5.2136
+minimax:depth=6:heuristic=playout:38:11.7905
 
 ===========================
-( minimax:depth=[9/10/2],eval=[basic] greedy 1000 open_world)
-minimax:depth=9:heuristic=basic:359:34.0321
+WITH CACHING
+minimax:depth=1:heuristic=playout:100:0.5817
+minimax:depth=2:heuristic=playout:57:0.9448
+minimax:depth=3:heuristic=playout:69:1.6808
+minimax:depth=4:heuristic=playout:43:3.1413
+minimax:depth=5:heuristic=playout:70:6.0998
+minimax:depth=6:heuristic=playout:38:11.8122
+
+
+===========================
+	(mcts:limit=[100/1000/100],c=[1.41/1.42/0.1],simulations=[greedy] greedy 1000 open_world )
+	mcts:iterations=100:C=1.41:simulation=greedy:945:18.0446
+	mcts:iterations=200:C=1.41:simulation=greedy:951:30.9835
+	mcts:iterations=300:C=1.41:simulation=greedy:945:46.9140
+	mcts:iterations=400:C=1.41:simulation=greedy:946:63.6019
+	mcts:iterations=500:C=1.41:simulation=greedy:948:70.9326
+	mcts:iterations=600:C=1.41:simulation=greedy:949:140.3530
+	mcts:iterations=700:C=1.41:simulation=greedy:947:115.4155
+	mcts:iterations=800:C=1.41:simulation=greedy:956:99.9898 (BEST UNDER 100ms)
+	mcts:iterations=900:C=1.41:simulation=greedy:944:126.2651
+	mcts:iterations=1000:C=1.41:simulation=greedy:943:133.1405
+
+	==========================
+	(mcts:limit=[800/800/100],c=[0.6/2.4/0.2],simulations=[greedy] greedy 1000 open_world)
+	mcts:iterations=800:C=0.60:simulation=greedy:952:105.5412
+	mcts:iterations=800:C=0.80:simulation=greedy:956:106.2824
+	mcts:iterations=800:C=1.00:simulation=greedy:958:95.4331 (BEST UNDER 100ms)
+	mcts:iterations=800:C=1.20:simulation=greedy:951:93.4577
+	mcts:iterations=800:C=1.40:simulation=greedy:950:93.4980
+	mcts:iterations=800:C=1.60:simulation=greedy:939:93.9515
+	mcts:iterations=800:C=1.80:simulation=greedy:941:114.1157
+	mcts:iterations=800:C=2.00:simulation=greedy:933:182.7775
+	mcts:iterations=800:C=2.20:simulation=greedy:929:141.9007
+
+	===========================
+	(mcts:limit=[800/800/100],c=[1.00/1.01/0.1],simulations=[greedy/random] greedy 1000 open_world)
+	mcts:iterations=800:C=1.00:simulation=greedy:958:120.1823 (BEST UNDER ~100ms)
+	mcts:iterations=800:C=1.00:simulation=random:738:202.7049
+
+
+	MCTS OPEN WORLD PARAMS: limit=800,c=1.00,simulations=greedy
+
+===========================
+		(minimax:depth=[2/14/2],eval=[playout] greedy 1000 open_world)
+		minimax:depth=2:heuristic=playout:626:0.8021
+		minimax:depth=4:heuristic=playout:498:5.7641
+		minimax:depth=6:heuristic=playout:478:21.6235
+		minimax:depth=8:heuristic=playout:550:57.7265
+		minimax:depth=9:heuristic=playout:601:110.9742 (BEST)
+		minimax:depth=10:heuristic=playout:610:160.4083
+		minimax:depth=12:heuristic=playout:688:581.7359
+
+		===========================
+		( minimax:depth=[9/10/2],eval=[basic] greedy 1000 open_world)
+		minimax:depth=9:heuristic=basic:359:34.0321
+
+		MINIMAX OPEN_WORLD PARAMS: depth=9;eval=playout
 
 ===========================
 
-(mcts:limit=[1000/2000/100],c=[1.41/1.42/0.1],simulations=[greedy],samples=[10/20/10] greedy 100)
-mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:223.9009
-mcts:iterations=110:C=1.41:simulation=greedy:samples=10:73:206.6879
-mcts:iterations=120:C=1.41:simulation=greedy:samples=10:77:217.8466
-mcts:iterations=130:C=1.41:simulation=greedy:samples=10:72:212.5971
-mcts:iterations=140:C=1.41:simulation=greedy:samples=10:77:218.7084
-mcts:iterations=150:C=1.41:simulation=greedy:samples=10:77:254.2979 (GOOD)
-mcts:iterations=160:C=1.41:simulation=greedy:samples=10:71:211.2288
-mcts:iterations=170:C=1.41:simulation=greedy:samples=10:75:239.0509
-mcts:iterations=180:C=1.41:simulation=greedy:samples=10:76:243.2876
-mcts:iterations=190:C=1.41:simulation=greedy:samples=10:74:282.1850
-mcts:iterations=200:C=1.41:simulation=greedy:samples=10:79:269.1116
+			(mcts:limit=[1000/2000/100],c=[1.41/1.42/0.1],simulations=[greedy],samples=[10/20/10] greedy 100)
+			mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:223.9009
+			mcts:iterations=110:C=1.41:simulation=greedy:samples=10:73:206.6879
+			mcts:iterations=120:C=1.41:simulation=greedy:samples=10:77:217.8466
+			mcts:iterations=130:C=1.41:simulation=greedy:samples=10:72:212.5971
+			mcts:iterations=140:C=1.41:simulation=greedy:samples=10:77:218.7084
+			mcts:iterations=150:C=1.41:simulation=greedy:samples=10:77:254.2979 (iterations=150)
+			mcts:iterations=160:C=1.41:simulation=greedy:samples=10:71:211.2288
+			mcts:iterations=170:C=1.41:simulation=greedy:samples=10:75:239.0509
+			mcts:iterations=180:C=1.41:simulation=greedy:samples=10:76:243.2876
+			mcts:iterations=190:C=1.41:simulation=greedy:samples=10:74:282.1850
+			mcts:iterations=200:C=1.41:simulation=greedy:samples=10:79:269.1116
+
+
+			===========================
+
+			WITH Iterations = 1500 TOTAL
+			mcts:iterations=150:C=0.60:simulation=greedy:samples=10:74:181.9914
+			mcts:iterations=150:C=0.80:simulation=greedy:samples=10:79:187.6372
+			mcts:iterations=150:C=1.00:simulation=greedy:samples=10:76:229.3659
+			mcts:iterations=150:C=1.20:simulation=greedy:samples=10:69:223.7519
+			mcts:iterations=150:C=1.40:simulation=greedy:samples=10:80:171.1358 (BEST)
+			mcts:iterations=150:C=1.60:simulation=greedy:samples=10:80:167.0127
+			mcts:iterations=150:C=1.80:simulation=greedy:samples=10:77:174.1709
+			mcts:iterations=150:C=2.00:simulation=greedy:samples=10:74:170.9592
+			mcts:iterations=150:C=2.20:simulation=greedy:samples=10:74:170.4190
+
+			Because the ms gets bigger we limit the iterations to 1000 iters
+
+			WITH Iterations = 1000 TOTAL
+			mcts:iterations=100:C=0.60:simulation=greedy:samples=10:75:108.4408
+			mcts:iterations=100:C=0.80:simulation=greedy:samples=10:76:131.5454
+			mcts:iterations=100:C=1.00:simulation=greedy:samples=10:76:133.7912
+			mcts:iterations=100:C=1.20:simulation=greedy:samples=10:76:142.2878
+			mcts:iterations=100:C=1.40:simulation=greedy:samples=10:77:210.6132 (BEST)
+			mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:138.4687
+			mcts:iterations=100:C=1.60:simulation=greedy:samples=10:73:153.8822
+			mcts:iterations=100:C=1.80:simulation=greedy:samples=10:74:217.2818
+			mcts:iterations=100:C=2.00:simulation=greedy:samples=10:69:165.3477
+			mcts:iterations=100:C=2.20:simulation=greedy:samples=10:74:105.6374
+
+
+			===========================
+
+			mcts:iterations=150:C=1.40:simulation=random:samples=10:59:304.9868 
+
+			===========================
+			( mcts:limit=[1000/2000/1000],c=[1.40/1.41/0.1],simulations=[greedy],samples=[10/50/10] greedy 100)
+			mcts:iterations=100:C=1.40:simulation=greedy:samples=10:77:156.2041
+			mcts:iterations=50:C=1.40:simulation=greedy:samples=20:74:170.6538
+			mcts:iterations=33:C=1.40:simulation=greedy:samples=30:80:169.1752
+			mcts:iterations=25:C=1.40:simulation=greedy:samples=40:74:139.6485
+
+			===========================
+
+			MCTS CLOSED_WORLD PARAMS: limit=33;c=1.40;simulations=greedy;samples=30
+
 ===========================
 
-mcts:iterations=150:C=0.60:simulation=greedy:samples=10:74:181.9914
-mcts:iterations=150:C=0.80:simulation=greedy:samples=10:79:187.6372
+minimax:depth=1:heuristic=playout:samples=10:63:3.2469
+minimax:depth=2:heuristic=playout:samples=10:48:10.0488
+minimax:depth=4:heuristic=playout:samples=10:38:51.2434
+minimax:depth=5:heuristic=playout:samples=10:45:60.7737
+minimax:depth=6:heuristic=playout:samples=10:41:191.5769
+minimax:depth=8:heuristic=playout:samples=10:41:504.1775
+minimax:depth=10:heuristic=playout:samples=10:51:1340.3451
+
+===========================
+
+minimax:depth=1:heuristic=playout:samples=20:63:8.8630
+minimax:depth=2:heuristic=playout:samples=20:49:15.9032
+minimax:depth=3:heuristic=playout:samples=20:52:29.3143
+minimax:depth=4:heuristic=playout:samples=20:38:54.9883
+minimax:depth=5:heuristic=playout:samples=20:40:131.4267
+minimax:depth=6:heuristic=playout:samples=20:41:281.3040
+minimax:depth=7:heuristic=playout:samples=20:47:509.7802
+
+===========================
+minimax:depth=3:heuristic=playout:samples=10:50:21.9410

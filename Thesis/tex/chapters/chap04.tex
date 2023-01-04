@@ -9,29 +9,23 @@ The random agent simply selects an action at random, as its name suggests. It se
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-public override Card? Move(GameView gameView)
-{
-	var cards = gameView.Actions(excludePassTake: true);
+function Move(gameView: GameView)
+    	cards = gameView.Actions(excludePassTake: true)
 
     	// cannot attack/defend
-    	if (cards.Count == 1 && cards[0] is null)
-    	{
-		return null;
-    	}
-
+    	if cards.Count == 1 and cards[0] is null
+        	return null
+    
     	// include the case when the ai can decide to pass/take
     	// even if it can defend/attack (20% chance)
     	// allow only when the first attack was given
-    	int rn = random.Next(0, 100);
-    	if (rn <= 20 && gameView.bout.GetAttackingCards().Count > 0)
-	{
-        	return null;
-    	}
-
-    	return cards[random.Next(cards.Count)];
-}
+    	rn = random number between 0 and 100
+    	if rn <= 20 and gameView.bout.GetAttackingCards().Count > 0
+        	return null
+    
+    	return a random card from cards
 \end{lstlisting}
-\caption{A representation of Move method of the Random agent}
+\caption{Pseudocode of Move method of the Random agent}
 \label{fig:randomMove}
 \end{figure}
 
@@ -52,24 +46,24 @@ I have observed through years of playing this game that the best move in any giv
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function Move(gameView)
-	moves = PossibleMoves(gameView)
-	if HasNull(moves) then
-		return NULL
-	else
-		return GetCard(moves, gameView)
+    moves = PossibleMoves(gameView)
+    if HasNull(moves) is true
+        return NULL
+    else
+        return GetCard(moves, gameView)
 
 function GetCard(possibleCards, gView)
-	noTrumpCards = SelectNonTrumpCards(possibleCards)
-	if size(noTrumpCards) == 0 then
-		if EarlyGame(gViewinc) then
-			if size(BoutACards(gView)) > 0 && Turn(gView) == ATTACK then
-				return NULL
-			else
-				return LowestRank(possibleCards)
-		else
-			return LowestRank(possibleCards)
-	else
-		return LowestRank(noTrumpCards)
+    noTrumpCards = SelectNonTrumpCards(possibleCards)
+    if size of noTrumpCards is 0
+        if EarlyGame(gView) is true
+            if size of BoutACards(gView) > 0 and Turn(gView) == ATTACK
+                return NULL
+            else
+                return LowestRank(possibleCards)
+        else
+            return LowestRank(possibleCards)
+    else
+        return LowestRank(noTrumpCards)
 \end{lstlisting}
 \caption{Pseudocode of the Move method}
 \label{fig:greedyMove}
@@ -102,59 +96,82 @@ One limitation of this strategy is that it is only applicable in open-world envi
 \section{Minimax Agent}
 \label{minimax}
 
-In this chapter, we will discuss the application of the minimax algorithm to the card game Durak. Specifically, the importance of the parameters in the minimax algorithm in the Durak Command Line Interface (CLI) as well as what heuristic functions that are included to evaluate the game state. Through this discussion, we will gain a deeper understanding of the functions and responsibilities of each parameter in the minimax algorithm as it pertains to the Durak game.
+In this section, we will discuss an agent that uses the minimax algorithm to play Durak. Specifically, we will examine the importance of the parameters in the minimax algorithm and the heuristic functions included in the Durak Command Line Interface (CLI) for evaluating the game state.
 
-The minimax algorithm is a decision-making algorithm often used in two-player turn-based perfect information games, such as chess, tic-tac-toe, and Go \citep{AI4Ed}. It is called minimax because it tries to minimize the maximum loss that a player can incur. It operates by constructing a game tree, with each node representing a potential game state, and the branches representing the possible moves that can be made from that state. The minimax algorithm then traverses the tree, evaluating the value of each node using a combination of recursive calculations and a heuristic evaluation function. When applied to the entire tree, the minimax values produced by this algorithm accurately reflect the outcome of the game with perfect play by both players.
-
-However, due to the exponential increase in the size of the tree as the search depth increases, it is often infeasible to search the entire tree. As a result, the minimax algorithm must be terminated at some depth, and the minimax value for a given node is approximated using a heuristic evaluation function. This function assigns a score to the current game state based on a set of predefined criteria, which will be discussed further in this section. While the use of a heuristic evaluation function introduces some error into the minimax values, it allows the algorithm to produce reasonable results in a reasonable amount of time.
-
-\subsection{Basic Heuristic}
-The basic heuristic function utilizes predetermined criteria to evaluate the game state, using the contents of the players' hands, the size of the players' hands, and the presence of any weaknesses. It should be noted that this is not the only method of evaluating the state, and there are potentially numerous other criteria that could be incorporated into the heuristic function. However, the criteria mentioned are considered to be the primary ones used in the basic heuristic function. It is important to note that this approach to evaluating the game state is based on a heuristic function, which is an estimation rather than a definitive measure of the value of a state.
+The minimax algorithm is a decision-making algorithm often used in two-player turn-based perfect information games, such as chess, tic-tac-toe, and Go \citep{AI4Ed}. It is called minimax because it tries to minimize the maximum loss that a player can incur. It operates by constructing a game tree, with each node representing a potential game state, and the branches representing the possible moves that can be made from that state. The minimax algorithm then traverses the tree, evaluating the value of each node recursively. When applied to the entire tree, the minimax values produced by this algorithm accurately reflect the outcome of the game with perfect play by both players. The pseudocode of the minimax algorithm is illustrated in Figure \ref{fig:minimaxPseudocode}. To explore the potential game states, the minimax algorithm creates the copy, \texttt{game.Copy()}, of the state to ensure that the original game state cannot be changed after making possible moves. It is important to note that the following discussion of the algorithm assumes an open Durak environment, in which all players have access to the visible cards. This allows the game state to be freely cloned without letting the agent to see the hidden information. Section \ref{closedWorld} will address the algorithm's handling of the closed world environment, in which there is hidden information.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-private int ConvertHandToValue(List<Card> hand, GameView gw)
-{
-	const int TOTALCARDS = 9;
-	int value = 0;
-
-    	foreach (Card card in hand)
-    	{
-        	if (gw.includeTrumps && card.suit == gw.trumpCard!.suit)
-            	value += (int)card.rank + TOTALCARDS;
-        	else
-            	value += (int)card.rank;
-    	}
-    	return value;
-}
-
-private int EvaluatePlayerHandToValue(GameView gw) =>
-    	ConvertHandToValue(gw.players[0].GetHand(), gw) -
-    	ConvertHandToValue(gw.players[1].GetHand(), gw);
+function minimax(game, depth, out bestMove)
+    	if depth = MAX_DEPTH or game is in terminal state
+        	return the heuristic value of state
+        
+    	bestVal = game.turn == 1 ? -infinity : +infinity
+        
+	for each card of game.PossibleMoves()
+		stateCopy = 	game.Copy()
+		stateCopy.Move(card)
+		v = minimax(stateCopy, depth + 1, _)
+		
+		if game.turn == 1 && v > bestVal or game.turn == 2 && v < bestVal then
+			bestVal = v;
+			bestMove = card;
+			
+	return bestVal
 \end{lstlisting}
-\caption{A representation of basic heuristic function evaluating the state based on the players' hand value}
+\caption{Pseudocode for the minimax algorithm}
+\label{fig:minimaxPseudocode}
+\end{figure}
+
+Due to the exponential increase in the size of the tree as the search depth increases, it is often infeasible to search the entire tree. As a result, the minimax algorithm must be terminated at some depth (\texttt{MAX\_DEPTH}), and the minimax value for a given node is approximated using a heuristic evaluation function. The heuristic function assigns a score to the current game state based on a set of predefined criteria, which will be discussed further in this section. While the use of a heuristic evaluation function introduces some error into the minimax values, it allows the algorithm to produce reasonable results in a reasonable amount of time.
+
+\subsection{Basic Heuristic}
+The basic heuristic function utilizes predetermined criteria to evaluate the game state, using the contents of the players' hands, the size of the players' hands, and the presence of any weaknesses. It should be noted that this is not the only method of evaluating the state, and there are potentially numerous other criteria that could be incorporated into the heuristic function. However, the criteria mentioned are considered to be the primary ones used in the basic heuristic function.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+function ConvertHandToValue(hand: List of Card, gw: GameView)
+	TOTALCARDS = 9
+    	value = 0
+
+    	for each card in hand
+        	if gw.includeTrumps is true and card.suit == gw.trumpCard.suit
+            	value = value + card.rank + TOTALCARDS
+        	else
+            	value = value + card.rank
+
+    	return value
+
+function EvaluatePlayerHandToValue(gw: GameView)
+    	return ConvertHandToValue(gw.players[0].GetHand(), gw) - 	ConvertHandToValue(gw.players[1].GetHand(), gw)
+\end{lstlisting}
+\caption{Pseudocode of partial basic heuristic function evaluating the state based on the players' hand value}
 \label{fig:BHPlayersHandValue}
 \end{figure}
 
-In order to evaluate the state of a card game based on the cards held by each player, the heuristic function begins by computing the individual hand value of each player. Prior to beginning this calculation, the value of each card must be determined. This can be done by assigning the value of a card as its rank. For example, if player P holds the cards 6$\textcolor{red}{\heartsuit}$ and A$\textcolor{red}{\heartsuit}$, the value of their hand would be 20 (6 + 14). It is common for trump cards to be considered powerful and, as such, they may be assigned a higher value. To achieve this, the value of a trump card can be calculated by adding its rank to the total number of ranks in the deck. For example, the value of a trump card with rank 6 would be calculated as 6 + the total number of ranks in the deck (6, 7, ..., K, A). After the individual hand value of each player has been calculated, a basic heuristic function may be used to evaluate the game state. This can be done by subtracting the hand value of player P from that of player O. The result of this calculation can then be used to represent the game state. How this is achieved can be view in the figure \ref{fig:BHPlayersHandValue}. It should be noted that this method of evaluating the game state is only suitable for use when the players have an equal number of cards. When the players have an equal number of cards, these factors can be accurately compared and used to evaluate the state. In past experiments, using this evaluation method with players who have an equal number of cards has been found to produce more accurate and reliable results.
+In order to evaluate the state of a card game based on the cards held by each player, the heuristic function begins by computing the individual hand value of each player. Prior to beginning this calculation, the value of each card must be determined. This can be done by assigning the value of a card as its rank. For example, if player P holds the cards 6$\textcolor{red}{\heartsuit}$ and A$\textcolor{red}{\heartsuit}$, the value of their hand would be 20 (6 + 14). Trump cards are powerful, so we assign them a higher value. To achieve this, we calculate the value of a trump card by adding its rank to the total number of ranks in the deck. For example, the value of a trump card with rank 6 would be calculated as 6 + the total number of ranks in the deck (6, 7, ..., K, A). After the individual hand value of each player has been calculated, a basic heuristic function may be used to evaluate the game state. This can be done by subtracting the hand value of player P from that of player O. The result of this calculation can then be used to represent the game state. How this is achieved can be viewed in Figure \ref{fig:BHPlayersHandValue}. It should be noted that this method of evaluating the game state is only suitable for use when the players have an equal number of cards. In past experiments, using this evaluation method with players who have an equal number of cards has been found to produce more accurate and reliable results.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-private int EvaluateHandSize(GameView gw)
-{
-	int pHandSize = gw.players[0].GetNumberOfCards();
-	int oHandSize = gw.players[1].GetNumberOfCards();
+function EvaluateHandSize(gw: GameView)
+    	pHandSize = gw.players[0].GetNumberOfCards()
+    	oHandSize = gw.players[1].GetNumberOfCards()
 
-	// hand size matters in the late game
-	pHandSize = (gw.isEarlyGame ? pHandSize : pHandSize * 15);
-	oHandSize = (gw.isEarlyGame ? oHandSize : oHandSize * 15);
+    	if gw.isEarlyGame is true
+        	pHandSize = pHandSize
+    	else
+        	pHandSize = pHandSize * 15
+    	if gw.isEarlyGame is true
+        	oHandSize = oHandSize
+    	else
+        	oHandSize = oHandSize * 15
 
-	return (pHandSize - oHandSize) * -1;
-}
+    	return (pHandSize - oHandSize) * -1
 \end{lstlisting}
-\caption{A representation of basic heuristic function evaluating the state based on the players' hand size value}
+\caption{Pseudocode of partial basic heuristic function evaluating the state based on the players' hand size value}
 \label{fig:BHPlayerHandSize}
 \end{figure}
 
@@ -163,109 +180,119 @@ Another criterion that may be used to evaluate the state of a card game is the s
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-private int EvaluateState(GameView gw)
-{
-	int score = 0;
-    	//1) get the value of the hand only if the hand sizes are the same
-    	if (gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards())
-    	{
-    	    score += EvaluatePlayerHandToValue(gw);
-    	}
-    	// 2) size of the hand: smaller -> better 
-    	score += EvaluateHandSize(gw);
-    	// 3) weaknesses 
-    	if (!gw.isEarlyGame)
-    	{
-       	score += EvaluateWeaknesses(gw);
-    	}
-    	return score;
-}
+function AttackingStrategy(gw: GameView, noTrumpCards: List of Card, possibleCards: List of Card)
+	oHand = gw.GetOpponentCards()
+    	pHand = gw.playerHand
+    
+    	weaknesses = GetWeaknesses(possibleCards, oHand)
+    
+    	if size of weaknesses is 1
+        	weakRank = weaknesses[0]
+
+        	if (pHand) contains all cards with rank (weakRank)
+            	return first card in pHand  
+        	return lowest rank (card) in (pHand) where (card)'s rank is not weakRank
+        		
+    	if size of weaknesses is greater than 1
+        	nonweakness = cards in pHand where each card's rank is not a weakness
+        
+        	if size of weaknesses is less than or equal to size of nonweakness ranks
+        		weakRank = GetBadlyCoveredWeakness(gw, oHand, nonweakness, weaknesses)
+			if weakRank does not exist
+				return lowest rank in noTrumpCards
+			return first card in pHand such that its rank is weakRank
+    	return lowest rank in noTrumpCards
 \end{lstlisting}
-\caption{A representation of basic heuristic function}
-\label{fig:basicEval}
+\caption{Pseudocode of partial basic heuristic function evaluating the state based on the weaknesses}
+\label{fig:BHWeakness}
 \end{figure}
 
-As a final criterion for evaluating the game state, it is possible to consider the existence of weakness in the state. This concept was discussed in more detail in section \ref{smart}. The occurrence of this type of scenario is relatively rare, as it only occurs in specific game environments. However, if a player does happen to have only one weakness in a particular game state, it can provide a strong advantage and increase the likelihood of winning the game. As a result, a basic heuristic function may assign a high value to this type of game state.
+As a final criterion for evaluating the game state, it is possible to consider the existence of weakness in the state. This concept was discussed in more detail in section \ref{smart}. Scenarios of this type are relatively rare, occurring only in the endgame when the defending player, the opponent, does not possess any trump cards. This is because the strategy involving weaknesses is only effective in a perfect information game where trumps are not included. Figure \ref{fig:BHWeakness} presents the pseudocode for this strategy and demonstrates the precise manner in which cards are selected in this specific environment. If the game state is in the environment described above, we invoke the strategy. The pseudocode checks the number of weakness cards in player P's hand. If there is only one weakness card, it can be inferred that player P has a winning strategy by playing a non-weakness card first and then following it up with the weakness card (this strategy is discussed in further detail in Section \ref{smart}). In the event that there is more than one weakness card, a different approach is employed in an effort to reduce the number of weaknesses and return to the previously mentioned strategy. This method involves the concept of \textbf{badly-covered weaknesses} (the opposite of well-covered weaknesses, as discussed in Section \ref{weaknessConcept}). Essentially, if player P attacks with a badly-covered weakness, the defense card played by player O will allow player P to play an additional attacking card. This ensures that the number of weakness cards held by player P decreases and the aforementioned strategy can be implemented when there is only one weakness card remaining. If a player does happen to have only one weakness in a particular game state, it can provide a strong advantage and increase the likelihood of winning the game. As a result, a basic heuristic function may assign a high value to this type of game state.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+function EvaluateState(gw: GameView)
+    	score = 0
+    	// 1) get the value of the hand only if the hand sizes are the same
+    	if gw.players[0].GetNumberOfCards() == gw.players[1].GetNumberOfCards()
+        	score = score + EvaluatePlayerHandToValue(gw)
+    	// 2) size of the hand: smaller -> better 
+    	score = score + EvaluateHandSize(gw)
+    	// 3) weaknesses 
+    	if gw.isEarlyGame is false
+        	score = score + EvaluateWeaknesses(gw)
+    	return score
+\end{lstlisting}
+\caption{Pseudocode of \texttt{basic} heuristic function}
+\label{fig:basicEval}
+\end{figure}
 
 Figure \ref{fig:basicEval} illustrates the basic evaluation function, which combines the values obtained from the various criteria discussed earlier to assign a single value to the game state. The function adds together the values calculated for each criterion, resulting in a single value that represents the estimated value of the state. This value is then returned to the minimax function, which can use it to evaluate the state and guide decision-making.
 
 \subsection{Playout Heuristic}
 
-In the minimax algorithm, the playout heuristic is an alternative evaluation function that is used to determine the potential outcome of a given game state. It is based on MCTS Simulation playouts which will be covered in later section. Essentially, it involves creating a copy of the current state and simulating the play of the game between two greedy agents. The result of the simulation is used to assign a heuristic value to the game state, which can be used to guide the search process in minimax. The use of greedy agents in the playout heuristic leads to improved performance compared to basic heuristics, due to their ability to make effective and efficient decisions. The illustration of playout heuristic function can be found in Figure \ref{fig:playoutEval}.
+In the minimax algorithm, the playout heuristic is an alternative evaluation function that is used to determine the potential outcome of a given game state. It is inspired by playouts as used in Monte Carlo tree search, which will be covered in a later section. Essentially, it involves creating a copy of the current state and simulating the play of the game between two greedy agents. While it is not problematic to simulate the game using random playouts, it is better to use greedy playouts due to their ability to more accurately mimic the optimal strategy and provide more reliable estimates of the expected outcome of a given state. The result of the simulation is used to assign a heuristic value to the game state, which can be used to guide the search process in minimax. The use of greedy agents in the playout heuristic leads to improved performance compared to basic heuristics, due to their ability to make effective and efficient decisions. An illustration of the playout heuristic function can be found in Figure \ref{fig:playoutEval}. The outcome of the simulation, \texttt{Winner()}, can be represented by a value of 1 if player 1 wins, -1 if player 2 wins, or 0 if it is a draw. By incorporating this value with the current depth of the game state, it is possible to assign a heuristic value to the game state. This heuristic value is calculated by subtracting the current depth from 1000 and multiplying the result by the outcome of the game. This approach effectively prioritizes a shorter win over a longer one, as the size of the depth is taken into consideration.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-private int Evaluate(GameView gw, int depth)
-{
-	// simulate the game between 2 greedy AI agents. 
-	// Based on the outcome return the score
-	GameView innerGameView = gw.Copy();
-	// initialize the agents
-	List<Agent> agents = new List<Agent>()
-	{
-		new GreedyAI("greedy"),
-		new GreedyAI("greedy")
-	};
+function Evaluate(gw: GameView, depth: int)
+    	innerGameView = gw.Copy()
+    	agents = List of Agent containing GreedyAI("greedy") and GreedyAI("greedy")
 
-	// start the game simulation
-	while (innerGameView.status == GameStatus.GameInProcess)
-	{
-		int turn = innerGameView.Player();
-
-		Card? card = agents[turn].Move(innerGameView);
-		innerGameView.Apply(card);
-	}
-
-	int result = innerGameView.MMWinner();
-	int score = 1000 - depth;
-
-	return result * score;
-}
+    	while innerGameView.status is GameStatus.GameInProcess
+        	turn = innerGameView.Turn()
+        	card = agents[turn].Move(innerGameView)
+        	innerGameView.Move(card)
+    	result = innerGameView.Winner()
+    	score = 1000 - depth
+    	return result * score
 \end{lstlisting}
-\caption{A representation of playout heuristic function}
+\caption{Pseudocode of playout heuristic function}
 \label{fig:playoutEval}
 \end{figure}
 
-The minimax algorithm is capable of finding the optimal move in a two-player game by searching the entire game tree and considering all possible moves by both players. However, for some games, such as Durak, the game tree can be extremely large, making it computationally infeasible to fully explore. In these cases, the \textbf{alpha beta} pruning technique is used in conjunction with minimax to optimize the search process. Alpha beta pruning involves eliminating branches of the game tree that cannot affect the final decision, allowing the algorithm to focus its search on more promising areas of the tree and significantly reducing the overall computational burden.
+\subsection{Alpha-Beta Pruning}
+
+The minimax algorithm is capable of finding the optimal move in a two-player game by searching the entire game tree and considering all possible moves by both players. However, for some games, such as Durak, the game tree can be extremely large, making it computationally infeasible to fully explore. In these cases, the \textbf{alpha beta} pruning technique is used in conjunction with minimax to optimize the search process. Alpha beta pruning involves eliminating branches of the game tree that cannot affect the final decision, allowing the algorithm to focus its search on more promising areas of the tree and significantly reducing the overall computational burden \citep{AI4Ed}. Through comparison of the average time of the minimax algorithm with and without the implementation of alpha-beta pruning at various fixed depths in the perfect information environment, it is evident that the incorporation of alpha-beta pruning leads to a marked increase in efficiency (as depicted in Figure 3). At a depth of 6, the minimax algorithm incorporating alpha-beta pruning required an average of 10.6 milliseconds to explore the game tree, while the minimax without this optimization technique required an average of 258.2 milliseconds to do so. As anticipated, the use of alpha-beta pruning results in significantly faster performance compared to the minimax without this optimization technique.
+
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.9\textwidth]{../img/alpha-beta_comparison.png}
+  \caption{Comparison of the average time taken to make a move by the minimax algorithm with and without alpha-beta pruning at various depths in the perfect information environment.}
+  \label{WithWithoutAlphaBeta}
+\end{figure}
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-int Minimax(GameView gw, int (*@\textbf{alpha}@*), int (*@beta@*), int depth, out Card? bm)
-{
+function minimax(gameView, alpha, beta, depth, bestMove)
 ...
-	foreach(Card ?card in possibleMoves)
-	{
-		GameView gwCopy = gw.Copy();
-		gwCopy.Apply(card);
-		int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
-
-		if (gw.Player() == 0 ? v > bestVal : v < bestVal)
-		{
-			bestVal = v;
-			bm = card;
-			if (gw.Player() == 0)
-			{
-				if (v >= beta)
-				{
-					return v;
-				}
-				alpha = Max(alpha, v);
-			} else
-			{
-				if (v <= alpha)
-				{
-					return v;
-				}
-				beta = Min(beta, v);
-			}
-		}
-	}
+	bestVal = game.turn == 1 ? -infinity : +infinity
+	
+	possibleMoves = getPossibleMoves(gameView)
+    	for each move in possibleMoves
+        	gameViewCopy = copy(gameView)
+        	gameViewCopy.Move(move)
+        	v = minimax(gameViewCopy, alpha, beta, depth + 1, null)
+        	
+        	if game.turn == 1 && v > bestVal or game.turn == 2 && v < bestVal then
+        		bestVal = v
+        		bestMove = move
+        		
+        		if game.turn == 1 then 
+        			if v >= beta then 
+        				return v
+        			alpha = Max(alpha, v)
+        		else
+        			if v <= alpha then
+        				return v
+        			beta = Min(beta, v)
 ...
-}
 \end{lstlisting}
-\caption{A simplified representation of alpha beta pruning technique inside the minimax Move method}
+\caption{Part of the pseudocode of alpha-beta pruning technique inside the minimax \texttt{Move} method}
 \label{fig:alphabeta}
 \end{figure}
 

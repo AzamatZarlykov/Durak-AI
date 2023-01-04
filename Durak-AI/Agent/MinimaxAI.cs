@@ -181,12 +181,14 @@ namespace AIAgent
                 GameView gwCopy = gw.Copy();
                 gwCopy.Apply(card);
                 int v = Minimax(gwCopy, alpha, beta, depth + 1, out Card? _);
+
                 // if the game state was already explored then return its heurtic value
                 if (!cache_states.ContainsKey((stringified_gamestate, depth)))
                 {
                     // add to the cache the game state with its heurstic value
                     cache_states.Add((stringified_gamestate, depth), v);
                 }
+
 
                 if (gw.Player() == 0 ? v > bestVal : v < bestVal)
                 {
@@ -199,7 +201,8 @@ namespace AIAgent
                             return v;
                         }
                         alpha = Max(alpha, v);
-                    } else
+                    }
+                    else
                     {
                         if (v <= alpha)
                         {

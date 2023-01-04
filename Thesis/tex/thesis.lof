@@ -1,24 +1,27 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A simplified UML diagram showing the relationship between the objects within the Model library.\relax }}{14}{figure.caption.3}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces A simplified diagram of the Durak class, which encompasses the main properties of the game\relax }}{15}{figure.caption.4}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces A simplified overview of the PossibleMoves method inside the Durak class\relax }}{16}{figure.caption.5}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces A simplified overview of the Move method inside the Durak class\relax }}{17}{figure.caption.6}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces A representation of command and statistics.\relax }}{20}{figure.caption.8}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces A representation of the abstract class 'Agent'\relax }}{21}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A simplified UML diagram showing the relationship between the objects within the Model library.\relax }}{15}{figure.caption.3}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces A simplified diagram of the Durak class, which encompasses the main properties of the game\relax }}{16}{figure.caption.4}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A simplified overview of the PossibleMoves method inside the Durak class\relax }}{17}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A simplified overview of the Move method inside the Durak class\relax }}{18}{figure.caption.6}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces A representation of command and statistics.\relax }}{21}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces A representation of the abstract class 'Agent'\relax }}{22}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces A representation of Move method of the Random agent\relax }}{22}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Pseudocode of Move method of the Random agent\relax }}{23}{figure.caption.10}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Pseudocode of the Move method\relax }}{24}{figure.caption.11}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Pseudocode of the \texttt {Move} method of the Greedy agent, where \texttt {oHand} is a list of cards in the opponent's hand and \texttt {cards} is a list of possible cards to defend with\relax }}{24}{figure.caption.12}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces A representation of basic heuristic function evaluating the state based on the players' hand value\relax }}{26}{figure.caption.13}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces A representation of basic heuristic function evaluating the state based on the players' hand size value\relax }}{27}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces A representation of basic heuristic function\relax }}{28}{figure.caption.15}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces A representation of playout heuristic function\relax }}{29}{figure.caption.16}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces A simplified representation of alpha beta pruning technique inside the minimax Move method\relax }}{30}{figure.caption.17}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces A general pseudocode for MCTS\relax }}{31}{figure.caption.18}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces A snippet of Backpropagation method\relax }}{33}{figure.caption.19}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces A MCTS Pseudocode\relax }}{36}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{37}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Pseudocode of the \texttt {Move} method of the Greedy agent, where \texttt {oHand} is a list of cards in the opponent's hand and \texttt {cards} is a list of possible cards to defend with\relax }}{25}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Pseudocode for the minimax algorithm\relax }}{27}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Pseudocode of partial basic heuristic function evaluating the state based on the players' hand value\relax }}{28}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Pseudocode of partial basic heuristic function evaluating the state based on the players' hand size value\relax }}{28}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Pseudocode of partial basic heuristic function evaluating the state based on the weaknesses\relax }}{29}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Pseudocode of \texttt {basic} heuristic function\relax }}{30}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Pseudocode of playout heuristic function\relax }}{31}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Comparison of the average time taken to make a move by the minimax algorithm with and without alpha-beta pruning at various depths.\relax }}{32}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Part of the pseudocode of alpha-beta pruning technique inside the minimax \texttt {Move} method\relax }}{33}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces A general pseudocode for MCTS\relax }}{34}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces A snippet of Backpropagation method\relax }}{35}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces A MCTS Pseudocode\relax }}{38}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{39}{figure.caption.24}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
