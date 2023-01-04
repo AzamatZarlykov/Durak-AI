@@ -8,68 +8,58 @@
 \bibitem[Bonnet(2016)]{Bonnet2016TheCO}
 {\'E}.~Bonnet.
 \newblock The complexity of playing durak.
-\newblock In \emph{IJCAI}, 2016.
+\newblock In \emph{International Joint Conferences on Artificial Intelligence
+  (IJCAI)}, 2016.
 
-\bibitem[Browne et~al.(2012)Browne, Powley, Whitehouse, Lucas, Cowling,
-  Rohlfshagen, Tavener, Perez, Samothrakis, and Colton]{MCTSSurvey}
-Cameron~B. Browne, Edward Powley, Daniel Whitehouse, Simon~M. Lucas, Peter~I.
-  Cowling, Philipp Rohlfshagen, Stephen Tavener, Diego Perez, Spyridon
-  Samothrakis, and Simon Colton.
+\bibitem[C.Browne et~al.(2012)C.Browne, Powley, and D.~Whitehouse]{MCTSSurvey}
+C.Browne, E.~Powley, and et~al. D.~Whitehouse.
 \newblock A survey of monte carlo tree search methods.
 \newblock \emph{IEEE Transactions on Computational Intelligence and AI in
-  Games}, 4\penalty0 (1):\penalty0 1--43, 2012.
-\newblock \doi{10.1109/TCIAIG.2012.2186810}.
-
-\bibitem[Guillermo(2013)]{Gametheory4}
-O.~Guillermo.
-\newblock \emph{Game Theory}.
-\newblock Emerald Group Publishing Limited, 4 edition, 2013.
-\newblock ISBN 978-1781905074.
+  Games}, 4\penalty0 (1):\penalty0 1–43, 2012.
+\newblock \doi{10.1109/tciaig.2012.2186810}.
 
 \bibitem[Long et~al.(2010)Long, Sturtevant, Buro, and
   Furtak]{PerfectInformationMC}
-Jeffrey Long, Nathan~R. Sturtevant, Michael Buro, and Timothy Furtak.
+J.~Long, N.~Sturtevant, M.~Buro, and T.~Furtak.
 \newblock Understanding the success of perfect information monte carlo sampling
   in game tree search.
-\newblock In \emph{Proceedings of the Twenty-Fourth AAAI Conference on
-  Artificial Intelligence}, AAAI'10, page 134–140. AAAI Press, 2010.
+\newblock \emph{Proceedings of the AAAI Conference on Artificial Intelligence},
+  24\penalty0 (1):\penalty0 134–140, 2010.
+\newblock \doi{10.1609/aaai.v24i1.7562}.
 
-\bibitem[McLeod(2022{\natexlab{a}})]{website:PAGAT_DURAK}
-J.~McLeod.
-\newblock Durak (fool), March 2022{\natexlab{a}}.
+\bibitem[McLeod(2018)]{website:PAGAT_DURAK}
+J.~McLeod, Jun 2018.
 \newblock URL \url{https://www.pagat.com/beating/durak.html}.
 
-\bibitem[McLeod(2022{\natexlab{b}})]{website:PAGAT_PODKIDNOY_DURAK}
-J.~McLeod.
-\newblock Podkidnoy durak, March 2022{\natexlab{b}}.
+\bibitem[McLeod(2022)]{website:PAGAT_PODKIDNOY_DURAK}
+J.~McLeod, Mar 2022.
 \newblock URL \url{https://www.pagat.com/beating/podkidnoy_durak.html}.
 
 \bibitem[Millington and Funge(2009)]{millington_funge_2009}
-I.~Millington and J.~David Funge.
+I.~Millington and J.~Funge.
 \newblock \emph{Artificial Intelligence for Games}.
 \newblock Morgan Kaufmann, 2009.
 
-\bibitem[Moore et~al.(2017)Moore, McCabe, and Craig]{moore_mccabe_craig_2017}
-D.~S. Moore, G.~P. McCabe, and B.~A. Craig.
+\bibitem[Moor and G.~McCabe(2017)]{moore_mccabe_craig_2017}
+D.~Moor and B.~Craig G.~McCabe.
 \newblock \emph{Introduction to the practice of Statistics}.
 \newblock W. H. Freeman, 2017.
 
-\bibitem[S.~Russell(2020)]{AI4Ed}
-P.~Norvig S.~Russell.
-\newblock \emph{Artificial Intelligence A Modern Approach Fourth Edition}.
-\newblock Pearson, 2020.
-\newblock ISBN 0-13-461099-7.
+\bibitem[Owen(2008)]{Gametheory4}
+G.~Owen.
+\newblock \emph{Game theory}.
+\newblock Academic Press, 2008.
 
-\bibitem[Silver et~al.(2016)Silver, Huang, Maddison, Guez, Sifre, van~den
-  Driessche, Schrittwieser, Antonoglou, Panneershelvam, Lanctot, Dieleman,
-  Grewe, Nham, Kalchbrenner, Sutskever, Lillicrap, Leach, Kavukcuoglu, Graepel,
-  and Hassabis]{Silver2016MasteringTG}
-David Silver, Aja Huang, Chris~J. Maddison, Arthur Guez, L.~Sifre, George
-  van~den Driessche, Julian Schrittwieser, Ioannis Antonoglou, Vedavyas
-  Panneershelvam, Marc Lanctot, Sander Dieleman, Dominik Grewe, John Nham, Nal
-  Kalchbrenner, Ilya Sutskever, Timothy~P. Lillicrap, Madeleine Leach, Koray
-  Kavukcuoglu, Thore Graepel, and Demis Hassabis.
+\bibitem[Russell et~al.(2022)Russell, Norvig, and Chang]{AI4Ed}
+S.~Russell, P.~Norvig, and M.~Chang.
+\newblock \emph{Artificial Intelligence: A modern approach}.
+\newblock Pearson, 2022.
+
+\bibitem[Silver et~al.(2016)Silver, Huang, and
+  J.~Maddison]{Silver2016MasteringTG}
+D.~Silver, A.~Huang, and et~al. J.~Maddison.
 \newblock Mastering the game of go with deep neural networks and tree search.
-\newblock \emph{Nature}, 529:\penalty0 484--489, 2016.
+\newblock \emph{Nature}, 529\penalty0 (7587):\penalty0 484–489, 2016.
+\newblock \doi{10.1038/nature16961}.
 
 \end{thebibliography}

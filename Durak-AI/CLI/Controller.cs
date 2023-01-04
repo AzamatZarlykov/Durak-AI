@@ -445,7 +445,7 @@ namespace CLI
         public void RunTournament()
         {
 
-            string[] agents = gParam.TournamentAgents!.Split(',');
+            string[] agents = gParam.TournamentAgents!.Split('/');
             Dictionary<string, string> results = new Dictionary<string, string>();
             List<string> equallyStrongAgents = new List<string>();
 

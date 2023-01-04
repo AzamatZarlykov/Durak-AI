@@ -1,7 +1,0 @@
-,random,greedy,smart
-random,,5.6%-11.3% (500),3.8%-8.7% (500)
-greedy,88.7%-94.4% (500),,49.4%-51.9% (10000)
-smart,91.3%-96.2% (500),48.1%-50.6% (10000),
-,,
-Equally Strong Agents (Upper bound: 10000):
-smart - greedy

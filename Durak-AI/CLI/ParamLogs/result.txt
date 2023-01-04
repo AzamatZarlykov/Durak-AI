@@ -142,25 +142,39 @@ minimax:depth=6:heuristic=playout:38:11.8122
 
 			MCTS CLOSED_WORLD PARAMS: limit=33;c=1.40;simulations=greedy;samples=30
 
-===========================
+				===========================
 
-minimax:depth=1:heuristic=playout:samples=10:63:3.2469
-minimax:depth=2:heuristic=playout:samples=10:48:10.0488
-minimax:depth=4:heuristic=playout:samples=10:38:51.2434
-minimax:depth=5:heuristic=playout:samples=10:45:60.7737
-minimax:depth=6:heuristic=playout:samples=10:41:191.5769
-minimax:depth=8:heuristic=playout:samples=10:41:504.1775
-minimax:depth=10:heuristic=playout:samples=10:51:1340.3451
+				minimax:depth=1:heuristic=playout:samples=10:63:3.2469
+				minimax:depth=2:heuristic=playout:samples=10:48:10.0488
+				minimax:depth=3:heuristic=playout:samples=10:50:21.9410
+				minimax:depth=4:heuristic=playout:samples=10:38:51.2434
+				minimax:depth=5:heuristic=playout:samples=10:45:60.7737
+				minimax:depth=6:heuristic=playout:samples=10:41:191.5769
+				minimax:depth=7:heuristic=playout:samples=10:43:335.9536
+				minimax:depth=8:heuristic=playout:samples=10:41:504.1775
 
-===========================
+				minimax:depth=10:heuristic=playout:samples=10:51:1340.3451
 
-minimax:depth=1:heuristic=playout:samples=20:63:8.8630
-minimax:depth=2:heuristic=playout:samples=20:49:15.9032
-minimax:depth=3:heuristic=playout:samples=20:52:29.3143
-minimax:depth=4:heuristic=playout:samples=20:38:54.9883
-minimax:depth=5:heuristic=playout:samples=20:40:131.4267
-minimax:depth=6:heuristic=playout:samples=20:41:281.3040
-minimax:depth=7:heuristic=playout:samples=20:47:509.7802
+				===========================
 
-===========================
-minimax:depth=3:heuristic=playout:samples=10:50:21.9410
+				minimax:depth=1:heuristic=playout:samples=20:63:8.8630
+				minimax:depth=2:heuristic=playout:samples=20:49:15.9032
+				minimax:depth=3:heuristic=playout:samples=20:52:29.3143
+				minimax:depth=4:heuristic=playout:samples=20:38:54.9883
+				minimax:depth=5:heuristic=playout:samples=20:40:131.4267
+				minimax:depth=6:heuristic=playout:samples=20:41:281.3040
+				minimax:depth=7:heuristic=playout:samples=20:47:509.7802
+
+				===========================
+
+				minimax:depth=3:heuristic=basic:samples=10:19:2.5494
+
+				===========================
+
+				minimax:depth=3:heuristic=playout:samples=10:50:21.9410
+				minimax:depth=3:heuristic=playout:samples=20:52:29.3143
+				minimax:depth=3:heuristic=playout:samples=30:54:45.1150
+				minimax:depth=3:heuristic=playout:samples=40:45:53.8857
+				minimax:depth=3:heuristic=playout:samples=50:51:78.1071
+
+				MINIMAX CLOSED_WORLD PARAMS: depth=3;heuristic=playout;samples=30

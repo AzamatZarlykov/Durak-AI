@@ -300,7 +300,7 @@ The implementation of this technique, given in Figure \ref{fig:alphabeta}, invol
 
 Another method for optimizing the search of a game tree using the minimax algorithm was to implement state caching. This technique involves serializing the current game state with its current depth and storing its corresponding heuristic value in a cache. During the search process, the minimax agent can then check the cache before evaluating a given state. If the state has already been explored, the agent can retrieve the stored heuristic value and avoid the need to recalculate it, thereby reducing the overall computational complexity of the search. It was observed during the development of the program that the same game state may be encountered multiple times through different paths in the tree, making state caching an effective optimization technique for the minimax algorithm.
 
-\section{Monte-Carlo Tree Search Agent}
+\section{Monte Carlo Tree Search Agent}
 \label{MCTS}
 
 Monte Carlo Tree Search (MCTS) is a search algorithm that is commonly used in games such as chess, Go, and other board games to find the best move to make. It is based on the idea of using random sampling to estimate the value of different moves, rather than explicitly searching through the entire game tree \citep{MCTSSurvey}.
