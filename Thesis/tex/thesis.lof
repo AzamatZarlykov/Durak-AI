@@ -23,7 +23,7 @@
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Comparison of the average time taken to make a move by the minimax algorithm with and without cahcing of the states.\relax }}{34}{figure.caption.22}%
 \contentsline {figure}{\numberline {4.13}{\ignorespaces General pseudocode for MCTS\relax }}{36}{figure.caption.23}%
 \contentsline {figure}{\numberline {4.14}{\ignorespaces MCTS Pseudocode\relax }}{38}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{40}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces An excerpt of code from the ShuffleCopy method\relax }}{40}{figure.caption.25}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of number of wins of different fixed depths parameters in Minimax agent along with average time taken per ply in the open world\relax }}{43}{figure.caption.28}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison of number of wins and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in Minimax agent in the open world\relax }}{44}{figure.caption.29}%

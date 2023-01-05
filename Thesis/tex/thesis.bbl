@@ -7,37 +7,39 @@
 
 \bibitem[Bonnet(2016)]{Bonnet2016TheCO}
 {\'E}.~Bonnet.
-\newblock The complexity of playing durak.
+\newblock The complexity of playing {D}urak.
 \newblock In \emph{International Joint Conferences on Artificial Intelligence
   (IJCAI)}, 2016.
 
-\bibitem[C.Browne et~al.(2012)C.Browne, Powley, and D.~Whitehouse]{MCTSSurvey}
-C.Browne, E.~Powley, and et~al. D.~Whitehouse.
-\newblock A survey of monte carlo tree search methods.
+\bibitem[Browne et~al.(2012)Browne, Powley, and et~al.]{MCTSSurvey}
+C.~Browne, E.~Powley, and D.~Whitehouse et~al.
+\newblock A survey of {M}onte {C}arlo {T}ree {S}earch {M}ethods.
 \newblock \emph{IEEE Transactions on Computational Intelligence and AI in
   Games}, 4\penalty0 (1):\penalty0 1–43, 2012.
 \newblock \doi{10.1109/tciaig.2012.2186810}.
 
 \bibitem[G.Yannakakis and Togelius(2018)]{yannakakis_togelius_2018}
 G.Yannakakis and J.~Togelius.
-\newblock \emph{Artificial Intelligence and games}.
+\newblock \emph{Artificial {I}ntelligence and {G}ames}.
 \newblock Springer, 2018.
 
 \bibitem[Long et~al.(2010)Long, Sturtevant, Buro, and
   Furtak]{PerfectInformationMC}
 J.~Long, N.~Sturtevant, M.~Buro, and T.~Furtak.
-\newblock Understanding the success of perfect information monte carlo sampling
-  in game tree search.
+\newblock Understanding the success of {P}erfect {I}nformation {M}onte {C}arlo
+  sampling in game tree search.
 \newblock \emph{Proceedings of the AAAI Conference on Artificial Intelligence},
   24\penalty0 (1):\penalty0 134–140, 2010.
 \newblock \doi{10.1609/aaai.v24i1.7562}.
 
 \bibitem[McLeod(2018)]{website:PAGAT_DURAK}
-J.~McLeod, Jun 2018.
+J.~McLeod.
+\newblock Durak (fool) card game, Jun 2018.
 \newblock URL \url{https://www.pagat.com/beating/durak.html}.
 
 \bibitem[McLeod(2022)]{website:PAGAT_PODKIDNOY_DURAK}
-J.~McLeod, Mar 2022.
+J.~McLeod.
+\newblock Podkidnoy {D}urak, Mar 2022.
 \newblock URL \url{https://www.pagat.com/beating/podkidnoy_durak.html}.
 
 \bibitem[Millington and Funge(2009)]{millington_funge_2009}
@@ -45,20 +47,20 @@ I.~Millington and J.~Funge.
 \newblock \emph{Artificial Intelligence for Games}.
 \newblock Morgan Kaufmann, 2009.
 
-\bibitem[Moor and G.~McCabe(2017)]{moore_mccabe_craig_2017}
-D.~Moor and B.~Craig G.~McCabe.
-\newblock \emph{Introduction to the practice of Statistics}.
+\bibitem[Moore et~al.(2017)Moore, McCabe, and Craig]{moore_mccabe_craig_2017}
+D.~Moore, G.~McCabe, and B.~Craig.
+\newblock \emph{Introduction to the {P}ractice of {S}tatistics}.
 \newblock W. H. Freeman, 2017.
 
 \bibitem[Owen(2008)]{Gametheory4}
 G.~Owen.
-\newblock \emph{Game theory}.
+\newblock \emph{Game {T}heory}.
 \newblock Academic Press, 2008.
 
-\bibitem[Russell et~al.(2022)Russell, Norvig, and Chang]{AI4Ed}
-S.~Russell, P.~Norvig, and M.~Chang.
-\newblock \emph{Artificial Intelligence: A modern approach}.
-\newblock Pearson, 2022.
+\bibitem[Russell and Norvig(2022)]{AI4Ed}
+S.~Russell and P.~Norvig.
+\newblock \emph{{A}rtificial {I}ntelligence: A {M}odern {A}pproach}.
+\newblock Pearson, 4 edition, 2022.
 
 \bibitem[Zarlykov(2023)]{DurakRepo}
 A.~Zarlykov.
