@@ -8,10 +8,6 @@ To conduct our experiments, we will use the \texttt{-tournament} parameter avail
 
 With the game environment parameters set to be  in the perfect information world, we will proceed to configure the parameters for the various agents. Some agents, such as Random, Greedy, and Smart, do not require any additional parameters as their strategies are simple and do not involve game tree search. However, Minimax and MCTS, as described in Sections \ref{minimax} and \ref{MCTS} respectively, do require the configuration of certain parameters in order to perform at their best. In order to determine the optimal values for these parameters, we will run a set of games to identify the values that best suit the tournament environment before comparing with other agents. It is important to note that the selected parameters should result in an average move time of around 100ms in order to identify the most efficient configuration for the agent.
 
-\subsection{Configuring Minimax Parameters}
-
-In order to optimize the performance of the Minimax agent in an open world environment, we must determine the optimal values for the \texttt{depth} and \texttt{eval} parameters. We will use the playout heuristic for the \texttt{eval} parameter as it is generally superior to the basic heuristic. To find the best value for the \texttt{depth} parameter, I ran a 1000 game experiment that tries different values for it against the Greedy agent. 
-
 \begin{figure}[h]
   \centering
   \captionsetup{justification=centering}
@@ -19,6 +15,10 @@ In order to optimize the performance of the Minimax agent in an open world envir
   \caption{Comparison of number of wins of different fixed depths parameters in Minimax agent along with average time taken per ply in the open world}
   \label{minimaxOWDepth}
 \end{figure}
+
+\subsection{Configuring Minimax Parameters}
+
+In order to optimize the performance of the Minimax agent in an open world environment, we must determine the optimal values for the \texttt{depth} and \texttt{eval} parameters. We will use the playout heuristic for the \texttt{eval} parameter as it is generally superior to the basic heuristic. To find the best value for the \texttt{depth} parameter, I ran a 1000 game experiment that tries different values for it against the Greedy agent. 
 
 Figure \ref{minimaxOWDepth} illustrates the number of games won and the average time taken per ply by the Minimax agent with different depth parameters. The plot shows that the number of games won by the Minimax agent improves as the depth of the game tree exploration increases. The same trend can be observed for the average time taken to make a move. However, it is surprising to see that lower depth values such as 2 and 3 have a higher number of games won than the highest depth value of 6, which has the lowest number of wins. This observation warrants further investigation. Besides this, a horizontal shaded line is included in the plot to represent the optimal average time that the agent should take to make a move. It can be observed that the grey shaded line intersects with the average time of the Minimax agent at a depth of 9. This suggests that, in an open environment, this value of the parameter is the most suitable and will be used in the tournament.
 
@@ -177,7 +177,7 @@ With the \texttt{iterations} parameter set to 90, the \texttt{simulation} value 
 
 Like in the comparison of heuristic evaluation functions for the Minimax agent, bar plots were used to visualize the number of games won and average times per move for different simulation types in the MCTS algorithm. The left subplot in Figure \ref{mctsCWSimulations} compares the number of games won of the two simulations, and it can be seen that the greedy simulation performs significantly better than the random playouts. Additionally, the greedy simulation is much faster than the random playouts, as can be seen in the right subplot. This is due to the nature of random simulation, as discussed in Section \ref{MCTS}. Based on these results, we can conclude that the optimal parameters for the simulation in MCTS are greedy.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \captionsetup{justification=centering}
   \includegraphics[width=0.8\textwidth]{../img/mcts_simulation_closedworld.png}
@@ -241,3 +241,17 @@ In the closed world scenario, the minimax agent performed less well compared to 
 Table \ref{tournamentClosedWorld} shows that the performance of the Greedy and Smart agents is comparable in the closed world environment. The number of games played to determine a clear winner reached the upper bound of 10,000 games. In contrast to the open world, the Smart agent appears to be weaker in the closed world. This  due to the fact that the Smart agent relies on knowledge of the opponent's hand to inform its strategies, which is not available in the closed world setting. As a result, the Smart agent's performance is affected in this environment.
 
 In summary, the results of the closed world tournament show that the MCTS agent with the specified parameter configuration had the highest win rate among all agents, with strong performance against all other competitors. The Smart agent was the second most successful, achieving good results against the Random and Minimax agents. However, the Smart agent's performance was comparable to that of the Greedy agent. The Minimax agent with the specified parameter configuration ranked third in terms of win rate, followed by the Greedy agent, while the Random agent had the lowest win rate. Overall, these results suggest that the MCTS agent and the Smart agent are the most effective at winning closed-world games, and also have good performance in terms of average time per move.
+
+\section{The Advantage of the First Moving Player}
+
+Initially, it is determined that the player with the lowest trump card will make the first move. If neither player holds a trump card, the first player is randomly chosen (details in Section \ref{dealingCards}). In order to determine if the first player has an advantage, an experiment was conducted in which two random, two greedy, two minimax, and two MCTS agents played against each other. Each of the experiments had 100 games in the open world environment. The parameters for Minimax, \texttt{depth=4} and \texttt{eval=playout}, and MCTS, \texttt{limit=50}, \texttt{c=1.41} and \texttt{simulation=greedy}, were set arbitrarily (details regarding their parameters in Section \ref{paramSpecification}). The results are depicted in Figure \ref{firstmoveadvantage}.
+
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{../img/advantage.png}
+  \caption{First player making a move win percentage with Random, Greedy, Minimax, and MCTS}
+  \label{firstmoveadvantage}
+\end{figure}
+
+The results of the experiment, depicted in Figure \ref{firstmoveadvantage}, indicate that making the first move does not have a significant advantage for basic strategies such as random and greedy. Specifically, the random agents won 48 out of 100 games when making the first move, and the greedy agents won 44 out of 100 games under the same circumstances. On the other hand, more complex strategies such as minimax and MCTS appear to benefit from making the first move, with the minimax agents winning 53 out of 100 games and the MCTS agents also winning 53 out of 100 games. While the results suggest that the first player has a slight advantage when using more advanced strategies and does not have a slight advantage when using the basic strategies, the difference in win rate is not extreme, with the win rate for all strategies hovering around 50\%. Therefore, it can be concluded that making the first move does not have a significant impact on the outcome of the game.
