@@ -43,19 +43,19 @@
 \contentsline {subsection}{\numberline {4.5.1}Parameter Specification}{40}{subsection.4.5.1}%
 \contentsline {subsubsection}{Minimax}{40}{section*.25}%
 \contentsline {subsubsection}{MCTS}{40}{section*.26}%
-\contentsline {chapter}{\numberline {5}Experiments}{42}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Open world}{42}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Configuring Minimax Parameters}{42}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Configuring MCTS Parameters}{44}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Tournament}{46}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Closed world}{47}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Configuring Minimax Parameters}{48}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Configuring MCTS Parameters}{49}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Tournament}{51}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}The Advantage of the First Moving Player}{55}{section.5.3}%
-\contentsline {chapter}{Conclusion}{57}{chapter*.42}%
-\contentsline {chapter}{Bibliography}{59}{chapter*.44}%
-\contentsline {chapter}{List of Figures}{60}{chapter*.45}%
-\contentsline {chapter}{List of Tables}{62}{chapter*.46}%
-\contentsline {chapter}{List of Abbreviations}{63}{chapter*.47}%
-\contentsline {chapter}{\numberline {A}Attachments}{64}{appendix.A}%
+\contentsline {chapter}{\numberline {5}Experiments}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Open world}{41}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Configuring Minimax Parameters}{41}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Configuring MCTS Parameters}{43}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Tournament}{45}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Closed world}{46}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Configuring Minimax Parameters}{47}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Configuring MCTS Parameters}{48}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Tournament}{50}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}The Advantage of the First Moving Player}{54}{section.5.3}%
+\contentsline {chapter}{Conclusion}{56}{chapter*.42}%
+\contentsline {chapter}{Bibliography}{58}{chapter*.44}%
+\contentsline {chapter}{List of Figures}{59}{chapter*.45}%
+\contentsline {chapter}{List of Tables}{61}{chapter*.46}%
+\contentsline {chapter}{List of Abbreviations}{62}{chapter*.47}%
+\contentsline {chapter}{\numberline {A}Attachments}{63}{appendix.A}%
