@@ -119,8 +119,8 @@ namespace CLI
                 $"{(plies.Sum() / total_games):f1}");
 
             // for thesis
-            Console.WriteLine($"Move first and win Agent 1: {firstPLadvantage[0]}");
-            Console.WriteLine($"Move first and win Agent 2: {firstPLadvantage[1]}");
+           /* Console.WriteLine($"Move first and win Agent 1: {firstPLadvantage[0]}");
+            Console.WriteLine($"Move first and win Agent 2: {firstPLadvantage[1]}");*/
 
 
             if (gParam.BF)

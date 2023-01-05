@@ -35,10 +35,10 @@
 \contentsline {subsection}{\numberline {4.2.3}Smart Agent}{25}{subsection.4.2.3}%
 \contentsline {section}{\numberline {4.3}Minimax Agent}{26}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Basic Heuristic}{27}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{30}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Alpha-Beta Pruning}{31}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.2}Playout Heuristic}{29}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Alpha-Beta Pruning}{30}{subsection.4.3.3}%
 \contentsline {subsection}{\numberline {4.3.4}State Caching}{33}{subsection.4.3.4}%
-\contentsline {section}{\numberline {4.4}Monte Carlo Tree Search Agent}{34}{section.4.4}%
+\contentsline {section}{\numberline {4.4}Monte Carlo Tree Search Agent}{33}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Closed World Sampling}{38}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Parameter Specification}{40}{subsection.4.5.1}%
 \contentsline {subsubsection}{Minimax}{40}{section*.25}%
