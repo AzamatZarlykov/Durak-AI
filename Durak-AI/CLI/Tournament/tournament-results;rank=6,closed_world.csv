@@ -1,9 +1,9 @@
-,random,greedy,smart,minimax:depth=3,eval=playout,samples=30,mcts:limit=33,c=1.40,simulation=greedy,samples=30
+,random,greedy,smart,minimax:depth=3:eval=playout:samples=30,mcts:limit=33:c=1.40:simulation=greedy:samples=30
 random,,5.6%-11.3% (500),3.8%-8.7% (500),4.3%-9.5% (500),0.7%-3.5% (500)
 greedy,88.7%-94.4% (500),,49.4%-51.9% (10000),45.7%-49.2% (4500),15.4%-23.7% (500)
 smart,91.3%-96.2% (500),48.1%-50.6% (10000),,50.1%-57.5% (1000),20.6%-29.7% (500)
-minimax:depth=3,eval=playout,samples=30,90.5%-95.7% (500),50.8%-54.3% (4500),42.5%-49.9% (1000),,12.3%-19.9% (500)
-mcts:limit=33,c=1.40,simulation=greedy,samples=30,96.5%-99.3% (500),76.3%-84.6% (500),70.3%-79.4% (500),80.1%-87.7% (500),
+minimax:depth=3:eval=playout:samples=30,90.5%-95.7% (500),50.8%-54.3% (4500),42.5%-49.9% (1000),,12.3%-19.9% (500)
+mcts:limit=33:c=1.40:simulation=greedy:samples=30,96.5%-99.3% (500),76.3%-84.6% (500),70.3%-79.4% (500),80.1%-87.7% (500),
 ,,
 Equally Strong Agents (Upper bound: 10000):
 smart - greedy

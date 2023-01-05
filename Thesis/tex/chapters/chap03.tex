@@ -8,9 +8,9 @@ I tested the game framework for Durak on both the Windows 10 and Linux operating
 
 \section{A High-Level View of the Framework}
 
-The Durak AI framework includes a game model, AI agents, and a command-line interface (CLI) that are implemented using the C\# programming language and targeted for the .NET 6 platform. C\# was selected as the programming language for the implementation of aforementioned projects in Durak. The language offers benefits from a highly optimized Just-In-Time (JIT) compiler, resulting in enhanced speed. This attribute made C\# an ideal choice for this development.
+The Durak AI framework includes a game model, AI agents, and a command-line interface (CLI) that are implemented using the C\# programming language and targeted for the .NET 6 platform.
 
-In order to run and test the program, the project has to be cloned from the repository . The source code for the project is available on \underline{\href{https://github.com/AzamatZarlykov/Durak-AI}{GitHub}}. From the CLI directory of the project, the user can use the command line to enter the following command: 
+In order to run and test the program, the project has to be cloned from the repository . The source code for the project is available on the project GitHub page \citep{DurakRepo}. From the CLI directory of the project, the user can use the command line to enter the following command: 
 \begin{lstlisting}
 $ dotnet run
 \end{lstlisting}
@@ -290,7 +290,7 @@ Other than that, it is important to consider that when utilizing certain advance
 
 The Agent library is a collection of artificial intelligence agents that are utilized in the experiment. The agents included in this library are: Random, Greedy, Smart, Minimax, and MCTS. The functionality and implementation of these agents will be elaborated upon in the next chapter. This section describes the overall structure and organization of the Agent library.
 
-The abstract class \texttt{Agent} represents a common interface for all agents. By implementing the abstract method \texttt{Move} inside the \texttt{Agent} abstract class, the agents are able to make a move inside the game given the set of possible options or moves. A visual representation of the abstract class \texttt{Agent} is provided in Figure \ref{fig:abstractClass}.
+The abstract class \texttt{Agent} represents a common interface for all agents. The program calls the \texttt{Move} method to ask an agent which move it will make in a given game state. A visual representation of the abstract class \texttt{Agent} is provided in Figure \ref{fig:abstractClass}.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}

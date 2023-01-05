@@ -10,7 +10,18 @@ It is essential to acknowledge that every game of Durak must eventually conclude
 Another question of interest is whether it is possible for the same game state to occur twice within a single game of Durak. In the game of Durak, if the same state were to repeat, it would mean that the sequence of moves that led to that state could be repeated indefinitely. However, we know that the game of Durak must eventually come to an end because it is not possible for the game to continue indefinitely (Section \ref{termination}). This means that there cannot be any sequence of moves that leads the game back to the same state, as the game must eventually conclude. Therefore, it is not possible for the same state to repeat in the game of Durak.
 
 \section{The Advantage of the First Moving Player}
-It is a common misconception that the first player to move in a game of Durak holds a significant advantage over their opponent. While it is true that the first player has the opportunity to set the tone of the game and establish their strategy from the outset, this advantage is not necessarily decisive. A skilled opponent can effectively counter the strategies of the first player and ultimately achieve victory. The outcome of a game of Durak is determined by the players' abilities and strategies, rather than the order in which they move.
+
+Initially, it is determined that the player with the lowest trump card will make the first move. If neither player holds a trump card, the first player is randomly chosen (details in Section \ref{dealingCards}). In order to determine if the first player has an advantage, an experiment was conducted in which two random, two greedy, two minimax, and two MCTS agents played against each other. The parameters for Minimax, \texttt{depth=4} and \texttt{eval=playout}, and MCTS, \text{limit=50}, \texttt{c=1.41} and \texttt{simulation=greedy}, were set arbitrarily (details regarding their parameters in Section \ref{paramSpecification}. The results are depicted in Figure \ref{firstmoveadvantage}.
+
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{../img/advantage.png}
+  \caption{First player making a move win percentage with Random, Greedy, Minimax, and MCTS}
+  \label{firstmoveadvantage}
+\end{figure}
+
+The results of the experiment, depicted in Figure \ref{firstmoveadvantage}, indicate that making the first move does not have a significant advantage for basic strategies such as random and greedy. Specifically, the random agents won 48 out of 100 games when making the first move, and the greedy agents won 44 out of 100 games under the same circumstances. On the other hand, more complex strategies such as minimax and MCTS appear to benefit from making the first move, with the minimax agents winning 53 out of 100 games and the MCTS agents also winning 53 out of 100 games. While the results suggest that the first player has a slight advantage when using more advanced strategies and does not have a slight advantage when using the basic strategies, the difference in win rate is not extreme, with the win rate for all strategies hovering around 50\%. Therefore, it can be concluded that making the first move does not have a significant impact on the outcome of the game.cre
 
 \section{Classification}
 

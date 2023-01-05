@@ -1,4 +1,4 @@
-mport matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 # This script is used just to draw the plots. It is not automated.
 # The values has to be included manually.
@@ -56,5 +56,30 @@ def mcts_config_openworld():
 	# Show the plot
 	plt.show()
 
+def first_move_adv():
+	# Set the x-axis labels
+	x = ['Random', 'Greedy', 'Minimax', 'MCTS']
+
+	# Set the y-axis values
+	y = [48, 44, 53, 53]
+
+	# Create the bar graph
+	plt.bar(x, y)
+
+	# Add a horizontal line at 50%
+	plt.axhline(y=50, color='red', linestyle='--')
+
+	# Add a title and y-axis label
+	plt.title('First Player Make a Move Win Percentage')
+	plt.ylabel('Win Percentage')
+
+	# Save the plot as a PNG image in the current working directory
+	plt.savefig("../Figures/advantage.png")
+
+	# Display the graph
+	plt.show()
+
+
 #alpha_beta_graph()
-mcts_config_openworld()
+#mcts_config_openworld()
+first_move_adv()

@@ -178,3 +178,43 @@ minimax:depth=6:heuristic=playout:38:11.8122
 				minimax:depth=3:heuristic=playout:samples=50:51:78.1071
 
 				MINIMAX CLOSED_WORLD PARAMS: depth=3;heuristic=playout;samples=30
+
+=========================
+RANDOM VS RANDOM
+Move first and win Agent 1: 30
+Move first and win Agent 2: 18
+Draw rate: 0.0%
+Agent 1 (random) won 60 / 100 games (60.0%)
+Agent 2 (random) won 40 / 100 games (40.0%)
+
+48/100 times the agent who moved first WON
+
+=========================
+GREEDY VS GREEDY
+Move first and win Agent 1: 18
+Move first and win Agent 2: 26
+Draw rate: 7.0%
+Agent 1 (greedy) won 38 / 100 games (38.0%)
+Agent 2 (greedy) won 55 / 100 games (55.0%)
+
+44/100 times the agent who moved first WON
+
+=========================
+(minimax:depth=4:heuristic=basic) vs (minimax:depth=4:heuristic=basic)
+Move first and win Agent 1: 27
+Move first and win Agent 2: 26
+Draw rate: 1.0%
+Agent 1 (minimax:depth=4:heuristic=basic) won 49 / 100 games (49.0%)
+Agent 2 (minimax:depth=4:heuristic=basic) won 50 / 100 games (50.0%)
+
+53/100 times the agent who moved first WON
+
+=========================
+(mcts:iterations=50:C=1.42:simulation=greedy) vs (mcts:iterations=50:C=1.42:simulation=greedy)
+Move first and win Agent 1: 30
+Move first and win Agent 2: 23
+Draw rate: 0.0%
+Agent 1 (mcts:iterations=50:C=1.42:simulation=greedy) won 55 / 100 games (55.0%)
+Agent 2 (mcts:iterations=50:C=1.42:simulation=greedy) won 45 / 100 games (45.0%)
+
+53/100 times the agent who moved first WON

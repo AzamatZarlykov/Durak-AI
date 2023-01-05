@@ -18,6 +18,7 @@ namespace CLI
     {
         private int[] gamesWon;
         private int[] totalMoves;
+        private int[] firstPLadvantage;
         private Stopwatch[] timers;
         private int draws;
         private int bouts;
@@ -37,6 +38,7 @@ namespace CLI
 
             this.gamesWon = new int[2];
             this.totalMoves = new int[2];
+            this.firstPLadvantage = new int[2];
             this.timers = new Stopwatch[]
             {
                 new Stopwatch(),
@@ -115,6 +117,11 @@ namespace CLI
                 $"{(movesPerBout / total_games):f1}");
             Console.WriteLine($"Average plies played over the game: " +
                 $"{(plies.Sum() / total_games):f1}");
+
+            // for thesis
+            Console.WriteLine($"Move first and win Agent 1: {firstPLadvantage[0]}");
+            Console.WriteLine($"Move first and win Agent 2: {firstPLadvantage[1]}");
+
 
             if (gParam.BF)
                 Console.WriteLine($"Average branching factor " +
@@ -308,6 +315,8 @@ namespace CLI
                     gParam.OpenWorld,
                     i, gParam.Agents);
 
+                int first = game.GetAttackingPlayer();
+
                 InitializeAgents(i);
 
                 while (game.gameStatus == GameStatus.GameInProcess)
@@ -326,6 +335,12 @@ namespace CLI
                         throw new Exception("Illegal Move");
                     
                     timers[turn].Stop();
+                }
+
+                // if first moving agent is the winner
+                if (game.GetGameResult() == first)
+                {
+                    firstPLadvantage[first]++;
                 }
                 HandleEndGameResult(game, i);
             }
