@@ -449,38 +449,39 @@ Upon receiving the reward result from the \texttt{DefaultPolicy}, the program pa
 
 \section{Closed World Sampling}
 \label{closedWorld}
-It is well-known that algorithms such as Minimax and Monte Carlo Tree Search (MCTS) can provide optimal play in games by thoroughly exploring the game tree. However, in imperfect information games such as Durak, this is not considered fair play because it allows the agent to access hidden information that it would not normally have access to. One way this can be done is through the use of a cloning method, which allows the agent to create a copy of the current game state and explore the potential outcomes of different moves. While this is acceptable in games with perfect information, such as chess or checkers, it is considered cheating in games with hidden information.
+It is well-known that algorithms such as Minimax and Monte Carlo Tree Search (MCTS) can provide optimal play in games by thoroughly exploring the game tree. One way this can be done is through the use of a cloning method, which allows the agent to create a copy of the current game state and explore the potential outcomes of different moves. However, in imperfect information games such as Durak, this is not considered fair play because it allows the agent \textbf{cheat}. While this is acceptable in games with perfect information, such as chess or checkers, it is considered cheating in games with hidden information. For instance, a minimax search may determine that if the agent plays a 7$\textcolor{red}{\diamondsuit}$, the opponent will defend with a 9$\textcolor{red}{\diamondsuit}$, leading to the end of the bout because the agent has no cards of rank 9. However, this information is not available to the agent in the actual game, as the opponent's hand is hidden. Allowing the agent to use this information in its decision-making process would be considered \textbf{cheating}, as it is not fair to allow the agent to see which moves would be advantageous in a scenario where it has knowledge of the opponent's hand.
 
-One way to address the issue of hidden information in imperfect information games is to use a \textbf{sampling} method that randomly generates a game state based on the information that the player can currently observe. This allows the agent to explore and evaluate potential moves without access to hidden information. The agent can then repeat this process a number of times, using algorithms such as Minimax or MCTS to determine the best course of action in each sampled game state. By considering the outcomes of these randomized scenarios, the agent can make a decision that is likely to be successful across a range of potential game states. This approach is called  ``Perfect Information Monte Carlo'' \citep{PerfectInformationMC}.
+One way to address the issue of hidden information in imperfect information games is to use a \textbf{sampling} method that randomly generates a game state based on the information that the player can currently observe. This allows the agent to explore and evaluate potential moves without access to hidden information. The agent can then repeat this process a number of times, using algorithms such as Minimax or MCTS to determine the best course of action in each sampled game state. By considering the outcomes of these randomized scenarios, the agent can make a decision that is likely to be successful across a range of potential game states. This approach is called  ``Perfect Information Monte Carlo'' \citep{PerfectInformationMC}. It may be worth noting that this technique is alsp referred to as ``averaging over clairvoyance'' in the textbook ``Artificial Intelligence: A Modern Approach'' \citep{AI4Ed}.
 
-To implement a closed world sampling method in the game of Durak, a shuffled copy, \texttt{ShuffleCopy}, method was developed. In this game, the hidden information in the early stages of play includes the cards in the deck and the opponent's hand. To generate a randomly shuffled game state, the \texttt{ShuffleCopy} method combines these two sources of hidden information and shuffles them, before redistributing the same number of cards to the player and the deck. This process is represented in the Figure \ref{fig:shuffleCopy}. This shuffled game state is then returned to the calling agent, which can be either a Minimax or a MCTS. Thanks to that the shuffling process preserves the hidden information while allowing the agent to determine the best move to make in the current game state.
+To implement a closed world sampling method in the game of Durak, a method \texttt{ShuffleCopy} was developed. In this game, the hidden information in the early stages of play includes the cards in the deck and the opponent's hand. To generate a randomly shuffled game state, the \texttt{ShuffleCopy} method combines these two sources of hidden information and shuffles them, before redistributing the same number of cards to the player and the deck. This process is represented in Figure \ref{fig:shuffleCopy}. This shuffled game state is then returned to the calling agent. Thanks to that the shuffling process destroys the hidden information while allowing the agent to determine the best move to make in the current game state.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
 \begin{lstlisting}
-public Durak ShuffleCopy()
-{
-	// perform copy
-    	Durak copy = (Durak)this.MemberwiseClone();
-	...
-	
-    	Player opponent = copy.players[GetNextTurn()];
-    	var opponentHiddenCards = opponent.GetHand().Where(c => !c.GetSeen());
-    	int totalHiddenCards = opponentHiddenCards.Count();
+function Durak ShuffleCopy()
+    // perform copy
+    Durak copy = clone this object
+    ...
+    
+    Player opponent = copy.players[GetNextTurn()]
+    var opponentHiddenCards = elements in opponent's hand where GetSeen() is false
+    int totalHiddenCards = opponentHiddenCards.Count()
 
-    	// add hidden cards from opponent's hand to the hidden deck cards
-    	copy.deck.GetCards().AddRange(opponentHiddenCards);
-    	// remove hidden cards from the hand
-    	opponent.GetHand().RemoveAll(card => !card.GetSeen());
-
-    	// shuffle the unseen cards 
-    	copy.deck.Shuffle();
-	...
-	
-    	return copy;
-}
+    // add hidden cards from opponent's hand to the hidden deck cards
+    copy.deck.GetCards().AddCards(opponentHiddenCards)
+    // remove hidden cards from the hand
+    remove elements from opponent's hand where GetSeen() is false
+    
+    // shuffle the unseen cards 
+    copy.deck.Shuffle()
+    
+    // refill opponent's hand with shuffled cards
+    FillPlayerHand(copy.deck.DrawCards(totalHiddenCards));
+    ...
+    
+    return copy
 \end{lstlisting}
-\caption{A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method}
+\caption{ An excerpt of code from the ShuffleCopy method}
 \label{fig:shuffleCopy}
 \end{figure}
 
@@ -491,7 +492,7 @@ The number of samples to be generated by the agents is determined by the user. A
 
 \subsubsection{Minimax}
 
-In order to conduct an experiment using the minimax agent, it is necessary to specify certain parameters, which have been informed by our understanding of the minimax agent. Specifically, it is necessary to specify the value of the \texttt{depth} parameter, which determines the depth to which the search tree will be explored in order to identify the optimal move. In addition to the depth parameter, it is also necessary to specify the \texttt{eval} parameter, which specifies the heuristic function used to evaluate the state when the maximum depth has been reached. The \texttt{eval} parameter can take on either the value \texttt{basic} or \texttt{playout}. It is worth noting that, in a closed world scenario, the \texttt{samples} parameter is optional and has a default value of 20. The \texttt{samples} parameter serves to prevent agents such as Minimax and MCTS from cheating by accessing information about future states of the game (details in Section \ref{closedWorld}). This illustration presents an example of a simulation between the Minimax and greedy agents with arbitrary parameter values in the open and closed world:\\
+In order to conduct an experiment using the minimax agent, it is necessary to specify certain parameters, which have been informed by our understanding of the minimax agent. The minimax agent has a parameter \texttt{depth}, which determines the depth to which the search tree will be explored in order to identify the optimal move. The minimax agent also has a parameter \texttt{eval}, which specifies the heuristic function used to evaluate the state when the maximum depth has been reached. The \texttt{eval} parameter can take on either the value \texttt{basic} or \texttt{playout}. It is worth noting that, in a closed world scenario, the \texttt{samples} parameter is optional and has a default value of 20. The \texttt{samples} parameter specifies the number of random samples that should be used by these agents in the closed world scenario, where they are not permitted to create a perfect copy of the game state.  (details in Section \ref{closedWorld}). This illustration presents an example of a simulation between the Minimax and greedy agents with arbitrary parameter values in the open and closed world:\\
 
 \textbf{Open-world: }
 \begin{lstlisting}
@@ -505,7 +506,7 @@ dotnet run -ai1=minimax:depth=6,eval=basic,samples=15 -ai2=smart
 
 \subsubsection{MCTS}
 
-Regarding MCTS,it is necessary to specify the value of the \texttt{limit} parameter, which determines the computational budget allocated for the algorithm to build the search tree. The search is halted and the best-performing root action is returned once this budget is reached. The \texttt{c}, which is called exploration constant, parameter also needs to be specified because it determines the balance between exploitation and exploration in the UCB equation. This parameter is set to a default value of  $\sqrt{2}$ ($\approx 1.41$) and can be adjusted to fine-tune the performance of the algorithm. The \texttt{simulation} parameter should also be specified, indicating whether to use a smart simulation (\texttt{greedy}) or a random simulation (\texttt{random}). Lastly, in a closed world setting, just like in Minimax, it is necessary to specify the \texttt{samples} parameter to prevent the MCTS agent from cheating by considering future states of the game. This example demonstrates a simulation between MCTS and greedy agents with arbitrary parameter values in open and closed world settings: \\
+Regarding MCTS,it is necessary to specify the value of the \texttt{limit} parameter, which determines the computational budget allocated for the algorithm to build the search tree. The search is halted and the best-performing root action is returned once this budget is reached. The parameter \texttt{c}, which is called the exploration constant, also needs to be specified because it determines the balance between exploitation and exploration in the UCB equation. This parameter is set to a default value of  $\sqrt{2}$ ($\approx 1.41$) and can be adjusted to fine-tune the performance of the algorithm. The \texttt{simulation} parameter should also be specified, indicating whether to use a smart simulation (\texttt{greedy}) or a random simulation (\texttt{random}). Lastly, in a closed world setting, just like in Minimax, it is necessary to specify the \texttt{samples} parameter. This example demonstrates simulations between the MCTS and greedy agents with various parameter values in the open and closed world settings: \\
 
 \textbf{Open-world: }
 \begin{lstlisting}
