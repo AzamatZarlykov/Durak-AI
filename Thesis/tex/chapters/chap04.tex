@@ -260,11 +260,8 @@ function Evaluate(gw: GameView, depth: int)
   \label{WithWithoutAlphaBeta}
 \end{figure}
 
-\subsection{Alpha-Beta Pruning}
 
-The minimax algorithm is capable of finding the optimal move in a two-player game by searching the entire game tree and considering all possible moves by both players. However, for some games, such as Durak, the game tree can be extremely large, making it computationally infeasible to fully explore. In these cases, the \textbf{alpha beta} pruning technique is used in conjunction with minimax to optimize the search process. Alpha beta pruning involves eliminating branches of the game tree that cannot affect the final decision, allowing the algorithm to focus its search on more promising areas of the tree and significantly reducing the overall computational burden \citep{AI4Ed}. Through comparison of the average time of the minimax algorithm with and without the implementation of alpha-beta pruning at various fixed depths in the perfect information environment, it is evident that the incorporation of alpha-beta pruning leads to a marked increase in efficiency (as depicted in Figure 3). At a depth of 6, the minimax algorithm incorporating alpha-beta pruning required an average of 10.6 milliseconds to explore the game tree, while the minimax without this optimization technique required an average of 258.2 milliseconds to do so. As anticipated, the use of alpha-beta pruning results in significantly faster performance compared to the minimax without this optimization technique.
-
-\begin{figure}[h]
+\begin{figure}[h!]
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function minimax(gameView, alpha, beta, depth, bestMove)
@@ -295,6 +292,11 @@ function minimax(gameView, alpha, beta, depth, bestMove)
 \label{fig:alphabeta}
 \end{figure}
 
+
+\subsection{Alpha-Beta Pruning}
+
+The minimax algorithm is capable of finding the optimal move in a two-player game by searching the entire game tree and considering all possible moves by both players. However, for some games, such as Durak, the game tree can be extremely large, making it computationally infeasible to fully explore. In these cases, the \textbf{alpha beta} pruning technique is used in conjunction with minimax to optimize the search process. Alpha beta pruning involves eliminating branches of the game tree that cannot affect the final decision, allowing the algorithm to focus its search on more promising areas of the tree and significantly reducing the overall computational burden \citep{AI4Ed}. Through comparison of the average time of the minimax algorithm with and without the implementation of alpha-beta pruning at various fixed depths in the perfect information environment, it is evident that the incorporation of alpha-beta pruning leads to a marked increase in efficiency (as depicted in Figure 3). At a depth of 6, the minimax algorithm incorporating alpha-beta pruning required an average of 10.6 milliseconds to explore the game tree, while the minimax without this optimization technique required an average of 258.2 milliseconds to do so. As anticipated, the use of alpha-beta pruning results in significantly faster performance compared to the minimax without this optimization technique.
+
 The implementation of this technique, given in Figure \ref{fig:alphabeta}, involves adding two additional parameters, ``alpha'' and ``beta'', to the minimax function. These parameters are initialized to negative and positive infinity, respectively, indicating that any minimax value is acceptable. The algorithm then compares the values of alpha and beta to the current minimax value during the search, and if the value exceeds a certain threshold, the search is terminated as a game-winning move has been identified. Overall, the incorporation of alpha-beta pruning into the minimax algorithm involves only a minor modification to the existing code, making it a useful tool for optimizing the performance of minimax in certain situations.
 
 \subsection{State Caching}
@@ -314,16 +316,23 @@ The implementation of a caching system did not produce an improvement in the ave
 \section{Monte Carlo Tree Search Agent}
 \label{MCTS}
 
-Monte Carlo Tree Search (MCTS) is a search algorithm that is commonly used in games such as chess, Go, and other board games to find the best move to make. It is based on the idea of using random sampling to estimate the value of different moves, rather than explicitly searching through the entire game tree \citep{MCTSSurvey}.
+Monte Carlo Tree Search (MCTS) is a search algorithm that is commonly used in games such as chess, Go, and other board games to find the best move to make. It is based on the idea of using random sampling to estimate the value of different moves, rather than explicitly searching through the entire game tree. The basic idea behind MCTS is to use simulated playouts of a game to estimate the value of each possible move. The algorithm starts with a root node representing the current position in the game, and then expands the tree by adding child nodes for each possible move. The algorithm then performs a Monte Carlo simulation by randomly selecting a child node and playing out a game from that position until the game is won or lost. The outcome of the simulation is used to update the value of the node and its parents in the tree \citep{MCTSSurvey}. In this context, a node refers to a single position or state in the Durak game being played. Each node in the MCTS tree represents a possible move that can be taken from the current position, and contains information about the state of the game at that position. The node contains the following information: 
+
+\begin{itemize}
+	\item The Durak state of the game at that position.
+	\item The number of times the node has been visited.
+	\item The total reward of all the playouts.
+	\item and other key information
+\end{itemize}
 
 The MCTS algorithm consists of four main steps at every iteration:
 
 \begin{enumerate}
-	\item Selection: The algorithm starts at the root of the game tree and selects successive child nodes by using a heuristic evaluation function to guide the search towards promising areas of the tree.
+	\item Selection: The algorithm starts at the root of the game tree and selects successive child nodes guided by selection policy leading the search towards promising areas of the tree.
 	
-	\item Expansion: Once a leaf node (a node without any children) is reached, the algorithm creates one or more child nodes for that leaf node and performs a simulation from that point.
+	\item Expansion: Once a leaf node (a node without any children) is reached, the algorithm creates one child node for that leaf node and performs a simulation from that point.
 	
-	\item Simulation: The simulation involves playing out a random sequence of moves from the current position to the end of the game, using a simple evaluation function to determine the outcome.
+	\item Simulation: The simulation involves playing out a random or informed sequence of moves from the current position to the end of the game.
 	
 	\item Backpropagation: The results of the simulation are then propagated back up the tree, updating the values of the nodes visited during the selection and expansion steps.
 	
@@ -363,45 +372,7 @@ The UCT (Upper Confidence bounds applied to Trees) algorithm is a heuristic meth
 
 is used. Every node has the value of \textit{Q(v)} that corresponds to the total reward of all playouts that passed through this state and the number \textit{N(v)} of times it has been visited. The \textit{c} value is the exploration constant that balances the exploration exploitation trade off. The reason why the 1 subtracts from fraction of \textit{Q(v)} and \textit{N(v)} is because we want to invert the win rate, i.e. the average reward, which will always be between 0 and 1. As an example, consider a scenario in a two-player game if a given move leads to an average reward of 0.3 for player 1, then the same move leads to an average reward of 0.7 for player 2. 
 
-It is important to note that the calculation mentioned above assumes that moves strictly alternate between the two players, such that the first player makes a move, followed by the second player, and then the first player again, and so on. However, it is important to note that the alternating move structure mentioned previously does not always hold true in the game of Durak. Specifically, in Durak, the moves do not necessarily alternate between players. For example, if the first player makes an attack as their first move and the second player decides to take the cards, the first player may consecutively attack more until they no longer have the necessary card or simply choose not to attack any further. In this scenario, the move turn would not follow the alternating pattern described earlier. Because of that in cases where the moves do not strictly alternate between players, the win rate is not inverted as previously described. Instead, it is only inverted in cases where the turns alternate between players.
-
-Now that we have a general understanding of MCTS and the Upper Confidence Bound applied to Trees (UCT) algorithms, it is time to explore the implementation of the TreePolicy, DefaultPolicy, and BackPropagation in these algorithms. The pseudocode of MCTS algorithm is depicted in Figure  \ref{fig:mctsREST}. 
-
-For each node v, there are four pieces of data associated with it: the state s(v) corresponding to the node, the action a(v) that led to the node, the total simulation reward Q(v), and the number of visits N(v) to the node represented as a nonnegative integer. The term \texttt{reward} indicates the outcome of the simulated game and \texttt{f(s(v), a)} represents the function that takes state of the node and action as arguments and produces the new state. 
-
-The return value of the overall search in this case is \texttt{a(BESTCHILD($v_0$, 0))} which will give the action \texttt{a} that leads to the child with the highest reward, since the exploration parameter \texttt{c} is set to 0 for this final call on the root node $v_0$. \citep{MCTSSurvey}.
-
-It should be noted that the simulation process in the \texttt{DefaultPolicy} follows a random path through the search tree. While this approach allows for a broad exploration of potential moves, it may result in slower convergence and lower accuracy compared to using a more informed strategy for selecting simulation moves. In the program, it is possible to choose the simulation type when running experiments using MCTS. The options include using a random simulation (simulation=`random') or using a more informed strategy (simulation=`greedy'). The informed strategy employs a greedy agent to make decisions, which tends to guide the search more effectively towards areas of the tree that are more promising.
-
-\begin{figure}[h]
-\captionsetup{justification=centering}
-\begin{lstlisting}
-private void Backpropagation(Node nodeToExplore, int playoutResult)
-{
-    	while(tempNode != null)
-    	{
-		tempNode.IncrementPlayouts();
-		// draw
-		if (playoutResult == -1)
-		{
-			tempNode.AddScore(0.5);
-		} 
-		else if (tempNode.GetGame().Player() == playoutResult)
-		{
-			tempNode.AddScore(1.0);
-		}
-		tempNode = tempNode.GetParent();
-	}
-}
-\end{lstlisting}
-\caption{A snippet of Backpropagation method}
-\label{fig:mctsBackpropagation}
-\end{figure}
-
-Upon receiving the reward result from the \texttt{DefaultPolicy}, the program passes this information to the \texttt{Backpropagation} function in order to update the values of the nodes in the path traversed during the simulation. These values include the visit count and the reward count, also known as the win count. In zero sum games, where one player's win corresponds to the other player's loss, the \texttt{Backpropagation} method increments the score of the winning player. However, in the card game Durak, there is the possibility of a draw between two players. To account for this possibility and ensure consistency in the scores, the \texttt{Backpropagation} method has been modified to include the case of a draw in its update process. The figure \ref{fig:mctsBackpropagation} illustrates the version of \texttt{Backpropagation} function that includes the case of draw. Specifically, the algorithm now awards a score of 0.5 to nodes in the case of a draw and a score of 1.0 in the case of a win.  
-
-
-\begin{figure}[h]
+\begin{figure*}
 \captionsetup{justification=centering}
 \begin{lstlisting}
 function MCTSSearch((*@$s_0$@*))
@@ -450,7 +421,46 @@ function Backpropagation(s, reward)
 \end{lstlisting}
 \caption{A MCTS Pseudocode}
 \label{fig:mctsREST}
+\end{figure*}
+
+
+It is important to note that the calculation mentioned above assumes that moves strictly alternate between the two players, such that the first player makes a move, followed by the second player, and then the first player again, and so on. However, it is important to note that the alternating move structure mentioned previously does not always hold true in the game of Durak. Specifically, in Durak, the moves do not necessarily alternate between players. For example, if the first player makes an attack as their first move and the second player decides to take the cards, the first player may consecutively attack more until they no longer have the necessary card or simply choose not to attack any further. In this scenario, the move turn would not follow the alternating pattern described earlier. Because of that in cases where the moves do not strictly alternate between players, the win rate is not inverted as previously described. Instead, it is only inverted in cases where the turns alternate between players.
+
+Now that we have a general understanding of MCTS and the Upper Confidence Bound applied to Trees (UCT) algorithms, it is time to explore the implementation of the TreePolicy, DefaultPolicy, and BackPropagation in these algorithms. The pseudocode of MCTS algorithm is depicted in Figure  \ref{fig:mctsREST}. 
+
+For each node v, there are four pieces of data associated with it: the state s(v) corresponding to the node, the action a(v) that led to the node, the total simulation reward Q(v), and the number of visits N(v) to the node represented as a nonnegative integer. The term \texttt{reward} indicates the outcome of the simulated game and \texttt{f(s(v), a)} represents the function that takes state of the node and action as arguments and produces the new state. 
+
+The return value of the overall search in this case is \texttt{a(BESTCHILD($v_0$, 0))} which will give the action \texttt{a} that leads to the child with the highest reward, since the exploration parameter \texttt{c} is set to 0 for this final call on the root node $v_0$. \citep{MCTSSurvey}.
+
+It should be noted that the simulation process in the \texttt{DefaultPolicy} follows a random path through the search tree. While this approach allows for a broad exploration of potential moves, it may result in slower convergence and lower accuracy compared to using a more informed strategy for selecting simulation moves. In the program, it is possible to choose the simulation type when running experiments using MCTS. The options include using a random simulation (simulation=`random') or using a more informed strategy (simulation=`greedy'). The informed strategy employs a greedy agent to make decisions, which tends to guide the search more effectively towards areas of the tree that are more promising.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\begin{lstlisting}
+private void Backpropagation(Node nodeToExplore, int playoutResult)
+{
+    	while(tempNode != null)
+    	{
+		tempNode.IncrementPlayouts();
+		// draw
+		if (playoutResult == -1)
+		{
+			tempNode.AddScore(0.5);
+		} 
+		else if (tempNode.GetGame().Player() == playoutResult)
+		{
+			tempNode.AddScore(1.0);
+		}
+		tempNode = tempNode.GetParent();
+	}
+}
+\end{lstlisting}
+\caption{A snippet of Backpropagation method}
+\label{fig:mctsBackpropagation}
 \end{figure}
+
+Upon receiving the reward result from the \texttt{DefaultPolicy}, the program passes this information to the \texttt{Backpropagation} function in order to update the values of the nodes in the path traversed during the simulation. These values include the visit count and the reward count, also known as the win count. In zero sum games, where one player's win corresponds to the other player's loss, the \texttt{Backpropagation} method increments the score of the winning player. However, in the card game Durak, there is the possibility of a draw between two players. To account for this possibility and ensure consistency in the scores, the \texttt{Backpropagation} method has been modified to include the case of a draw in its update process. The figure \ref{fig:mctsBackpropagation} illustrates the version of \texttt{Backpropagation} function that includes the case of draw. Specifically, the algorithm now awards a score of 0.5 to nodes in the case of a draw and a score of 1.0 in the case of a win.  
+
 
 \section{Closed World Sampling}
 \label{closedWorld}

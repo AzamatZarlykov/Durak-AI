@@ -85,18 +85,18 @@ minimax:depth=6:heuristic=playout:38:11.8122
 
 ===========================
 
-			(mcts:limit=[1000/2000/100],c=[1.41/1.42/0.1],simulations=[greedy],samples=[10/20/10] greedy 100)
-			mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:223.9009
-			mcts:iterations=110:C=1.41:simulation=greedy:samples=10:73:206.6879
-			mcts:iterations=120:C=1.41:simulation=greedy:samples=10:77:217.8466
-			mcts:iterations=130:C=1.41:simulation=greedy:samples=10:72:212.5971
-			mcts:iterations=140:C=1.41:simulation=greedy:samples=10:77:218.7084
-			mcts:iterations=150:C=1.41:simulation=greedy:samples=10:77:254.2979 (iterations=150)
-			mcts:iterations=160:C=1.41:simulation=greedy:samples=10:71:211.2288
-			mcts:iterations=170:C=1.41:simulation=greedy:samples=10:75:239.0509
-			mcts:iterations=180:C=1.41:simulation=greedy:samples=10:76:243.2876
-			mcts:iterations=190:C=1.41:simulation=greedy:samples=10:74:282.1850
-			mcts:iterations=200:C=1.41:simulation=greedy:samples=10:79:269.1116
+			(mcts:limit=[100/1000/100],c=[1.41/1.42/0.1],simulations=[greedy],samples=[10/20/10] greedy 100)
+			
+			mcts:iterations=10:C=1.41:simulation=greedy:samples=10:73:9.1975
+			mcts:iterations=20:C=1.41:simulation=greedy:samples=10:62:27.4713
+			mcts:iterations=30:C=1.41:simulation=greedy:samples=10:70:38.8215
+			mcts:iterations=40:C=1.41:simulation=greedy:samples=10:70:41.6780
+			mcts:iterations=50:C=1.41:simulation=greedy:samples=10:74:53.5448
+			mcts:iterations=60:C=1.41:simulation=greedy:samples=10:69:59.9247
+			mcts:iterations=70:C=1.41:simulation=greedy:samples=10:71:69.4034
+			mcts:iterations=80:C=1.41:simulation=greedy:samples=10:72:80.6449
+			mcts:iterations=90:C=1.41:simulation=greedy:samples=10:80:100.9598
+
 
 
 			===========================
@@ -218,3 +218,19 @@ Agent 1 (mcts:iterations=50:C=1.42:simulation=greedy) won 55 / 100 games (55.0%)
 Agent 2 (mcts:iterations=50:C=1.42:simulation=greedy) won 45 / 100 games (45.0%)
 
 53/100 times the agent who moved first WON
+===========================
+
+===========================
+
+
+===========================
+
+mcts:iterations=90:C=0.60:simulation=greedy:samples=10:73:121.5277
+mcts:iterations=90:C=0.80:simulation=greedy:samples=10:78:140.1358
+mcts:iterations=90:C=1.00:simulation=greedy:samples=10:75:99.5950
+mcts:iterations=90:C=1.20:simulation=greedy:samples=10:72:103.8543
+mcts:iterations=90:C=1.40:simulation=greedy:samples=10:81:110.3429
+mcts:iterations=90:C=1.60:simulation=greedy:samples=10:76:101.5893
+mcts:iterations=90:C=1.80:simulation=greedy:samples=10:75:108.7899
+mcts:iterations=90:C=2.00:simulation=greedy:samples=10:70:102.7908
+mcts:iterations=90:C=2.20:simulation=greedy:samples=10:70:131.8744
