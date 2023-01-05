@@ -165,7 +165,7 @@ To compare MCTS agents with other agents in an closed world environment tourname
 
 Similar to the Minimax agent, it can be seen that an increase in the number of \texttt{iterations} generally results in a corresponding increase in the average time taken per move, as well as an increase in the win rate. However, it is not clear why the number of games won using the value 10 for the iterations parameter is higher than the result of value of 20. This observation warrants further investigation in order to understand the underlying cause. By examining the shaded region in Figure \ref{mctsCWIterations}, which represents the optimal time per move, it can be determined that the optimal value for the \texttt{iterations} parameter is 90 in the closed world. This value results in a relatively high win rate and the lowest average time taken per move.
 
-With the \texttt{iterations} parameter set to 90, the \texttt{simulation} value remaining at greedy and \texttt{samples} value remaining at 10, a new experiment was conducted to determine the optimal value for the \texttt{c}, exploration parameter, in MCTS. The results of this experiment are shown in Figure \ref{mctsCWC}. From the figure, it can be observed that the optimal value for the \texttt{c} parameter is 1.00, as it yields the highest number of wins while still operating within the optimal average time per move.
+With the \texttt{iterations} parameter set to 90, the \texttt{simulation} value remaining at greedy and \texttt{samples} value remaining at 10, a new experiment was conducted to determine the optimal value for the \texttt{c}, exploration parameter, in MCTS. The results of this experiment are shown in Figure \ref{mctsCWC}. From the figure, it can be observed that the optimal value for the \texttt{c} parameter is 1.40, as it yields the highest number of wins while still operating within the optimal average time per move.
 
 \begin{figure}[h]
   \centering
@@ -175,22 +175,69 @@ With the \texttt{iterations} parameter set to 90, the \texttt{simulation} value 
   \label{mctsCWC}
 \end{figure}
 
-Like in the comparison of heuristic evaluation functions for the Minimax agent, bar plots were used to visualize the number of games won and average times per move for different simulation types in the MCTS algorithm. The left subplot in Figure \ref{mctsOWSimulations} compares the number of games won of the two simulations, and it can be seen that the greedy simulation performs significantly better than the random playouts. Additionally, the greedy simulation is much faster than the random playouts, as can be seen in the right subplot. This is due to the nature of random simulation, as discussed in Section \ref{MCTS}. Based on these results, we can conclude that the optimal parameters for the simulation in MCTS are greedy.
+Like in the comparison of heuristic evaluation functions for the Minimax agent, bar plots were used to visualize the number of games won and average times per move for different simulation types in the MCTS algorithm. The left subplot in Figure \ref{mctsCWSimulations} compares the number of games won of the two simulations, and it can be seen that the greedy simulation performs significantly better than the random playouts. Additionally, the greedy simulation is much faster than the random playouts, as can be seen in the right subplot. This is due to the nature of random simulation, as discussed in Section \ref{MCTS}. Based on these results, we can conclude that the optimal parameters for the simulation in MCTS are greedy.
 
-%\begin{figure}[h]
-%  \centering
-%  \captionsetup{justification=centering}
- % \includegraphics[width=0.8\textwidth]{../img/mcts_simulation_closedworld.png}
- % \caption{Comparison of number of games won and average time taken per ply of \texttt{random} and \texttt{greedy} simulations in MCTS algorithm in the closed world}
-%  \label{mctsCWSimulations}
-%\end{figure}
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{../img/mcts_simulation_closedworld.png}
+  \caption{Comparison of number of games won and average time taken per ply of \texttt{random} and \texttt{greedy} simulations in MCTS algorithm in the closed world}
+  \label{mctsCWSimulations}
+\end{figure}
 
-The results of the experiment conducted to determine the optimal value of the \texttt{samples} parameter for the MCTS agent in the closed-world tournament are shown in Figure 2. It can be seen that the highest number of games won is achieved with a samples value of 30. Based on these results, the MCTS agent will be configured with a limit of 100, an exploration constant of 1.41, a greedy simulation type, and a samples value of 30 for the closed-world tournament.
+The results of the experiment conducted to determine the optimal value of the \texttt{samples} parameter for the MCTS agent in the closed-world tournament are shown in Figure \ref{mctsCWSamples}. In this experiment, the optimal value for the samples parameter will be determined by treating the limit parameter as a \textbf{total budget}. Given a total budget of 900, the number of iterations can be calculated by dividing the budget by the value of the samples parameter. For example, if the samples parameter is set to 10, there will be 900/10 = 90 iterations in each sample game. Previous analysis has shown that the optimal value for the limit parameter is 90 when the samples parameter is set to 10. Therefore, a total budget of 900 will be used in this experiment to determine the optimal value for the samples parameter.
 
-%\begin{figure}[h]
- % \centering
- % \captionsetup{justification=centering}
-%  \includegraphics[width=0.8\textwidth]{../img/minimax_samples_closedworld.png}
- % \caption{Comparison of number of wins and average time taken per ply of the \texttt{samples} value in Minimax agent in the closed world}
- % \label{mctsCWSamples}
-%\end{figure}
+It can be seen that the highest number of games won is achieved with a samples value of 30, which corresponds to the limit value of 900 / 30 = 30. Based on these results, the MCTS agent will be configured with a limit of 30, an exploration constant of 1.40, a greedy simulation type, and a samples value of 30 for the closed-world tournament.
+
+\begin{figure}[h]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{../img/mcts_samples_closedworld.png}
+  \caption{Comparison of number of wins and average time taken per ply of the \texttt{samples} value in MCTS agent in the closed world}
+  \label{mctsCWSamples}
+\end{figure}
+
+\begin{table}[!ht]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+    \hline
+        ~ & random & greedy & smart & minimax & mcts \\ \hline
+        random & ~ & \footnotesize{5.6\%-11.3\% (500)} & \footnotesize{3.8\%-8.7\% (500)} & \footnotesize{4.3\%-9.5\% (500)} & \footnotesize{0.4\%-2.7\% (500)} \\ \hline
+        greedy & \footnotesize{88.7\%-94.4\% (500)} & ~ & \footnotesize{49.4\%-51.9\% (10000)} & \footnotesize{45.7\%-49.2\% (4500)} & \footnotesize{14.9\%-23.2\% (500)} \\ \hline
+        smart & \footnotesize{91.3\%-96.2\% (500)} & \footnotesize{48.1\%-50.6\% (10000)} & ~ & \footnotesize{50.1\%-57.5\% (1000)} & \footnotesize{22.2\%-31.6\% (500)} \\ \hline
+        minimax & \footnotesize{90.5\%-95.7\% (500)} & \footnotesize{50.8\%-54.3\% (4500)} & \footnotesize{42.5\%-49.9\% (1000)} & ~ & \footnotesize{12.3\%-19.9\% (500)} \\ \hline
+        mcts & \footnotesize{97.3\%-99.6\% (500)} & \footnotesize{76.8\%-85.1\% (500)} & \footnotesize{68.4\%-77.8\% (500)} & \footnotesize{80.1\%-87.7\% (500)} & \\ \bottomrule
+    \end{tabularx}
+    \caption{Tournament between the agents in the closed world}
+    \label{tournamentClosedWorld}
+\end{table}
+
+\subsection{Tournament}
+In order to begin the tournament, the following list of agents and their corresponding parameters were used: Random, Greedy, Smart, Minimax (depth 3, playout heuristic evaluation function and samples 30), and MCTS (limit 30, exploration parameter 1.40, greedy simulation type and samples value 30).
+
+Furthermore, the game environment was configured with the following settings: closed world, including trumps, 500 games and starting rank 6.
+
+The tournament was initiated using the following command, with the aforementioned configurations.
+
+\begin{lstlisting}
+$ dotnet run -tournament="random/greedy/smart/minimax:depth=3,eval=playout,samples=30/mcts:limit=30,c=1.40,simulation=greedy,samples=30" -total_games=500
+\end{lstlisting}
+
+To improve the readability of the table of tournament results, we will use shortened versions of the long agent names as aliases. The full names and their corresponding aliases are listed below:
+
+\begin{itemize}
+	\item \textbf{minimax} := minimax:depth=3:eval=playout,samples=30
+	\item \textbf{mcts} := mcts:limit=30:c=1.40:simulation=greedy,samples=30
+\end{itemize}
+
+
+It should be noted that in this tournament, every pair of agents mentioned in the command line played against each other to determine the winner. These agents did not play against themselves, as this would provide almost the same win rate and the tournament would continue to increase the number of games played for them.
+
+In addition to the open world environment results, the MCTS agent with the parameter configuration of \texttt{simulation=greedy}, \texttt{limit=30}, \texttt{c=1.40}, and \texttt{samples=30} also demonstrated dominance in the closed world environment. From the Table \ref{tournamentClosedWorld}, the results of the tournament indicate that the MCTS agent outperformed the other agents, with win rates of 97.3\%-99.6\% against Random, 76.8\%-85.1\% against Greedy, 68.4\%-77.8\% against Smart and 80.1\%-87.7\% against Minimax. Due to the dominance of the MCTS algorithm, all results were gathered after 500 games, with no need for additional increments. These results indicate that this MCTS agent is the clear winner in both perfect and imperfect information settings in the game of Durak. Overall, the MCTS algorithm performs exceptionally well in this game, consistently achieving high win rates against other agents.
+
+In the closed world scenario, the minimax agent performed less well compared to its performance in the open world. This suggests that the agent's performance varies depending on the type of environment it is in. In the open world, the minimax agent achieved a high win rate against all other agents except the MCTS agent; MCTS won. However, in the closed world, the minimax agent also lost to the Smart agent. This may be due to the fact that the limit on average time per move does not allow the the current configuration of the minimax parameters to explore the game tree reasonable to make a better move, leading to its decreased performance against the Smart agent.
+
+Table \ref{tournamentClosedWorld} shows that the performance of the Greedy and Smart agents is comparable in the closed world environment. The number of games played to determine a clear winner reached the upper bound of 10,000 games. In contrast to the open world, the Smart agent appears to be weaker in the closed world. This  due to the fact that the Smart agent relies on knowledge of the opponent's hand to inform its strategies, which is not available in the closed world setting. As a result, the Smart agent's performance is affected in this environment.
+
+In summary, the results of the closed world tournament show that the MCTS agent with the specified parameter configuration had the highest win rate among all agents, with strong performance against all other competitors. The Smart agent was the second most successful, achieving good results against the Random and Minimax agents. However, the Smart agent's performance was comparable to that of the Greedy agent. The Minimax agent with the specified parameter configuration ranked third in terms of win rate, followed by the Greedy agent, while the Random agent had the lowest win rate. Overall, these results suggest that the MCTS agent and the Smart agent are the most effective at winning closed-world games, and also have good performance in terms of average time per move.

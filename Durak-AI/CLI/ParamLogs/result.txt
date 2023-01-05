@@ -101,30 +101,15 @@ minimax:depth=6:heuristic=playout:38:11.8122
 
 			===========================
 
-			WITH Iterations = 1500 TOTAL
-			mcts:iterations=150:C=0.60:simulation=greedy:samples=10:74:181.9914
-			mcts:iterations=150:C=0.80:simulation=greedy:samples=10:79:187.6372
-			mcts:iterations=150:C=1.00:simulation=greedy:samples=10:76:229.3659
-			mcts:iterations=150:C=1.20:simulation=greedy:samples=10:69:223.7519
-			mcts:iterations=150:C=1.40:simulation=greedy:samples=10:80:171.1358 (BEST)
-			mcts:iterations=150:C=1.60:simulation=greedy:samples=10:80:167.0127
-			mcts:iterations=150:C=1.80:simulation=greedy:samples=10:77:174.1709
-			mcts:iterations=150:C=2.00:simulation=greedy:samples=10:74:170.9592
-			mcts:iterations=150:C=2.20:simulation=greedy:samples=10:74:170.4190
-
-			Because the ms gets bigger we limit the iterations to 1000 iters
-
-			WITH Iterations = 1000 TOTAL
-			mcts:iterations=100:C=0.60:simulation=greedy:samples=10:75:108.4408
-			mcts:iterations=100:C=0.80:simulation=greedy:samples=10:76:131.5454
-			mcts:iterations=100:C=1.00:simulation=greedy:samples=10:76:133.7912
-			mcts:iterations=100:C=1.20:simulation=greedy:samples=10:76:142.2878
-			mcts:iterations=100:C=1.40:simulation=greedy:samples=10:77:210.6132 (BEST)
-			mcts:iterations=100:C=1.41:simulation=greedy:samples=10:76:138.4687
-			mcts:iterations=100:C=1.60:simulation=greedy:samples=10:73:153.8822
-			mcts:iterations=100:C=1.80:simulation=greedy:samples=10:74:217.2818
-			mcts:iterations=100:C=2.00:simulation=greedy:samples=10:69:165.3477
-			mcts:iterations=100:C=2.20:simulation=greedy:samples=10:74:105.6374
+			mcts:iterations=90:C=0.60:simulation=greedy:samples=10:73:121.5277
+			mcts:iterations=90:C=0.80:simulation=greedy:samples=10:78:140.1358
+			mcts:iterations=90:C=1.00:simulation=greedy:samples=10:75:99.5950
+			mcts:iterations=90:C=1.20:simulation=greedy:samples=10:72:103.8543
+			mcts:iterations=90:C=1.40:simulation=greedy:samples=10:81:110.3429
+			mcts:iterations=90:C=1.60:simulation=greedy:samples=10:76:101.5893
+			mcts:iterations=90:C=1.80:simulation=greedy:samples=10:75:108.7899
+			mcts:iterations=90:C=2.00:simulation=greedy:samples=10:70:102.7908
+			mcts:iterations=90:C=2.20:simulation=greedy:samples=10:70:131.8744
 
 
 			===========================
@@ -225,12 +210,12 @@ Agent 2 (mcts:iterations=50:C=1.42:simulation=greedy) won 45 / 100 games (45.0%)
 
 ===========================
 
-mcts:iterations=90:C=0.60:simulation=greedy:samples=10:73:121.5277
-mcts:iterations=90:C=0.80:simulation=greedy:samples=10:78:140.1358
-mcts:iterations=90:C=1.00:simulation=greedy:samples=10:75:99.5950
-mcts:iterations=90:C=1.20:simulation=greedy:samples=10:72:103.8543
-mcts:iterations=90:C=1.40:simulation=greedy:samples=10:81:110.3429
-mcts:iterations=90:C=1.60:simulation=greedy:samples=10:76:101.5893
-mcts:iterations=90:C=1.80:simulation=greedy:samples=10:75:108.7899
-mcts:iterations=90:C=2.00:simulation=greedy:samples=10:70:102.7908
-mcts:iterations=90:C=2.20:simulation=greedy:samples=10:70:131.8744
+
+mcts:iterations=90:C=1.40:simulation=random:samples=10:60:272.3913
+
+===========================
+
+mcts:iterations=90:C=1.40:simulation=greedy:samples=10:81:191.0608
+mcts:iterations=45:C=1.40:simulation=greedy:samples=20:73:121.2546
+mcts:iterations=30:C=1.40:simulation=greedy:samples=30:75:104.8078
+mcts:iterations=22:C=1.40:simulation=greedy:samples=40:70:151.1204

@@ -319,11 +319,12 @@ The implementation of a caching system did not produce an improvement in the ave
 Monte Carlo Tree Search (MCTS) is a search algorithm that is commonly used in games such as chess, Go, and other board games to find the best move to make. It is based on the idea of using random sampling to estimate the value of different moves, rather than explicitly searching through the entire game tree. The basic idea behind MCTS is to use simulated playouts of a game to estimate the value of each possible move. The algorithm starts with a root node representing the current position in the game, and then expands the tree by adding child nodes for each possible move. The algorithm then performs a Monte Carlo simulation by randomly selecting a child node and playing out a game from that position until the game is won or lost. The outcome of the simulation is used to update the value of the node and its parents in the tree \citep{MCTSSurvey}. In this context, a node refers to a single position or state in the Durak game being played. Each node in the MCTS tree represents a possible move that can be taken from the current position, and contains information about the state of the game at that position. The node contains the following information: 
 
 \begin{itemize}
-	\item The Durak state of the game at that position.
-	\item The number of times the node has been visited.
-	\item The total reward of all the playouts.
-	\item and other key information
+	\item the Durak state of the game at that position, $s(v)$.
+	\item the number of times the node has been visited, $N(v)$.
+	\item the total reward of all the playouts, $Q(v)$.
+	\item the action that leads to the node, $a(v)$ 
 \end{itemize}
+
 
 The MCTS algorithm consists of four main steps at every iteration:
 
@@ -338,7 +339,7 @@ The MCTS algorithm consists of four main steps at every iteration:
 	
 \end{enumerate}
 
-The MCTS algorithm repeats these steps until a sufficient number of iterations (in this program `limits') have been performed, at which point it selects the move with the highest estimated value as the best move to make. Considering the possibility of regrouping the four main steps in MCTS, this version of the algorithm works with two distinct policies: 
+The MCTS algorithm repeats these steps until a sufficient number of iterations (in this program `limits') have been performed, at which point it selects the move with the highest estimated value as the best move to make. We may regroup the four main steps in MCTS into two distinct policies: 
 
 \begin{enumerate}
 	\item Tree Policy: From the nodes contained within the search tree, either select a leaf node or create a new one by expanding the tree (selection and expansion).
@@ -356,21 +357,29 @@ function MCTSSearch((*@$s_0$@*))
     create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
     while limit has not reached do
         (*@$v_l$@*) = TreePolicy((*@$v_0$@*))
-        reward = DefaultPolicy(s((*@$v_l$@*))
+        reward = DefaultPolicy(s((*@$v_l$@*)))
         BackPropagation((*@$v_l$@*), reward)
     return a(BestChild((*@$v_0$@*), 0))
 \end{lstlisting}
-\caption{A general pseudocode for MCTS}
+\caption{General pseudocode for MCTS}
 \label{fig:mctsGeneral}
 \end{figure}
 
-$v_0$ is the root node that corresponds to the state $s_0$. \texttt{TreePolicy} returns the last node, $v_l$, reached either by expanding or selecting the node, which corresponds to the state $s_l$. \texttt{DefaultPolicy} method simulates the whole game given the last node and returns the outcome of the playout from the state $s_l$, which is \texttt{result}. Given the \texttt{result} from the simulated game, the \texttt{BackPropagation} method adjusts the values from $v_l$ up until the root node $v_0$. Once the limit of computation is reached, the algorithm provides the result of the overall search \texttt{a(BestChild($v_0$))} where \texttt{a} is the action that provides the best move in the state $s_0$ of the root $v_0$.
+$v_0$ is the root node that corresponds to the state $s_0$. \texttt{TreePolicy} returns the node (if any) that was created in the expansion phase, or otherwise the last node that was reached in the selection phase. \texttt{DefaultPolicy} method simulates the game given the state of the node, $s_l$, returned from \texttt{TreePolicy}'s node and returns the outcome of the playout from that state, which is \texttt{reward}. Given the \texttt{reward} from the simulated game, the \texttt{BackPropagation} method adjusts the values, such as number of visits and total reward, from $v_l$ up until the root node $v_0$. Once the limit of computation is reached, the algorithm provides the result of the overall search \texttt{a(BestChild($v_0$))} where \texttt{a} is the function that returns the action that provides the best move in the state $s_0$ of the root $v_0$.
 
-The UCT (Upper Confidence bounds applied to Trees) algorithm is a heuristic method for finding the optimal move in a two-player game by considering both the exploration of new nodes in the search tree and the exploitation of known information about the value of certain nodes. It is a method that allows to find the best node in the \texttt{TreePolicy} method and best move given the root node \texttt{BestChild} method. It is commonly used in situations where it is necessary to balance the trade-off between exploration and exploitation in order to make the most informed decision. By using this approach, it is possible to effectively navigate the search tree and identify the best possible move, taking into account the inherent uncertainty and complexity of the game at hand \citep{MCTSSurvey}. To calculate the UCT value for each node, 
+The UCT (Upper Confidence Bounds applied to Trees) algorithm is a heuristic method for finding the optimal move in a two-player game by considering both the exploration of new nodes in the search tree and the exploitation of known information about the value of certain nodes. It is a method that allows the \texttt{TreePolicy} and \texttt{BestChild} methods to find the best node. During the \texttt{TreePolicy} phase and \texttt{BestChild} method of the MCTS algorithm, the goal is to find the child node with the highest value. To do this, the algorithm uses the UCT formula to balance two competing factors: the value of the node (estimated by \textit{X($v'$)}) and the node's exploration potential (estimated by \textit{U($v$, $v'$)}). The value of the node reflects how successful previous simulations from that position have been, while the exploration potential reflects how much is still unknown about the node and its children \citep{MCTSSurvey}.
 
-\[ UCT(v) = 1 - \frac{Q(v')}{N(v')} + c*\sqrt{\frac{2 * ln{N(v)}}{N(v')}} \]
+The UCT formula allows the algorithm to find the best trade-off between these two factors by adding the value of the node and the exploration potential. Specifically, the UCT value of a node is calculated as:
 
-is used. Every node has the value of \textit{Q(v)} that corresponds to the total reward of all playouts that passed through this state and the number \textit{N(v)} of times it has been visited. The \textit{c} value is the exploration constant that balances the exploration exploitation trade off. The reason why the 1 subtracts from fraction of \textit{Q(v)} and \textit{N(v)} is because we want to invert the win rate, i.e. the average reward, which will always be between 0 and 1. As an example, consider a scenario in a two-player game if a given move leads to an average reward of 0.3 for player 1, then the same move leads to an average reward of 0.7 for player 2. 
+\[ UCT(v) = X(v') + cU(v, v')\]
+
+where \textit{X($v'$)} is the average reward (also known as the win rate) of the child's node $v'$, \textit{U($v$, $v'$)} is the exploration term, and \textit{c} is a constant that controls the relative importance of the two terms.
+
+\[ X(v') = 1 - \frac{Q(v')}{N(v')}\]
+
+\[ U(v, v') = \sqrt{\frac{2 ln{N(v)}}{N(v')}}  \]
+
+\textit{Q($v$)}, relative value to the player whose turn it is to move in the node' state, corresponds to the total reward of all playouts that passed through the node $v'$. If player 1 wins a simulation, the reward associated with their corresponding move in the node will be incremented by 1. In the event of a draw, a value of 0.5 is added to the reward of the corresponding node. \textit{N($v'$)} corresponds to the number of times it has been visited. The value of \textit{X($v'$)} is between 0 and 1, with 0 representing a losing position and 1 representing a winning position. The value of \textit{U($v$)} is also between 0 and 1, with higher values representing higher exploration potential. Since in Durak the turns mostly alternate, we want to invert the value of the node \textit{X($v'$)} in those cases. Because of that we want to invert the win rate, which will still be between 0 and 1. In order to balance the value of \textit{Q($v$)} and \textit{U($v$)}, the UCT formula subtracts \textit{Q($v$)} and \textit{U($v$)} from 1, so that higher values of \textit{Q($v$)} and \textit{U($v$)} correspond to lower values of \textit{UCT($v$)}. As an example, consider a scenario in a two-player game if a given move leads to an average reward of 0.3 for player 1, then the same move leads to an average reward of 0.7 for player 2. 
 
 \begin{figure*}
 \captionsetup{justification=centering}
@@ -379,7 +388,7 @@ function MCTSSearch((*@$s_0$@*))
     create root node (*@$v_0$@*) from the tree with the state (*@$s_0$@*)
     while limit has not reached do
         (*@$v_l$@*) = TreePolicy((*@$v_0$@*))
-        reward = DefaultPolicy(s((*@$v_l$@*))
+        reward = DefaultPolicy(s((*@$v_l$@*)))
         BackPropagation((*@$v_l$@*), reward)
     return a(BestChild((*@$v_0$@*), 0))
 	
@@ -399,7 +408,7 @@ function Expand(v)
     return v'
 	
 function BestChild(v, c)
-    return (*@ $ \underset{v' \in children of v}{\arg\max} UCTValue(v,v',c) $ @*)
+    return (*@ $ \underset{v' \in \text{children of v}}{\arg\max} UCTValue(v,v',c) $ @*)
 	
 function UCTValue(v,v',c)
     avgReturn = (*@ $ \frac{Q(v')}{N(v')} $ @*)
@@ -413,53 +422,29 @@ function DefaultPolicy(s)
         s = f(s,a)
     return reward for state s
 
-function Backpropagation(s, reward)
+function Backpropagation(v, reward)
     while v is not null do
         N(v) = N(v) + 1
-        Q(v) = Q(v) + reward
+        if Turn(s(v)) == reward then
+            Q(v) = Q(v) + 1.0
         v = parent of v
 \end{lstlisting}
-\caption{A MCTS Pseudocode}
+\caption{MCTS Pseudocode}
 \label{fig:mctsREST}
 \end{figure*}
 
 
 It is important to note that the calculation mentioned above assumes that moves strictly alternate between the two players, such that the first player makes a move, followed by the second player, and then the first player again, and so on. However, it is important to note that the alternating move structure mentioned previously does not always hold true in the game of Durak. Specifically, in Durak, the moves do not necessarily alternate between players. For example, if the first player makes an attack as their first move and the second player decides to take the cards, the first player may consecutively attack more until they no longer have the necessary card or simply choose not to attack any further. In this scenario, the move turn would not follow the alternating pattern described earlier. Because of that in cases where the moves do not strictly alternate between players, the win rate is not inverted as previously described. Instead, it is only inverted in cases where the turns alternate between players.
 
-Now that we have a general understanding of MCTS and the Upper Confidence Bound applied to Trees (UCT) algorithms, it is time to explore the implementation of the TreePolicy, DefaultPolicy, and BackPropagation in these algorithms. The pseudocode of MCTS algorithm is depicted in Figure  \ref{fig:mctsREST}. 
+Now that we have a general understanding of MCTS and the Upper Confidence Bound applied to Trees (UCT) algorithms, it is time to explore the implementation of the TreePolicy, DefaultPolicy, and BackPropagation in these algorithms. The pseudocode of the MCTS algorithm is depicted in Figure \ref{fig:mctsREST} \citep{MCTSSurvey} cite. 
 
-For each node v, there are four pieces of data associated with it: the state s(v) corresponding to the node, the action a(v) that led to the node, the total simulation reward Q(v), and the number of visits N(v) to the node represented as a nonnegative integer. The term \texttt{reward} indicates the outcome of the simulated game and \texttt{f(s(v), a)} represents the function that takes state of the node and action as arguments and produces the new state. 
+In this section, we consider the open world scenario, in which there is no hidden information. This means that states can be freely copied without the need to employ any particular strategies. The ability to freely copy states is useful in the \texttt{DefaultPolicy} stage of the MCTS algorithm, as it allows the algorithm to simulate the game from a given state until the end without altering the current state. The open world scenario, also known as the perfect information scenario, allows the MCTS algorithm to explore all possible states without the need to ``cheat'' by seeing the opponent's hand, as all cards are visible to all players. The details of how to apply the MCTS algorithm in the closed world scenario, in which hidden information is present, are discussed in the following section.
 
-The return value of the overall search in this case is \texttt{a(BESTCHILD($v_0$, 0))} which will give the action \texttt{a} that leads to the child with the highest reward, since the exploration parameter \texttt{c} is set to 0 for this final call on the root node $v_0$. \citep{MCTSSurvey}.
+The return value of the overall search in this case is \texttt{a(BestChild($v_0$, 0))} which will give the action \texttt{a} that leads to the child with the highest reward, since the exploration parameter \texttt{c} is set to 0 for this final call on the root node $v_0$. \citep{MCTSSurvey}.
 
-It should be noted that the simulation process in the \texttt{DefaultPolicy} follows a random path through the search tree. While this approach allows for a broad exploration of potential moves, it may result in slower convergence and lower accuracy compared to using a more informed strategy for selecting simulation moves. In the program, it is possible to choose the simulation type when running experiments using MCTS. The options include using a random simulation (simulation=`random') or using a more informed strategy (simulation=`greedy'). The informed strategy employs a greedy agent to make decisions, which tends to guide the search more effectively towards areas of the tree that are more promising.
+It should be noted that the simulation process in the \texttt{DefaultPolicy} function follows a random path through the search tree. While this approach allows for a broad exploration of potential moves, it may result in slower convergence and lower accuracy compared to using a more informed strategy for selecting simulation moves. In the program, it is possible to choose the simulation type when running experiments using MCTS. The options include using a random simulation (\texttt{simulation=random}) or using a more informed strategy (\texttt{simulation=greedy}). The informed strategy employs a greedy agent to make decisions, which tends to guide the search more effectively towards areas of the tree that are more promising.
 
-\begin{figure}[h]
-\captionsetup{justification=centering}
-\begin{lstlisting}
-private void Backpropagation(Node nodeToExplore, int playoutResult)
-{
-    	while(tempNode != null)
-    	{
-		tempNode.IncrementPlayouts();
-		// draw
-		if (playoutResult == -1)
-		{
-			tempNode.AddScore(0.5);
-		} 
-		else if (tempNode.GetGame().Player() == playoutResult)
-		{
-			tempNode.AddScore(1.0);
-		}
-		tempNode = tempNode.GetParent();
-	}
-}
-\end{lstlisting}
-\caption{A snippet of Backpropagation method}
-\label{fig:mctsBackpropagation}
-\end{figure}
-
-Upon receiving the reward result from the \texttt{DefaultPolicy}, the program passes this information to the \texttt{Backpropagation} function in order to update the values of the nodes in the path traversed during the simulation. These values include the visit count and the reward count, also known as the win count. In zero sum games, where one player's win corresponds to the other player's loss, the \texttt{Backpropagation} method increments the score of the winning player. However, in the card game Durak, there is the possibility of a draw between two players. To account for this possibility and ensure consistency in the scores, the \texttt{Backpropagation} method has been modified to include the case of a draw in its update process. The figure \ref{fig:mctsBackpropagation} illustrates the version of \texttt{Backpropagation} function that includes the case of draw. Specifically, the algorithm now awards a score of 0.5 to nodes in the case of a draw and a score of 1.0 in the case of a win.  
+Upon receiving the reward result from the \texttt{DefaultPolicy}, the program passes this information to the \texttt{Backpropagation} function in order to update the values of the nodes in the path traversed during the simulation. These values include the visit count and the reward count, also known as the win count. In zero sum games, where one player's win corresponds to the other player's loss, the \texttt{Backpropagation} method increments the score of the winning player. However, in the card game Durak, there is the possibility of a draw between two players. To account for this possibility and ensure consistency in the scores, the \texttt{Backpropagation} method has been modified to include the case of a draw in its update process. Specifically, the algorithm now awards a score of 0.5 to nodes in the case of a draw.  
 
 
 \section{Closed World Sampling}

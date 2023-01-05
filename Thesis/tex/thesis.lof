@@ -21,19 +21,20 @@
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Comparison of the average time taken to make a move by the minimax algorithm with and without alpha-beta pruning at various depths in the perfect information environment.\relax }}{33}{figure.caption.20}%
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Part of the pseudocode of alpha-beta pruning technique inside the minimax \texttt {Move} method\relax }}{33}{figure.caption.21}%
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Comparison of the average time taken to make a move by the minimax algorithm with and without cahcing of the states.\relax }}{34}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces A general pseudocode for MCTS\relax }}{36}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces A MCTS Pseudocode\relax }}{37}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces A snippet of Backpropagation method\relax }}{38}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{40}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces General pseudocode for MCTS\relax }}{36}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces MCTS Pseudocode\relax }}{38}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces A snipped of code that demonstrate the shuffling of the cards from the deck and opponent's hand inside the ShuffleCopy method\relax }}{40}{figure.caption.25}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of number of wins of different fixed depths parameters in Minimax agent along with average time taken per ply in the open world\relax }}{43}{figure.caption.29}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison of number of wins and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in Minimax agent in the open world\relax }}{44}{figure.caption.30}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed iterations in MCTS algorithm in the open world\relax }}{45}{figure.caption.31}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparison of number of wins and average time taken per ply of different fixed exploration parameters in MCTS algorithm in the open world\relax }}{45}{figure.caption.32}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparison of number of games won and average time taken per ply of \texttt {random} and \texttt {greedy} simulations in MCTS algorithm in the open world\relax }}{46}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Comparison of number of games won of different fixed depths parameters in Minimax agent along with average time taken per ply in the closed world\relax }}{49}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Comparison of number of wins and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in Minimax agent in the closed world\relax }}{50}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Comparison of number of wins and average time taken per ply of the \texttt {samples} value in Minimax agent in the closed world\relax }}{51}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed iterations in MCTS algorithm in the closed world\relax }}{52}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparison of number of wins and average time taken per ply of different fixed exploration parameters in MCTS algorithm in the closed world\relax }}{52}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of number of wins of different fixed depths parameters in Minimax agent along with average time taken per ply in the open world\relax }}{43}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison of number of wins and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in Minimax agent in the open world\relax }}{44}{figure.caption.29}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed iterations in MCTS algorithm in the open world\relax }}{45}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparison of number of wins and average time taken per ply of different fixed exploration parameters in MCTS algorithm in the open world\relax }}{45}{figure.caption.31}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparison of number of games won and average time taken per ply of \texttt {random} and \texttt {greedy} simulations in MCTS algorithm in the open world\relax }}{46}{figure.caption.32}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Comparison of number of games won of different fixed depths parameters in Minimax agent along with average time taken per ply in the closed world\relax }}{48}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Comparison of number of wins and average time taken per ply of \texttt {basic} and \texttt {playout} evaluation functions in Minimax agent in the closed world\relax }}{49}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Comparison of number of wins and average time taken per ply of the \texttt {samples} value in Minimax agent in the closed world\relax }}{50}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Comparison of win rates and average time taken per ply of different fixed iterations in MCTS algorithm in the closed world\relax }}{51}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparison of number of wins and average time taken per ply of different fixed exploration parameters in MCTS algorithm in the closed world\relax }}{52}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Comparison of number of games won and average time taken per ply of \texttt {random} and \texttt {greedy} simulations in MCTS algorithm in the closed world\relax }}{53}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Comparison of number of wins and average time taken per ply of the \texttt {samples} value in MCTS agent in the closed world\relax }}{54}{figure.caption.40}%
 \addvspace {10\p@ }
