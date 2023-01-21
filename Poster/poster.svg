@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="841mm"
+   height="1189mm"
+   viewBox="0 0 841 1189"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="poster.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.12682378"
+     inkscape:cx="3.9424784"
+     inkscape:cy="2255.0977"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid11"
+       spacingx="8.4099998"
+       spacingy="11.89"
+       units="mm"
+       empspacing="2" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <rect
+       x="512.94661"
+       y="3398.2713"
+       width="264.83656"
+       height="128.23665"
+       id="rect2168" />
+    <rect
+       x="122.21683"
+       y="540.11955"
+       width="1208.9881"
+       height="989.56203"
+       id="rect7047" />
+    <rect
+       x="106.44692"
+       y="540.11955"
+       width="1198.5135"
+       height="981.67714"
+       id="rect5589" />
+    <rect
+       x="105.93462"
+       y="549.18739"
+       width="1193.1584"
+       height="981.28915"
+       id="rect4071" />
+    <rect
+       x="80.844845"
+       y="451.61603"
+       width="41.816299"
+       height="83.632598"
+       id="rect1994" />
+    <rect
+       x="465.21246"
+       y="283.85845"
+       width="410.01777"
+       height="185.29649"
+       id="rect122" />
+    <rect
+       x="477.0399"
+       y="248.37615"
+       width="2278.7526"
+       height="189.23897"
+       id="rect116" />
+    <rect
+       x="122.21683"
+       y="540.11957"
+       width="1239.6534"
+       height="1081.5578"
+       id="rect7047-9" />
+    <rect
+       x="122.21683"
+       y="540.11957"
+       width="1177.1452"
+       height="360.06211"
+       id="rect7047-9-7" />
+    <rect
+       x="122.21683"
+       y="540.11957"
+       width="1197.1646"
+       height="701.25697"
+       id="rect7047-9-7-5" />
+    <rect
+       x="122.21683"
+       y="540.11957"
+       width="1585.3349"
+       height="1892.7941"
+       id="rect7047-0" />
+    <rect
+       x="122.21683"
+       y="540.11957"
+       width="1222.927"
+       height="1586.1412"
+       id="rect7047-7" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#042a1e;stroke-width:0.265167;fill-opacity:1"
+       id="rect5361"
+       width="841"
+       height="1189"
+       x="0"
+       y="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:34.7279px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#000000;stroke-width:0.261;stroke-dasharray:none"
+       x="51.526783"
+       y="63.026928"
+       id="text128"
+       transform="scale(0.98540769,1.0148084)"><tspan
+         sodipodi:role="line"
+         id="tspan126"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.7279px;font-family:CAli;-inkscape-font-specification:CAli;fill:#ffffff;stroke-width:0.261;stroke-dasharray:none"
+         x="51.526783"
+         y="63.026928">Artificial Intelligence for the Card Game Durak</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.6389px;font-family:CAli;-inkscape-font-specification:CAli;fill:#ffffff;stroke-width:0.265;stroke-dasharray:none"
+       x="151.76254"
+       y="95.405563"
+       id="text405"><tspan
+         sodipodi:role="line"
+         id="tspan403"
+         style="font-size:17.6389px;stroke-width:0.265;stroke-dasharray:none"
+         x="151.76254"
+         y="95.405563">Author: Azamat Zarlykov | Supervisor: Adam Dingle, M.Sc | 2023.</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.266134"
+       id="rect474"
+       width="337.81763"
+       height="300"
+       x="25.58499"
+       y="125" />
+    <rect
+       style="fill:#ffffff;fill-opacity:0;stroke:#fbfbfb;stroke-width:0.998962;stroke-dasharray:none;stroke-opacity:1"
+       id="rect494"
+       width="819.00104"
+       height="1162.0011"
+       x="10.999481"
+       y="13.499481" />
+    <rect
+       style="fill:#ffffff;fill-opacity:0;stroke:#fbfbfb;stroke-width:0.964303;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1920"
+       width="789.03571"
+       height="84.03569"
+       x="25.482151"
+       y="25.482151" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.3444px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="33.954521"
+       y="147.57408"
+       id="text2202"><tspan
+         sodipodi:role="line"
+         id="tspan2200"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.3444px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+         x="33.954521"
+         y="147.57408">Introduction:</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,2.9291931,19.498515)"
+       id="text7045"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="122.2168"
+         y="583.82529"
+         id="tspan11373">Durak is a two-player card game that starts by dealing </tspan><tspan
+         x="122.2168"
+         y="644.62534"
+         id="tspan11375">cards to each player until they have a hand of six cards. </tspan><tspan
+         x="122.2168"
+         y="705.42539"
+         id="tspan11377">The final card of the deck is then placed face up to </tspan><tspan
+         x="122.2168"
+         y="766.22544"
+         id="tspan11379">determine the trump suit for the game. The gameplay </tspan><tspan
+         x="122.2168"
+         y="827.02549"
+         id="tspan11381">consists of a series of bouts where the attacker begins by </tspan><tspan
+         x="122.2168"
+         y="887.82554"
+         id="tspan11383">placing a card, and the defender attempts to beat it by </tspan><tspan
+         x="122.2168"
+         y="948.62558"
+         id="tspan11385">playing a card of their own. The attacker can continue the </tspan><tspan
+         x="122.2168"
+         y="1009.4256"
+         id="tspan11387">attack or end it, and the defender can continue to defend or </tspan><tspan
+         x="122.2168"
+         y="1070.2257"
+         id="tspan11391"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           id="tspan11389">pick up the cards. This ensures the variability of strategies </tspan></tspan><tspan
+         x="122.2168"
+         y="1131.0257"
+         id="tspan11393">that can be used during the game. The goal of the game is </tspan><tspan
+         x="122.2168"
+         y="1191.8258"
+         id="tspan11395">to get rid of all one's cards and the player left holding cards </tspan><tspan
+         x="122.2168"
+         y="1252.6258"
+         id="tspan11397">is declared the fool. The aim of the work is to develop the </tspan><tspan
+         x="122.2168"
+         y="1313.4259"
+         id="tspan11399">range of AI agents in the imperfect game environment and, </tspan><tspan
+         x="122.2168"
+         y="1374.2259"
+         id="tspan11401">by comparing their performances in a mutual play, identify </tspan><tspan
+         x="122.2168"
+         y="1435.026"
+         id="tspan11403">the most effective and efficient agent. </tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.332462"
+       id="rect474-5"
+       width="337.81763"
+       height="468.1712"
+       x="24.340565"
+       y="692.3313" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.3444px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="32.710102"
+       y="714.90533"
+       id="text2202-7"><tspan
+         sodipodi:role="line"
+         id="tspan2200-0"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.3444px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+         x="32.710102"
+         y="714.90533">Artificial Intelligence Agents</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,1.6847703,586.82979)"
+       id="text7045-56"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="122.2168"
+         y="583.82529"
+         id="tspan11405">In this thesis, we evaluated the performance of various AI </tspan><tspan
+         x="122.2168"
+         y="644.62534"
+         id="tspan11407">agents in the card game Durak. These agents include:
+</tspan><tspan
+         x="122.2168"
+         y="705.42539"
+         id="tspan11409">
+</tspan><tspan
+         x="122.2168"
+         y="766.22544"
+         id="tspan11411">- Random: makes random moves without considering the </tspan><tspan
+         x="122.2168"
+         y="827.02549"
+         id="tspan11413">game state.
+</tspan><tspan
+         x="122.2168"
+         y="887.82554"
+         id="tspan11415">
+</tspan><tspan
+         x="122.2168"
+         y="948.62558"
+         id="tspan11417">- Rule-based agents:
+</tspan><tspan
+         x="122.2168"
+         y="1009.4256"
+         id="tspan11419">    - Greedy: makes moves by selecting the lowest value </tspan><tspan
+         x="122.2168"
+         y="1070.2257"
+         id="tspan11421">cards.
+</tspan><tspan
+         x="122.2168"
+         y="1131.0257"
+         id="tspan11423">    - Smart: uses strategies that take into consideration the </tspan><tspan
+         x="122.2168"
+         y="1191.8258"
+         id="tspan11425">opponent's hand.
+</tspan><tspan
+         x="122.2168"
+         y="1252.6258"
+         id="tspan11427">
+</tspan><tspan
+         x="122.2168"
+         y="1313.4259"
+         id="tspan11429">- Minimax: a game-theoretic algorithm that evaluates the </tspan><tspan
+         x="122.2168"
+         y="1374.2259"
+         id="tspan11431">best move based on the minimax principle. it uses two </tspan><tspan
+         x="122.2168"
+         y="1435.026"
+         id="tspan11433">heuristics to evaluate the state: Basic, which is a traditional </tspan><tspan
+         x="122.2168"
+         y="1495.826"
+         id="tspan11437"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           id="tspan11435">approach using the game state and Playout, which generates </tspan></tspan><tspan
+         x="122.2168"
+         y="1556.6261"
+         id="tspan11441"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           id="tspan11439">a copy of the game state and plays out the whole game </tspan></tspan><tspan
+         x="122.2168"
+         y="1617.4261"
+         id="tspan11443">using greedy agents.
+</tspan><tspan
+         x="122.2168"
+         y="1678.2262"
+         id="tspan11445">
+</tspan><tspan
+         x="122.2168"
+         y="1739.0262"
+         id="tspan11447">- MCTS (Monte Carlo Tree Search): an algorithm that uses </tspan><tspan
+         x="122.2168"
+         y="1799.8263"
+         id="tspan11449">simulations to evaluate the best move.
+</tspan><tspan
+         x="122.2168"
+         y="1860.6263"
+         id="tspan11451">
+</tspan><tspan
+         x="122.2168"
+         y="1921.4264"
+         id="tspan11453">Each agent was tested and compared in perfect and </tspan><tspan
+         x="122.2168"
+         y="1982.2264"
+         id="tspan11455">imperfect information scenarios, and the results were </tspan><tspan
+         x="122.2168"
+         y="2043.0265"
+         id="tspan11457">analyzed to identify the most effective technique.</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.406047"
+       id="rect474-67"
+       width="432.96713"
+       height="544.88086"
+       x="381.3356"
+       y="125.8598" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.3444px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="389.70514"
+       y="148.43388"
+       id="text2202-5"><tspan
+         sodipodi:role="line"
+         id="tspan2200-62"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.3444px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+         x="389.70514"
+         y="148.43388">Results:</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,358.67981,20.35832)"
+       id="text7045-5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="122.2168"
+         y="583.82529"
+         id="tspan11459">RESULTS...</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.233026"
+       id="rect474-6"
+       width="337.81763"
+       height="230"
+       x="25"
+       y="440" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.3444px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="33.954521"
+       y="468.82907"
+       id="text2202-0"><tspan
+         sodipodi:role="line"
+         id="tspan2200-6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.3444px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+         x="33.954521"
+         y="468.82907">Framework and Selected Technology:</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26162994,0,0,0.2645856,3.288896,342.48856)"
+       id="text7045-8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.6667px;line-height:1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="122.2168"
+         y="578.75862"
+         id="tspan11461">Durak AI framework includes the following components:
+</tspan><tspan
+         x="122.2168"
+         y="629.42531"
+         id="tspan11463">
+</tspan><tspan
+         x="122.2168"
+         y="680.09199"
+         id="tspan11465">- Game model: this is the core component that implements </tspan><tspan
+         x="122.2168"
+         y="730.75868"
+         id="tspan11467">the rules and logic of the game Durak.
+</tspan><tspan
+         x="122.2168"
+         y="781.42537"
+         id="tspan11469">
+</tspan><tspan
+         x="122.2168"
+         y="832.09206"
+         id="tspan11471">- AI agents: these are the different agents developed to play </tspan><tspan
+         x="122.2168"
+         y="882.75874"
+         id="tspan11473">the game of Durak.
+</tspan><tspan
+         x="122.2168"
+         y="933.42543"
+         id="tspan11475">
+</tspan><tspan
+         x="122.2168"
+         y="984.09212"
+         id="tspan11477">- Command-line interface (CLI): this allows for interaction </tspan><tspan
+         x="122.2168"
+         y="1034.7588"
+         id="tspan11479">between the game model and the AI agents.
+</tspan><tspan
+         x="122.2168"
+         y="1085.4255"
+         id="tspan11481">
+</tspan><tspan
+         x="122.2168"
+         y="1136.0922"
+         id="tspan11483">All these components are implemented using the C# </tspan><tspan
+         x="122.2168"
+         y="1186.759"
+         id="tspan11485">programming language and targeted for the .NET 6 platform.</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.182971"
+       id="rect474-6-5"
+       width="337.81763"
+       height="141.80148"
+       x="475.66937"
+       y="777.93677" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.3444px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="484.62387"
+       y="802.53772"
+       id="text2202-0-0"><tspan
+         sodipodi:role="line"
+         id="tspan2200-6-9"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.3444px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+         x="484.62387"
+         y="802.53772">Acknowledgments:</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26946544,0,0,0.26457522,451.83191,676.20473)"
+       id="text7045-8-4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-9-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="122.2168"
+         y="583.82529"
+         id="tspan11487">I am deeply grateful for my supervisor Adam Dingle for </tspan><tspan
+         x="122.2168"
+         y="644.62534"
+         id="tspan11489">his support and guidance throughout the process and for </tspan><tspan
+         x="122.2168"
+         y="705.42539"
+         id="tspan11491">his constant patience, dedication, expertise, and </tspan><tspan
+         x="122.2168"
+         y="766.22544"
+         id="tspan11495"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887 0 0 0.00010871887"
+           id="tspan11493">willingness to go above and beyond to provide assistance, </tspan></tspan><tspan
+         x="122.2168"
+         y="827.02549"
+         id="tspan11497">which have been a constant source of inspiration and </tspan><tspan
+         x="122.2168"
+         y="887.82554"
+         id="tspan11499">valuable insights.</tspan></text>
+    <rect
+       style="display:inline;fill:#ffffff;stroke-width:0.232025"
+       id="rect474-6-5-9"
+       width="337.81763"
+       height="228.02853"
+       x="475.66937"
+       y="930.38403" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.3444px;font-family:CAli;-inkscape-font-specification:CAli;display:inline;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="484.62387"
+       y="955.57709"
+       id="text2202-0-0-2"><tspan
+         sodipodi:role="line"
+         id="tspan2200-6-9-2"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.3444px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+         x="0"
+         y="0">Conclusion:</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26946544,0,0,0.26457522,451.8319,829.24414)"
+       id="text7045-8-4-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-9-7-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="122.2168"
+         y="583.82529"
+         id="tspan11501">In conclusion, this study developed an AI framework for </tspan><tspan
+         x="122.2168"
+         y="644.62534"
+         id="tspan11503">the card game Durak and tested various agents such as </tspan><tspan
+         x="122.2168"
+         y="705.42539"
+         id="tspan11505">Minimax, Rule-Based, and MCTS. The MCTS agent </tspan><tspan
+         x="122.2168"
+         y="766.22544"
+         id="tspan11507">consistently outperformed the others in both perfect and </tspan><tspan
+         x="122.2168"
+         y="827.02549"
+         id="tspan11509">imperfect information versions of the game. The results </tspan><tspan
+         x="122.2168"
+         y="887.82554"
+         id="tspan11511">show the effectiveness of MCTS for developing AI agents </tspan><tspan
+         x="122.2168"
+         y="948.62558"
+         id="tspan11513">for Durak. The parameters used in the MCTS agent, such </tspan><tspan
+         x="122.2168"
+         y="1009.4256"
+         id="tspan11517"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           id="tspan11515">as iterations, exploration constant and simulation strategy, </tspan></tspan><tspan
+         x="122.2168"
+         y="1070.2257"
+         id="tspan11519">greatly impacted its performance. By adjusting these </tspan><tspan
+         x="122.2168"
+         y="1131.0257"
+         id="tspan11521">parameters, strong results were achieved in both perfect </tspan><tspan
+         x="122.2168"
+         y="1191.8258"
+         id="tspan11523">and imperfect information scenarios.</tspan></text>
+  </g>
+</svg>
