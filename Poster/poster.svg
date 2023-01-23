@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.25364756"
-     inkscape:cx="1553.3364"
-     inkscape:cy="1525.7391"
+     inkscape:cx="1486.3143"
+     inkscape:cy="1399.5798"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="1912"
@@ -44,6 +44,12 @@
   <defs
      id="defs2">
     <rect
+       x="1474.4869"
+       y="1379.8674"
+       width="1549.394"
+       height="792.43814"
+       id="rect11699" />
+    <rect
        x="2191.174"
        y="4086.8461"
        width="27.877531"
@@ -53,7 +59,7 @@
        x="1483.0847"
        y="953.41157"
        width="1513.75"
-       height="156.11418"
+       height="436.03014"
        id="rect21833" />
     <rect
        x="1485.8724"
@@ -70,8 +76,8 @@
     <rect
        x="1485.8724"
        y="599.36693"
-       width="1516.5377"
-       height="331.74262"
+       width="1532.3076"
+       height="359.33997"
        id="rect20345" />
     <rect
        x="1494.2357"
@@ -148,8 +154,8 @@
     <rect
        x="122.21683"
        y="540.11957"
-       width="1218.0571"
-       height="284.83936"
+       width="804.78423"
+       height="284.83937"
        id="rect7047-9-7" />
     <rect
        x="122.21683"
@@ -550,8 +556,8 @@
     <rect
        x="1483.0847"
        y="953.41156"
-       width="1513.75"
-       height="156.11418"
+       width="1547.2611"
+       height="510.93722"
        id="rect21833-0" />
   </defs>
   <g
@@ -589,10 +595,10 @@
          x="151.76254"
          y="95.405563">Author: Azamat Zarlykov | Supervisor: Adam Dingle, M.Sc | 2023.</tspan></text>
     <rect
-       style="fill:#ffffff;stroke-width:0;stroke:#000000;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
        id="rect474"
        width="337.81763"
-       height="300"
+       height="266.62036"
        x="25.58499"
        y="125" />
     <rect
@@ -620,525 +626,533 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.377953;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="122.2168"
          y="576.92432"
-         id="tspan13683"><tspan
+         id="tspan17550"><tspan
            style="stroke:none"
-           id="tspan13681">Durak is a two-player card game that starts by dealing cards to each </tspan></tspan><tspan
+           id="tspan17548">Durak is a two-player card game that starts by dealing cards to each </tspan></tspan><tspan
          x="122.2168"
          y="628.12434"
-         id="tspan13687"><tspan
+         id="tspan17554"><tspan
            style="stroke:none"
-           id="tspan13685">player until they have a hand of six cards. The final card of the deck is </tspan></tspan><tspan
+           id="tspan17552">player until they have a hand of six cards. The final card of the deck is </tspan></tspan><tspan
          x="122.2168"
          y="679.32435"
-         id="tspan13691"><tspan
+         id="tspan17558"><tspan
            style="stroke:none"
-           id="tspan13689">then placed face up to determine the trump suit for the game. The </tspan></tspan><tspan
+           id="tspan17556">then placed face up to determine the trump suit for the game. The </tspan></tspan><tspan
          x="122.2168"
          y="730.52436"
-         id="tspan13695"><tspan
+         id="tspan17562"><tspan
            style="stroke:none"
-           id="tspan13693">gameplay consists of a series of bouts where the attacker begins by </tspan></tspan><tspan
+           id="tspan17560">gameplay consists of a series of bouts where the attacker begins by </tspan></tspan><tspan
          x="122.2168"
          y="781.72437"
-         id="tspan13699"><tspan
+         id="tspan17566"><tspan
            style="stroke:none"
-           id="tspan13697">placing a card, and the defender attempts to beat it by playing a card </tspan></tspan><tspan
+           id="tspan17564">placing a card, and the defender attempts to beat it by playing a card </tspan></tspan><tspan
          x="122.2168"
          y="832.92439"
-         id="tspan13703"><tspan
+         id="tspan17570"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="stroke:none"
-           id="tspan13701">of their own. The attacker can continue the attack or end it, and the </tspan></tspan><tspan
+           id="tspan17568">of their own. The attacker can continue the attack or end it, and the </tspan></tspan><tspan
          x="122.2168"
          y="884.1244"
-         id="tspan13707"><tspan
+         id="tspan17574"><tspan
            style="stroke:none"
-           id="tspan13705">defender can continue to defend or pick up the cards. This ensures the </tspan></tspan><tspan
+           id="tspan17572">defender can continue to defend or pick up the cards. This ensures the </tspan></tspan><tspan
          x="122.2168"
          y="935.32441"
-         id="tspan13713"><tspan
+         id="tspan17580"><tspan
            style="stroke:none"
-           id="tspan13709">variability of strategies </tspan><tspan
+           id="tspan17576">variability of strategies </tspan><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00010967255"
            style="stroke:none"
-           id="tspan13711">that can be used during the game. The aim of </tspan></tspan><tspan
+           id="tspan17578">that can be used during the game. The aim of </tspan></tspan><tspan
          x="122.2168"
          y="986.52442"
-         id="tspan13717"><tspan
+         id="tspan17584"><tspan
            style="stroke:none"
-           id="tspan13715">the game is to get rid of all one's cards and the player left holding </tspan></tspan><tspan
+           id="tspan17582">the game is to get rid of all one's cards and the player left holding </tspan></tspan><tspan
          x="122.2168"
          y="1037.7244"
-         id="tspan13721"><tspan
+         id="tspan17588"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="stroke:none"
-           id="tspan13719">cards is declared the fool. The aim of the work is to develop the range </tspan></tspan><tspan
+           id="tspan17586">cards is declared the fool. The aim of the work is to develop the range </tspan></tspan><tspan
          x="122.2168"
          y="1088.9244"
-         id="tspan13725"><tspan
+         id="tspan17592"><tspan
            style="stroke:none"
-           id="tspan13723">of AI agents that use various techniques, including rules-based </tspan></tspan><tspan
+           id="tspan17590">of AI agents that use various techniques, including rules-based </tspan></tspan><tspan
          x="122.2168"
          y="1140.1245"
-         id="tspan13729"><tspan
+         id="tspan17596"><tspan
            style="stroke:none"
-           id="tspan13727">heuristics, minimax search, Monte Carlo tree search and, by </tspan></tspan><tspan
+           id="tspan17594">heuristics, minimax search, Monte Carlo tree search and, by </tspan></tspan><tspan
          x="122.2168"
          y="1191.3246"
-         id="tspan13733"><tspan
+         id="tspan17600"><tspan
            style="stroke:none"
-           id="tspan13731">comparing their performances in a mutual play, identify the most </tspan></tspan><tspan
+           id="tspan17598">comparing their performances in a mutual play, identify the most </tspan></tspan><tspan
          x="122.2168"
          y="1242.5247"
-         id="tspan13737"><tspan
+         id="tspan17604"><tspan
            style="stroke:none"
-           id="tspan13735">effective and efficient agent. </tspan></tspan></text>
+           id="tspan17602">effective and efficient agent. </tspan></tspan></text>
     <rect
-       style="fill:#ffffff;stroke-width:0;stroke:#000000;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
        id="rect474-5"
        width="337.81763"
-       height="473.38678"
+       height="356.55801"
        x="24.340565"
-       y="682.9433" />
+       y="652.69299" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="32.710102"
-       y="704.47418"
+       y="674.22388"
        id="text2202-7"><tspan
          sodipodi:role="line"
          id="tspan2200-0"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
          x="32.710102"
-         y="704.47418">Artificial Intelligence Agents</tspan></text>
+         y="674.22388">Artificial Intelligence Agents</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,1.6847703,570.13997)"
+       transform="matrix(0.26458333,0,0,0.26458333,1.6847703,539.88966)"
        id="text7045-56"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="122.2168"
          y="576.92432"
-         id="tspan13741"><tspan
+         id="tspan17608"><tspan
            style="stroke:none"
-           id="tspan13739">The project features five distinct agents: Random, Greedy, Smart, </tspan></tspan><tspan
+           id="tspan17606">The project features five distinct agents: Random, Greedy, Smart, </tspan></tspan><tspan
          x="122.2168"
          y="628.12434"
-         id="tspan13745"><tspan
+         id="tspan17612"><tspan
            style="stroke:none"
-           id="tspan13743">Minimax, and Monte Carlo Tree Search:
+           id="tspan17610">Minimax, and Monte Carlo Tree Search:
 </tspan></tspan><tspan
          x="122.2168"
          y="679.32435"
-         id="tspan13749"><tspan
+         id="tspan17616"><tspan
            style="stroke:none"
-           id="tspan13747">
+           id="tspan17614">
 </tspan></tspan><tspan
          x="122.2168"
          y="730.52436"
-         id="tspan13753"><tspan
+         id="tspan17620"><tspan
            style="stroke:none"
-           id="tspan13751">- Random: makes random moves without considering the game state.
+           id="tspan17618">- Random: makes random moves without considering the game state.
 </tspan></tspan><tspan
          x="122.2168"
          y="781.72437"
-         id="tspan13757"><tspan
+         id="tspan17624"><tspan
            style="stroke:none"
-           id="tspan13755">
+           id="tspan17622">
 </tspan></tspan><tspan
          x="122.2168"
          y="832.92439"
-         id="tspan13761"><tspan
+         id="tspan17628"><tspan
            style="stroke:none"
-           id="tspan13759">- Rule-based agents:
+           id="tspan17626">- Rule-based agents:
 </tspan></tspan><tspan
          x="122.2168"
          y="884.1244"
-         id="tspan13765"><tspan
+         id="tspan17632"><tspan
            style="stroke:none"
-           id="tspan13763">    - Greedy: makes moves by selecting the lowest value cards.
+           id="tspan17630">    - Greedy: makes moves by selecting the lowest value cards.
 </tspan></tspan><tspan
          x="122.2168"
          y="935.32441"
-         id="tspan13769"><tspan
+         id="tspan17636"><tspan
            style="stroke:none"
-           id="tspan13767">    - Smart: uses strategies that take into consideration the opponent's </tspan></tspan><tspan
+           id="tspan17634">    - Smart: uses strategies that take into consideration the opponent's </tspan></tspan><tspan
          x="122.2168"
          y="986.52442"
-         id="tspan13773"><tspan
+         id="tspan17640"><tspan
            style="stroke:none"
-           id="tspan13771">hand.
+           id="tspan17638">hand.
 </tspan></tspan><tspan
          x="122.2168"
          y="1037.7244"
-         id="tspan13777"><tspan
+         id="tspan17644"><tspan
            style="stroke:none"
-           id="tspan13775">
+           id="tspan17642">
 </tspan></tspan><tspan
          x="122.2168"
          y="1088.9244"
-         id="tspan13781"><tspan
+         id="tspan17648"><tspan
            style="stroke:none"
-           id="tspan13779">- Minimax: a game-theoretic algorithm that evaluates the best move </tspan></tspan><tspan
+           id="tspan17646">- Minimax: a game-theoretic algorithm that evaluates the best move </tspan></tspan><tspan
          x="122.2168"
          y="1140.1245"
-         id="tspan13785"><tspan
+         id="tspan17652"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="stroke:none"
-           id="tspan13783">based on the minimax principle. It uses two heuristics to evaluate the </tspan></tspan><tspan
+           id="tspan17650">based on the minimax principle. It uses two heuristics to evaluate the </tspan></tspan><tspan
          x="122.2168"
          y="1191.3246"
-         id="tspan13789"><tspan
+         id="tspan17656"><tspan
            style="stroke:none"
-           id="tspan13787">state: 
+           id="tspan17654">state: 
 </tspan></tspan><tspan
          x="122.2168"
          y="1242.5247"
-         id="tspan13793"><tspan
+         id="tspan17660"><tspan
            style="stroke:none"
-           id="tspan13791">    -Basic, which is a traditional approach using the game state.
+           id="tspan17658">    -Basic, which is a traditional approach using the game state.
 </tspan></tspan><tspan
          x="122.2168"
          y="1293.7247"
-         id="tspan13797"><tspan
+         id="tspan17664"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="stroke:none"
-           id="tspan13795">    -Playout, which generates a copy of the game state and plays out the </tspan></tspan><tspan
+           id="tspan17662">    -Playout, which generates a copy of the game state and plays out the </tspan></tspan><tspan
          x="122.2168"
          y="1344.9248"
-         id="tspan13801"><tspan
+         id="tspan17668"><tspan
            style="stroke:none"
-           id="tspan13799">whole game using greedy agents.
+           id="tspan17666">whole game using greedy agents.
 </tspan></tspan><tspan
          x="122.2168"
          y="1396.1249"
-         id="tspan13805"><tspan
+         id="tspan17672"><tspan
            style="stroke:none"
-           id="tspan13803">
+           id="tspan17670">
 </tspan></tspan><tspan
          x="122.2168"
          y="1447.325"
-         id="tspan13809"><tspan
+         id="tspan17676"><tspan
            style="stroke:none"
-           id="tspan13807">- MCTS (Monte Carlo Tree Search): an algorithm that uses simulated </tspan></tspan><tspan
+           id="tspan17674">- MCTS (Monte Carlo Tree Search): an algorithm that uses simulated </tspan></tspan><tspan
          x="122.2168"
          y="1498.525"
-         id="tspan13813"><tspan
+         id="tspan17680"><tspan
            style="stroke:none"
-           id="tspan13811">playouts of a game to estimate the value of each possible move.
+           id="tspan17678">playouts of a game to estimate the value of each possible move.
 </tspan></tspan><tspan
          x="122.2168"
          y="1549.7251"
-         id="tspan13817"><tspan
+         id="tspan17684"><tspan
            style="stroke:none"
-           id="tspan13815">
+           id="tspan17682">
 </tspan></tspan><tspan
          x="122.2168"
          y="1600.9252"
-         id="tspan13821"><tspan
+         id="tspan17688"><tspan
            style="stroke:none"
-           id="tspan13819">Each agent was tested and compared in perfect and imperfect </tspan></tspan><tspan
+           id="tspan17686">Each agent was tested and compared in perfect and imperfect </tspan></tspan><tspan
          x="122.2168"
          y="1652.1253"
-         id="tspan13825"><tspan
+         id="tspan17692"><tspan
            style="stroke:none"
-           id="tspan13823">information scenarios, and the results were analyzed to identify the </tspan></tspan><tspan
+           id="tspan17690">information scenarios, and the results were analyzed to identify the </tspan></tspan><tspan
          x="122.2168"
          y="1703.3253"
-         id="tspan13829"><tspan
+         id="tspan17696"><tspan
            style="stroke:none"
-           id="tspan13827">most effective technique.</tspan></tspan></text>
+           id="tspan17694">most effective technique.</tspan></tspan></text>
     <rect
        style="fill:#ffffff;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
        id="rect474-67"
        width="432.96713"
-       height="778.53839"
+       height="819.84363"
        x="381.3356"
-       y="125.8598" />
+       y="126.02341" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="389.70514"
-       y="148.43388"
+       y="150.16217"
        id="text2202-5"><tspan
          sodipodi:role="line"
          id="tspan2200-62"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
          x="389.70514"
-         y="148.43388">Results:</tspan></text>
+         y="150.16217">Results:</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458716,0,0,0.252711,358.67633,26.861021)"
        id="text7045-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:46.6667px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       style="fill:#ffffff;stroke-width:0;stroke:#000000;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
        id="rect474-6"
        width="337.81763"
        height="230"
        x="25"
-       y="440" />
+       y="409.78442" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="33.954521"
-       y="468.82907"
+       y="438.61349"
        id="text2202-0"><tspan
          sodipodi:role="line"
          id="tspan2200-6"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
          x="33.954521"
-         y="468.82907">Framework and Selected Technology:</tspan></text>
+         y="438.61349">Framework and Selected Technology:</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26162994,0,0,0.2645856,3.288896,340.40233)"
+       transform="matrix(0.26162994,0,0,0.2645856,3.288896,310.18676)"
        id="text7045-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.9066px;line-height:1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="122.2168"
          y="572.84061"
-         id="tspan13833"><tspan
+         id="tspan17700"><tspan
            style="stroke:none"
-           id="tspan13831">Durak AI framework includes the following components:
+           id="tspan17698">Durak AI framework includes the following components:
 </tspan></tspan><tspan
          x="122.2168"
          y="615.74722"
-         id="tspan13837"><tspan
+         id="tspan17704"><tspan
            style="stroke:none"
-           id="tspan13835">
+           id="tspan17702">
 </tspan></tspan><tspan
          x="122.2168"
          y="658.65384"
-         id="tspan13841"><tspan
+         id="tspan17708"><tspan
            style="stroke:none"
-           id="tspan13839">- Game model: this is the core component that implements the rules and </tspan></tspan><tspan
+           id="tspan17706">- Game model: this is the core component that implements the rules and </tspan></tspan><tspan
          x="122.2168"
          y="701.56046"
-         id="tspan13845"><tspan
+         id="tspan17712"><tspan
            style="stroke:none"
-           id="tspan13843">logic of the game Durak.
+           id="tspan17710">logic of the game Durak.
 </tspan></tspan><tspan
          x="122.2168"
          y="744.46707"
-         id="tspan13849"><tspan
+         id="tspan17716"><tspan
            style="stroke:none"
-           id="tspan13847">
+           id="tspan17714">
 </tspan></tspan><tspan
          x="122.2168"
          y="787.37369"
-         id="tspan13853"><tspan
+         id="tspan17720"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00010681152"
            style="stroke:none"
-           id="tspan13851">- AI agents: these are the different agents developed to play the game of </tspan></tspan><tspan
+           id="tspan17718">- AI agents: these are the different agents developed to play the game of </tspan></tspan><tspan
          x="122.2168"
          y="830.28031"
-         id="tspan13857"><tspan
+         id="tspan17724"><tspan
            style="stroke:none"
-           id="tspan13855">Durak.
+           id="tspan17722">Durak.
 </tspan></tspan><tspan
          x="122.2168"
          y="873.18692"
-         id="tspan13861"><tspan
+         id="tspan17728"><tspan
            style="stroke:none"
-           id="tspan13859">
+           id="tspan17726">
 </tspan></tspan><tspan
          x="122.2168"
          y="916.09354"
-         id="tspan13865"><tspan
+         id="tspan17732"><tspan
            style="stroke:none"
-           id="tspan13863">- Command-line interface (CLI): this allows for interaction between the </tspan></tspan><tspan
+           id="tspan17730">- Command-line interface (CLI): this allows for interaction between the </tspan></tspan><tspan
          x="122.2168"
          y="959.00015"
-         id="tspan13869"><tspan
+         id="tspan17736"><tspan
            style="stroke:none"
-           id="tspan13867">game model and the AI agents.
+           id="tspan17734">game model and the AI agents.
 </tspan></tspan><tspan
          x="122.2168"
          y="1001.9068"
-         id="tspan13873"><tspan
+         id="tspan17740"><tspan
            style="stroke:none"
-           id="tspan13871">
+           id="tspan17738">
 </tspan></tspan><tspan
          x="122.2168"
          y="1044.8134"
-         id="tspan13877"><tspan
+         id="tspan17744"><tspan
            style="stroke:none"
-           id="tspan13875">All these components are implemented using the C# programming </tspan></tspan><tspan
+           id="tspan17742">All these components are implemented using the C# programming </tspan></tspan><tspan
          x="122.2168"
          y="1087.72"
-         id="tspan13881"><tspan
+         id="tspan17748"><tspan
            style="stroke:none"
-           id="tspan13879">language and targeted for the .NET 6 platform.</tspan></tspan></text>
+           id="tspan17746">language and targeted for the .NET 6 platform.</tspan></tspan></text>
     <rect
        style="fill:#ffffff;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
        id="rect474-6-5"
-       width="316.42743"
-       height="98.043114"
-       x="381.0329"
-       y="1058.1548" />
+       width="213.15913"
+       height="109.51736"
+       x="23.24478"
+       y="1050.853" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
-       x="386.85803"
-       y="1079.6263"
+       x="30.076616"
+       y="1071.2814"
        id="text2202-0-0"><tspan
          id="tspan2200-6-9"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
-         x="386.85803"
-         y="1079.6263"
+         x="30.076616"
+         y="1071.2814"
          sodipodi:role="line">Acknowledgments:</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.25240322,0,0,0.25494174,357.22959,949.80063)"
+       transform="matrix(0.25240322,0,0,0.25494174,-0.55852875,942.49884)"
        id="text7045-8-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.5024px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-9-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="122.2168"
          y="578.50784"
-         id="tspan13885"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00010108948"
+         id="tspan17752"><tspan
            style="stroke:none"
-           id="tspan13883">I am grateful for my supervisor Adam Dingle for his support and </tspan></tspan><tspan
+           id="tspan17750">I am grateful to my supervisor Adam Dingle </tspan></tspan><tspan
          x="122.2168"
          y="631.91073"
-         id="tspan13889"><tspan
+         id="tspan17756"><tspan
            style="stroke:none"
-           id="tspan13887">guidance throughout the process and for his constant patience, </tspan></tspan><tspan
+           id="tspan17754">for his support and guidance throughout the </tspan></tspan><tspan
          x="122.2168"
          y="685.31362"
-         id="tspan13893"><tspan
+         id="tspan17760"><tspan
            style="stroke:none"
-           id="tspan13891">dedication, expertise, and willingness to go above and beyond to </tspan></tspan><tspan
+           id="tspan17758">process and for his constant patience, </tspan></tspan><tspan
          x="122.2168"
          y="738.71652"
-         id="tspan13897"><tspan
+         id="tspan17764"><tspan
            style="stroke:none"
-           id="tspan13895">provide assistance, which have been a constant source of inspiration </tspan></tspan><tspan
+           id="tspan17762">expertise, and willingness to go above and </tspan></tspan><tspan
          x="122.2168"
          y="792.11941"
-         id="tspan13901"><tspan
+         id="tspan17768"><tspan
            style="stroke:none"
-           id="tspan13899">and valuable insights.</tspan></tspan></text>
+           id="tspan17766">beyond to provide assistance.</tspan></tspan></text>
     <rect
        style="display:inline;fill:#ffffff;stroke:#fbfbfb;stroke-width:0.204404;stroke-opacity:1"
        id="rect474-6-5-9"
        width="432.99475"
        height="138.06981"
        x="380.91116"
-       y="914.35815" />
+       y="1023.8851" />
     <text
        xml:space="preserve"
-       transform="matrix(0.26946544,0,0,0.26457522,356.07975,802.90574)"
+       transform="matrix(0.26946544,0,0,0.26457522,356.07975,912.43271)"
        id="text7045-8-4-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.279px;line-height:1.2;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect7047-9-7-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="122.2168"
          y="576.58989"
-         id="tspan13905"><tspan
+         id="tspan17774"><tspan
            style="stroke:none"
-           id="tspan13903">In conclusion, this study developed an AI framework for the card game Durak and tested </tspan></tspan><tspan
+           id="tspan17770">This study developed an AI framework for the card game Durak and tested </tspan><tspan
+           style="stroke:none"
+           id="tspan17772">various agents </tspan></tspan><tspan
          x="122.2168"
          y="627.32469"
-         id="tspan13909"><tspan
+         id="tspan17780"><tspan
            style="stroke:none"
-           id="tspan13907">various agents such as Minimax, Rule-Based, and MCTS. The MCTS agent consistently </tspan></tspan><tspan
+           id="tspan17776">such as Minimax, Rule-Based, and MCTS. The MCTS agent consistently </tspan><tspan
+           style="stroke:none"
+           id="tspan17778">outperformed the </tspan></tspan><tspan
          x="122.2168"
          y="678.05949"
-         id="tspan13913"><tspan
+         id="tspan17786"><tspan
            style="stroke:none"
-           id="tspan13911">outperformed the others in both perfect and imperfect information versions of the game. </tspan></tspan><tspan
+           id="tspan17782">others in both perfect and imperfect information versions of the game. </tspan><tspan
+           style="stroke:none"
+           id="tspan17784">The results show the </tspan></tspan><tspan
          x="122.2168"
          y="728.79429"
-         id="tspan13917"><tspan
+         id="tspan17792"><tspan
            style="stroke:none"
-           id="tspan13915">The results show the effectiveness of MCTS for developing AI agents for Durak. The </tspan></tspan><tspan
+           id="tspan17788">effectiveness of MCTS for developing AI agents for Durak. The </tspan><tspan
+           dx="0 0 0 0 0 0 0 0 0 0.00010871887 0 0 0 0 0 0 0 0 0 0 0.00012207031"
+           style="stroke:none"
+           id="tspan17790">parameters used in the </tspan></tspan><tspan
          x="122.2168"
          y="779.5291"
-         id="tspan13923"><tspan
+         id="tspan17802"><tspan
            style="stroke:none"
-           id="tspan13919">parameters used in the MCTS agent, such </tspan><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00011444092 0 0 0 0 0 0 0 -0.00011634827"
+           id="tspan17794">MCTS agent, such </tspan><tspan
            style="stroke:none"
-           id="tspan13921">as iterations, exploration constant and simulation </tspan></tspan><tspan
+           id="tspan17796">as iterations, exploration constant and simulation </tspan><tspan
+           dx="0 0 0 0.00010871887"
+           style="stroke:none"
+           id="tspan17798">strategy, </tspan><tspan
+           style="stroke:none"
+           id="tspan17800">greatly </tspan></tspan><tspan
          x="122.2168"
          y="830.2639"
-         id="tspan13929"><tspan
+         id="tspan17808"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="stroke:none"
-           id="tspan13925">strategy, </tspan><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00010108948 0 0 0 0 0 -0.0001411438 0 0 0 0 0 -0.00010108948"
+           id="tspan17804">impacted its performance. By adjusting these parameters, strong results </tspan><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00012207031"
            style="stroke:none"
-           id="tspan13927">greatly impacted its performance. By adjusting these parameters, strong results </tspan></tspan><tspan
+           id="tspan17806">were achieved in </tspan></tspan><tspan
          x="122.2168"
          y="880.9987"
-         id="tspan13933"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+         id="tspan17812"><tspan
            style="stroke:none"
-           id="tspan13931">were achieved in both perfect and imperfect information scenarios.</tspan></tspan></text>
+           id="tspan17810">both perfect and imperfect information scenarios.</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="387.51984"
-       y="936.65149"
+       y="1046.1785"
        id="text2202-0-0-3"><tspan
          sodipodi:role="line"
          id="tspan2200-6-9-9"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
          x="387.51984"
-         y="936.65149">Conclusion:</tspan></text>
+         y="1046.1785">Conclusion:</tspan></text>
     <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.50836;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.4308;stroke-dasharray:none;stroke-opacity:1"
        id="rect4415"
-       width="398.49164"
-       height="198.49164"
-       x="394.82285"
-       y="301.82581" />
+       width="398.56918"
+       height="178.5692"
+       x="395.0896"
+       y="370.99271" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.50288;stroke-dasharray:none;stroke-opacity:1"
-       d="m 394.81865,301.30007 v 200"
-       id="path7755" />
-    <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 528.15,301.3 V 500.53479"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42481;stroke-dasharray:none;stroke-opacity:1"
+       d="M 528.44367,370.51752 V 550.24683"
        id="path7755-3" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 528.85419,601.09597 V 800.33076"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42492;stroke-dasharray:none;stroke-opacity:1"
+       d="M 530.90288,734.90267 V 914.62513"
        id="path7755-3-7" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 594.75,301 V 500.23479"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42481;stroke-dasharray:none;stroke-opacity:1"
+       d="M 595.05565,370.24689 V 549.9762"
        id="path7755-3-83" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 661.55,301.30007 V 500.53486"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42481;stroke-dasharray:none;stroke-opacity:1"
+       d="M 661.86767,370.51758 V 550.24689"
        id="path7755-3-83-2" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 728.25,301.30006 V 500.53485"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42481;stroke-dasharray:none;stroke-opacity:1"
+       d="M 728.57968,370.51757 V 550.24688"
        id="path7755-3-83-2-4" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 461.45,301.30007 V 500.53486"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42481;stroke-dasharray:none;stroke-opacity:1"
+       d="M 461.73167,370.51758 V 550.24689"
        id="path7755-3-8" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="m 394.29711,301.82162 398.46956,-0.52155"
+       d="M 394.60264,371.06851 793.0722,370.54696"
        id="path7867" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 394.00098,334.67155 792.47054,334.15"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.50027;stroke-dasharray:none;stroke-opacity:1"
+       d="m 394.30651,400.75946 398.46956,-0.52174"
        id="path7867-8" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 394.00098,368.07155 792.47054,367.55"
+       d="m 394.30651,520.75914 398.46956,-0.52155"
        id="path7867-8-9" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 394.00098,401.47155 792.47054,400.95"
+       d="m 394.30651,490.75914 398.46956,-0.52155"
        id="path7867-8-9-7" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 394.00098,434.87155 792.47054,434.35"
+       d="m 394.30651,460.75914 398.46956,-0.52155"
        id="path7867-8-9-7-5" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 394.00098,468.27155 792.47054,467.75"
+       d="m 394.30651,430.75914 398.46956,-0.52155"
        id="path7867-8-9-7-5-9" />
     <text
        xml:space="preserve"
@@ -1147,108 +1161,108 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:1.15;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9077);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.88976;stroke-dasharray:none;stroke-opacity:1" />
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0,40)"
+       transform="matrix(0.26458333,0,0,0.26458333,0.30552108,109.24689)"
        id="text9087"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="71.833389"
        y="0"><tspan
-         x="1801.2337"
-         y="1061.6576"
-         id="tspan13937"><tspan
+         x="1805.3066"
+         y="1057.1572"
+         id="tspan17816"><tspan
            style="text-align:center;text-anchor:middle"
-           id="tspan13935">random</tspan></tspan></text>
+           id="tspan17814">random</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-65.348545,74.209337)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.043024,137.7191)"
        id="text9087-1"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="71.833389"
        y="0"><tspan
-         x="1801.2337"
-         y="1061.6576"
-         id="tspan13941"><tspan
+         x="1805.3066"
+         y="1057.1572"
+         id="tspan17820"><tspan
            style="text-align:center;text-anchor:middle"
-           id="tspan13939">random</tspan></tspan></text>
+           id="tspan17818">random</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.418198,40.280058)"
+       transform="matrix(0.26458333,0,0,0.26458333,67.723719,109.52695)"
        id="text9087-6"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3587"
-         y="1061.6576"
-         id="tspan13943">greedy</tspan></text>
+         x="1811.9863"
+         y="1057.1572"
+         id="tspan17822">greedy</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,135.18305,40.614228)"
+       transform="matrix(0.26458333,0,0,0.26458333,135.48858,109.86112)"
        id="text9087-6-6"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1819.0045"
-         y="1061.6576"
-         id="tspan13945">smart</tspan></text>
+         x="1821.9668"
+         y="1057.1572"
+         id="tspan17824">smart</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,201.37074,40.91292)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.67627,110.15981)"
        id="text9087-6-6-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
          x="1790.5566"
          y="1061.6576"
-         id="tspan13947">minimax</tspan></text>
+         id="tspan17826">minimax</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,267.67688,41.481339)"
+       transform="matrix(0.26458333,0,0,0.26458333,267.98241,110.72823)"
        id="text9087-6-6-1-5"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3066"
-         y="1061.6576"
-         id="tspan13949">MCTS</tspan></text>
+         x="1811.9375"
+         y="1057.1572"
+         id="tspan17828">MCTS</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-65.932206,207.72849)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.626685,258.72088)"
        id="text9087-6-6-1-5-4"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3066"
-         y="1061.6576"
-         id="tspan13951">MCTS</tspan></text>
+         x="1811.9375"
+         y="1057.1572"
+         id="tspan17830">MCTS</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-65.992433,174.54679)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.686912,229.19008)"
        id="text9087-6-6-1-2"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1790.5566"
-         y="1061.6576"
-         id="tspan13953">minimax</tspan></text>
+         x="1795.2969"
+         y="1057.1572"
+         id="tspan17832">minimax</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.375524,141.96316)"
+       transform="matrix(0.26458333,0,0,0.26458333,-66.070003,199.73579)"
        id="text9087-6-6-0"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1819.0045"
-         y="1061.6576"
-         id="tspan13955">smart</tspan></text>
+         x="1821.9668"
+         y="1057.1572"
+         id="tspan17834">smart</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-65.442251,107.73519)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.13673,168.63716)"
        id="text9087-6-7"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3587"
-         y="1061.6576"
-         id="tspan13957">greedy</tspan></text>
+         x="1811.9863"
+         y="1057.1572"
+         id="tspan17836">greedy</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;line-height:1.15;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-dasharray:none;stroke-opacity:1"
@@ -1260,639 +1274,635 @@
          style="stroke-width:0.5" /></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0,45)"
+       transform="matrix(0.26458333,0,0,0.26458333,0.30552108,110.07443)"
        id="text9393"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2029.4167"
          y="1146.0585"
-         id="tspan13959">5.6%-11.3%
+         id="tspan17838">5.6%-11.3%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13961">(500)</tspan></text>
+         id="tspan17840">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,66.95494,44.997363)"
+       transform="matrix(0.26458333,0,0,0.26458333,68.303575,109.55024)"
        id="text9393-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan13963">3.3%-8.0%
+         id="tspan17842">3.3%-8.0%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13965">(500)</tspan></text>
+         id="tspan17844">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,132.67113,45.51892)"
+       transform="matrix(0.26458333,0,0,0.26458333,134.54133,110.07179)"
        id="text9393-2-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan13967">1.2%-4.6%
+         id="tspan17846">1.2%-4.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13969">(500)</tspan></text>
+         id="tspan17848">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,199.43043,45.51892)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.30063,109.55024)"
        id="text9393-2-5-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan13971">0.0%-1.1%
+         id="tspan17850">0.0%-1.1%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13973">(500)</tspan></text>
+         id="tspan17852">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.67428,79.159348)"
+       transform="matrix(0.26458333,0,0,0.26458333,67.979801,140.06132)"
        id="text9393-2-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-1);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan13975">45.7%-49.9%
+         id="tspan17854">45.7%-49.9%
 </tspan><tspan
          x="2072.2735"
          y="1187.1252"
-         id="tspan13977">(3500)</tspan></text>
+         id="tspan17856">(3500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,133.39047,79.680905)"
+       transform="matrix(0.26458333,0,0,0.26458333,133.696,140.58288)"
        id="text9393-2-5-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-3);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan13979">33.5%-43.6%
+         id="tspan17858">33.5%-43.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13981">(500)</tspan></text>
+         id="tspan17860">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,200.14977,79.680905)"
+       transform="matrix(0.26458333,0,0,0.26458333,200.4553,140.58288)"
        id="text9393-2-5-3-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan13983">1.1%-4.4%
+         id="tspan17862">1.1%-4.4%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13985">(500)</tspan></text>
+         id="tspan17864">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.71934255,113.06319)"
+       transform="matrix(0.26458333,0,0,0.26458333,1.0248636,170.31427)"
        id="text9393-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan13987">50.1%-54.3%
+         id="tspan17866">50.1%-54.3%
 </tspan><tspan
          x="2072.2735"
          y="1187.1252"
-         id="tspan13989">(3500)</tspan></text>
+         id="tspan17868">(3500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,133.39047,113.58211)"
+       transform="matrix(0.26458333,0,0,0.26458333,133.696,169.79007)"
        id="text9393-2-5-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan13991">1.2%-4.6%
+         id="tspan17870">1.2%-4.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13993">(500)</tspan></text>
+         id="tspan17872">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,200.14977,113.58211)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.49841,169.26851)"
        id="text9393-2-5-3-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan13995">2.8%-7.2%
+         id="tspan17874">2.8%-7.2%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan13997">(500)</tspan></text>
+         id="tspan17876">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.71934352,148.00751)"
+       transform="matrix(0.26458333,0,0,0.26458333,1.5464216,199.52146)"
        id="text9393-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan13999">56.4%-66.5%
+         id="tspan17878">56.4%-66.5%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14001">(500)</tspan></text>
+         id="tspan17880">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.674284,148.00488)"
+       transform="matrix(0.26458333,0,0,0.26458333,67.979805,199.51883)"
        id="text9393-2-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-00);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14003">55.0%-65.3%
+         id="tspan17882">55.0%-65.3%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14005">(500)</tspan></text>
+         id="tspan17884">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,200.14978,148.52643)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.49842,199.51882)"
        id="text9393-2-5-3-41"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14007">16.4%-24.8%
+         id="tspan17886">16.4%-24.8%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14009">(500)</tspan></text>
+         id="tspan17888">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-67.625446,76.942732)"
+       transform="matrix(0.26458333,0,0,0.26458333,-66.276811,140.97405)"
        id="text9393-2-5-3-11"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14011">88.7%-94.4%
+         id="tspan17890">88.7%-94.4%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14013">(500)</tspan></text>
+         id="tspan17892">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.906106,111.10472)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.557471,170.96358)"
        id="text9393-2-5-3-1-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-9-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14015">92.0%-96.7%
+         id="tspan17894">92.0%-96.7%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14017">(500)</tspan></text>
+         id="tspan17896">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.906106,145.00592)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.035914,199.64921)"
        id="text9393-2-5-3-4-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-7-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14019">95.4%-98.8%
+         id="tspan17898">95.4%-98.8%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14021">(500)</tspan></text>
+         id="tspan17900">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.906096,179.95024)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.557461,229.89952)"
        id="text9393-2-5-3-41-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-5-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2010.0574"
          y="1146.0585"
-         id="tspan14023">98.9%-100.0%
+         id="tspan17902">98.9%-100.0%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14025">(500)</tspan></text>
+         id="tspan17904">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.1977858,178.25782)"
+       transform="matrix(0.26458333,0,0,0.26458333,2.5895349,229.25021)"
        id="text9393-20"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-47);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14027">95.6%-98.9%
+         id="tspan17906">95.6%-98.9%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14029">(500)</tspan></text>
+         id="tspan17908">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.152726,178.25518)"
+       transform="matrix(0.26458333,0,0,0.26458333,67.458247,228.20446)"
        id="text9393-2-60"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14031">92.8%-97.2%
+         id="tspan17910">92.8%-97.2%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14033">(500)</tspan></text>
+         id="tspan17912">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,132.86891,178.77674)"
+       transform="matrix(0.26458333,0,0,0.26458333,134.21755,228.72602)"
        id="text9393-2-5-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14035">75.2%-83.6%
+         id="tspan17914">75.2%-83.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14037">(500)</tspan></text>
+         id="tspan17916">(500)</tspan></text>
     <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.50836;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.4308;stroke-dasharray:none;stroke-opacity:1"
        id="rect4415-9"
-       width="398.49164"
-       height="198.49164"
-       x="394.5509"
-       y="601.61407" />
+       width="398.56918"
+       height="178.5692"
+       x="396.59836"
+       y="736.10309" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.50288;stroke-dasharray:none;stroke-opacity:1"
-       d="m 394.54669,601.08837 v 200"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42576;stroke-dasharray:none;stroke-opacity:1"
+       d="m 396.63292,734.9252 v 180"
        id="path7755-34" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 594.47804,600.7883 V 800.02309"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42492;stroke-dasharray:none;stroke-opacity:1"
+       d="M 596.55147,734.62513 V 914.34759"
        id="path7755-3-83-4" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 661.27804,601.08837 V 800.32316"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42492;stroke-dasharray:none;stroke-opacity:1"
+       d="M 663.37666,734.89581 V 914.61827"
        id="path7755-3-83-2-3" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 727.97804,601.08836 V 800.32315"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42492;stroke-dasharray:none;stroke-opacity:1"
+       d="M 730.10181,734.8958 V 914.61827"
        id="path7755-3-83-2-4-0" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 461.17804,601.08837 V 800.32316"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.42576;stroke-dasharray:none;stroke-opacity:1"
+       d="m 463.26427,734.9252 v 180"
        id="path7755-3-8-2" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="m 394.02515,601.60992 398.46956,-0.52155"
-       id="path7867-6" />
-    <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 393.72902,634.45985 792.19858,633.9383"
+       d="m 395.81525,886.65926 398.46956,-0.52155"
        id="path7867-8-0" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 393.72902,667.85985 792.19858,667.3383"
+       d="m 395.81525,856.65926 398.46956,-0.52155"
        id="path7867-8-9-6" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 393.72902,701.25985 792.19858,700.7383"
+       d="m 395.81525,826.65926 398.46956,-0.52155"
        id="path7867-8-9-7-0" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 393.72902,734.65985 792.19858,734.1383"
+       d="m 395.81525,796.65926 398.46956,-0.52155"
        id="path7867-8-9-7-5-97" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
-       d="M 393.72902,768.05985 792.19858,767.5383"
+       d="m 395.81525,766.65926 398.46956,-0.52155"
        id="path7867-8-9-7-5-9-8" />
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-0.27195132,339.7883)"
+       transform="matrix(0.26458333,0,0,0.26458333,2.3358338,474.66824)"
        id="text9087-7"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="71.833389"
        y="0"><tspan
-         x="1801.2337"
-         y="1061.6576"
-         id="tspan14041"><tspan
+         x="1805.3066"
+         y="1057.1572"
+         id="tspan17920"><tspan
            style="text-align:center;text-anchor:middle"
-           id="tspan14039">random</tspan></tspan></text>
+           id="tspan17918">random</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-65.620496,373.99764)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.055825,505.22668)"
        id="text9087-1-7"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089-4-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect9089-4-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="71.833389"
        y="0"><tspan
-         x="1801.2337"
-         y="1061.6576"
-         id="tspan14045"><tspan
+         x="1805.3066"
+         y="1057.1572"
+         id="tspan17924"><tspan
            style="text-align:center;text-anchor:middle"
-           id="tspan14043">random</tspan></tspan></text>
+           id="tspan17922">random</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.146247,340.06836)"
+       transform="matrix(0.26458333,0,0,0.26458333,69.232475,473.90519)"
        id="text9087-6-5"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-89);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-89);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3587"
-         y="1061.6576"
-         id="tspan14047">greedy</tspan></text>
+         x="1811.9863"
+         y="1057.1572"
+         id="tspan17926">greedy</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,134.91109,340.40253)"
+       transform="matrix(0.26458333,0,0,0.26458333,136.99732,474.23936)"
        id="text9087-6-6-8"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1819.0045"
-         y="1061.6576"
-         id="tspan14049">smart</tspan></text>
+         x="1821.9668"
+         y="1057.1572"
+         id="tspan17928">smart</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,201.09878,340.70122)"
+       transform="matrix(0.26458333,0,0,0.26458333,203.18501,474.53805)"
        id="text9087-6-6-1-1"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1790.5566"
-         y="1061.6576"
-         id="tspan14051">minimax</tspan></text>
+         x="1795.2969"
+         y="1057.1572"
+         id="tspan17930">minimax</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,267.40492,341.26964)"
+       transform="matrix(0.26458333,0,0,0.26458333,269.49115,475.10647)"
        id="text9087-6-6-1-5-46"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3066"
-         y="1061.6576"
-         id="tspan14053">MCTS</tspan></text>
+         x="1811.9375"
+         y="1057.1572"
+         id="tspan17932">MCTS</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.204157,507.51679)"
+       transform="matrix(0.26458333,0,0,0.26458333,-65.161043,624.14224)"
        id="text9087-6-6-1-5-4-7"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0-2-8);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-0-2-8);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3066"
-         y="1061.6576"
-         id="tspan14055">MCTS</tspan></text>
+         x="1811.9375"
+         y="1057.1572"
+         id="tspan17934">MCTS</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.264384,474.33509)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.699713,595.13299)"
        id="text9087-6-6-1-2-5"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-6-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-6-6-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1790.5566"
-         y="1061.6576"
-         id="tspan14057">minimax</tspan></text>
+         x="1795.2969"
+         y="1057.1572"
+         id="tspan17936">minimax</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-66.647475,441.75146)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.561247,565.67871)"
        id="text9087-6-6-0-6"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-2-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-8-2-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1819.0045"
-         y="1061.6576"
-         id="tspan14059">smart</tspan></text>
+         x="1821.9668"
+         y="1057.1572"
+         id="tspan17938">smart</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-65.714202,407.52349)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.149531,534.05852)"
        id="text9087-6-7-0"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-6-3);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:2.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9089-7-6-3);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="133.73969"
        y="0"><tspan
-         x="1808.3587"
-         y="1061.6576"
-         id="tspan14061">greedy</tspan></text>
+         x="1811.9863"
+         y="1057.1572"
+         id="tspan17940">greedy</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-0.27195132,344.7883)"
+       transform="matrix(0.26458333,0,0,0.26458333,2.8573908,476.5389)"
        id="text9393-98"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-66);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2029.4167"
          y="1146.0585"
-         id="tspan14063">5.6%-11.3%
+         id="tspan17942">5.6%-11.3%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14065">(500)</tspan></text>
+         id="tspan17944">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,66.682989,344.78567)"
+       transform="matrix(0.26458333,0,0,0.26458333,68.769217,476.53627)"
        id="text9393-2-62"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-02);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan14067">3.8%-8.7%
+         id="tspan17946">3.8%-8.7%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14069">(500)</tspan></text>
+         id="tspan17948">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,132.39917,345.30722)"
+       transform="matrix(0.26458333,0,0,0.26458333,136.57163,476.01471)"
        id="text9393-2-5-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-75);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan14071">4.3%-9.5%
+         id="tspan17950">4.3%-9.5%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14073">(500)</tspan></text>
+         id="tspan17952">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,199.15847,345.30722)"
+       transform="matrix(0.26458333,0,0,0.26458333,202.80937,475.49315)"
        id="text9393-2-5-3-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-09);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2038.0574"
          y="1146.0585"
-         id="tspan14075">0.4%-2.7%
+         id="tspan17954">0.4%-2.7%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14077">(500)</tspan></text>
+         id="tspan17956">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.402329,378.94765)"
+       transform="matrix(0.26458333,0,0,0.26458333,69.488557,505.48268)"
        id="text9393-2-9-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-1-3);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14079">49.4%-51.9%
+         id="tspan17958">49.4%-51.9%
 </tspan><tspan
          x="2062.9402"
          y="1187.1252"
-         id="tspan14081">(10000)</tspan></text>
+         id="tspan17960">(10000)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,133.11851,379.46921)"
+       transform="matrix(0.26458333,0,0,0.26458333,135.20474,506.00424)"
        id="text9393-2-5-0-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-3-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14083">45.7%-49.2%
+         id="tspan17962">45.7%-49.2%
 </tspan><tspan
          x="2072.2735"
          y="1187.1252"
-         id="tspan14085">(4500)</tspan></text>
+         id="tspan17964">(4500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,199.87781,379.46921)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.96404,505.48268)"
        id="text9393-2-5-3-1-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-9-8);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14087">14.9%-23.2%
+         id="tspan17966">14.9%-23.2%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14089">(500)</tspan></text>
+         id="tspan17968">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.44739128,412.85149)"
+       transform="matrix(0.26458333,0,0,0.26458333,3.0551764,535.73562)"
        id="text9393-9-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-9-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14091">48.1%-50.6%
+         id="tspan17970">48.1%-50.6%
 </tspan><tspan
          x="2062.9402"
          y="1187.1252"
-         id="tspan14093">(10000)</tspan></text>
+         id="tspan17972">(10000)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,133.11851,413.37041)"
+       transform="matrix(0.26458333,0,0,0.26458333,134.68318,536.25454)"
        id="text9393-2-5-6-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-6-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14095">50.1%-57.5%
+         id="tspan17974">50.1%-57.5%
 </tspan><tspan
          x="2072.2735"
          y="1187.1252"
-         id="tspan14097">(1000)</tspan></text>
+         id="tspan17976">(1000)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,199.87781,413.37041)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.96404,536.25454)"
        id="text9393-2-5-3-4-32"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-7-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14099">22.2%-31.6%
+         id="tspan17978">22.2%-31.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14101">(500)</tspan></text>
+         id="tspan17980">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,199.80495,445.23511)"
+       transform="matrix(0.26458333,0,0,0.26458333,201.89118,566.55457)"
        id="text9393-2-5-3-4-32-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-7-9-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14103">12.9%-20.6%
+         id="tspan17982">12.9%-20.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14105">(500)</tspan></text>
+         id="tspan17984">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.44739218,447.79581)"
+       transform="matrix(0.26458333,0,0,0.26458333,2.0120633,565.46437)"
        id="text9393-7-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-4-3);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14107">50.8%-54.3%
+         id="tspan17986">50.8%-54.3%
 </tspan><tspan
          x="2072.2735"
          y="1187.1252"
-         id="tspan14109">(4500)</tspan></text>
+         id="tspan17988">(4500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,67.402333,447.79318)"
+       transform="matrix(0.26458333,0,0,0.26458333,69.488561,565.46174)"
        id="text9393-2-6-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-00-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14111">42.5%-49.9%
+         id="tspan17990">42.5%-49.9%
 </tspan><tspan
          x="2072.2735"
          y="1187.1252"
-         id="tspan14113">(1000)</tspan></text>
+         id="tspan17992">(1000)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-67.897397,376.73103)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.246498,506.3954)"
        id="text9393-2-5-3-11-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-0-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14115">88.7%-94.4%
+         id="tspan17994">88.7%-94.4%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14117">(500)</tspan></text>
+         id="tspan17996">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-67.178057,410.89302)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.570272,535.86338)"
        id="text9393-2-5-3-1-9-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-9-5-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14119">91.3%-96.2%
+         id="tspan17998">91.3%-96.2%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14121">(500)</tspan></text>
+         id="tspan18000">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-67.178057,444.79422)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.048715,565.07057)"
        id="text9393-2-5-3-4-3-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-7-6-7);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14123">90.5%-95.7%
+         id="tspan18002">90.5%-95.7%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14125">(500)</tspan></text>
+         id="tspan18004">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-67.178047,479.73854)"
+       transform="matrix(0.26458333,0,0,0.26458333,-64.570262,594.79932)"
        id="text9393-2-5-3-41-5-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-5-4-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14127">97.3%-99.6%
+         id="tspan18006">97.3%-99.6%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14129">(500)</tspan></text>
+         id="tspan18008">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-0.07416552,478.04612)"
+       transform="matrix(0.26458333,0,0,0.26458333,2.5336196,594.67157)"
        id="text9393-20-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-47-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14131">76.8%-85.1%
+         id="tspan18010">76.8%-85.1%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14133">(500)</tspan></text>
+         id="tspan18012">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,66.880775,478.04348)"
+       transform="matrix(0.26458333,0,0,0.26458333,68.967003,594.66893)"
        id="text9393-2-60-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-5-1);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14135">68.4%-77.8%
+         id="tspan18014">68.4%-77.8%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14137">(500)</tspan></text>
+         id="tspan18016">(500)</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,132.59695,478.56504)"
+       transform="matrix(0.26458333,0,0,0.26458333,135.72629,594.66893)"
        id="text9393-2-5-4-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-2-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="2019.3907"
          y="1146.0585"
-         id="tspan14139">78.4%-87.3%
+         id="tspan18018">78.4%-87.3%
 </tspan><tspan
          x="2081.6068"
          y="1187.1252"
-         id="tspan14141">(500)</tspan></text>
+         id="tspan18020">(500)</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,199.62821,138.77674)"
@@ -1900,80 +1910,92 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:1.1;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect9395-7-8-4-6);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.88976;stroke-dasharray:none;stroke-opacity:1" />
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0,40)"
+       transform="matrix(0.26458333,0,0,0.26458333,2.3917492,90.992398)"
        id="text19563"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.6667px;line-height:0.95;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect19565);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="1831.1083"
          y="1787.4303"
-         id="tspan14143">Table 1: Tournament between the agents in the open world. </tspan></text>
+         id="tspan18024"><tspan
+           style="stroke:none"
+           id="tspan18022">Table 1: Tournament between the agents in the open world. </tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.60324368,339.90293)"
+       transform="matrix(0.26458333,0,0,0.26458333,1.1248007,456.00682)"
        id="text19563-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.6667px;line-height:0.95;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect19565-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="1820.5204"
          y="1787.4303"
-         id="tspan14145">Table 2: Tournament between the agents in the closed world. </tspan></text>
+         id="tspan18028"><tspan
+           style="stroke:none"
+           id="tspan18026">Table 2: Tournament between the agents in the closed world. </tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-2.2550065,0)"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.4330226,0.68517394)"
        id="text20343"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;line-height:0;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;white-space:pre;shape-inside:url(#rect20345);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"
        x="-738.34314"
        y="0"><tspan
          x="1485.873"
          y="635.1057"
-         id="tspan14149"><tspan
+         id="tspan18032"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14147">The experiment was conducted both in open and closed world environments to gain a </tspan></tspan><tspan
+           id="tspan18030">The experiment was conducted both in open and closed world environments to gain a </tspan></tspan><tspan
          x="1485.873"
          y="684.17241"
-         id="tspan14153"><tspan
+         id="tspan18038"><tspan
            dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14151">better understanding of the adaptability of the agents and to determine whether the </tspan></tspan><tspan
+           id="tspan18034">better understanding of the adaptability of the agents and to determine whether the </tspan><tspan
+           style="line-height:1.15;text-align:start;stroke:none"
+           id="tspan18036">agents </tspan></tspan><tspan
          x="1485.873"
          y="733.23913"
-         id="tspan14157"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+         id="tspan18044"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14155">agents that performed best in perfect information scenarios are able to achieve similar </tspan></tspan><tspan
+           id="tspan18040">that performed best in perfect information scenarios are able to achieve similar </tspan><tspan
+           dx="0 0 0 0 0 0.00010871887"
+           style="line-height:1.15;text-align:start;stroke:none"
+           id="tspan18042">success in </tspan></tspan><tspan
          x="1485.873"
          y="782.30584"
-         id="tspan14161"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+         id="tspan18050"><tspan
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14159">success in an imperfect one. The results are provided in tables  where the numbers </tspan></tspan><tspan
+           id="tspan18046">an imperfect one. The results are provided in tables  where the numbers </tspan><tspan
+           style="line-height:1.15;text-align:start;stroke:none"
+           id="tspan18048">within the </tspan></tspan><tspan
          x="1485.873"
          y="831.37255"
-         id="tspan14165"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+         id="tspan18056"><tspan
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14163">within the brackets represent the amount of games played to determine the winner with </tspan></tspan><tspan
+           id="tspan18052">brackets represent the amount of games played to determine the winner with </tspan><tspan
+           dx="0 0 0 0 0 0 0.00010871887"
+           style="line-height:1.15;text-align:start;stroke:none"
+           id="tspan18054">sufficient </tspan></tspan><tspan
          x="1485.873"
          y="880.43926"
-         id="tspan14169"><tspan
+         id="tspan18060"><tspan
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14167">sufficient level of confidence.
+           id="tspan18058">level of confidence.
 </tspan></tspan><tspan
          x="1485.873"
          y="929.50597"
-         id="tspan14173"><tspan
+         id="tspan18064"><tspan
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14171">
+           id="tspan18062">
 </tspan></tspan><tspan
          x="1485.873"
-         y="966.84789"
-         id="tspan14177"><tspan
+         y="978.57268"
+         id="tspan18068"><tspan
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14175">
+           id="tspan18066">
 </tspan></tspan><tspan
          x="1485.873"
-         y="1015.9146"
-         id="tspan14181"><tspan
+         y="994.44555"
+         id="tspan18072"><tspan
            style="line-height:1.15;text-align:start;stroke:none"
-           id="tspan14179">
+           id="tspan18070">
 </tspan></tspan></text>
     <text
        xml:space="preserve"
@@ -2007,71 +2029,160 @@
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:0.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';text-align:start;white-space:pre;shape-inside:url(#rect21827);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1" />
     <text
        xml:space="preserve"
-       transform="scale(0.26458333)"
+       transform="matrix(0.26458333,0,0,0.26458333,-1.6840588,-0.28380872)"
        id="text21831"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:0.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;white-space:pre;shape-inside:url(#rect21833);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:0;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;white-space:pre;shape-inside:url(#rect21833);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="1483.084"
-         y="983.47898"
-         id="tspan14187"><tspan
-           style="font-weight:bold;font-size:44px;stroke:none"
-           id="tspan14183">Open-world:</tspan><tspan
+         y="985.30123"
+         id="tspan18078"><tspan
+           style="font-weight:bold;font-size:46.6667px;stroke:none"
+           id="tspan18074">Open-world:</tspan><tspan
            style="stroke:none"
-           id="tspan14185">
+           id="tspan18076">
 </tspan></tspan><tspan
          x="1483.084"
-         y="1018.3272"
-         id="tspan14191"><tspan
+         y="1020.5938"
+         id="tspan18082"><tspan
            style="font-style:italic;-inkscape-font-specification:'Times New Roman,  Italic';stroke:none"
-           id="tspan14189">(players have complete knowledge of the game state and can see all the cards)</tspan></tspan></text>
+           id="tspan18080">(players have complete knowledge of the game state and can see all the cards)
+</tspan></tspan><tspan
+         x="1483.084"
+         y="1054.5939"
+         id="tspan18086"><tspan
+           style="font-style:italic;-inkscape-font-specification:'Times New Roman,  Italic';stroke:none"
+           id="tspan18084">
+</tspan></tspan><tspan
+         x="1483.084"
+         y="1096.8174"
+         id="tspan18090"><tspan
+           style="font-size:42.6667px;line-height:1.15"
+           id="tspan18088">The MCTS agent is the clear winner in terms of win rate in the open environment, </tspan></tspan><tspan
+         x="1483.084"
+         y="1145.884"
+         id="tspan18094"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           style="font-size:42.6667px;line-height:1.15"
+           id="tspan18092">followed by the Minimax agent. The smart agent had a higher win rate than the greedy </tspan></tspan><tspan
+         x="1483.084"
+         y="1194.9507"
+         id="tspan18098"><tspan
+           style="font-size:42.6667px;line-height:1.15"
+           id="tspan18096">agent, but it took more simulations to find a significant winner. The random agent had </tspan></tspan><tspan
+         x="1483.084"
+         y="1244.0173"
+         id="tspan18102"><tspan
+           style="font-size:42.6667px;line-height:1.15"
+           id="tspan18100">the lowest win rate among all agents. Therefore, the MCTS agent with its respective </tspan></tspan><tspan
+         x="1483.084"
+         y="1293.084"
+         id="tspan18106"><tspan
+           style="font-size:42.6667px;line-height:1.15"
+           id="tspan18104">parameter configurations is the most effective at winning games.</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,0.81141735,299.68756)"
+       transform="matrix(0.26458333,0,0,0.26458333,-1.6840588,336.061)"
        id="text21831-8"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:0.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;white-space:pre;shape-inside:url(#rect21833-0);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:0;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;white-space:pre;shape-inside:url(#rect21833-0);shape-padding:0;display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="1483.084"
-         y="983.47898"
-         id="tspan14197"><tspan
-           style="font-weight:bold;font-size:44px;-inkscape-font-specification:'Times New Roman,  Bold';stroke:none"
-           id="tspan14193">Closed-world:</tspan><tspan
-           style="stroke:none"
-           id="tspan14195">
+         y="985.30123"
+         id="tspan18112"><tspan
+           style="font-weight:bold;font-size:46.6667px;line-height:0.85;-inkscape-font-specification:'Times New Roman,  Bold';stroke:none"
+           id="tspan18108">Closed-world:</tspan><tspan
+           style="line-height:0.85;stroke:none"
+           id="tspan18110">
 </tspan></tspan><tspan
          x="1483.084"
-         y="1018.3272"
-         id="tspan14201"><tspan
-           style="font-style:italic;-inkscape-font-specification:'Times New Roman,  Italic';stroke:none"
-           id="tspan14199">(players do not have complete information about the game state and can only see certain </tspan></tspan><tspan
+         y="1020.5938"
+         id="tspan18116"><tspan
+           style="stroke:none"
+           id="tspan18114">(players do not have complete information about the game state and can only see certain </tspan></tspan><tspan
          x="1483.084"
-         y="1052.3373"
-         id="tspan14205"><tspan
+         y="1054.5939"
+         id="tspan18122"><tspan
+           style="stroke:none"
+           id="tspan18118">elements such as their own cards and the trump card)</tspan><tspan
+           style="font-style:italic;line-height:0.85;-inkscape-font-specification:'Times New Roman,  Italic'"
+           id="tspan18120">
+</tspan></tspan><tspan
+         x="1483.084"
+         y="1088.5939"
+         id="tspan18126"><tspan
+           style="font-style:italic;line-height:0.85;-inkscape-font-specification:'Times New Roman,  Italic'"
+           id="tspan18124">
+</tspan></tspan><tspan
+         x="1483.084"
+         y="1105.5939"
+         id="tspan18130"><tspan
            style="font-style:italic;-inkscape-font-specification:'Times New Roman,  Italic';stroke:none"
-           id="tspan14203">elements such as their own cards and the trump card)</tspan></tspan></text>
+           id="tspan18128">
+</tspan></tspan><tspan
+         x="1483.084"
+         y="1105.604"
+         id="tspan18134"><tspan
+           style="font-style:italic;-inkscape-font-specification:'Times New Roman,  Italic';stroke:none"
+           id="tspan18132">
+</tspan></tspan><tspan
+         x="1483.084"
+         y="1130.8376"
+         id="tspan18138"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           style="font-size:42.6667px;line-height:1.15;stroke:none"
+           id="tspan18136">The closed-world tournament results indicate that the MCTS agent with its specified </tspan></tspan><tspan
+         x="1483.084"
+         y="1179.9043"
+         id="tspan18142"><tspan
+           style="font-size:42.6667px;line-height:1.15;stroke:none"
+           id="tspan18140">parameter configuration had the highest win rate among all agents, with strong </tspan></tspan><tspan
+         x="1483.084"
+         y="1228.9709"
+         id="tspan18146"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           style="font-size:42.6667px;line-height:1.15;stroke:none"
+           id="tspan18144">performance against all competitors. The Smart agent was the second most successful, </tspan></tspan><tspan
+         x="1483.084"
+         y="1278.0376"
+         id="tspan18150"><tspan
+           style="font-size:42.6667px;line-height:1.15;stroke:none"
+           id="tspan18148">performing well against the Random and Minimax agents. The Minimax agent and the </tspan></tspan><tspan
+         x="1483.084"
+         y="1327.1042"
+         id="tspan18154"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           style="font-size:42.6667px;line-height:1.15;stroke:none"
+           id="tspan18152">Greedy agent followed, while the Random agent had the lowest win rate. These results </tspan></tspan><tspan
+         x="1483.084"
+         y="1376.1709"
+         id="tspan18158"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010871887"
+           style="font-size:42.6667px;line-height:1.15;stroke:none"
+           id="tspan18156">suggest that the MCTS agent is the most effective at winning closed-world games.</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
        id="text21903"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:46.6667px;line-height:0.85;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Bold';text-align:start;white-space:pre;shape-inside:url(#rect21905);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.944882;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.251337;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265602;stroke-dasharray:none;stroke-opacity:1"
        id="rect21912"
-       width="112.65498"
-       height="98.051384"
-       x="700.97333"
-       y="1058.2397" />
+       width="112.64072"
+       height="109.51138"
+       x="246.18272"
+       y="1051.9882" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
-       x="706.34167"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:CAli;-inkscape-font-specification:CAli;white-space:pre;inline-size:56.933;display:inline;fill:#000000;fill-opacity:1;stroke:#fbfbfb;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       x="729.59259"
        y="1075.0193"
-       id="text2202-0-0-3-7"><tspan
-         sodipodi:role="line"
-         id="tspan2200-6-9-9-7"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
-         x="706.34167"
-         y="1075.0193">Information:</tspan></text>
+       id="text2202-0-0-3-7"
+       transform="translate(-454.79773,-3.1293426)"><tspan
+         x="729.59259"
+         y="1075.0193"
+         id="tspan18162"><tspan
+           style="font-weight:bold;font-family:Calibri;-inkscape-font-specification:'Calibri Bold';text-align:center;text-anchor:middle;stroke:none"
+           id="tspan18160">Github:</tspan></tspan></text>
     <g
        inkscape:label="QR Code: https://github.com/AzamatZarlykov/Durak-AI"
-       transform="matrix(0.5162617,0,0,0.4763918,701.08237,1085.3682)"
+       transform="matrix(0.57969431,0,0,0.52572828,258.802,1081.1959)"
        id="g7562">
       <rect
          x="0"
@@ -2088,5 +2199,10 @@
            id="path7558" />
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text11697"
+       style="fill:#000000;-inkscape-font-specification:'Times New Roman,  Italic';font-family:'Times New Roman';font-weight:normal;font-size:46.66666667px;line-height:0.85;stroke-width:0.37795276;stroke:none;font-style:italic;font-stretch:normal;font-variant:normal;text-align:center;white-space:pre;shape-inside:url(#rect11699)" />
   </g>
 </svg>
