@@ -75,7 +75,7 @@ https://dotnet.microsoft.com/download/dotnet/6.0.
 
 The project root directory consists of the following folders:
 
-* Thesis: Contains the research work in PDF format
+* Thesis: Contains the research work
 * Poster: Contains the poster in SVG format
 * Durak: Contains the implementation of the project
 
