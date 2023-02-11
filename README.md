@@ -30,7 +30,7 @@ Please make sure you have the above requirements and dependencies installed befo
 
 1. Clone the repository to your local machine:  
 ``` bash
-git clone https://github.com/<your-username>/Durak.git
+git clone https://github.com/AzamatZarlykov/Durak.git
 ```
 2. Install the .NET 6 runtime and SDK. You can download the latest version from 
 https://dotnet.microsoft.com/download/dotnet/6.0.
